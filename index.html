@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>India Market Dashboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#F3F5F4;--ink:#101B33;--mute:#5B6678;--line:#D9DEE7;--surf:#fff;--up:#0F8A5F;--down:#C8402F;--acc:#E0A100;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1320;--ink:#E8ECF4;--mute:#97A2B5;--line:#26324A;--surf:#151E31;--up:#2FBF8A;--down:#F0705F;--acc:#F2B90F;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0D1320;--ink:#E8ECF4;--mute:#97A2B5;--line:#26324A;--surf:#151E31;--up:#2FBF8A;--down:#F0705F;--acc:#F2B90F;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 "IBM Plex Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+main{max-width:720px;margin:0 auto;padding:20px 18px 48px}
+header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+h1{font-size:18px;font-weight:600;margin:0}
+.tag{font-size:13px;color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:2px 10px}
+section{margin-top:36px}
+h2{font-size:15px;font-weight:600;margin:0 0 12px}
+.hero{margin-top:28px}
+.hero .big{font-size:clamp(34px,9vw,52px);font-weight:600;line-height:1.08;margin:0}
+.hero .sub{color:var(--mute);margin:6px 0 18px}
+.spec{position:relative;height:12px;border-radius:6px;background:linear-gradient(90deg,var(--down),var(--acc) 50%,var(--up))}
+.spec i{position:absolute;top:-5px;width:4px;height:22px;border-radius:2px;background:var(--ink);transform:translateX(-2px);transition:left .4s}
+.scale{display:flex;justify-content:space-between;font-size:13px;color:var(--mute);margin-top:6px}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+.tabs button{font:inherit;font-size:14px;color:var(--mute);background:none;border:1px solid var(--line);border-radius:8px;padding:4px 12px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chg{font-size:14px;margin:0 0 6px}
+svg{width:100%;height:auto;display:block}
+.row{display:grid;grid-template-columns:70px 1fr 48px;gap:10px;align-items:center;margin:10px 0}
+.bar{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar b{display:block;height:100%;background:var(--ink);transition:width .4s}
+.row span:last-child{text-align:right;font-weight:500}
+.ad{display:flex;gap:24px;margin-top:16px}
+.ad div{font-size:13px;color:var(--mute)}
+.ad strong{display:block;font-size:22px;font-weight:600}
+.plan{border-left:4px solid var(--acc);padding:2px 0 2px 16px}
+.plan h3{font-size:20px;margin:0 0 8px}
+.plan ul{margin:0;padding-left:18px}
+.plan li{margin:6px 0}
+details{margin-top:28px;border-top:1px solid var(--line);padding-top:14px}
+summary{cursor:pointer;font-weight:500}
+label{display:grid;grid-template-columns:70px 1fr 40px;gap:10px;align-items:center;margin:10px 0;font-size:14px}
+input[type=range]{width:100%;accent-color:var(--ink)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.note{font-size:13px;color:var(--mute);margin-top:32px}
+</style>
+</head>
+<body>
+<main>
+<header><h1>India market dashboard</h1><span class="tag">Loading data</span></header>
+
+<div class="hero">
+<p class="big" id="moodWord">Neutral</p>
+<p class="sub" id="moodSub"></p>
+<div class="spec"><i id="mark"></i></div>
+<div class="scale"><span>Bearish</span><span>Neutral</span><span>Bullish</span></div>
+</div>
+
+<section>
+<h2>Index trend</h2>
+<div class="tabs" id="tabs"></div>
+<p class="chg" id="chg"></p>
+<svg id="chart" viewBox="0 0 600 200" role="img" aria-label="Index trend chart"></svg>
+</section>
+
+<section>
+<h2>Stocks above their moving average, averaged over the period</h2>
+<div id="rows"></div>
+<div class="ad">
+<div><strong id="adv" style="color:var(--up)"></strong>advancing</div>
+<div><strong id="dec" style="color:var(--down)"></strong>declining</div>
+<div><strong id="ratio"></strong>advance/decline ratio</div>
+</div>
+</section>
+
+<section>
+<h2>Plan for these conditions</h2>
+<div class="plan" id="plan"></div>
+</section>
+
+<p class="note">Based on Nifty 500 stocks. Rules are written in plain code at the top of the script so you can change the thresholds. This is a decision aid, not financial advice.</p>
+</main>
+
+<script>
+// Rules you can edit
+const RULES={strong:70,healthy:50,mixed:30};
+const W={p20:0.3,p50:0.3,p200:0.2,ad:0.2};
+const ranges=[["1 week",5],["1 month",22],["3 months",65],["6 months",130]];
+const K=[10,5,2.5,1.5];
+let cur=1,D=null;
+
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString("en-IN");
+const avg=a=>a.reduce((x,y)=>x+y,0)/a.length;
+
+function view(){
+  const n=ranges[cur][1],f=k=>D[k].slice(-n);
+  const idx=f("index");
+  return {idx,p20:avg(f("p20")),p50:avg(f("p50")),p200:avg(f("p200")),adv:avg(f("adv")),dec:avg(f("dec")),
+    tr:(idx[idx.length-1]/idx[0]-1)*100};
+}
+function mood(S){
+  const b=W.p20*S.p20+W.p50*S.p50+W.p200*S.p200+W.ad*(100*S.adv/(S.adv+S.dec));
+  const t=Math.max(0,Math.min(100,50+S.tr*K[cur]));
+  return Math.round(0.75*b+0.25*t);
+}
+function word(m){return m<30?"Bearish":m<45?"Mildly bearish":m<60?"Neutral":m<75?"Bullish":"Strongly bullish"}
+
+function plan(S){
+  const p=Math.round(S.p50),q=Math.round(S.p20),r=Math.round(S.p200);
+  let t,pts;
+  if(p>=RULES.strong){t="Strong market: press your advantage";pts=["Take breakout setups at normal or full position size.","Trail stops up as stocks move; do not exit too early.","Keep adding only while more than "+RULES.strong+"% of stocks stay above the 50 EMA."]}
+  else if(p>=RULES.healthy){t="Healthy market: trade selectively";pts=["Take only the strongest breakouts, at normal size.","Prefer stocks near their highs with rising volume.","Watch the 50 EMA reading; a fall below "+RULES.healthy+"% is the first warning."]}
+  else if(p>=RULES.mixed){t="Mixed market: reduce risk";pts=["Use about half your usual position size.","Take only the cleanest setups and keep stops tight.","Hold cash for a better reading above "+RULES.healthy+"%."]}
+  else{t="Weak market: stay mostly in cash";pts=["Avoid new breakout buys; most stocks are not trending up.","Protect existing profits and cut weak positions early.","Wait for the 20 EMA reading to recover first, then the 50."]}
+  if(q<p-8)pts.push("Short-term breadth ("+q+"% above 20 EMA) is lagging the medium term, so a pullback is under way.");
+  if(r<40)pts.push("Fewer than 40% of stocks are above the 200 EMA: the long-term trend is damaged.");
+  $("plan").innerHTML="<h3>"+t+"</h3><ul>"+pts.map(x=>"<li>"+x+"</li>").join("")+"</ul>";
+}
+
+function chart(S){
+  const d=S.idx,mn=Math.min(...d),mx=Math.max(...d);
+  const x=i=>10+i*(580/(d.length-1)),y=a=>180-(a-mn)/(mx-mn||1)*160;
+  const pts=d.map((a,i)=>x(i).toFixed(1)+","+y(a).toFixed(1));
+  const c=S.tr>=0?"var(--up)":"var(--down)";
+  $("chart").innerHTML='<polygon points="10,190 '+pts.join(" ")+' 590,190" fill="'+c+'" opacity=".12"/><polyline points="'+pts.join(" ")+'" fill="none" stroke="'+c+'" stroke-width="2.5" stroke-linejoin="round"/><text x="10" y="14" font-size="12" fill="var(--mute)">High '+fmt(mx)+'</text><text x="10" y="198" font-size="12" fill="var(--mute)">Low '+fmt(mn)+'</text>';
+  $("chg").innerHTML='<strong style="color:'+c+'">'+(S.tr>=0?"+":"")+S.tr.toFixed(1)+'%</strong> over '+ranges[cur][0]+' · now '+fmt(d[d.length-1]);
+}
+
+function render(){
+  const S=view(),m=mood(S);
+  $("moodWord").textContent=word(m);
+  $("moodWord").style.color=m>=60?"var(--up)":m<45?"var(--down)":"var(--ink)";
+  $("moodSub").textContent="Mood score "+m+" out of 100 over the last "+ranges[cur][0]+": stock breadth plus an index move of "+(S.tr>=0?"+":"")+S.tr.toFixed(1)+"%.";
+  $("mark").style.left=m+"%";
+  ["p20","p50","p200"].forEach(k=>{const r=$("r"+k);r.children[1].firstElementChild.style.width=S[k]+"%";r.lastElementChild.textContent=Math.round(S[k])+"%"});
+  $("adv").textContent=fmt(S.adv);$("dec").textContent=fmt(S.dec);$("ratio").textContent=(S.adv/S.dec).toFixed(2);
+  plan(S);chart(S);
+}
+
+fetch("data.json?"+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+  D=d;
+  document.querySelector(".tag").textContent="Data as of "+d.updated;
+  $("tabs").innerHTML=ranges.map((r,i)=>'<button data-i="'+i+'" aria-pressed="'+(i===cur)+'">'+r[0]+'</button>').join("");
+  $("tabs").onclick=e=>{const b=e.target.closest("button");if(!b)return;cur=+b.dataset.i;[...$("tabs").children].forEach((x,i)=>x.setAttribute("aria-pressed",i===cur));render()};
+  $("rows").innerHTML=[["20 EMA","p20"],["50 EMA","p50"],["200 EMA","p200"]].map(([l,k])=>'<div class="row" id="r'+k+'"><span>'+l+'</span><div class="bar"><b></b></div><span></span></div>').join("");
+  render();
+}).catch(()=>{document.querySelector(".tag").textContent="No data yet";$("moodWord").textContent="No data yet";$("moodSub").textContent="Run the Update market data workflow on GitHub once, then reload this page."});
+</script>
+</body>
+</html>
