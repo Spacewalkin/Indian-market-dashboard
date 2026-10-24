@@ -136,10 +136,24 @@ def norm(s):
     return " " + re.sub(r"\s+", " ", re.sub(r"[^a-z0-9& ]", " ", s.lower())).strip() + " "
 
 
+# Words that make a headline bad news. If one appears, the headline can never be tagged positive.
+NEG_PATTERNS = re.compile("|".join([
+    r"lower circuit",
+    r"\b(cuts?|slash\w*|lowers?|reduces?|trims?)\b.{0,25}\btargets?\b",
+    r"\btargets?\b.{0,25}\b(cuts?|slash\w*|lowered|reduced|trimmed)\b",
+    r"\b(plunge[sd]?|tumble[sd]?|crash\w*|slump\w*|tank(s|ed)?|sinks?|slips?|slipped)\b",
+    r"\b(falls|fell|drops?|dropped|declines?|declined)\b",
+    r"\b(loss|losses|misses|missed|disappoint\w*|weak\w*|underperform\w*)\b",
+    r"sell rating|reduce rating|downgrade[sd]?",
+]), re.I)
+
+
 def classify(title):
     tl = title.lower()
     for cat, tone, kws in CAT_RULES:
         if any(k in tl for k in kws):
+            if tone != "neg" and NEG_PATTERNS.search(tl):
+                return "Risks and red flags", "neg"
             return cat, tone
     return None, None
 
