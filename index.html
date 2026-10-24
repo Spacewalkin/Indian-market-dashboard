@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>India Market Dashboard</title>
+<style>
+:root{--bg:#0d1128;--panel:#151a38;--line:#262d57;--tx:#e9ebf8;--mu:#8e95bd;--up:#4fd1a5;--dn:#ff6b6b;--am:#f2b84b;--ac:#7c8cff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:680px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:19px;margin:0}h2{font-size:15px;margin:28px 0 10px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pill{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--mu);white-space:nowrap}
+.lab{font-size:12px;color:var(--mu);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;color:var(--tx);background:none;border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;cursor:pointer}
+button:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+button.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.mood{font-size:42px;font-weight:800;line-height:1.1;margin:22px 0 4px}
+.sub{color:var(--mu);font-size:13px}
+.gauge{position:relative;height:8px;border-radius:9px;margin:14px 0 4px;background:linear-gradient(90deg,#ff6b6b,#f2b84b,#4fd1a5)}
+.gauge i{position:absolute;top:-4px;width:4px;height:16px;border-radius:2px;background:#fff;transform:translateX(-50%)}
+.gl{display:flex;justify-content:space-between;font-size:11px;color:var(--mu)}
+svg{width:100%;height:auto;display:block}
+.bar{display:grid;grid-template-columns:62px 1fr 78px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+.bar b{font-weight:600}.trk{height:7px;border-radius:9px;background:var(--line);overflow:hidden}
+.trk i{display:block;height:100%;background:var(--tx);border-radius:9px}
+.bar span{text-align:right}.bar small{color:var(--mu)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stats div{background:var(--panel);border-radius:10px;padding:10px 12px}
+.stats strong{display:block;font-size:22px}.stats small{color:var(--mu);font-size:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.two{grid-template-columns:1fr}}
+.card{background:var(--panel);border-radius:10px;padding:12px 14px}
+.card h3{font-size:13px;margin:0 0 8px}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:13px;padding:4px 0;border-top:1px solid var(--line)}
+.row:first-of-type{border-top:0}.row span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.up{color:var(--up)}.dn{color:var(--dn)}.am{color:var(--am)}
+.plan{border-left:4px solid var(--am);background:var(--panel);border-radius:0 10px 10px 0;padding:12px 16px}
+.plan h3{margin:0 0 4px;font-size:17px}.plan h4{margin:14px 0 4px;font-size:13px}
+.plan ul{margin:0;padding-left:18px}.plan li{margin:3px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 4px;text-align:right;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}th{color:var(--mu);font-weight:500}
+tr.go{cursor:pointer}tr.sel td{background:var(--panel)}
+.note{color:var(--mu);font-size:12px;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><h1>India market dashboard</h1><span class="pill" id="asof">Loading…</span></div>
+  <div id="app"></div>
+</main>
+<script>
+// ---- Rules you can change ----
+const PERIODS = {"1 week":5, "1 month":21, "3 months":63, "6 months":126};
+const MOODS = [[30,"Bearish","#ff6b6b"],[45,"Weak","#ff9a6b"],[55,"Neutral","#f2b84b"],[70,"Positive","#9bd96b"],[101,"Bullish","#4fd1a5"]];
+// ------------------------------
+let D, seg = "all", per = "1 week";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const avg = (a, n) => { const x = a.slice(-n); return x.reduce((s, v) => s + v, 0) / x.length; };
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+function calc(s) {
+  const n = PERIODS[per];
+  const p20 = avg(s.p20, n), p50 = avg(s.p50, n), p200 = avg(s.p200, n);
+  const adv = avg(s.adv, n), dec = avg(s.dec, n);
+  const ad = adv + dec ? adv / (adv + dec) * 100 : 50;
+  const line = s.line.slice(-(n + 1));
+  const move = (line[line.length - 1] / line[0] - 1) * 100;
+  const breadth = 0.2 * p20 + 0.35 * p50 + 0.25 * p200 + 0.2 * ad;
+  const score = Math.round(0.8 * breadth + 0.2 * clamp(50 + move * 2.5, 0, 100));
+  const m = MOODS.find(x => score < x[0]);
+  return {p20, p50, p200, ad, line, move, score, mood: m[1], color: m[2]};
+}
+
+function counts(s) {
+  const st = s.stocks.map(k => D.stocks[k]).filter(Boolean);
+  const c = [0, 1, 2].map(i => st.filter(x => x.e[i]).length);
+  return {st, c, adv: st.filter(x => x.d > 0).length, dec: st.filter(x => x.d < 0).length,
+          up1m: st.filter(x => x.m > 0).length, dn1m: st.filter(x => x.m <= 0).length};
+}
+
+function plan(s, r, all) {
+  const {p20, p50, p200} = r;
+  let t;
+  if (p50 >= 65 && p200 >= 65) t = {h:"Strong trend: stay invested, but don't chase", c:"#4fd1a5",
+    caution:["Strong runs end with sharp pullbacks, so keep a stop-loss on every position.","Avoid buying stocks that are already up sharply over the past month."],
+    invest:["Hold winners and add on dips toward the 50 EMA.","Invest new money in parts over several weeks, not all at once."],
+    trade:["Buy pullbacks in stocks that are above all three EMAs.","Trail your stop-loss under the 20 EMA as the stock rises."]};
+  else if (p200 >= 55 && p20 < 40) t = {h:"Uptrend with a dip: wait for a base", c:"#f2b84b",
+    caution:["The long-term trend is healthy but short-term strength has faded.","Don't average down on stocks that closed below their 50 EMA."],
+    invest:["Keep long-term holdings and add slowly in the strongest stocks.","Keep some cash ready in case the dip deepens."],
+    trade:["Wait for the 20 EMA reading to climb back above 50% before new breakout buys.","Use smaller position sizes until it does."]};
+  else if (p50 >= 50 && p200 >= 45) t = {h:"Improving market: build positions gradually", c:"#9bd96b",
+    caution:["Breadth is decent but not strong, so some stocks will lag.","Don't put all your money in one stock."],
+    invest:["Add in stages and favour stocks above all three EMAs.","Pick quality businesses, not just cheap ones."],
+    trade:["Take trades only in stocks above their 50 EMA.","Book part of the profit near recent highs."]};
+  else if (p200 < 45 && p20 >= 55) t = {h:"Early recovery: test with small positions", c:"#f2b84b",
+    caution:["Rebounds inside a weak trend often fail.","Most stocks are still below the 200 EMA, so the long-term trend is not repaired."],
+    invest:["Keep new buying small and staggered.","Hold off on large commitments until the 200 EMA reading rises above 45%."],
+    trade:["Use quick, small trades with tight stop-losses.","Take profits early instead of waiting for a big move."]};
+  else if (p50 < 35 && p200 < 45) t = {h:"Weak market: stay mostly in cash", c:"#ff6b6b",
+    caution:["Most stocks are in a downtrend, and cheap stocks can keep falling.","Avoid new breakout buys and don't average down."],
+    invest:["Pause fresh lump-sum investing and continue only SIPs you already run.","Review your holdings and cut the weakest."],
+    trade:["Avoid long trades until the 20 EMA reading recovers, then the 50.","If you trade anyway, use half your normal size."]};
+  else t = {h:"Mixed market: be selective", c:"#f2b84b",
+    caution:["Stocks are moving in different directions, so the index can mislead.","Avoid crowded trades that everyone is in."],
+    invest:["Choose individual leaders instead of buying the whole group.","Spread purchases over time."],
+    trade:["Trade only stocks above their 50 EMA.","Keep stop-losses tight."]};
+  if (p20 >= 80) t.caution.unshift("Over 80% of stocks are above the 20 EMA, so the move is stretched and a pause or dip is likely.");
+  if (p200 < 40) t.caution.push("Fewer than 40% of stocks are above the 200 EMA: the long-term trend is damaged.");
+  if (s.n < 15) t.caution.push("This group has only " + s.n + " stocks, so one or two big moves can swing the readings.");
+  if (s.key !== "all" && all) {
+    const d = p50 - all.p50;
+    if (d > 10) t.invest.push("This segment is stronger than the broader market (" + Math.round(p50) + "% vs " + Math.round(all.p50) + "% above the 50 EMA), so it can deserve a larger share while that lasts.");
+    else if (d < -10) t.caution.push("This segment is weaker than the broader market (" + Math.round(p50) + "% vs " + Math.round(all.p50) + "% above the 50 EMA): money is flowing elsewhere.");
+  }
+  return t;
+}
+
+function chart(r, s) {
+  const L = r.line, mn = Math.min(...L), mx = Math.max(...L), W = 600, H = 190;
+  const X = i => 10 + i * (W - 20) / (L.length - 1), Y = v => 10 + (mx - v) / ((mx - mn) || 1) * (H - 20);
+  const pts = L.map((v, i) => X(i).toFixed(1) + "," + Y(v).toFixed(1)).join(" ");
+  const col = r.move >= 0 ? "#4fd1a5" : "#ff6b6b";
+  const fmt = v => s.real ? Math.round(v).toLocaleString("en-IN") : v.toFixed(1);
+  return `<div class="sub"><b class="${r.move >= 0 ? "up" : "dn"}">${r.move >= 0 ? "+" : ""}${r.move.toFixed(1)}%</b> over ${per} · now ${fmt(L[L.length - 1])}</div>
+  <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Trend chart"><polygon points="${X(0)},${H} ${pts} ${X(L.length - 1)},${H}" fill="${col}" opacity=".15"/>
+  <polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="10" y="14" fill="#8e95bd" font-size="14">High ${fmt(mx)}</text><text x="10" y="${H - 4}" fill="#8e95bd" font-size="14">Low ${fmt(mn)}</text></svg>
+  <div class="note">${s.real ? "Line shows the Nifty 50 index." : "Line shows an equal-weighted average of this group's stocks, not the official index."}</div>`;
+}
+
+function list(arr, cls) {
+  return arr.length ? arr.map(x => `<div class="row"><span>${esc(x.n)}</span><span class="${cls}">${x.m > 0 ? "+" : ""}${x.m}%</span></div>`).join("")
+    : '<div class="sub">None right now.</div>';
+}
+
+function render() {
+  const s = D.segments.find(x => x.key === seg), r = calc(s), k = counts(s);
+  const all = D.segments.find(x => x.key === "all"), ra = all ? calc(all) : null, p = plan(s, r, ra);
+  const chip = x => `<button class="${x.key === seg ? "on" : ""}" onclick="pick('${x.key}')">${esc(x.name)}</button>`;
+  const caps = D.segments.filter(x => x.group === "cap"), secs = D.segments.filter(x => x.group === "sector");
+  const strong = k.st.filter(x => x.e[0] && x.e[1] && x.e[2]).sort((a, b) => b.m - a.m).slice(0, 6);
+  const weak = k.st.filter(x => !x.e[0] && !x.e[1] && !x.e[2]).sort((a, b) => a.m - b.m).slice(0, 6);
+  const bars = [20, 50, 200].map((n, i) => {
+    const pc = k.st.length ? Math.round(k.c[i] / k.st.length * 100) : 0;
+    return `<div class="bar"><b>${n} EMA</b><div class="trk"><i style="width:${pc}%"></i></div><span>${pc}% <small>(${k.c[i]})</small></span></div>`;
+  }).join("");
+  const rows = D.segments.map(x => ({x, r: calc(x)})).sort((a, b) => b.r.score - a.r.score).map(({x, r}) =>
+    `<tr class="go ${x.key === seg ? "sel" : ""}" onclick="pick('${x.key}')"><td>${esc(x.name)}</td><td style="color:${r.color}">${r.mood} (${r.score})</td><td>${Math.round(r.p20)}%</td><td>${Math.round(r.p50)}%</td><td>${Math.round(r.p200)}%</td></tr>`).join("");
+  const li = a => a.map(t => "<li>" + t + "</li>").join("");
+  $("app").innerHTML = `
+  <div class="lab">Market</div><div class="chips">${caps.map(chip).join("")}</div>
+  <div class="lab">Sectors and themes</div><div class="chips">${secs.map(chip).join("")}</div>
+  <div class="mood" style="color:${r.color}">${r.mood}</div>
+  <div class="sub">${esc(s.name)}: mood score ${r.score} out of 100 over the last ${per} (stock breadth plus a ${r.move >= 0 ? "+" : ""}${r.move.toFixed(1)}% move).</div>
+  <div class="gauge"><i style="left:${r.score}%"></i></div><div class="gl"><span>Bearish</span><span>Neutral</span><span>Bullish</span></div>
+  <h2>Trend</h2><div class="chips" style="margin-bottom:10px">${Object.keys(PERIODS).map(q => `<button class="${q === per ? "on" : ""}" onclick="setPer('${q}')">${q}</button>`).join("")}</div>
+  ${chart(r, s)}
+  <h2>Stocks above their moving average: ${esc(s.name)} (${k.st.length} stocks)</h2>${bars}
+  <div class="stats"><div><strong class="up">${k.adv}</strong><small>advancing today</small></div><div><strong class="dn">${k.dec}</strong><small>declining today</small></div><div><strong>${k.dec ? (k.adv / k.dec).toFixed(2) : "–"}</strong><small>advance/decline ratio</small></div></div>
+  <h2>How many are performing well</h2>
+  <div class="two"><div class="card"><h3>Trend (50 EMA)</h3><div class="row"><span>Above the 50 EMA</span><span class="up">${k.c[1]}</span></div><div class="row"><span>Below the 50 EMA</span><span class="dn">${k.st.length - k.c[1]}</span></div></div>
+  <div class="card"><h3>Past month</h3><div class="row"><span>Up</span><span class="up">${k.up1m}</span></div><div class="row"><span>Flat or down</span><span class="dn">${k.dn1m}</span></div></div></div>
+  <div class="two" style="margin-top:10px"><div class="card"><h3>Strongest (above all 3 EMAs)</h3>${list(strong, "up")}</div><div class="card"><h3>Weakest (below all 3 EMAs)</h3>${list(weak, "dn")}</div></div>
+  <h2>Plan for ${esc(s.name)}</h2>
+  <div class="plan" style="border-color:${p.c}"><h3>${p.h}</h3>
+  <h4>Be cautious</h4><ul>${li(p.caution)}</ul><h4>If you invest</h4><ul>${li(p.invest)}</ul><h4>If you trade</h4><ul>${li(p.trade)}</ul></div>
+  <div class="note">Based on ${Math.round(r.p50)}% of ${esc(s.name)} stocks above the 50 EMA, averaged over the last ${per}.</div>
+  <h2>Compare segments</h2><table><tr><th>Segment</th><th>Mood</th><th>20 EMA</th><th>50 EMA</th><th>200 EMA</th></tr>${rows}</table>
+  <div class="note">Tap a row to open that segment. Rules are written at the top of the script so you can change the thresholds. This is a decision aid, not financial advice.</div>`;
+  $("asof").textContent = "Data as of " + D.asof;
+}
+
+function pick(k) { seg = k; location.hash = k; render(); window.scrollTo(0, 0); }
+function setPer(q) { per = q; render(); }
+
+fetch("data.json?v=" + Date.now()).then(r => r.json()).then(d => {
+  D = d;
+  const h = location.hash.slice(1);
+  if (D.segments.some(x => x.key === h)) seg = h;
+  render();
+}).catch(() => { $("app").innerHTML = '<p class="dn">Could not load data.json. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; });
+</script>
+</body>
+</html>
