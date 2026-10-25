@@ -336,10 +336,186 @@ def preopen_run(old):
     print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
 
 
+def clamp(v, a, b):
+    return max(a, min(b, v))
+
+
+def sector_map(lists):
+    out = {}
+    for key, name, group, _ in SEGMENTS:
+        if group == "sector" and key in lists:
+            for sym in lists[key]:
+                out.setdefault(sym, name)
+    return out
+
+
+BULL_WORDS = ("rally", "surge", "jump", "gain", "record high", "rebound", "soar", "rise")
+BEAR_WORDS = ("fall", "slump", "plunge", "crash", "sell-off", "selloff", "tumble", "drop", "slide", "fear", "sink")
+
+
+def mood_index(nf, segs, macro, ev):
+    """Market Mood Index (0-100) from Nifty trend, breadth, volatility, sectors and headline tone."""
+    if nf is None:
+        return None
+    x = nf.dropna()
+    al = next((g for g in segs if g["key"] == "all"), None)
+    if len(x) < 210 or not al:
+        return None
+    c = float(x.iloc[-1])
+    ema = lambda n: x.ewm(span=n, adjust=False, min_periods=n).mean()
+    e = {n: float(ema(n).iloc[-1]) for n in (20, 50, 200)}
+    slope50 = e[50] / float(ema(50).iloc[-11]) - 1
+    mom = c / float(x.iloc[-22]) - 1
+    evid, missing = [], []
+    note = lambda t, d: evid.append({"t": t, "d": d})
+
+    # 1) price trend, 35 points
+    above = [n for n in (20, 50, 200) if c > e[n]]
+    tp = 10 * len(above) + 5 * clamp((mom * 100 + 5) / 10, 0, 1)
+    if len(above) == 3:
+        note("Nifty 50 is above its 20, 50 and 200 EMA", 1)
+    elif not above:
+        note("Nifty 50 is below its 20, 50 and 200 EMA", -1)
+    else:
+        note("Nifty 50 is above its " + " and ".join(map(str, above)) + " EMA but below the others", 1 if len(above) == 2 else -1)
+    note(f"Nifty 50 moved {mom * 100:+.1f}% over the last month", 1 if mom > 0 else -1)
+
+    # 2) breadth, 30 points
+    p20, p50, p200 = al["p20"][-1], al["p50"][-1], al["p200"][-1]
+    adv, dec = al["adv"][-1], al["dec"][-1]
+    ad = adv / (adv + dec) * 100 if adv + dec else 50
+    bp = 30 * (0.25 * p20 + 0.35 * p50 + 0.25 * p200 + 0.15 * ad) / 100
+    note(f"{p50:.0f}% of Nifty 500 stocks are above the 50 EMA and {p200:.0f}% above the 200 EMA", 1 if p50 >= 50 else -1)
+    note(f"{adv} stocks rose and {dec} fell today", 1 if adv > dec else -1)
+    n5 = c / float(x.iloc[-6]) - 1
+    if n5 > 0.003 and (p50 < 40 or ad < 40):
+        note(f"Weak participation: Nifty is up {n5 * 100:.1f}% over 5 days, but most stocks are not following", -1)
+    elif n5 < -0.003 and p50 >= 55:
+        note(f"Nifty is down {abs(n5) * 100:.1f}% over 5 days, but most stocks are holding up", 1)
+
+    # 3) volatility and risk, 15 points
+    vix = next((m["v"] for m in macro if m["k"] == "vix"), None)
+    if vix is None:
+        vix = float(x.pct_change().tail(20).std() * (252 ** 0.5) * 100)
+        missing.append("India VIX (realised volatility used instead)")
+    vp = 15 if vix <= 13 else 12 if vix <= 16 else 8 if vix <= 20 else 4 if vix <= 25 else 0
+    note(f"Volatility reading is {vix:.1f}: " + ("calm" if vix <= 16 else "normal" if vix <= 20 else "nervous" if vix <= 25 else "fearful"),
+         1 if vix <= 16 else -1 if vix > 20 else 0)
+
+    # 4) sector strength, 15 points
+    secs = [g for g in segs if g["group"] == "sector"]
+    if secs:
+        a = sum(g["p50"][-1] >= 50 for g in secs) / len(secs)
+        pos = sum(g["line"][-1] / g["line"][-22] > 1 for g in secs)
+        sp = 15 * (0.5 * a + 0.5 * pos / len(secs))
+        note(f"{pos} of {len(secs)} sectors are positive over the last month", 1 if pos / len(secs) >= 0.5 else -1)
+    else:
+        sp = 7.5
+        missing.append("sector data")
+
+    # 5) headline tone, 5 points (keyword based, unconfirmed)
+    titles = [r["t"].lower() for r in (ev or {}).get("dom", [])]
+    if titles:
+        po = sum(any(w in t for w in BULL_WORDS) for t in titles)
+        ne = sum(any(w in t for w in BEAR_WORDS) for t in titles)
+        npts = 5 * (po + 1) / (po + ne + 2)
+        note(f"Headline tone is {'mostly positive' if po > ne else 'mostly negative' if ne > po else 'mixed'} "
+             f"({po} positive, {ne} negative; keyword based, unconfirmed)", 1 if po > ne else -1 if ne > po else 0)
+    else:
+        npts = 2.5
+        missing.append("headlines")
+
+    parts = [{"n": "Price trend", "pts": round(tp, 1), "max": 35}, {"n": "Market breadth", "pts": round(bp, 1), "max": 30},
+             {"n": "Volatility and risk", "pts": round(vp, 1), "max": 15}, {"n": "Sector strength", "pts": round(sp, 1), "max": 15},
+             {"n": "News tone", "pts": round(npts, 1), "max": 5}]
+    score = int(round(sum(p["pts"] for p in parts)))
+    fr = [tp / 35, bp / 30, sp / 15]
+    bulls, bears = sum(f > 0.6 for f in fr), sum(f < 0.4 for f in fr)
+    mixed = bulls > 0 and bears > 0
+    conf = "Low" if mixed else ("High" if (bulls == 3 or bears == 3) and not missing else "Medium")
+    label = "Bearish" if score < 30 else "Weak" if score < 45 else "Neutral" if score < 55 else "Positive" if score < 70 else "Bullish"
+
+    if c > e[50] and e[20] > e[50] > e[200]:
+        regime, rnote = "Trending up", "Nifty is above a rising stack of EMAs. Pullback buys and breakouts have the best odds."
+    elif c < e[50] and e[20] < e[50] < e[200]:
+        regime, rnote = "Trending down", "Nifty is below falling EMAs. Rallies tend to fail, so stay mostly in cash."
+    elif abs(c / e[50] - 1) < 0.03 and abs(slope50) < 0.01:
+        regime, rnote = "Ranging", "Nifty is moving sideways around its 50 EMA. Breakouts often fail, so trade smaller and take profits early."
+    else:
+        regime, rnote = "Uncertain", "The trend is in transition. Wait for Nifty to reclaim or lose its 50 EMA before committing."
+
+    checks = [{"t": "Nifty is in a confirmed uptrend (above stacked, rising EMAs)", "ok": regime == "Trending up"},
+              {"t": "Market Mood Index is 55 or higher", "ok": score >= 55},
+              {"t": "Signals agree with each other (not mixed)", "ok": not mixed},
+              {"t": "Volatility is below 20", "ok": vix < 20}]
+    if regime == "Trending down" or score < 35 or vix >= 25:
+        decision = "NO TRADE"
+    elif all(k["ok"] for k in checks):
+        decision = "TRADE"
+    else:
+        decision = "WAIT"
+    return {"score": score, "label": label, "conf": conf, "mixed": mixed, "regime": regime, "regime_note": rnote,
+            "dec": decision, "checks": checks, "evidence": evid, "parts": parts, "missing": missing,
+            "lv": {"c": round(c, 2), "e20": round(e[20], 2), "e50": round(e[50], 2), "e200": round(e[200], 2)}}
+
+
+def scan_more(close, high, low, vol, emas, nf, stocks, sector_of):
+    """EMA pullbacks, breakout retests, relative strength, volume surges and weak stocks."""
+    pc = close.shift(1)
+    avgv = vol.shift(1).rolling(20).mean()
+    vx_s = (vol / avgv).replace([np.inf, -np.inf], np.nan)
+    last = close.iloc[-1]
+    turn = avgv.iloc[-1] * last / 1e7
+    nret = float(nf.iloc[-1] / nf.iloc[-64] - 1) if nf is not None and len(nf) > 64 else 0.0
+    rs = (close.iloc[-1] / close.iloc[-64] - 1 - nret) * 100
+    rank = rs.rank(pct=True) * 100
+    e20, e50, e200 = emas[20], emas[50], emas[200]
+    ph = close.shift(1).rolling(20).max()
+    brk_e = (close > ph) & (vx_s >= 1.3)
+    out = {k: [] for k in ("pull", "retest", "rs", "vol", "weak")}
+    for sym, st in stocks.items():
+        try:
+            if pd.isna(turn[sym]) or turn[sym] < MIN_TURNOVER_CR or pd.isna(rs[sym]):
+                continue
+            c, prev = float(last[sym]), float(pc[sym].iloc[-1])
+            ht, lt = float(high[sym].iloc[-1]), float(low[sym].iloc[-1])
+            v = float(vx_s[sym].iloc[-1]) if pd.notna(vx_s[sym].iloc[-1]) else 0.0
+            base = {"s": sym, "n": st["n"], "sec": sector_of.get(sym, ""), "p": st["p"], "d": st["d"], "m": st["m"],
+                    "rs": round(float(rs[sym]), 1), "vx": round(v, 1), "ht": round(ht, 2)}
+            a50, a200 = float(e50[sym].iloc[-1]), float(e200[sym].iloc[-1])
+            if c > a50 > a200 and a50 > float(e50[sym].iloc[-6]):  # uptrend: pullback to the 20 or 50 EMA that held
+                lo3 = float(low[sym].iloc[-3:].min())
+                for n, e in ((20, e20), (50, e50)):
+                    ev = float(e[sym].iloc[-1])
+                    if lo3 <= ev * 1.01 and c > ev and c > prev and c >= (ht + lt) / 2:
+                        stop = round(min(lo3, ev) * 0.99, 2)
+                        out["pull"].append({**base, "ema": n, "lvl": round(ev, 2), "stop": stop})
+                        break
+            b = brk_e[sym].iloc[-12:-2]  # breakout 3-12 sessions ago, now retesting the level
+            if b.any():
+                lvl = float(ph[sym].loc[b[b].index[-1]])
+                if c > lvl and float(low[sym].iloc[-3:].min()) <= lvl * 1.02 and c > prev and c <= lvl * 1.08:
+                    out["retest"].append({**base, "lvl": round(lvl, 2), "stop": round(lvl * 0.97, 2)})
+            if rank[sym] >= 80 and c > a50 and c > a200 and st["m"] > 0:
+                out["rs"].append({**base, "rank": int(rank[sym])})
+            if v >= 2 and abs(st["d"]) >= 3:
+                out["vol"].append(base)
+            if c < a50 and c < a200 and rs[sym] < 0 and st["m"] < 0:
+                out["weak"].append(base)
+        except Exception:
+            continue
+    out["pull"].sort(key=lambda r: -r["rs"])
+    out["retest"].sort(key=lambda r: -r["rs"])
+    out["rs"].sort(key=lambda r: -r["rank"])
+    out["vol"].sort(key=lambda r: -r["vx"])
+    out["weak"].sort(key=lambda r: r["rs"])
+    return {k: v[:25] for k, v in out.items()}
+
+
 MIN_TURNOVER_CR = 5  # skip thinly traded stocks (average daily value in crore rupees)
 
 MACRO = [  # key, name, Yahoo ticker, group
-    ("nifty", "Nifty 50", "^NSEI", "India"), ("sensex", "Sensex", "^BSESN", "India"),
+    ("nifty", "Nifty 50", "^NSEI", "India"), ("sensex", "Sensex", "^BSESN", "India"), ("banknifty", "Bank Nifty", "^NSEBANK", "India"),
     ("sp500", "S&P 500", "^GSPC", "Global markets"), ("nasdaq", "Nasdaq", "^IXIC", "Global markets"),
     ("nikkei", "Nikkei 225", "^N225", "Global markets"), ("hangseng", "Hang Seng", "^HSI", "Global markets"),
     ("btc", "Bitcoin", "BTC-USD", "Global markets"),
@@ -395,6 +571,7 @@ def swing_candidates(close, high, low, vol, stocks, lists):
     brk = ((close > ph) & (vx_s >= 1.5)).iloc[-3:].any()  # breakout in the last 3 sessions
     vx = vx_s.iloc[-3:].max()
     hi52 = high.max()
+    bl = close.shift(3).rolling(20).max().iloc[-1]
     last = close.iloc[-1]
     turn = avgv.iloc[-1] * last / 1e7
     out = []
@@ -414,6 +591,8 @@ def swing_candidates(close, high, low, vol, stocks, lists):
             out.append({"s": sym, "n": st["n"], "sec": sector_of.get(sym, ""), "p": st["p"],
                         "d": st["d"], "m": st["m"], "d52": round(float(d52), 1), "vx": round(v, 1),
                         "brk": b, "near": near, "stop": round(stop, 2),
+                        "bl": round(float(bl[sym]), 2) if pd.notna(bl[sym]) else None,
+                        "h52": round(float(hi52[sym]), 2), "ht": round(float(high.iloc[-1][sym]), 2),
                         "risk": round((st["p"] - stop) / st["p"] * 100, 1), "score": score})
         except Exception:
             continue
@@ -486,15 +665,18 @@ def main():
     chg = close.pct_change()
     idx = close.index[-DAYS:]
 
-    nifty = None
+    nifty, nifty_full = None, None
     try:
         nf = yf.download("^NSEI", period="1y", auto_adjust=True, progress=False)["Close"]
         if isinstance(nf, pd.DataFrame):
             nf = nf.iloc[:, 0]
-        nifty = nf.reindex(close.index).ffill().loc[idx].round(2).tolist()
+        nifty_full = nf.reindex(close.index).ffill()
+        nifty = nifty_full.loc[idx].round(2).tolist()
     except Exception as e:
         print("Nifty 50 download failed:", e)
 
+    hi52, lo52 = high.max(), low.min()
+    r2 = lambda v: round(float(v), 2) if pd.notna(v) else None
     # latest-day facts for every stock
     last = close.iloc[-1]
     m1 = close.iloc[-1] / close.iloc[-22] - 1
@@ -508,6 +690,9 @@ def main():
             "d": round(float(chg[s].iloc[-1] * 100), 2) if pd.notna(chg[s].iloc[-1]) else 0,
             "m": round(float(m1[s] * 100), 1) if pd.notna(m1[s]) else 0,
             "e": [int(above[n][s].iloc[-1]) for n in (20, 50, 200)],
+            "pc": r2(close[s].iloc[-2]),
+            "h": r2(hi52[s]),
+            "l": r2(lo52[s]),
         }
 
     segs = []
@@ -543,6 +728,12 @@ def main():
     countries = fetch_countries()
     fiidii = old["fiidii"] if mode == "midday" and old.get("fiidii") else fetch_fiidii(old.get("fiidii"))
     events = old["events"] if mode == "midday" and old.get("events") else build_events(names, wanted[:15], lists.get("large", []))
+    scans = scan_more(close, high, low, vol, emas, nifty_full, stocks, sector_map(lists))
+    mood = mood_index(nifty_full, segs, macro, events)
+    mood_hist = [h for h in old.get("mood_hist", []) if h["d"] != idx[-1].date().isoformat()]
+    if mood and mode != "midday":
+        mood_hist.append({"d": idx[-1].date().isoformat(), "s": mood["score"], "r": mood["regime"], "k": mood["dec"]})
+    mood_hist = mood_hist[-250:]
     print(f"{len(swing)} swing setups, news for {len(news)} stocks, {len(macro)} market factors, "
           f"{len(events['results'])} upcoming results, {len(events['catalysts'])} stock catalysts")
 
@@ -560,6 +751,9 @@ def main():
         "preopen": old.get("preopen"),
         "updated": ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", "),
         "mode": mode,
+        "mood": mood,
+        "mood_hist": mood_hist,
+        "scans": scans,
     }
     with open("data.json", "w") as f:
         json.dump(out, f, separators=(",", ":"))

@@ -62,6 +62,19 @@ tr.go{cursor:pointer}tr.sel td{background:var(--panel)}
 .nc{border-left:4px solid var(--line);background:var(--panel);border-radius:0 10px 10px 0;padding:9px 12px;margin:8px 0}
 .nc.pos{border-color:var(--up)}.nc.neg{border-color:var(--dn)}.nc.neu{border-color:var(--am)}
 .cd{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12px;font-weight:700;background:var(--ac);color:#0d1128}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.ic{background:var(--panel);border-radius:12px;padding:12px;cursor:pointer;border:1px solid var(--line)}
+.ih{display:flex;justify-content:space-between;gap:8px}.bd{border:1px solid;border-radius:6px;padding:0 8px;font-size:11px;font-weight:700;height:20px;line-height:18px}
+.im{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.ic3{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;margin:6px 0 12px}
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:12px 0}
+.vs .b{border-radius:10px;padding:10px;text-align:center;border:1px solid}.vs .b strong{display:block;font-size:26px}
+.rg{position:relative;height:6px;border-radius:9px;background:linear-gradient(90deg,#ff6b6b,#f2b84b,#4fd1a5);margin:8px 0 4px}
+.rg i{position:absolute;top:-3px;width:12px;height:12px;border-radius:50%;background:#fff;transform:translateX(-50%)}
+.hm{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.hc{border-radius:10px;padding:9px 10px;cursor:pointer;display:flex;flex-direction:column;gap:2px;font-size:13px}.hc span{font-size:17px;font-weight:800}.hc small{color:#cfd3ee;font-size:11px}
+details{margin-top:6px}summary{cursor:pointer;color:var(--ac);font-size:13px}
+input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fg label{font-size:12px;color:var(--mu);display:block}
 .tag.r{color:var(--dn);border-color:var(--dn)}.ul{margin:6px 0;padding-left:18px}.ul li{margin:4px 0}
 </style>
 </head>
@@ -158,6 +171,8 @@ function list(arr, cls) {
 }
 
 function render() {
+  if (view === "ov") return renderOverview();
+  if (view === "journal") return renderJournal();
   if (view === "macro") return renderMacro();
   if (view === "swing") return renderSwing();
   if (view === "news") return renderNews();
@@ -198,10 +213,11 @@ function render() {
 }
 
 
-let view = "seg", swF = "brk";
+let view = "ov", swF = "brk";
+const ALLM = {m: 0};
 const f1 = v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%";
 const fv = v => Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
-const nav = () => `<div class="chips nav">${[["seg", "Market and sectors"], ["macro", "Global factors"], ["swing", "Swing trading"], ["news", "News and events"]].map(([k, n]) =>
+const nav = () => `<div class="chips nav">${[["ov", "Overview"], ["seg", "Market and sectors"], ["macro", "Global factors"], ["swing", "Swing trading"], ["news", "News and events"], ["journal", "Journal"]].map(([k, n]) =>
   `<button class="${view === k ? "on" : ""}" onclick="go('${k}')">${n}</button>`).join("")}</div>`;
 function go(k) { view = k; location.hash = k === "seg" ? seg : k; render(); window.scrollTo(0, 0); }
 const link = (t, l) => /^https?:/.test(l || "") ? `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t);
@@ -400,6 +416,133 @@ function preopenCard() {
   <div class="note">An estimate from overnight global moves, not a forecast. GIFT Nifty is not available here, so check it before the open.</div></div>`;
 }
 
+let ovTab = "dash";
+const zone = s => s >= 65 ? ["BUY ZONE", "#4fd1a5", "BUY"] : s >= 50 ? ["HOLD ZONE", "#9bd96b", "HOLD"] : s >= 35 ? ["CAUTION ZONE", "#ff9a6b", "WAIT"] : ["AVOID NEW BUYS", "#ff6b6b", "AVOID"];
+function segStats(s) {
+  const r = calc(s), k = counts(s), n = k.st.length, ar = k.adv + k.dec ? Math.round(k.adv / (k.adv + k.dec) * 100) : 0;
+  return {s, r, k, n, ar, unch: Math.max(0, n - k.adv - k.dec), avgc: n ? k.st.reduce((t, x) => t + x.d, 0) / n : 0, z: zone(r.score), rs: r.move - ALLM.m, nh: k.st.filter(x => x.h && x.p >= x.h * 0.99).length, nl: k.st.filter(x => x.l && x.p <= x.l * 1.01).length,
+    risk: r.score < 35 || ar < 30 ? ["High risk", "#ff6b6b"] : r.score < 55 ? ["Medium risk", "#f2b84b"] : ["Low risk", "#4fd1a5"]};
+}
+function gauge(score, col) {
+  const a = Math.PI * (1 - score / 100), x = 100 + 80 * Math.cos(a), y = 100 - 80 * Math.sin(a);
+  return `<svg viewBox="0 0 200 112" style="max-width:280px;margin:0 auto" role="img" aria-label="Market mood ${score} percent"><path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#262d57" stroke-width="16" stroke-linecap="round"/>
+  <path d="M20 100 A80 80 0 0 1 ${x.toFixed(1)} ${y.toFixed(1)}" fill="none" stroke="${col}" stroke-width="16" stroke-linecap="round"/>
+  <text x="100" y="96" text-anchor="middle" font-size="34" font-weight="800" fill="${col}">${score}%</text></svg>`;
+}
+function rangeBar(x) {
+  if (!x || !x.h || !x.l || x.h <= x.l) return "";
+  const pos = clamp((x.p - x.l) / (x.h - x.l) * 100, 0, 100);
+  return `<div class="rg"><i style="left:${pos.toFixed(0)}%"></i></div><div class="mu" style="display:flex;justify-content:space-between;gap:6px"><span>₹${fv(x.l)}</span><span>${((x.p / x.h - 1) * 100).toFixed(1)}% from 52W high</span><span>₹${fv(x.h)}</span></div>`;
+}
+function movers() {
+  const all = D.segments.find(x => x.key === "all");
+  if (!all) return "";
+  const st = all.stocks.filter(k => D.stocks[k]).map(k => ({...D.stocks[k], s: k}));
+  const row = x => `<div class="nc ${x.d >= 0 ? "pos" : "neg"}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(x.n)}</b><span><b>₹${fv(x.p)}</b> <span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></span></div>${x.pc ? `<div class="mu">Yesterday ₹${fv(x.pc)}</div>` : ""}${rangeBar(x)}</div>`;
+  return `<h2>Top gainers today</h2>${st.slice().sort((a, b) => b.d - a.d).slice(0, 5).map(row).join("")}<h2>Top losers today</h2>${st.slice().sort((a, b) => a.d - b.d).slice(0, 5).map(row).join("")}`;
+}
+function spark(L, col) {
+  const mn = Math.min(...L), mx = Math.max(...L), pts = L.map((v, i) => (i * 200 / (L.length - 1)).toFixed(1) + "," + (36 - (v - mn) / ((mx - mn) || 1) * 32).toFixed(1)).join(" ");
+  return `<svg viewBox="0 0 200 40" style="height:38px"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
+}
+const heat = v => v >= 0 ? `rgba(79,209,165,${Math.min(0.75, 0.18 + v / 12).toFixed(2)})` : `rgba(255,107,107,${Math.min(0.75, 0.18 - v / 12).toFixed(2)})`;
+const SCN = {brk: "Closed above the 20-day high on volume at least 1.5 times normal in the last 3 days.", near: "Within 5% of the 52-week high, above the 20 and 50 EMA, with enough daily turnover.",
+  pull: "Uptrend (above rising 50 EMA and the 200 EMA) that pulled back to the 20 or 50 EMA, held it and turned up today.", retest: "Broke out 3 to 12 sessions ago, came back to the breakout level and held it.",
+  rs: "Top 20% of Nifty 500 for 3-month strength against Nifty, above the 50 and 200 EMA.", vol: "Volume at least 2 times normal on a move of 3% or more, up or down.",
+  weak: "Below the 50 and 200 EMA, behind Nifty over 3 months and down over the last month. For avoiding, not buying.", res: "Companies reporting results in the next 10 days. Plan around the date."};
+function tradePlan(type, c) {
+  const lv = D.mood && D.mood.lv, hi = c.h52 || 0;
+  let entry = c.p, trig, status, inv, stop = c.stop;
+  if (type === "brk") {
+    const bl = c.bl, ext = bl && c.p > bl * 1.05;
+    entry = c.ht || c.p;
+    if (bl) stop = Math.min(c.stop, bl * 0.99);
+    status = ext ? "wait" : "valid";
+    trig = ext ? `Wait for a pullback toward ₹${fv(bl)} (the breakout level) that holds, then a move above that day's high.` : `Buy on a move above today's high ₹${fv(c.ht || c.p)} while the stock holds above ₹${fv(bl || c.p)}.`;
+    inv = `A daily close below ₹${fv(stop)}.`;
+  } else if (type === "near") {
+    entry = Math.max(c.p, hi);
+    status = c.p >= hi * 0.998 && c.vx >= 1.5 ? "valid" : "wait";
+    trig = `A close above the 52-week high ₹${fv(hi)} on volume at least 1.5 times normal.`;
+    inv = `A daily close below ₹${fv(stop)}.`;
+  } else {
+    entry = c.ht || c.p; status = "wait";
+    trig = `Buy only on a move above today's high ₹${fv(entry)}, which confirms the bounce.`;
+    inv = type === "pull" ? `A daily close below the pullback low (stop ₹${fv(stop)}).` : `A daily close back below the breakout level ₹${fv(c.lvl)} (stop ₹${fv(stop)}).`;
+  }
+  let risk = entry - stop;
+  if (!(risk > 0)) { risk = entry * 0.03; stop = entry - risk; }
+  return {status, trig, inv, stop, entry, rp: risk / entry * 100, t1: entry + 2 * risk, t2: entry + 3 * risk,
+    cancel: [lv ? `Nifty closes below its 50 EMA (₹${fv(lv.e50)})` : "The market turns to NO TRADE", "It gaps more than 3% above the trigger", "Results are due within 10 days", "Volume fades below normal on the trigger day"]};
+}
+function validSetups() {
+  return (D.swing || []).map(c => { const type = c.brk && c.vx >= 1.5 ? "brk" : "near"; return {c, type, t: tradePlan(type, c)}; }).filter(x => x.t.status === "valid");
+}
+function decision() {
+  const M = D.mood;
+  if (!M) return null;
+  const v = validSetups();
+  return (M.dec === "TRADE" && !v.length) ? "WAIT" : M.dec;
+}
+function decisionPanel() {
+  const M = D.mood, dec = decision();
+  if (!M) return '<div class="card"><div class="sub">Run "Update market data" once to build the Trade / Wait / No Trade panel.</div></div>';
+  const c = {"TRADE": "#4fd1a5", "WAIT": "#f2b84b", "NO TRADE": "#ff6b6b"}[dec], ic = {"TRADE": "✅", "WAIT": "⏳", "NO TRADE": "⛔"}[dec], lv = M.lv;
+  const why = {"TRADE": "Direction, volatility and agreement line up. Take only setups marked Valid now.", "WAIT": M.dec === "TRADE" ? "The market is fine, but no setup has hit its trigger yet." : "The market is not clear enough yet. Wait for the missing conditions below.", "NO TRADE": "Conditions are poor: downtrend, weak mood or high volatility. Protect your capital."}[dec];
+  const need = M.checks.filter(x => !x.ok).map(x => x.t);
+  const lvl = M.regime !== "Trending up" ? `<li>Nifty needs a daily close above its 20 EMA (₹${fv(lv.e20)}) and then its 50 EMA (₹${fv(lv.e50)}). It closed at ₹${fv(lv.c)}.</li>` : "";
+  return `<div class="plan" style="border-color:${c}"><div style="font-size:26px;font-weight:800;color:${c}">${ic} ${dec}</div><div class="sub">${why}</div>
+  <div class="mu" style="margin-top:6px">Mood ${M.score}/100 (${M.mixed ? "mixed" : esc(M.label)}) · regime: ${esc(M.regime)} · confidence ${esc(M.conf)}</div>
+  <ul class="ul" style="margin:8px 0 0">${M.checks.map(x => `<li>${x.ok ? "✅" : "❌"} ${esc(x.t)}</li>`).join("")}</ul>
+  ${need.length || lvl ? `<h4 style="margin:10px 0 2px">What needs to happen before it turns to TRADE</h4><ul class="ul" style="margin:0">${need.map(t => `<li>${esc(t)}</li>`).join("")}${lvl}</ul>` : ""}</div>`;
+}
+function renderOverview() {
+  $("asof").textContent = stamp();
+  const all = D.segments.find(x => x.key === "all");
+  ALLM.m = calc(all).move;
+  const A = segStats(all), M = D.mood, sc = M ? M.score : A.r.score, col = (MOODS.find(x => sc < x[0]) || MOODS[4])[2];
+  const caps = D.segments.filter(x => x.group === "cap").map(segStats), secs = D.segments.filter(x => x.group === "sector").map(segStats).sort((a, b) => b.r.score - a.r.score);
+  const everyone = caps.concat(secs), valid = validSetups();
+  const sent = A.k.adv > A.k.dec * 1.5 ? "More stocks are rising than falling." : A.k.dec > A.k.adv * 1.5 ? "More stocks are falling than rising, so be selective." : "Rising and falling stocks are about even.";
+  const hist = D.mood_hist && D.mood_hist.length >= 3 ? `<div class="mu" style="text-align:left;margin-top:10px">Mood Index history (${D.mood_hist.length} days)</div>${spark(D.mood_hist.slice(-60).map(x => x.s), "#7c8cff")}` : "";
+  const moodHtml = `<div class="card" style="text-align:center">${gauge(sc, col)}<div style="color:${col};font-weight:800;letter-spacing:.5px">${M ? (M.mixed ? "MIXED: WAIT FOR CONFIRMATION" : M.label.toUpperCase()) : A.z[0]}</div>
+  <div class="sub">${M ? "Market Mood Index · confidence " + esc(M.conf) + " · regime " + esc(M.regime) : "Nifty 500 mood score over the last " + per}</div>
+  ${M ? `<div style="text-align:left;margin-top:12px">${M.parts.map(p => `<div class="bar" style="grid-template-columns:118px 1fr 52px"><b style="font-size:12px">${esc(p.n)}</b><div class="trk"><i style="width:${p.pts / p.max * 100}%"></i></div><span>${p.pts}/${p.max}</span></div>`).join("")}</div>
+  <h3 style="text-align:left;margin:12px 0 4px">What moved the score</h3><ul class="ul" style="text-align:left">${M.evidence.map(e => `<li>${e.d > 0 ? "🟢" : e.d < 0 ? "🔴" : "⚪"} ${esc(e.t)}</li>`).join("")}</ul>
+  <div class="note" style="text-align:left">${esc(M.regime_note)}${M.missing.length ? " Missing data: " + esc(M.missing.join(", ")) + "." : ""}</div>${hist}` : ""}
+  <div class="vs"><div class="b" style="border-color:#ff6b6b"><div class="mu">DECLINING</div><strong class="dn">${A.k.dec}</strong></div><div class="mu">VS<br>${A.n}<br>STOCKS</div><div class="b" style="border-color:#4fd1a5"><div class="mu">ADVANCING</div><strong class="up">${A.k.adv}</strong></div></div>
+  <div class="plan" style="text-align:left;border-color:${col}"><b>Today's sentiment</b><div class="sub">${sent} ${Math.round(A.r.p50)}% of stocks are above their 50 EMA. Near 52-week highs: <b class="up">${A.nh}</b> · near 52-week lows: <b class="dn">${A.nl}</b>.</div></div>
+  <button style="margin-top:10px" onclick="pick('all')">See the full plan</button></div>`;
+  const card = x => `<div class="ic" onclick="pick('${x.s.key}')"><div class="ih"><div><b>${esc(x.s.name)}</b><div class="mu">${x.n} stocks</div></div><span class="bd" style="color:${x.z[1]}">${x.z[2]}</span></div>
+  <div class="im"><div><div class="mu">NET MOMENTUM</div><b class="${x.r.move >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(x.r.move)}</b></div><div><div class="mu">VS NIFTY</div><b class="${x.rs >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(x.rs)}</b></div></div>
+  <div class="ic3"><div><b class="up" style="font-size:18px">${x.k.adv}</b><div class="mu">Advancing</div></div><div><b class="dn" style="font-size:18px">${x.k.dec}</b><div class="mu">Declining</div></div><div><b style="font-size:18px">${x.unch}</b><div class="mu">Unchanged</div></div></div>
+  <div class="gauge" style="height:6px"><i style="left:${x.r.score}%;height:14px;top:-4px"></i></div><div class="gl"><span>Bearish</span><span>Neutral</span><span>Bullish</span></div>
+  <div style="margin-top:8px"><span class="tag" style="color:${x.r.color}">${x.r.mood} (${x.r.score})</span><span class="tag" style="color:${x.risk[1]}">${x.risk[0]}</span><span class="tag">Adv ratio ${x.ar}%</span><span class="tag g">${x.nh} near highs</span><span class="tag r">${x.nl} near lows</span></div></div>`;
+  const tabs = [["dash", "Dashboard"], ["heat", "Heatmap"], ["trend", "Trend"], ["cmp", "Compare"]].map(([k, n]) => `<button class="${ovTab === k ? "on" : ""}" onclick="ovTab='${k}';render()">${n}</button>`).join("");
+  let body;
+  if (ovTab === "dash") body = `<div class="lab">Market</div><div class="grid2">${caps.map(card).join("")}</div><div class="lab" style="margin-top:16px">Sectors and themes, strongest first</div><div class="grid2">${secs.map(card).join("")}</div>`;
+  else if (ovTab === "heat") {
+    const beat = secs.filter(x => x.rs > 0).sort((a, b) => b.rs - a.rs).slice(0, 4);
+    body = `<div class="hm">${everyone.slice().sort((a, b) => b.r.move - a.r.move).map(x => `<div class="hc" style="background:${heat(x.r.move)}" onclick="pick('${x.s.key}')"><b>${esc(x.s.name)}</b><span>${f1(x.r.move)}</span><small>vs Nifty ${f1(x.rs)}</small></div>`).join("")}</div>
+    <div class="note">Colour shows the change over ${per}. ${beat.length ? (A.r.move < 0 ? "Holding up better than Nifty during this pullback: " : "Beating Nifty: ") + beat.map(x => esc(x.s.name)).join(", ") + "." : "No sector is beating Nifty right now."}</div>`;
+  } else if (ovTab === "trend") body = everyone.slice().sort((a, b) => b.r.move - a.r.move).map(x => `<div class="row" style="align-items:center;cursor:pointer" onclick="pick('${x.s.key}')"><span style="min-width:120px">${esc(x.s.name)}</span><span style="flex:1;max-width:200px">${spark(x.r.line, x.r.move >= 0 ? "#4fd1a5" : "#ff6b6b")}</span><b class="${x.r.move >= 0 ? "up" : "dn"}">${f1(x.r.move)}</b></div>`).join("") + `<div class="note">Change over ${per}. Sector lines are equal-weighted averages of their stocks.</div>`;
+  else body = `<table><tr><th>Segment</th><th>Mood</th><th>Momentum</th><th>Vs Nifty</th><th>50 EMA</th></tr>${everyone.slice().sort((a, b) => b.r.score - a.r.score).map(x => `<tr class="go" onclick="pick('${x.s.key}')"><td>${esc(x.s.name)}</td><td style="color:${x.r.color}">${x.r.mood} (${x.r.score})</td><td class="${x.r.move >= 0 ? "up" : "dn"}">${f1(x.r.move)}</td><td class="${x.rs >= 0 ? "up" : "dn"}">${f1(x.rs)}</td><td>${Math.round(x.r.p50)}%</td></tr>`).join("")}</table>`;
+  const top3 = secs.filter(x => x.rs > 0).sort((a, b) => b.rs - a.rs).slice(0, 3);
+  const look = `<h2>Where to look today</h2><div class="card"><div class="sub"><b>Sectors beating Nifty:</b> ${top3.length ? top3.map(x => `<a href="#" onclick="pick('${x.s.key}');return false">${esc(x.s.name)}</a> (${f1(x.rs)})`).join(", ") : "none right now"}</div>
+  <div class="sub" style="margin-top:6px"><b>Setups with a valid trigger now:</b> ${valid.length ? valid.slice(0, 5).map(x => esc(x.c.n)).join(", ") + (valid.length > 5 ? " and " + (valid.length - 5) + " more" : "") : "none right now"}</div>
+  <button style="margin-top:8px" onclick="go('swing')">Open swing setups and plans</button></div>`;
+  const fd0 = D.fiidii && D.fiidii.latest ? fd(D.fiidii.latest.d) : "not available";
+  $("app").innerHTML = `${nav()}${preopenCard()}
+  <h2 style="margin-top:20px">Today's decision</h2>${decisionPanel()}
+  <h2>Market mood</h2>${moodHtml}
+  <h2>Sector indices performance</h2>
+  <div class="chips" style="margin-bottom:8px">${Object.keys(PERIODS).map(q => `<button class="${q === per ? "on" : ""}" onclick="setPer('${q}')">${q}</button>`).join("")}</div>
+  <div class="chips" style="margin-bottom:10px">${tabs}</div>${body}
+  ${look}${ovTab === "dash" ? movers() : ""}
+  <h2>Data sources and freshness</h2><ul class="ul"><li>Prices: Yahoo Finance, usually delayed by about 15 minutes. Last refresh: ${esc(D.updated || D.asof)}.</li><li>Stock lists: NSE index files. FII/DII: NSE daily release, latest ${fd0}.</li><li>Headlines: Google News feeds, shown as links and not verified.</li><li>The Market Mood Index, regime, scanners, labels and plans are calculated here from those inputs. Momentum is the change over ${per}; advance ratio is today's rising stocks as a share of rising plus falling.</li></ul>
+  <div class="note">Tap any card to open that segment with its plan. Labels are a reading of breadth and momentum, not a recommendation. Past patterns can fail, and gaps can take price through a stop-loss.</div>`;
+}
+
 function renderMacro() {
   $("asof").textContent = stamp();
   if (!(D.macro || []).length) { $("app").innerHTML = nav() + '<p class="dn">No market factor data yet. Run "Update market data" in GitHub Actions and reload.</p>'; return; }
@@ -453,34 +596,120 @@ function why(s, r, ra, k) {
   <div class="note">These are likely drivers from price data and headlines, not confirmed causes. Read the news before acting.</div></div>`;
 }
 
+function setupCard(type, c) {
+  const rd0 = ((D.events || {}).results || []).find(x => x.s === c.s), rdn = rd0 ? daysTo(rd0.d) : 99, nw = ((D.news || {})[c.s] || [])[0];
+  const mkt = D.mood && decision() === "NO TRADE";
+  const T = {brk: '<span class="tag g">Breakout in last 3 days</span>', near: `<span class="tag a">${c.d52 >= -0.5 ? "At 52-week high" : Math.abs(c.d52) + "% below 52-week high"}</span>`,
+    pull: `<span class="tag g">Bounce off the ${c.ema} EMA</span>`, retest: `<span class="tag g">Retesting ₹${fv(c.lvl || 0)}</span>`, rs: `<span class="tag g">Top ${100 - (c.rank || 80)}% for strength, ${f1(c.rs || 0)} pts vs Nifty</span>`,
+    vol: `<span class="tag ${c.d >= 0 ? "g" : "r"}">Volume ${c.vx}x on a ${f1(c.d)} move</span>`, weak: `<span class="tag r">Below 50 and 200 EMA, ${f1(c.rs || 0)} pts vs Nifty</span>`}[type];
+  let chip = "", plan = "";
+  if (["brk", "near", "pull", "retest"].includes(type)) {
+    const t = tradePlan(type, c);
+    chip = mkt ? '<span class="tag r">Watchlist only: market says NO TRADE</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
+    plan = `<details><summary>Trade plan</summary><ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)${c.h52 && c.h52 > t.entry ? ", with the 52-week high at ₹" + fv(c.h52) + " as resistance" : ""}</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul></details>`;
+  }
+  return `<div class="cand"><b>${esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  <div class="cs">₹${fv(c.p)} <span class="${c.d >= 0 ? "up" : "dn"}">${f1(c.d)}</span> today · ${f1(c.m)} in a month</div>${rangeBar(D.stocks[c.s])}${plan}
+  <div class="why">${nw ? "Latest headline: " + link(nw.t, nw.l) + " (" + esc(nw.p) + ")" : "No recent headline found. Check the company's announcements before trading."}</div></div>`;
+}
+const SC = [["brk", "Breakouts"], ["near", "Near 52W high"], ["pull", "EMA pullback"], ["retest", "Breakout retest"], ["rs", "Relative strength"], ["vol", "Volume surge"], ["weak", "Weak stocks"], ["res", "Results soon"]];
+function scanList(k) {
+  const sw = D.swing || [], S = D.scans || {};
+  if (k === "brk") return sw.filter(c => c.brk && c.vx >= 1.5);
+  if (k === "near") return sw.filter(c => c.near);
+  if (k === "res") return ((D.events || {}).results || []).filter(x => daysTo(x.d) <= 10);
+  return S[k] || [];
+}
 function renderSwing() {
   $("asof").textContent = stamp();
   const all = D.segments.find(x => x.key === "all"), p20 = avg(all.p20, 5), p50 = avg(all.p50, 5), mr = macroRisk();
-  const bad = p50 < 35 || mr.label === "High", good = !bad && p50 >= 50 && p20 >= 40 && mr.label !== "Elevated";
-  const G = bad ? {h: "Poor conditions: protect your capital", c: "#ff6b6b", l: ["Avoid fresh breakout buys: most fail when fewer than 35% of stocks are above the 50 EMA.", "If you trade, risk 0.25% of capital or less per trade and keep stops tight.", "Use this time to build a watchlist from the list below and wait for the market to improve.", "Never average down on a losing trade."]}
-    : good ? {h: "Good conditions: breakouts have better odds", c: "#4fd1a5", l: ["Risk about 1% of your capital per trade.", "Hold up to 5 or 6 positions, spread across different sectors.", "Enter on a close above resistance with volume at least 1.5 times normal.", "Place the stop below the breakout candle's low, or use the stop idea shown on each stock."]}
-    : {h: "Selective conditions: take only the best setups", c: "#f2b84b", l: ["Risk about 0.5% of capital per trade.", "Keep to 2 or 3 positions.", "Choose only stocks within 5% of their 52-week high, in sectors that are holding up.", "Book half the profit at the first target and move the stop to cost."]};
-  const ALW = ["Check the results date before entering, and avoid holding through earnings unless it is planned.", "Skip a stock that is already more than 5% above its breakout level and wait for a pullback.", "Book half near a 1:2 reward-to-risk and trail the rest under the 20 EMA.", "Avoid trading on the day of RBI policy, US Fed decisions or other major events.", "Never move a stop-loss further away."];
-  const sw = D.swing || [];
-  const F = {brk: sw.filter(c => c.brk && c.vx >= 1.5), near: sw.filter(c => c.near), all: sw};
-  const list = F[swF], secs = {};
-  sw.forEach(c => { if (c.sec) secs[c.sec] = (secs[c.sec] || 0) + 1; });
+  const dec = decision() || (p50 < 35 || mr.label === "High" ? "NO TRADE" : p50 >= 50 && p20 >= 40 && mr.label !== "Elevated" ? "TRADE" : "WAIT");
+  const L = {"TRADE": ["Take only setups marked Valid now.", "Risk about 1% of your capital per trade and hold up to 5 or 6 positions across different sectors.", "Set the stop-loss before you buy.", "Take profit on half at 1:2 and trail the rest under the 20 EMA."],
+    "WAIT": ["Take only setups marked Valid now, and nothing else.", "Risk about 0.5% of capital per trade or less and keep to 2 or 3 positions.", "Waiting is a position: don't force a trade.", "Book half at the first target and move the stop to cost."],
+    "NO TRADE": ["Avoid fresh buys: breakouts fail more often in this kind of market.", "Use the lists below as a watchlist and wait for the market to improve.", "If you still trade, use a quarter of your normal size and tight stops.", "Never average down on a losing trade."]}[dec];
+  const ALW = ["Check the results date before entering, and avoid holding through results unless it is planned.", "Skip a stock that is already more than 5% above its breakout level and wait for a pullback.", "Never move a stop-loss further away.", "Avoid trading on the day of RBI policy, US Fed decisions or other major events."];
+  const list = scanList(swF), secs = {};
+  if (!["res"].includes(swF)) list.forEach(c => { if (c.sec) secs[c.sec] = (secs[c.sec] || 0) + 1; });
   const top = Object.keys(secs).sort((a, b) => secs[b] - secs[a]).slice(0, 5).map(x => `${esc(x)} (${secs[x]})`).join(", ");
-  const tabs = [["brk", "Breakouts with volume"], ["near", "Near 52-week high"], ["all", "All setups"]].map(([k, n]) => `<button class="${swF === k ? "on" : ""}" onclick="swF='${k}';render()">${n} (${F[k].length})</button>`).join("");
-  const cards = list.length ? list.slice(0, 25).map(c => {
-    const nw = ((D.news || {})[c.s] || [])[0], rd = ((D.events || {}).results || []).find(x => x.s === c.s), rdn = rd ? daysTo(rd.d) : 99;
-    return `<div class="cand"><b>${esc(c.n)}</b> <span class="mu">${esc(c.sec)}</span><div>
-    ${c.brk ? '<span class="tag g">Breakout in last 3 days</span>' : ""}${c.near ? '<span class="tag a">' + (c.d52 >= -0.5 ? "At 52-week high" : Math.abs(c.d52) + "% below 52-week high") + "</span>" : ""}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
-    <div class="cs">₹${fv(c.p)} <span class="${c.d >= 0 ? "up" : "dn"}">${f1(c.d)}</span> today · ${f1(c.m)} in a month · Stop idea ₹${fv(c.stop)} (${c.risk}% risk)</div>
-    <div class="why">${nw ? "Latest headline: " + link(nw.t, nw.l) + " (" + esc(nw.p) + ")" : "No recent headline found. Check the company's announcements before trading."}</div></div>`;
-  }).join("") : '<p class="sub">No stocks match right now. That is useful information too: a market with few setups is not a market to force trades in.</p>';
+  const tabs = SC.map(([k, n]) => `<button class="${swF === k ? "on" : ""}" onclick="swF='${k}';render()">${n} (${scanList(k).length})</button>`).join("");
+  const cards = swF === "res" ? (list.length ? list.map(x => `<div class="nc neu"><b>${esc(x.n)}</b> <span class="cd">${inDays(daysTo(x.d))}</span><div class="mu">Results on ${fd(x.d)} (${esc(x.src)})</div></div>`).join("") : '<p class="sub">No results due in the next 10 days in the data we have.</p>')
+    : list.length ? list.slice(0, 25).map(c => setupCard(swF, c)).join("") : '<p class="sub">No stocks match right now. That is useful information too: when few setups exist, forcing trades is the mistake.</p>';
   $("app").innerHTML = `${nav()}${preopenCard()}
-  <div class="mood" style="color:${G.c};font-size:28px">${G.h}</div>
-  <div class="sub">Based on ${Math.round(p50)}% of Nifty 500 stocks above the 50 EMA, ${Math.round(p20)}% above the 20 EMA, and ${mr.label.toLowerCase()} global risk.</div>
-  <h2>Swing trading plan for today</h2><div class="plan" style="border-color:${G.c}"><ul>${li(G.l)}</ul><h4>Rules that always apply</h4><ul>${li(ALW)}</ul></div>
-  <h2>Best setups for swing trading</h2><div class="chips" style="margin-bottom:8px">${tabs}</div>
-  ${top ? `<div class="mu">Sectors with the most setups: ${top}</div>` : ""}${cards}
-  <div class="note">${D.mode === "midday" ? "Midday refresh: today's volume is still building, so volume breakouts may be understated until the evening run. " : ""}Stocks must be above their 20 and 50 EMA and trade at least ₹5 crore a day. A breakout means a close above the 20-day high on volume at least 1.5 times the 20-day average. The stop idea is 1.5 times the 14-day average range below the price. This is a screen, not a recommendation. Check the chart and news first.</div>`;
+  <h2 style="margin-top:20px">Trade, wait or no trade</h2>${decisionPanel()}
+  <h2>Swing trading plan for today</h2><div class="plan" style="border-color:${{"TRADE": "#4fd1a5", "WAIT": "#f2b84b", "NO TRADE": "#ff6b6b"}[dec]}"><ul>${li(L)}</ul><h4>Rules that always apply</h4><ul>${li(ALW)}</ul></div>
+  <h2>Stock scanners</h2><div class="chips" style="margin-bottom:8px">${tabs}</div><div class="mu" style="margin-bottom:6px">${esc(SCN[swF])}</div>
+  ${top ? `<div class="mu">Sectors with the most matches: ${top}</div>` : ""}${cards}
+  <div class="note">${D.mode === "midday" ? "Midday refresh: today's volume is still building, so volume breakouts may be understated until the evening run. " : ""}Stocks must trade at least ₹5 crore a day and, for long setups, sit above their 20 and 50 EMA. Stops use the setup level or 1.5 times the 14-day average range. Targets are 2 and 3 times the risk. These are screens and conditional plans, not recommendations: check the chart and news first, and expect some setups to fail.</div>`;
+}
+
+const JK = "imd_journal_v1";
+const jload = () => { try { return JSON.parse(localStorage.getItem(JK) || "[]"); } catch (e) { return []; } };
+const jsave = a => { try { localStorage.setItem(JK, JSON.stringify(a)); } catch (e) { alert("This browser could not save the journal."); } };
+const jR = t => t.exit != null && t.entry && t.stop && t.entry !== t.stop ? (t.exit - t.entry) / (t.entry - t.stop) : null;
+function jadd() {
+  const v = id => document.getElementById(id).value.trim(), num = x => x === "" ? null : Number(x);
+  const M = D.mood || {};
+  const t = {id: Date.now(), sym: v("j_sym").toUpperCase(), setup: v("j_setup"), ed: v("j_ed") || new Date().toISOString().slice(0, 10), entry: num(v("j_entry")), stop: num(v("j_stop")), target: num(v("j_target")),
+    qty: num(v("j_qty")), exit: num(v("j_exit")), xd: v("j_xd"), plan: v("j_plan"), mistake: v("j_mistake"), cost: num(v("j_cost")), note: v("j_note"), mood: M.score == null ? null : M.score, regime: M.regime || "", dec: M.dec || ""};
+  if (!t.sym || !t.entry || !t.stop) { alert("Enter the stock, entry price and stop-loss."); return; }
+  const a = jload(); a.unshift(t); jsave(a); render();
+}
+function jclose(id) {
+  const x = prompt("Exit price?");
+  if (x === null || x.trim() === "" || isNaN(Number(x))) return;
+  const a = jload(), t = a.find(q => q.id === id);
+  t.exit = Number(x); t.xd = new Date().toISOString().slice(0, 10); jsave(a); render();
+}
+function jdel(id) { if (confirm("Delete this trade?")) { jsave(jload().filter(q => q.id !== id)); render(); } }
+function jexport() {
+  const b = new Blob([JSON.stringify(jload(), null, 1)], {type: "application/json"}), a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = "trade-journal.json"; a.click();
+}
+function jimport(inp) {
+  const f = inp.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { try { const n = JSON.parse(r.result), a = jload(), ids = new Set(a.map(x => x.id)); n.forEach(x => { if (!ids.has(x.id)) a.push(x); }); jsave(a); render(); } catch (e) { alert("That file could not be read."); } };
+  r.readAsText(f);
+}
+function jgroup(rows, key) {
+  const g = {};
+  rows.forEach(t => { const k = t[key] || "Not recorded"; (g[k] = g[k] || []).push(jR(t)); });
+  return Object.keys(g).map(k => `<tr><td>${esc(k)}</td><td>${g[k].length}</td><td>${Math.round(g[k].filter(r => r > 0).length / g[k].length * 100)}%</td><td>${(g[k].reduce((a, b) => a + b, 0) / g[k].length).toFixed(2)}R</td></tr>`).join("");
+}
+function renderJournal() {
+  $("asof").textContent = stamp();
+  const a = jload(), closed = a.filter(t => jR(t) != null), open = a.filter(t => t.exit == null), Rs = closed.map(jR), M = D.mood;
+  const n = closed.length, wins = Rs.filter(r => r > 0).length, tot = Rs.reduce((x, y) => x + y, 0), followed = closed.filter(t => t.plan === "yes").length;
+  const stats = n ? `<div class="stats"><div><strong>${n}</strong><small>closed trades</small></div><div><strong class="${wins / n >= 0.5 ? "up" : "dn"}">${Math.round(wins / n * 100)}%</strong><small>win rate</small></div><div><strong class="${tot >= 0 ? "up" : "dn"}">${tot.toFixed(1)}R</strong><small>total result</small></div></div>
+    <div class="sub" style="margin-top:8px">Average ${(tot / n).toFixed(2)}R per trade · followed the plan in ${Math.round(followed / n * 100)}% of trades.</div>
+    <div class="note">${n < 50 ? "Only " + n + " closed trades: this is a small sample, so don't treat these numbers as proof. Patterns need 50 to 100 trades before they mean much, and even then they carry uncertainty." : "Sample size " + n + ": patterns are more meaningful now, but still not guaranteed to continue."}</div>
+    <h3 style="margin:14px 0 4px">By setup</h3><table><tr><th>Setup</th><th>Trades</th><th>Wins</th><th>Avg</th></tr>${jgroup(closed, "setup")}</table>
+    <h3 style="margin:14px 0 4px">By market regime at entry</h3><table><tr><th>Regime</th><th>Trades</th><th>Wins</th><th>Avg</th></tr>${jgroup(closed, "regime")}</table>
+    <h3 style="margin:14px 0 4px">By market decision at entry</h3><table><tr><th>Decision</th><th>Trades</th><th>Wins</th><th>Avg</th></tr>${jgroup(closed, "dec")}</table>
+    <h3 style="margin:14px 0 4px">Mistakes</h3><table><tr><th>Mistake</th><th>Trades</th><th>Wins</th><th>Avg</th></tr>${jgroup(closed, "mistake")}</table>` : '<p class="sub">Close a few trades and your statistics will appear here.</p>';
+  const row = t => { const r = jR(t); return `<div class="nc ${r == null ? "neu" : r > 0 ? "pos" : "neg"}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(t.sym)}</b><span>${r == null ? '<span class="tag a">Open</span>' : `<b class="${r > 0 ? "up" : "dn"}">${r.toFixed(2)}R</b>`}</span></div>
+    <div class="mu">${esc(t.setup || "No setup")} · ${esc(t.ed)} · entry ₹${fv(t.entry)} · stop ₹${fv(t.stop)}${t.target ? " · target ₹" + fv(t.target) : ""}${t.exit != null ? " · exit ₹" + fv(t.exit) : ""}${t.qty && t.exit != null ? " · net ₹" + fv((t.exit - t.entry) * t.qty - (t.cost || 0)) : ""}</div>
+    <div class="mu">Mood ${t.mood == null ? "n/a" : t.mood} · ${esc(t.regime || "regime n/a")} · ${esc(t.dec || "")}${t.plan ? " · plan followed: " + esc(t.plan) : ""}${t.mistake && t.mistake !== "None" ? " · " + esc(t.mistake) : ""}</div>${t.note ? `<div class="why">${esc(t.note)}</div>` : ""}
+    <div style="margin-top:6px">${t.exit == null ? `<button onclick="jclose(${t.id})">Close trade</button> ` : ""}<button onclick="jdel(${t.id})">Delete</button></div></div>`; };
+  const opt = l => l.map(x => `<option>${x}</option>`).join("");
+  $("app").innerHTML = `${nav()}
+  <h2 style="margin-top:20px">Trade journal</h2>
+  <div class="note" style="margin-top:0">Your trades are saved only in this browser on this device. They are not uploaded anywhere. Use Export to keep a backup or move them to another device. Results are shown in R: 1R is the amount you risked, from entry to stop. Include brokerage, taxes and slippage in the cost box.</div>
+  <h2>Add a trade</h2><div class="card"><div class="fg">
+  <div><label>Stock</label><input id="j_sym" placeholder="e.g. TATAMOTORS"></div><div><label>Setup</label><select id="j_setup">${opt(["Breakout", "Near 52-week high", "EMA pullback", "Breakout retest", "Relative strength", "Volume surge", "Other"])}</select></div>
+  <div><label>Entry date</label><input id="j_ed" type="date" value="${new Date().toISOString().slice(0, 10)}"></div><div><label>Entry price</label><input id="j_entry" type="number" step="any"></div>
+  <div><label>Stop-loss</label><input id="j_stop" type="number" step="any"></div><div><label>Target (optional)</label><input id="j_target" type="number" step="any"></div>
+  <div><label>Quantity (optional)</label><input id="j_qty" type="number" step="any"></div><div><label>Costs in ₹ (optional)</label><input id="j_cost" type="number" step="any"></div>
+  <div><label>Exit price (leave blank if open)</label><input id="j_exit" type="number" step="any"></div><div><label>Exit date</label><input id="j_xd" type="date"></div>
+  <div><label>Followed your plan?</label><select id="j_plan">${opt(["yes", "no"])}</select></div><div><label>Mistake</label><select id="j_mistake">${opt(["None", "Early exit", "Moved the stop", "Chased the entry", "Oversized", "No clear setup", "Ignored the market decision"])}</select></div></div>
+  <label style="margin-top:8px;font-size:12px;color:var(--mu);display:block">Notes</label><textarea id="j_note" rows="2"></textarea>
+  <div class="mu" style="margin-top:6px">${M ? "The market mood (" + M.score + "), regime (" + esc(M.regime) + ") and decision (" + esc(M.dec) + ") are saved automatically with this trade." : "Run the data update to record market conditions automatically."}</div>
+  <button style="margin-top:8px" onclick="jadd()">Save trade</button></div>
+  <h2>Statistics</h2>${stats}
+  <h2>Open trades (${open.length})</h2>${open.length ? open.map(row).join("") : '<p class="sub">No open trades.</p>'}
+  <h2>Closed trades (${closed.length})</h2>${closed.length ? closed.map(row).join("") : '<p class="sub">No closed trades yet.</p>'}
+  <h2>Backup</h2><div class="chips"><button onclick="jexport()">Export journal</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="jimport(this)" style="width:auto"></label></div>`;
 }
 
 function pick(k) { view = "seg"; seg = k; location.hash = k; render(); window.scrollTo(0, 0); }
@@ -489,8 +718,8 @@ function setPer(q) { per = q; render(); }
 fetch("data.json?v=" + Date.now()).then(r => r.json()).then(d => {
   D = d;
   const h = location.hash.slice(1);
-  if (h === "macro" || h === "swing" || h === "news") view = h;
-  else if (D.segments.some(x => x.key === h)) seg = h;
+  if (["ov", "macro", "swing", "news", "journal"].includes(h)) view = h;
+  else if (D.segments.some(x => x.key === h)) { seg = h; view = "seg"; }
   render();
 }).catch(() => { $("app").innerHTML = '<p class="dn">Could not load data.json. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; });
 </script>
