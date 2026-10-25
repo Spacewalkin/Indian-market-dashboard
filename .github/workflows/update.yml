@@ -2,11 +2,18 @@ name: Update market data
 
 on:
   schedule:
-    - cron: "30 11 * * 1-5"   # 5:00 PM IST, Monday to Friday
-  workflow_dispatch:          # lets you run it by hand too
+    - cron: "15 3 * * 1-5"   # 8:45 AM IST, pre-open preview
+    - cron: "30 7 * * 1-5"   # 1:00 PM IST, midday refresh
+    - cron: "30 11 * * 1-5"  # 5:00 PM IST, after the close
+    - cron: "0 14 * * 1-5"   # 7:30 PM IST, evening (final FII/DII)
+  workflow_dispatch:         # lets you run it by hand too
 
 permissions:
   contents: write
+
+concurrency:
+  group: market-data
+  cancel-in-progress: false
 
 jobs:
   update:
@@ -18,8 +25,10 @@ jobs:
           python-version: "3.12"
       - run: pip install yfinance pandas requests
       - run: python update_data.py
+        env:
+          RUN_SCHEDULE: ${{ github.event.schedule }}
       - run: |
           git config user.name "market-bot"
           git config user.email "bot@users.noreply.github.com"
           git add data.json
-          git diff --staged --quiet || (git commit -m "Update market data" && git push)
+          git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
