@@ -4,9 +4,9 @@ One price download covers every stock; each segment (cap size or sector) is then
 worked out from the same prices. A segment whose NSE list can't be downloaded is
 skipped, and the rest still work.
 """
-import io, json, re, sys, time
+import io, json, os, re, sys, time
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 
 import numpy as np
@@ -136,24 +136,10 @@ def norm(s):
     return " " + re.sub(r"\s+", " ", re.sub(r"[^a-z0-9& ]", " ", s.lower())).strip() + " "
 
 
-# Words that make a headline bad news. If one appears, the headline can never be tagged positive.
-NEG_PATTERNS = re.compile("|".join([
-    r"lower circuit",
-    r"\b(cuts?|slash\w*|lowers?|reduces?|trims?)\b.{0,25}\btargets?\b",
-    r"\btargets?\b.{0,25}\b(cuts?|slash\w*|lowered|reduced|trimmed)\b",
-    r"\b(plunge[sd]?|tumble[sd]?|crash\w*|slump\w*|tank(s|ed)?|sinks?|slips?|slipped)\b",
-    r"\b(falls|fell|drops?|dropped|declines?|declined)\b",
-    r"\b(loss|losses|misses|missed|disappoint\w*|weak\w*|underperform\w*)\b",
-    r"sell rating|reduce rating|downgrade[sd]?",
-]), re.I)
-
-
 def classify(title):
     tl = title.lower()
     for cat, tone, kws in CAT_RULES:
         if any(k in tl for k in kws):
-            if tone != "neg" and NEG_PATTERNS.search(tl):
-                return "Risks and red flags", "neg"
             return cat, tone
     return None, None
 
@@ -305,6 +291,51 @@ def fetch_fiidii(old):
             "news": uniq(rss("FII DII provisional data net sold bought crore", 8), 5)}
 
 
+def ist_now():
+    return datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=5, minutes=30)
+
+
+def gap_preview(macro, fiidii):
+    """Rough read of how Indian stocks may open, from overnight global moves."""
+    m = {x["k"]: x for x in macro}
+    spec = [("sp500", "US stocks (S&P 500)", 0.5), ("nasdaq", "US tech (Nasdaq)", 0.3),
+            ("nikkei", "Japan (Nikkei)", 0.2), ("hangseng", "Hong Kong (Hang Seng)", 0.2),
+            ("brent", "Brent crude (higher is negative)", -0.3), ("usdinr", "USD/INR (higher means weaker rupee)", -1.0),
+            ("dxy", "Dollar index (higher is negative)", -0.5)]
+    pts, rows = 0.0, []
+    for k, name, w in spec:
+        if k in m:
+            p = m[k]["d"] * w
+            pts += p
+            rows.append({"n": name, "v": m[k]["d"], "p": round(p, 2)})
+    last = (fiidii or {}).get("latest")
+    if last:
+        p = max(-1, min(1, last["fn"] / 4000)) * 0.5
+        pts += p
+        rows.append({"n": "FII net in the last session", "v": last["fn"], "p": round(p, 2), "cr": True})
+    key = ("gapup2" if pts >= 0.7 else "gapup1" if pts >= 0.25 else "flat" if pts > -0.25
+           else "gapdown1" if pts > -0.7 else "gapdown2")
+    now = ist_now()
+    return {"date": now.date().isoformat(), "time": now.strftime("%I:%M %p").lstrip("0"),
+            "score": round(pts, 2), "key": key, "rows": rows}
+
+
+def preopen_run(old):
+    """Light early-morning run: refresh global cues, headlines and the gap preview only."""
+    old["macro"] = fetch_macro() or old.get("macro", [])
+    old["countries"] = fetch_countries() or old.get("countries", [])
+    ev = old.get("events") or {}
+    ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
+    ev["glob"] = {t: uniq([r for q in qs for r in rss(q, 8)], 5) for t, qs in GLOBAL_TOPICS.items()}
+    old["events"] = ev
+    old["preopen"] = gap_preview(old["macro"], old.get("fiidii"))
+    old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
+    old["mode"] = "preopen"
+    with open("data.json", "w") as f:
+        json.dump(old, f, separators=(",", ":"))
+    print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
+
+
 MIN_TURNOVER_CR = 5  # skip thinly traded stocks (average daily value in crore rupees)
 
 MACRO = [  # key, name, Yahoo ticker, group
@@ -418,6 +449,10 @@ def main():
         old = json.load(open("data.json"))
     except Exception:
         old = {}
+    sched = os.environ.get("RUN_SCHEDULE", "")
+    mode = "preopen" if sched == "15 3 * * 1-5" else "midday" if sched == "30 7 * * 1-5" else "full"
+    if mode == "preopen" and old.get("segments"):
+        return preopen_run(old)
     lists, names = {}, {}
     for key, name, group, fname in SEGMENTS:
         got = get_list(fname)
@@ -503,11 +538,11 @@ def main():
         mv = sorted([x for x in seg["stocks"] if x in stocks], key=lambda x: stocks[x]["d"])
         wanted += mv[:2] + mv[-2:]
     wanted = list(dict.fromkeys(wanted))[:160]
-    news = fetch_news(wanted)
+    news = old.get("news", {}) if mode == "midday" else fetch_news(wanted)
     macro = fetch_macro()
     countries = fetch_countries()
-    fiidii = fetch_fiidii(old.get("fiidii"))
-    events = build_events(names, wanted[:15], lists.get("large", []))
+    fiidii = old["fiidii"] if mode == "midday" and old.get("fiidii") else fetch_fiidii(old.get("fiidii"))
+    events = old["events"] if mode == "midday" and old.get("events") else build_events(names, wanted[:15], lists.get("large", []))
     print(f"{len(swing)} swing setups, news for {len(news)} stocks, {len(macro)} market factors, "
           f"{len(events['results'])} upcoming results, {len(events['catalysts'])} stock catalysts")
 
@@ -522,6 +557,9 @@ def main():
         "events": events,
         "countries": countries,
         "fiidii": fiidii,
+        "preopen": old.get("preopen"),
+        "updated": ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", "),
+        "mode": mode,
     }
     with open("data.json", "w") as f:
         json.dump(out, f, separators=(",", ":"))
