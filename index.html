@@ -392,10 +392,11 @@ function renderNews() {
     ${Object.keys(E.glob).map(t => `<h2>${esc(t)}</h2>${nlist(E.glob[t])}`).join("")}
     <div class="note">Headlines come from news feeds and are shown as links. They are not a forecast. The Global factors tab has the numbers behind each market.</div>`;
   }
-  $("app").innerHTML = nav() + tabs + body;
+  $("app").innerHTML = nav() + tabs + (E.ts ? '<div class="mu">Headlines refreshed ' + ago(E.ts) + "</div>" : "") + body;
 }
 
-const stamp = () => "Data as of " + D.asof + (D.updated ? " · updated " + D.updated : "");
+const stamp = () => "Data as of " + D.asof + (D.updated ? " · updated " + D.updated : "") + (D.ts ? " (" + Math.max(0, Math.round((Date.now() / 1000 - D.ts) / 60)) + " min ago)" : "");
+const ago = t => t ? Math.max(0, Math.round((Date.now() / 1000 - t) / 60)) + " min ago" : "earlier";
 const PRE = {
   gapup2: ["🚀 Strong gap-up likely", "#4fd1a5", ["Don't chase gaps of 2% or more at the open. Wait for the first 30 minutes.", "If a stock gaps above your entry zone, wait for a pullback instead of buying the open."]],
   gapup1: ["📈 Mild gap-up likely", "#4fd1a5", ["A normal day. Let the first 15 minutes settle before entering.", "Keep your stops where you planned them."]],
@@ -539,7 +540,7 @@ function renderOverview() {
   <div class="chips" style="margin-bottom:8px">${Object.keys(PERIODS).map(q => `<button class="${q === per ? "on" : ""}" onclick="setPer('${q}')">${q}</button>`).join("")}</div>
   <div class="chips" style="margin-bottom:10px">${tabs}</div>${body}
   ${look}${ovTab === "dash" ? movers() : ""}
-  <h2>Data sources and freshness</h2><ul class="ul"><li>Prices: Yahoo Finance, usually delayed by about 15 minutes. Last refresh: ${esc(D.updated || D.asof)}.</li><li>Stock lists: NSE index files. FII/DII: NSE daily release, latest ${fd0}.</li><li>Headlines: Google News feeds, shown as links and not verified.</li><li>The Market Mood Index, regime, scanners, labels and plans are calculated here from those inputs. Momentum is the change over ${per}; advance ratio is today's rising stocks as a share of rising plus falling.</li></ul>
+  <h2>Data sources and freshness</h2><ul class="ul"><li>Prices: Yahoo Finance, usually delayed by about 15 minutes. The data is rebuilt about every 5 minutes in market hours when GitHub runs on time, and this page checks for new data every minute. Last refresh: ${esc(D.updated || D.asof)}.</li><li>Stock lists: NSE index files. FII/DII: NSE daily release, latest ${fd0}.</li><li>Headlines: Google News feeds, shown as links and not verified.</li><li>The Market Mood Index, regime, scanners, labels and plans are calculated here from those inputs. Momentum is the change over ${per}; advance ratio is today's rising stocks as a share of rising plus falling.</li></ul>
   <div class="note">Tap any card to open that segment with its plan. Labels are a reading of breadth and momentum, not a recommendation. Past patterns can fail, and gaps can take price through a stop-loss.</div>`;
 }
 
@@ -715,13 +716,30 @@ function renderJournal() {
 function pick(k) { view = "seg"; seg = k; location.hash = k; render(); window.scrollTo(0, 0); }
 function setPer(q) { per = q; render(); }
 
-fetch("data.json?v=" + Date.now()).then(r => r.json()).then(d => {
+const LIVE_URL = "https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/data/data.json";
+const getJ = u => fetch(u).then(r => r.ok ? r.json() : null).catch(() => null);
+async function loadData(first) {
+  const t = Math.floor(Date.now() / 60000);
+  const [live, base] = await Promise.all([getJ(LIVE_URL + "?t=" + t), first ? getJ("data.json?v=" + t) : null]);
+  return [live, base].filter(Boolean).sort((a, b) => (b.ts || 0) - (a.ts || 0))[0] || null;
+}
+async function poll() {
+  const d = await loadData(false);
+  if (!d || !D || (d.ts || 0) <= (D.ts || 0)) return;
+  D = d;
+  const el = document.activeElement, busy = view === "journal" || document.querySelector("details[open]") || (el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
+  if (busy) $("asof").textContent = stamp(); else render();
+}
+loadData(true).then(d => {
+  if (!d) { $("app").innerHTML = '<p class="dn">Could not load the data. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; return; }
   D = d;
   const h = location.hash.slice(1);
   if (["ov", "macro", "swing", "news", "journal"].includes(h)) view = h;
   else if (D.segments.some(x => x.key === h)) { seg = h; view = "seg"; }
   render();
-}).catch(() => { $("app").innerHTML = '<p class="dn">Could not load data.json. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; });
+  setInterval(poll, 60000);
+  setInterval(() => { if (D) $("asof").textContent = stamp(); }, 30000);
+});
 </script>
 </body>
 </html>

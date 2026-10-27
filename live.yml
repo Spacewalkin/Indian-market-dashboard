@@ -1,0 +1,37 @@
+name: Live market data
+
+on:
+  schedule:
+    - cron: "*/5 3-10 * * 1-5"   # every 5 minutes, about 8:30 AM to 4:30 PM IST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-data
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install yfinance pandas requests
+      - name: Start from the latest saved data
+        run: |
+          git fetch origin data --depth=1 && git show FETCH_HEAD:data.json > /tmp/prev.json && cp /tmp/prev.json data.json || echo "No data branch yet"
+      - run: python update_data.py
+        env:
+          RUN_SCHEDULE: ${{ github.event.schedule }}
+      - name: Publish to the data branch
+        run: |
+          mkdir /tmp/pub && cp data.json /tmp/pub/data.json && cd /tmp/pub
+          git init -q -b data
+          git config user.name "market-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data.json && git commit -qm "Live data"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" data

@@ -144,6 +144,34 @@ def classify(title):
     return None, None
 
 
+def fetch_headlines(names):
+    """Stock catalyst, domestic and global headlines (fast, no NSE calls)."""
+    ev = {"glob": {}}
+    # 3) Headlines: stock catalysts, domestic news, global news
+    idx = sorted(((norm(re.sub(r"\b(ltd|limited)\b\.?", "", n, flags=re.I)), sym, n) for sym, n in names.items()),
+                 key=lambda x: -len(x[0]))
+    idx = [x for x in idx if len(x[0].strip()) >= 5]
+    rows = []
+    for q in CATALYST_QUERIES:
+        rows += rss(q, 15, days=3)
+    cats = []
+    for r in uniq(rows, 200):
+        cat, tone = classify(r["t"])
+        if not cat:
+            continue
+        nt = norm(r["t"])
+        hit = next(((sym, n) for c, sym, n in idx if c in nt), ("", ""))
+        cats.append({**r, "cat": cat, "tone": tone, "s": hit[0], "n": hit[1]})
+    cats.sort(key=lambda x: x["d"], reverse=True)
+    cats.sort(key=lambda x: x["s"] == "")  # headlines matched to a stock first
+    ev["catalysts"] = cats[:45]
+    ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
+    for topic, qs in GLOBAL_TOPICS.items():
+        ev["glob"][topic] = uniq([r for q in qs for r in rss(q, 8)], 5)
+    ev["ts"] = int(time.time())
+    return ev
+
+
 def build_events(names, watch, large):
     ev = {"results": [], "actions": [], "catalysts": [], "dom": [], "glob": {}}
     today = datetime.now().date()
@@ -202,27 +230,7 @@ def build_events(names, watch, large):
     ev["actions"].sort(key=lambda x: x["d"])
     ev["actions"] = ev["actions"][:60]
 
-    # 3) Headlines: stock catalysts, domestic news, global news
-    idx = sorted(((norm(re.sub(r"\b(ltd|limited)\b\.?", "", n, flags=re.I)), sym, n) for sym, n in names.items()),
-                 key=lambda x: -len(x[0]))
-    idx = [x for x in idx if len(x[0].strip()) >= 5]
-    rows = []
-    for q in CATALYST_QUERIES:
-        rows += rss(q, 15, days=3)
-    cats = []
-    for r in uniq(rows, 200):
-        cat, tone = classify(r["t"])
-        if not cat:
-            continue
-        nt = norm(r["t"])
-        hit = next(((sym, n) for c, sym, n in idx if c in nt), ("", ""))
-        cats.append({**r, "cat": cat, "tone": tone, "s": hit[0], "n": hit[1]})
-    cats.sort(key=lambda x: x["d"], reverse=True)
-    cats.sort(key=lambda x: x["s"] == "")  # headlines matched to a stock first
-    ev["catalysts"] = cats[:45]
-    ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
-    for topic, qs in GLOBAL_TOPICS.items():
-        ev["glob"][topic] = uniq([r for q in qs for r in rss(q, 8)], 5)
+    ev.update(fetch_headlines(names))
     return ev
 
 
@@ -331,6 +339,7 @@ def preopen_run(old):
     old["preopen"] = gap_preview(old["macro"], old.get("fiidii"))
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
     old["mode"] = "preopen"
+    old["ts"] = int(time.time())
     with open("data.json", "w") as f:
         json.dump(old, f, separators=(",", ":"))
     print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
@@ -629,7 +638,8 @@ def main():
     except Exception:
         old = {}
     sched = os.environ.get("RUN_SCHEDULE", "")
-    mode = "preopen" if sched == "15 3 * * 1-5" else "midday" if sched == "30 7 * * 1-5" else "full"
+    mode = ("preopen" if sched == "15 3 * * 1-5" else "midday" if sched == "30 7 * * 1-5"
+            else "live" if sched == "*/5 3-10 * * 1-5" else "full")
     if mode == "preopen" and old.get("segments"):
         return preopen_run(old)
     lists, names = {}, {}
@@ -658,6 +668,9 @@ def main():
     high, low, vol = aligned("High"), aligned("Low"), aligned("Volume")
     if len(close) < DAYS:
         sys.exit("Not enough price history downloaded - keeping the old data.json")
+
+    if close.shape[1] < 0.7 * len(symbols):
+        sys.exit("Too many stocks failed to download (Yahoo may be limiting requests) - keeping the old data.json")
 
     emas = {n: close.ewm(span=n, adjust=False, min_periods=n).mean() for n in (20, 50, 200)}
     valid = {n: emas[n].notna() for n in emas}
@@ -723,11 +736,13 @@ def main():
         mv = sorted([x for x in seg["stocks"] if x in stocks], key=lambda x: stocks[x]["d"])
         wanted += mv[:2] + mv[-2:]
     wanted = list(dict.fromkeys(wanted))[:160]
-    news = old.get("news", {}) if mode == "midday" else fetch_news(wanted)
+    news = old.get("news", {}) if mode in ("midday", "live") else fetch_news(wanted)
     macro = fetch_macro()
     countries = fetch_countries()
-    fiidii = old["fiidii"] if mode == "midday" and old.get("fiidii") else fetch_fiidii(old.get("fiidii"))
-    events = old["events"] if mode == "midday" and old.get("events") else build_events(names, wanted[:15], lists.get("large", []))
+    fiidii = old["fiidii"] if mode in ("midday", "live") and old.get("fiidii") else fetch_fiidii(old.get("fiidii"))
+    events = old["events"] if mode in ("midday", "live") and old.get("events") else build_events(names, wanted[:15], lists.get("large", []))
+    if mode == "live":
+        events.update(fetch_headlines(names))
     scans = scan_more(close, high, low, vol, emas, nifty_full, stocks, sector_map(lists))
     mood = mood_index(nifty_full, segs, macro, events)
     mood_hist = [h for h in old.get("mood_hist", []) if h["d"] != idx[-1].date().isoformat()]
@@ -751,6 +766,7 @@ def main():
         "preopen": old.get("preopen"),
         "updated": ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", "),
         "mode": mode,
+        "ts": int(time.time()),
         "mood": mood,
         "mood_hist": mood_hist,
         "scans": scans,

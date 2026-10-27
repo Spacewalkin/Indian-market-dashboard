@@ -1,0 +1,46 @@
+name: Update market data
+
+on:
+  schedule:
+    - cron: "15 3 * * 1-5"   # 8:45 AM IST, pre-open preview
+    - cron: "30 7 * * 1-5"   # 1:00 PM IST, midday refresh
+    - cron: "30 11 * * 1-5"  # 5:00 PM IST, after the close
+    - cron: "0 14 * * 1-5"   # 7:30 PM IST, evening (final FII/DII)
+  workflow_dispatch:         # lets you run it by hand too
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install yfinance pandas requests
+      - name: Start from the latest saved data
+        run: |
+          git fetch origin data --depth=1 && git show FETCH_HEAD:data.json > /tmp/prev.json && cp /tmp/prev.json data.json || echo "No data branch yet"
+      - run: python update_data.py
+        env:
+          RUN_SCHEDULE: ${{ github.event.schedule }}
+      - name: Save to the main branch
+        run: |
+          git config user.name "market-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data.json
+          git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
+      - name: Publish to the data branch
+        run: |
+          mkdir /tmp/pub && cp data.json /tmp/pub/data.json && cd /tmp/pub
+          git init -q -b data
+          git config user.name "market-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data.json && git commit -qm "Latest data"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" data
