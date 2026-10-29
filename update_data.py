@@ -4,7 +4,7 @@ One price download covers every stock; each segment (cap size or sector) is then
 worked out from the same prices. A segment whose NSE list can't be downloaded is
 skipped, and the rest still work.
 """
-import io, json, os, re, sys, time
+import io, json, math, os, re, sys, time
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
@@ -299,6 +299,17 @@ def fetch_fiidii(old):
             "news": uniq(rss("FII DII provisional data net sold bought crore", 8), 5)}
 
 
+def clean(o):
+    """Replace NaN/infinity with null so data.json is always valid JSON."""
+    if isinstance(o, float):
+        return o if math.isfinite(o) else None
+    if isinstance(o, dict):
+        return {k: clean(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [clean(v) for v in o]
+    return o
+
+
 def ist_now():
     return datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=5, minutes=30)
 
@@ -341,7 +352,7 @@ def preopen_run(old):
     old["mode"] = "preopen"
     old["ts"] = int(time.time())
     with open("data.json", "w") as f:
-        json.dump(old, f, separators=(",", ":"))
+        json.dump(clean(old), f, separators=(",", ":"))
     print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
 
 
@@ -521,6 +532,20 @@ def scan_more(close, high, low, vol, emas, nf, stocks, sector_of):
     return {k: v[:25] for k, v in out.items()}
 
 
+def build_prices(close, opn, high, low, vol, emas, syms, n=90):
+    """Compact candle, volume and EMA history for the stocks that get a chart (prices in paise, volume in thousands)."""
+    idx = close.index[-n:]
+    px = lambda col: [None if pd.isna(v) else int(round(float(v) * 100)) for v in col.loc[idx]]
+    out = {}
+    for sym in syms:
+        if sym not in close.columns:
+            continue
+        out[sym] = {"o": px(opn[sym]), "h": px(high[sym]), "l": px(low[sym]), "c": px(close[sym]),
+                    "v": [None if pd.isna(v) else int(v / 1000) for v in vol[sym].loc[idx]],
+                    "a": px(emas[20][sym]), "b": px(emas[50][sym]), "d": px(emas[200][sym])}
+    return {"ts": int(time.time()), "dates": [d.strftime("%Y-%m-%d") for d in idx], "s": out}
+
+
 MIN_TURNOVER_CR = 5  # skip thinly traded stocks (average daily value in crore rupees)
 
 MACRO = [  # key, name, Yahoo ticker, group
@@ -665,7 +690,7 @@ def main():
         d = raw[name].copy()
         d.columns = [c[:-3] if str(c).endswith(".NS") else c for c in d.columns]
         return d.reindex(index=close.index, columns=close.columns)
-    high, low, vol = aligned("High"), aligned("Low"), aligned("Volume")
+    opn, high, low, vol = aligned("Open"), aligned("High"), aligned("Low"), aligned("Volume")
     if len(close) < DAYS:
         sys.exit("Not enough price history downloaded - keeping the old data.json")
 
@@ -749,6 +774,12 @@ def main():
     if mood and mode != "midday":
         mood_hist.append({"d": idx[-1].date().isoformat(), "s": mood["score"], "r": mood["regime"], "k": mood["dec"]})
     mood_hist = mood_hist[-250:]
+    ranked = sorted(stocks, key=lambda k: stocks[k]["d"])
+    focus = list(dict.fromkeys([c["s"] for c in swing] + [c["s"] for v in scans.values() for c in v]
+                               + [x["s"] for x in events.get("results", [])] + ranked[:20] + ranked[-20:]
+                               + lists.get("large", [])))[:260]
+    with open("prices.json", "w") as f:
+        json.dump(build_prices(close, opn, high, low, vol, emas, focus), f, separators=(",", ":"))
     print(f"{len(swing)} swing setups, news for {len(news)} stocks, {len(macro)} market factors, "
           f"{len(events['results'])} upcoming results, {len(events['catalysts'])} stock catalysts")
 
@@ -772,7 +803,7 @@ def main():
         "scans": scans,
     }
     with open("data.json", "w") as f:
-        json.dump(out, f, separators=(",", ":"))
+        json.dump(clean(out), f, separators=(",", ":"))
     print(f"Saved {DAYS} days for {', '.join(s['key'] for s in segs)} - latest: {out['asof']}")
 
 

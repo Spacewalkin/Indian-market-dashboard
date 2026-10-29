@@ -8,10 +8,10 @@
 :root{--bg:#0d1128;--panel:#151a38;--line:#262d57;--tx:#e9ebf8;--mu:#8e95bd;--up:#4fd1a5;--dn:#ff6b6b;--am:#f2b84b;--ac:#7c8cff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:680px;margin:0 auto;padding:18px 16px 60px}
+main{max-width:680px;margin:0 auto;padding:18px 16px 60px;overflow-wrap:anywhere}
 h1{font-size:19px;margin:0}h2{font-size:15px;margin:28px 0 10px}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.pill{border:1px solid var(--line);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--mu);white-space:nowrap}
+.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
+.pill{border:1px solid var(--line);border-radius:14px;padding:4px 12px;font-size:12px;color:var(--mu);max-width:100%}
 .lab{font-size:12px;color:var(--mu);margin:14px 0 6px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 button{font:inherit;color:var(--tx);background:none;border:1px solid var(--line);border-radius:8px;padding:5px 11px;font-size:13px;cursor:pointer}
@@ -75,6 +75,7 @@ tr.go{cursor:pointer}tr.sel td{background:var(--panel)}
 details{margin-top:6px}summary{cursor:pointer;color:var(--ac);font-size:13px}
 input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%}
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fg label{font-size:12px;color:var(--mu);display:block}
+.sl{color:var(--tx);text-decoration:underline dotted;cursor:pointer}.chartbox svg{width:100%;height:auto}
 .tag.r{color:var(--dn);border-color:var(--dn)}.ul{margin:6px 0;padding-left:18px}.ul li{margin:4px 0}
 </style>
 </head>
@@ -166,12 +167,13 @@ function chart(r, s) {
 }
 
 function list(arr, cls) {
-  return arr.length ? arr.map(x => `<div class="row"><span>${esc(x.n)}</span><span class="${cls}">${x.m > 0 ? "+" : ""}${x.m}%</span></div>`).join("")
+  return arr.length ? arr.map(x => `<div class="row"><span>${stk(x.s, x.n)}</span><span class="${cls}">${x.m > 0 ? "+" : ""}${x.m}%</span></div>`).join("")
     : '<div class="sub">None right now.</div>';
 }
 
 function render() {
   if (view === "ov") return renderOverview();
+  if (view === "stock") return renderStock();
   if (view === "journal") return renderJournal();
   if (view === "macro") return renderMacro();
   if (view === "swing") return renderSwing();
@@ -213,13 +215,13 @@ function render() {
 }
 
 
-let view = "ov", swF = "brk";
+let view = "ov", swF = "brk", curStock = null, backView = "ov", chRange = 66, PR = null, prLoading = null, JPRE = {};
 const ALLM = {m: 0};
 const f1 = v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%";
 const fv = v => Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
 const nav = () => `<div class="chips nav">${[["ov", "Overview"], ["seg", "Market and sectors"], ["macro", "Global factors"], ["swing", "Swing trading"], ["news", "News and events"], ["journal", "Journal"]].map(([k, n]) =>
   `<button class="${view === k ? "on" : ""}" onclick="go('${k}')">${n}</button>`).join("")}</div>`;
-function go(k) { view = k; location.hash = k === "seg" ? seg : k; render(); window.scrollTo(0, 0); }
+function go(k) { if (k !== "journal") JPRE = {}; view = k; location.hash = k === "seg" ? seg : k; render(); window.scrollTo(0, 0); }
 const link = (t, l) => /^https?:/.test(l || "") ? `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t);
 
 // ---- Global and domestic factor rules: [level, reading, sectors helped (+) or hurt (-)] ----
@@ -366,7 +368,7 @@ function renderNews() {
   if (nv === "dom") {
     const watch = new Set((D.swing || []).map(c => c.s));
     const res = E.results.length ? '<table><tr><th>Stock</th><th>Results date</th><th>When</th></tr>' + E.results.slice(0, 40).map(x =>
-      `<tr><td>${esc(x.n)}${watch.has(x.s) ? ' <span class="tag a">On swing list</span>' : ""}</td><td>${fd(x.d)}</td><td>${inDays(daysTo(x.d))}</td></tr>`).join("") + "</table>"
+      `<tr><td>${stk(x.s, x.n)}${watch.has(x.s) ? ' <span class="tag a">On swing list</span>' : ""}</td><td>${fd(x.d)}</td><td>${inDays(daysTo(x.d))}</td></tr>`).join("") + "</table>"
       : '<p class="sub">No upcoming results found. NSE may have blocked the download. Check board meeting dates on nseindia.com.</p>';
     const act = E.actions.length ? '<table><tr><th>Stock</th><th>Action</th><th>Date</th></tr>' + E.actions.map(x =>
       `<tr><td>${esc(x.n)}</td><td style="text-align:left">${esc(x.what)}</td><td>${fd(x.d)}</td></tr>`).join("") + "</table>"
@@ -376,7 +378,7 @@ function renderNews() {
     const EM = {"Splits, bonus and buybacks": "✂️", "Orders and deals": "📦", "Investments and expansion": "🏗️", "Approvals and upgrades": "✅", "Results and dividends": "🧾", "Risks and red flags": "⚠️"};
     const cats = order.map(c => {
       const a = E.catalysts.filter(x => x.cat === c);
-      return a.length ? `<h3 style="margin:16px 0 4px">${EM[c]} ${c}</h3>` + a.map(x => `<div class="nc ${x.tone}"><b>${x.n ? esc(x.n) : "Market"}</b> <span class="tag ${tone[x.tone][0]}">${tone[x.tone][1]}</span><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p)} ${esc(x.d)}</div></div>`).join("") : "";
+      return a.length ? `<h3 style="margin:16px 0 4px">${EM[c]} ${c}</h3>` + a.map(x => `<div class="nc ${x.tone}"><b>${x.n ? stk(x.s, x.n) : "Market"}</b> <span class="tag ${tone[x.tone][0]}">${tone[x.tone][1]}</span><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p)} ${esc(x.d)}</div></div>`).join("") : "";
     }).join("");
     body = `<h2>FII and DII buying and selling</h2>${fiiBlock()}<h2>Upcoming key dates in India</h2>${keyDates("Domestic")}
     <h2>Upcoming results (next 30 days)</h2>${res}
@@ -439,7 +441,7 @@ function movers() {
   const all = D.segments.find(x => x.key === "all");
   if (!all) return "";
   const st = all.stocks.filter(k => D.stocks[k]).map(k => ({...D.stocks[k], s: k}));
-  const row = x => `<div class="nc ${x.d >= 0 ? "pos" : "neg"}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(x.n)}</b><span><b>₹${fv(x.p)}</b> <span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></span></div>${x.pc ? `<div class="mu">Yesterday ₹${fv(x.pc)}</div>` : ""}${rangeBar(x)}</div>`;
+  const row = x => `<div class="nc ${x.d >= 0 ? "pos" : "neg"}"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(x.s, x.n)}</b><span><b>₹${fv(x.p)}</b> <span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></span></div>${x.pc ? `<div class="mu">Yesterday ₹${fv(x.pc)}</div>` : ""}${rangeBar(x)}</div>`;
   return `<h2>Top gainers today</h2>${st.slice().sort((a, b) => b.d - a.d).slice(0, 5).map(row).join("")}<h2>Top losers today</h2>${st.slice().sort((a, b) => a.d - b.d).slice(0, 5).map(row).join("")}`;
 }
 function spark(L, col) {
@@ -530,7 +532,7 @@ function renderOverview() {
   else body = `<table><tr><th>Segment</th><th>Mood</th><th>Momentum</th><th>Vs Nifty</th><th>50 EMA</th></tr>${everyone.slice().sort((a, b) => b.r.score - a.r.score).map(x => `<tr class="go" onclick="pick('${x.s.key}')"><td>${esc(x.s.name)}</td><td style="color:${x.r.color}">${x.r.mood} (${x.r.score})</td><td class="${x.r.move >= 0 ? "up" : "dn"}">${f1(x.r.move)}</td><td class="${x.rs >= 0 ? "up" : "dn"}">${f1(x.rs)}</td><td>${Math.round(x.r.p50)}%</td></tr>`).join("")}</table>`;
   const top3 = secs.filter(x => x.rs > 0).sort((a, b) => b.rs - a.rs).slice(0, 3);
   const look = `<h2>Where to look today</h2><div class="card"><div class="sub"><b>Sectors beating Nifty:</b> ${top3.length ? top3.map(x => `<a href="#" onclick="pick('${x.s.key}');return false">${esc(x.s.name)}</a> (${f1(x.rs)})`).join(", ") : "none right now"}</div>
-  <div class="sub" style="margin-top:6px"><b>Setups with a valid trigger now:</b> ${valid.length ? valid.slice(0, 5).map(x => esc(x.c.n)).join(", ") + (valid.length > 5 ? " and " + (valid.length - 5) + " more" : "") : "none right now"}</div>
+  <div class="sub" style="margin-top:6px"><b>Setups with a valid trigger now:</b> ${valid.length ? valid.slice(0, 5).map(x => stk(x.c.s, x.c.n)).join(", ") + (valid.length > 5 ? " and " + (valid.length - 5) + " more" : "") : "none right now"}</div>
   <button style="margin-top:8px" onclick="go('swing')">Open swing setups and plans</button></div>`;
   const fd0 = D.fiidii && D.fiidii.latest ? fd(D.fiidii.latest.d) : "not available";
   $("app").innerHTML = `${nav()}${preopenCard()}
@@ -587,8 +589,8 @@ function why(s, r, ra, k) {
     const d = r.p50 - ra.p50;
     if (Math.abs(d) >= 10) rs.push(d > 0 ? `It is stronger than the broader market (${Math.round(r.p50)}% vs ${Math.round(ra.p50)}% above the 50 EMA), so money is moving into it.` : `It is weaker than the broader market (${Math.round(r.p50)}% vs ${Math.round(ra.p50)}% above the 50 EMA), so money is moving out of it.`);
   }
-  if (dn.length) rs.push("Biggest drags today: " + dn.map(x => `${esc(x.n)} (${f1(x.d)})`).join(", ") + ".");
-  if (up.length) rs.push("Biggest lifts today: " + up.map(x => `${esc(x.n)} (${f1(x.d)})`).join(", ") + ".");
+  if (dn.length) rs.push("Biggest drags today: " + dn.map(x => `${stk(x.s, x.n)} (${f1(x.d)})`).join(", ") + ".");
+  if (up.length) rs.push("Biggest lifts today: " + up.map(x => `${stk(x.s, x.n)} (${f1(x.d)})`).join(", ") + ".");
   sg.forEach(x => rs.push(`${esc(x.txt)} Effect on ${esc(s.name)}: ${x.imp[s.key] === "+" ? "positive" : "negative"}.`));
   const news = [];
   dn.concat(up).forEach(x => ((D.news || {})[x.s] || []).slice(0, 1).forEach(n => news.push({...n, st: x.n})));
@@ -609,7 +611,7 @@ function setupCard(type, c) {
     chip = mkt ? '<span class="tag r">Watchlist only: market says NO TRADE</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
     plan = `<details><summary>Trade plan</summary><ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)${c.h52 && c.h52 > t.entry ? ", with the 52-week high at ₹" + fv(c.h52) + " as resistance" : ""}</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul></details>`;
   }
-  return `<div class="cand"><b>${esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(c.p)} <span class="${c.d >= 0 ? "up" : "dn"}">${f1(c.d)}</span> today · ${f1(c.m)} in a month</div>${rangeBar(D.stocks[c.s])}${plan}
   <div class="why">${nw ? "Latest headline: " + link(nw.t, nw.l) + " (" + esc(nw.p) + ")" : "No recent headline found. Check the company's announcements before trading."}</div></div>`;
 }
@@ -633,7 +635,7 @@ function renderSwing() {
   if (!["res"].includes(swF)) list.forEach(c => { if (c.sec) secs[c.sec] = (secs[c.sec] || 0) + 1; });
   const top = Object.keys(secs).sort((a, b) => secs[b] - secs[a]).slice(0, 5).map(x => `${esc(x)} (${secs[x]})`).join(", ");
   const tabs = SC.map(([k, n]) => `<button class="${swF === k ? "on" : ""}" onclick="swF='${k}';render()">${n} (${scanList(k).length})</button>`).join("");
-  const cards = swF === "res" ? (list.length ? list.map(x => `<div class="nc neu"><b>${esc(x.n)}</b> <span class="cd">${inDays(daysTo(x.d))}</span><div class="mu">Results on ${fd(x.d)} (${esc(x.src)})</div></div>`).join("") : '<p class="sub">No results due in the next 10 days in the data we have.</p>')
+  const cards = swF === "res" ? (list.length ? list.map(x => `<div class="nc neu"><b>${stk(x.s, x.n)}</b> <span class="cd">${inDays(daysTo(x.d))}</span><div class="mu">Results on ${fd(x.d)} (${esc(x.src)})</div></div>`).join("") : '<p class="sub">No results due in the next 10 days in the data we have.</p>')
     : list.length ? list.slice(0, 25).map(c => setupCard(swF, c)).join("") : '<p class="sub">No stocks match right now. That is useful information too: when few setups exist, forcing trades is the mistake.</p>';
   $("app").innerHTML = `${nav()}${preopenCard()}
   <h2 style="margin-top:20px">Trade, wait or no trade</h2>${decisionPanel()}
@@ -653,7 +655,7 @@ function jadd() {
   const t = {id: Date.now(), sym: v("j_sym").toUpperCase(), setup: v("j_setup"), ed: v("j_ed") || new Date().toISOString().slice(0, 10), entry: num(v("j_entry")), stop: num(v("j_stop")), target: num(v("j_target")),
     qty: num(v("j_qty")), exit: num(v("j_exit")), xd: v("j_xd"), plan: v("j_plan"), mistake: v("j_mistake"), cost: num(v("j_cost")), note: v("j_note"), mood: M.score == null ? null : M.score, regime: M.regime || "", dec: M.dec || ""};
   if (!t.sym || !t.entry || !t.stop) { alert("Enter the stock, entry price and stop-loss."); return; }
-  const a = jload(); a.unshift(t); jsave(a); render();
+  const a = jload(); a.unshift(t); jsave(a); JPRE = {}; render();
 }
 function jclose(id) {
   const x = prompt("Exit price?");
@@ -698,9 +700,9 @@ function renderJournal() {
   <h2 style="margin-top:20px">Trade journal</h2>
   <div class="note" style="margin-top:0">Your trades are saved only in this browser on this device. They are not uploaded anywhere. Use Export to keep a backup or move them to another device. Results are shown in R: 1R is the amount you risked, from entry to stop. Include brokerage, taxes and slippage in the cost box.</div>
   <h2>Add a trade</h2><div class="card"><div class="fg">
-  <div><label>Stock</label><input id="j_sym" placeholder="e.g. TATAMOTORS"></div><div><label>Setup</label><select id="j_setup">${opt(["Breakout", "Near 52-week high", "EMA pullback", "Breakout retest", "Relative strength", "Volume surge", "Other"])}</select></div>
-  <div><label>Entry date</label><input id="j_ed" type="date" value="${new Date().toISOString().slice(0, 10)}"></div><div><label>Entry price</label><input id="j_entry" type="number" step="any"></div>
-  <div><label>Stop-loss</label><input id="j_stop" type="number" step="any"></div><div><label>Target (optional)</label><input id="j_target" type="number" step="any"></div>
+  <div><label>Stock</label><input id="j_sym" placeholder="e.g. TATAMOTORS" value="${esc(JPRE.sym || "")}"></div><div><label>Setup</label><select id="j_setup">${["Breakout", "Near 52-week high", "EMA pullback", "Breakout retest", "Relative strength", "Volume surge", "Other"].map(x => `<option${x === JPRE.setup ? " selected" : ""}>${x}</option>`).join("")}</select></div>
+  <div><label>Entry date</label><input id="j_ed" type="date" value="${new Date().toISOString().slice(0, 10)}"></div><div><label>Entry price</label><input id="j_entry" type="number" step="any" value="${JPRE.entry || ""}"></div>
+  <div><label>Stop-loss</label><input id="j_stop" type="number" step="any" value="${JPRE.stop || ""}"></div><div><label>Target (optional)</label><input id="j_target" type="number" step="any" value="${JPRE.target || ""}"></div>
   <div><label>Quantity (optional)</label><input id="j_qty" type="number" step="any"></div><div><label>Costs in ₹ (optional)</label><input id="j_cost" type="number" step="any"></div>
   <div><label>Exit price (leave blank if open)</label><input id="j_exit" type="number" step="any"></div><div><label>Exit date</label><input id="j_xd" type="date"></div>
   <div><label>Followed your plan?</label><select id="j_plan">${opt(["yes", "no"])}</select></div><div><label>Mistake</label><select id="j_mistake">${opt(["None", "Early exit", "Moved the stop", "Chased the entry", "Oversized", "No clear setup", "Ignored the market decision"])}</select></div></div>
@@ -710,14 +712,122 @@ function renderJournal() {
   <h2>Statistics</h2>${stats}
   <h2>Open trades (${open.length})</h2>${open.length ? open.map(row).join("") : '<p class="sub">No open trades.</p>'}
   <h2>Closed trades (${closed.length})</h2>${closed.length ? closed.map(row).join("") : '<p class="sub">No closed trades yet.</p>'}
-  <h2>Backup</h2><div class="chips"><button onclick="jexport()">Export journal</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="jimport(this)" style="width:auto"></label></div>`;
+  <h2>Backup</h2><div class="chips" id="jbk"><button onclick="jexport()">Export journal</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="jimport(this)" style="width:auto"></label></div>`;
+}
+
+const stk = (sym, name) => sym ? `<a href="#" class="sl" onclick="openStock('${esc(sym)}');return false">${esc(name)}</a>` : esc(name);
+function openStock(sym) {
+  if (view !== "stock") backView = view;
+  curStock = sym; view = "stock"; location.hash = "stock-" + encodeURIComponent(sym);
+  render(); window.scrollTo(0, 0);
+}
+function loadPrices() {
+  if (PR) return Promise.resolve(PR);
+  if (!prLoading) prLoading = getJ(LIVE_BASE + "prices.json?t=" + Math.floor(Date.now() / 60000)).then(p => { prLoading = null; if (p) PR = p; return PR; });
+  return prLoading;
+}
+function findSetups(sym) {
+  const out = [], sw = (D.swing || []).find(c => c.s === sym), S = D.scans || {};
+  if (sw) { if (sw.brk && sw.vx >= 1.5) out.push(["brk", sw]); if (sw.near) out.push(["near", sw]); }
+  ["pull", "retest", "rs", "vol", "weak"].forEach(k => { const c = (S[k] || []).find(x => x.s === sym); if (c) out.push([k, c]); });
+  return out;
+}
+function chartSvg(p, dates, range, lv) {
+  const n = p.c.length, k = Math.min(range, n), s0 = n - k, W = 620, H = 340, L = 6, R = 58, CH = 240, VT = 252, VH = 64;
+  const g = a => a.slice(s0).map(v => v == null ? null : v / 100), o = g(p.o), hh = g(p.h), l = g(p.l), c = g(p.c), a1 = g(p.a), a2 = g(p.b), a3 = g(p.d), vv = p.v.slice(s0);
+  const lines = lv ? [["Entry", lv.entry, "#7c8cff"], ["Stop", lv.stop, "#ff6b6b"], ["T1", lv.t1, "#4fd1a5"], ["T2", lv.t2, "#4fd1a5"]] : [];
+  const vals = hh.concat(l, lines.map(x => x[1])).filter(x => x != null && isFinite(x));
+  let hi = Math.max(...vals), lo = Math.min(...vals);
+  const pad = (hi - lo) * 0.04 || 1; hi += pad; lo -= pad;
+  const step = (W - L - R) / k, X = i => L + (i + 0.5) * step, Y = v => 6 + (hi - v) / (hi - lo) * (CH - 12), mv = Math.max(1, ...vv.filter(x => x != null));
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Price chart with moving averages and volume"><defs><clipPath id="cp"><rect x="${L}" y="0" width="${W - L - R}" height="${CH}"/></clipPath></defs>
+  <text x="8" y="14" font-size="11"><tspan fill="#7c8cff">EMA20  </tspan><tspan fill="#f2b84b">EMA50  </tspan><tspan fill="#c77dff">EMA200</tspan></text>`;
+  for (let i = 0; i < k; i++) {
+    if (c[i] == null || o[i] == null) continue;
+    const col = c[i] >= o[i] ? "#4fd1a5" : "#ff6b6b", x = X(i);
+    s += `<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="${Y(hh[i]).toFixed(1)}" y2="${Y(l[i]).toFixed(1)}" stroke="${col}"/><rect x="${(x - step * 0.3).toFixed(1)}" y="${Y(Math.max(o[i], c[i])).toFixed(1)}" width="${(step * 0.6).toFixed(1)}" height="${Math.max(1, Math.abs(Y(o[i]) - Y(c[i]))).toFixed(1)}" fill="${col}"/>`;
+    if (vv[i] != null) s += `<rect x="${(x - step * 0.3).toFixed(1)}" y="${(VT + VH - vv[i] / mv * VH).toFixed(1)}" width="${(step * 0.6).toFixed(1)}" height="${(vv[i] / mv * VH).toFixed(1)}" fill="${col}" opacity=".45"/>`;
+  }
+  const pl = (a, col) => { const pts = a.map((v, i) => v == null ? null : X(i).toFixed(1) + "," + Y(v).toFixed(1)).filter(Boolean).join(" "); return pts ? `<polyline clip-path="url(#cp)" points="${pts}" fill="none" stroke="${col}" stroke-width="1.6"/>` : ""; };
+  s += pl(a1, "#7c8cff") + pl(a2, "#f2b84b") + pl(a3, "#c77dff");
+  lines.forEach(([nm, v, col]) => { if (v == null || !isFinite(v)) return; const y = Y(v).toFixed(1); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="${col}" stroke-dasharray="4 3" opacity=".85"/><text x="${W - R + 3}" y="${(+y + 3).toFixed(1)}" font-size="10" fill="${col}">${nm} ${fv(v)}</text>`; });
+  [hi - pad, (hi + lo) / 2, lo + pad].forEach(v => { s += `<text x="${W - R + 3}" y="${(Y(v) + 3).toFixed(1)}" font-size="10" fill="#8e95bd">${fv(v)}</text>`; });
+  const d = dates.slice(s0);
+  return s + `<text x="${L}" y="${H - 4}" font-size="10" fill="#8e95bd">${fd(d[0])}</text><text x="${W - R}" y="${H - 4}" font-size="10" text-anchor="end" fill="#8e95bd">${fd(d[d.length - 1])}</text></svg>`;
+}
+function drawChart() {
+  const el = document.getElementById("chart");
+  if (!el || view !== "stock") return;
+  const p = PR && PR.s && PR.s[curStock];
+  if (!p) { el.innerHTML = '<div class="sub">The price history for this stock isn\'t stored (it covers about 250 stocks: setups, big movers and large caps). Use the TradingView link below for a full chart.</div>'; return; }
+  const su = findSetups(curStock).find(x => ["brk", "near", "pull", "retest"].includes(x[0])), t = su ? tradePlan(su[0], su[1]) : null;
+  const chips = [[22, "1 month"], [66, "3 months"], [90, "All (" + p.c.length + " days)"]].map(([k, n]) => `<button class="${chRange === k ? "on" : ""}" onclick="chRange=${k};render()">${n}</button>`).join("");
+  el.innerHTML = `<div class="chips" style="margin-bottom:8px">${chips}</div>${chartSvg(p, PR.dates, chRange, t)}<div class="mu">Daily candles, volume below.${t ? " Dashed lines show the plan: entry, stop-loss and targets." : ""} Prices are delayed about 15 minutes.</div>`;
+}
+function drivers(sym, st) {
+  const out = [], M = D.mood, pr = PR && PR.s && PR.s[sym], E = D.events || {};
+  const above = [20, 50, 200].filter((n, i) => st.e[i]);
+  out.push(above.length === 3 ? "Trend: it trades above its 20, 50 and 200 EMA, so the trend is up at every horizon." : above.length === 0 ? "Trend: it is below its 20, 50 and 200 EMA, so the trend is down at every horizon." : "Trend: it is above its " + above.join(" and ") + " EMA but below the others, so the trend is mixed.");
+  if (st.h) { const dd = (st.p / st.h - 1) * 100; out.push(dd >= -5 ? `Price: it is ${Math.abs(dd).toFixed(1)}% from its 52-week high. Strength attracts breakout buyers, but resistance is close.` : dd <= -30 ? `Price: it is ${Math.abs(dd).toFixed(0)}% below its 52-week high, a beaten-down stock. Bounces can fail.` : `Price: it is ${Math.abs(dd).toFixed(0)}% below its 52-week high.`); }
+  out.push(`Momentum: ${f1(st.m)} over the last month and ${f1(st.d)} today.`);
+  if (pr && pr.v.length > 21) {
+    const v = pr.v, prev = v.slice(-21, -1).filter(x => x != null), av = prev.reduce((a, b) => a + b, 0) / (prev.length || 1);
+    if (av && v[v.length - 1] != null) out.push(`Volume: ${(v[v.length - 1] / av).toFixed(1)} times its 20-day average${D.mode === "live" || D.mode === "midday" ? " (today's volume is still building)" : ""}.`);
+    const r = pr.h.slice(-14).map((x, i) => x == null ? null : (x - pr.l.slice(-14)[i]) / pr.c.slice(-14)[i]).filter(x => x != null);
+    if (r.length) out.push(`Volatility: it typically moves about ${(r.reduce((a, b) => a + b, 0) / r.length * 100).toFixed(1)}% between its daily high and low, so a very tight stop is likely to be hit by normal noise.`);
+  }
+  const sec = D.segments.find(g => g.group === "sector" && g.stocks.includes(sym));
+  if (sec) {
+    const ss = segStats(sec), diff = st.d - ss.avgc;
+    out.push(`Sector (${esc(sec.name)}): ${ss.r.mood.toLowerCase()}, ${f1(ss.r.move)} over ${per}, and ${ss.k.adv} of ${ss.n} stocks are up today. ${Math.abs(diff) >= 1 ? "Today this stock is " + (diff > 0 ? "outperforming" : "lagging") + " its sector average (" + f1(st.d) + " vs " + f1(ss.avgc) + ")." : "Today it is moving in line with its sector."}`);
+    signals().filter(x => x.imp[sec.key]).forEach(x => out.push(`${esc(x.txt)} Effect on ${esc(sec.name)}: ${x.imp[sec.key] === "+" ? "positive" : "negative"}.`));
+  }
+  if (M) out.push(`Market: today's decision is ${decision()} (regime: ${esc(M.regime)}, mood ${M.score}). ${decision() === "NO TRADE" ? "Even strong stocks struggle against a weak market, so treat any setup as a watchlist idea." : decision() === "WAIT" ? "Conditions are not clear yet, so be selective." : "Conditions support taking valid setups."}`);
+  const rd0 = (E.results || []).find(x => x.s === sym);
+  if (rd0) out.push(`Results: due on ${fd(rd0.d)} (${inDays(daysTo(rd0.d))}). Expect a bigger move, and plan the trade around that date.`);
+  (E.actions || []).filter(x => x.s === sym).forEach(x => out.push(`Corporate action: ${esc(x.what)} (${fd(x.d)}).`));
+  const sc = (D.scans || {}).rs && D.scans.rs.find(x => x.s === sym);
+  if (sc) out.push(`Relative strength: it has beaten Nifty by ${sc.rs} points over 3 months.`);
+  const F = D.fiidii && D.fiidii.latest, large = D.segments.find(g => g.key === "large");
+  if (F && large && large.stocks.includes(sym)) out.push(`Flows: foreign investors were net ${F.fn >= 0 ? "buyers" : "sellers"} (₹${fv(Math.abs(F.fn))} crore) in the last session, which tends to matter most for large caps.`);
+  return out;
+}
+function renderStock() {
+  $("asof").textContent = stamp();
+  const sym = curStock, st = D.stocks[sym], back = `<button onclick="go('${backView}')">← Back</button>`;
+  if (!st) { $("app").innerHTML = nav() + back + '<p class="sub">No data for this stock.</p>'; return; }
+  const E = D.events || {}, setups = findSetups(sym), sec = D.segments.find(g => g.group === "sector" && g.stocks.includes(sym));
+  const long = setups.find(x => ["brk", "near", "pull", "retest"].includes(x[0])), SN = Object.fromEntries(SC);
+  const tags = setups.map(([k, c]) => `<span class="tag ${k === "weak" ? "r" : "g"}">${SN[k]}</span>`).join("");
+  let plan = "";
+  if (long) {
+    const t = tradePlan(long[0], long[1]), c = long[1];
+    plan = `<h2>Trade plan</h2><div class="plan" style="border-color:${t.status === "valid" ? "#4fd1a5" : "#f2b84b"}"><b>${t.status === "valid" ? "Valid now" : "Wait for the trigger"}</b>${D.mood && decision() === "NO TRADE" ? ' <span class="tag r">Market says NO TRADE: watchlist only</span>' : ""}
+    <ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul>
+    <button onclick='JPRE=${JSON.stringify({sym: sym, setup: {brk: "Breakout", near: "Near 52-week high", pull: "EMA pullback", retest: "Breakout retest"}[long[0]], entry: +t.entry.toFixed(2), stop: +t.stop.toFixed(2), target: +t.t1.toFixed(2)})};go("journal")'>Log this trade in the journal</button></div>`;
+  }
+  const nw = ((D.news || {})[sym] || []).map(n => ({...n})), cats = (E.catalysts || []).filter(x => x.s === sym);
+  const sameSec = sec ? (E.catalysts || []).filter(x => x.s && x.s !== sym && sec.stocks.includes(x.s)).slice(0, 3) : [];
+  const nl = a => a.map(n => `<div class="nc"><div>${link(n.t, n.l)}</div><div class="mu">${esc(n.p || "")} ${esc(n.d || "")}${n.n ? " · " + esc(n.n) : ""}</div></div>`).join("");
+  const news = nw.length || cats.length ? nl(nw.concat(cats)) : '<p class="sub">No recent headline found for this stock. Check the company announcements before trading.</p>';
+  const q = encodeURIComponent, tv = "https://www.tradingview.com/chart/?symbol=NSE%3A" + q(sym.replace(/-/g, "_"));
+  $("app").innerHTML = `${nav()}${back}
+  <h2 style="margin-top:14px">${esc(st.n)}</h2><div class="mu">${esc(sym)}${sec ? " · " + esc(sec.name) : ""}</div>
+  <div style="font-size:28px;font-weight:800;margin-top:4px">₹${fv(st.p)} <span class="${st.d >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(st.d)}</span></div>${rangeBar(st)}<div style="margin-top:6px">${tags}</div>
+  <div class="card chartbox" id="chart" style="margin-top:12px"><div class="sub">Loading chart…</div></div>${plan}
+  <h2>What is driving this stock</h2><div class="card"><ul class="ul" style="margin:0">${li(drivers(sym, st))}</ul></div>
+  <h2>News and events</h2>${news}${sameSec.length ? `<h3 style="margin:14px 0 4px">Other headlines from ${esc(sec.name)}</h3>${nl(sameSec)}` : ""}
+  <h2>More detail</h2><div class="chips"><a href="${tv}" target="_blank" rel="noopener"><button>Full chart on TradingView</button></a><a href="https://www.screener.in/company/${q(sym)}/" target="_blank" rel="noopener"><button>Fundamentals on Screener</button></a><a href="https://www.nseindia.com/get-quotes/equity?symbol=${q(sym)}" target="_blank" rel="noopener"><button>NSE page</button></a><a href="https://news.google.com/search?q=${q(st.n + " share")}&hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener"><button>More news</button></a></div>
+  <div class="note">The "driving factors" are read from price, volume, sector, market and headline data. They are likely influences, not proven causes. Headlines are not verified, and a setup can fail even when everything looks right.</div>`;
+  loadPrices().then(drawChart);
 }
 
 function pick(k) { view = "seg"; seg = k; location.hash = k; render(); window.scrollTo(0, 0); }
 function setPer(q) { per = q; render(); }
 
-const LIVE_URL = "https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/data/data.json";
-const getJ = u => fetch(u).then(r => r.ok ? r.json() : null).catch(() => null);
+const LIVE_BASE = "https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/data/";
+const LIVE_URL = LIVE_BASE + "data.json";
+const getJ = u => fetch(u).then(r => r.ok ? r.text() : null).then(t => t ? JSON.parse(t.replace(/\bNaN\b/g, "null").replace(/-?\bInfinity\b/g, "null")) : null).catch(() => null);
 async function loadData(first) {
   const t = Math.floor(Date.now() / 60000);
   const [live, base] = await Promise.all([getJ(LIVE_URL + "?t=" + t), first ? getJ("data.json?v=" + t) : null]);
@@ -726,7 +836,7 @@ async function loadData(first) {
 async function poll() {
   const d = await loadData(false);
   if (!d || !D || (d.ts || 0) <= (D.ts || 0)) return;
-  D = d;
+  D = d; PR = null;
   const el = document.activeElement, busy = view === "journal" || document.querySelector("details[open]") || (el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
   if (busy) $("asof").textContent = stamp(); else render();
 }
@@ -734,7 +844,8 @@ loadData(true).then(d => {
   if (!d) { $("app").innerHTML = '<p class="dn">Could not load the data. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; return; }
   D = d;
   const h = location.hash.slice(1);
-  if (["ov", "macro", "swing", "news", "journal"].includes(h)) view = h;
+  if (h.startsWith("stock-") && D.stocks[decodeURIComponent(h.slice(6))]) { curStock = decodeURIComponent(h.slice(6)); view = "stock"; }
+  else if (["ov", "macro", "swing", "news", "journal"].includes(h)) view = h;
   else if (D.segments.some(x => x.key === h)) { seg = h; view = "seg"; }
   render();
   setInterval(poll, 60000);
