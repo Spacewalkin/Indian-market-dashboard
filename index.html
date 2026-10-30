@@ -104,6 +104,23 @@ input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1
 .mc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
 .mc small{color:var(--mu);font-size:12px;display:block}.mc strong{font-size:24px}.mc span{font-size:12px;margin-left:8px}
 @media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}.side nav{flex-direction:row;overflow-x:auto;margin-top:10px}.side nav button{white-space:nowrap}.quote{display:none}.topbar{padding:10px 12px}.cards{padding:12px 12px 0}main{padding:6px 12px 60px}}
+:root[data-theme=dark]{--bg:#070d24;--panel:#0d1633;--line:#1a2750;--tx:#e8ecff;--mu:#8b97c3;--up:#1fd18b;--dn:#ff5b6e;--ac:#3b82f6;color-scheme:dark}
+.side{background:#091029}:root[data-theme=light] .side{background:#fff}
+.side nav button.on{background:#2455d6;color:#fff}
+.side nav button:hover{background:color-mix(in srgb,var(--ac) 14%,transparent)}
+.side nav button.on:hover{background:#2455d6}
+.quote{position:relative;overflow:hidden;margin:auto -12px -16px;padding:18px 16px 62px;border:0;font-style:italic;font-size:13px;line-height:1.55;color:#fff;background:linear-gradient(180deg,#14224f,#5a3d6b 68%,#d9825b)}
+.quote::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 50' preserveAspectRatio='none'%3E%3Cpath d='M0 50V34L40 14L70 30L110 8L150 28L200 16V50Z' fill='%230b1230' fill-opacity='.85'/%3E%3C/svg%3E") 0 0/100% 100%}
+.topbar .search input{border-radius:12px;background:var(--panel)}
+.greet{padding:16px 20px 0}.greet b{font-size:22px;display:block}.greet span{color:var(--mu);font-size:13px}
+.mc{display:flex;flex-direction:column;gap:4px;padding:12px 16px}
+.mc small{text-transform:uppercase;letter-spacing:.05em;font-size:11px}
+.mc strong{font-size:22px;color:var(--tx)}.mc span{margin:0;font-size:13px}
+.bar{position:fixed;left:232px;right:0;bottom:0;z-index:15;display:flex;gap:22px;align-items:center;padding:8px 20px;background:#091029;border-top:1px solid var(--line);font-size:12px;overflow-x:auto;white-space:nowrap}
+:root[data-theme=light] .bar{background:#fff}
+.bar .live{margin-left:auto;color:var(--up)}
+main{padding-bottom:84px}
+@media(max-width:860px){.bar{left:0;padding:8px 12px}.greet{padding:12px 12px 0}main{padding-bottom:84px}}
 </style>
 </head>
 <body>
@@ -119,10 +136,12 @@ input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1
       <span class="pill" id="asof">Loading…</span>
       <button id="thm" onclick="toggleTheme()" aria-label="Switch dark or light theme" title="Dark / light">◐</button>
     </header>
+    <div class="greet" id="greet"></div>
     <div class="cards" id="cards"></div>
     <main><div id="app"></div></main>
   </div>
 </div>
+<footer class="bar" id="bar"></footer>
 <script>
 // ---- Rules you can change ----
 const PERIODS = {"1 week":5, "1 month":21, "3 months":63, "6 months":126};
@@ -264,7 +283,13 @@ const nav = () => {
   const on = view === "stock" ? backView : view;
   $("snav").innerHTML = NAVS.map(([k, i, n]) => `<button class="${on === k ? "on" : ""}" onclick="go('${k}')"><span>${i}</span>${n}</button>`).join("");
   $("quote").innerHTML = "“" + QUOTES[Math.floor(Date.now() / 864e5) % QUOTES.length] + "”";
-  try { $("cards").innerHTML = D.segments.filter(x => x.group === "cap").map(x => { const r = calc(x); return `<div class="mc"><small>${esc(x.name)}</small><strong style="color:${r.color}">${r.score}</strong><span style="color:${r.color}">${r.mood}</span></div>`; }).join(""); } catch (e) { $("cards").innerHTML = ""; }
+  try {
+    const h = new Date().getHours(), mk = k => D.macro.find(x => x.k === k);
+    $("greet").innerHTML = `<b>Good ${h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"} 👋</b><span>Here's what's happening in the Indian stock market today.</span>`;
+    const cl = (x, inv) => (inv ? x.d <= 0 : x.d >= 0) ? "up" : "dn", ar = x => x.d >= 0 ? "↗" : "↘";
+    $("cards").innerHTML = [["nifty", 0], ["sensex", 0], ["banknifty", 0], ["midcap100", 0], ["smallcap100", 0], ["vix", 1]].map(([k, inv]) => mk(k)).filter(Boolean).map(x => `<div class="mc"><small>${esc(x.n)}</small><strong>${fv(x.v)}</strong><span class="${cl(x, x.k === "vix")}">${ar(x)} ${f1(x.d)} today</span></div>`).join("");
+    $("bar").innerHTML = ["nifty", "sensex", "banknifty"].map(mk).filter(Boolean).map(x => `<span><b>${esc(x.n)}</b> ${fv(x.v)} <span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></span>`).join("") + '<span class="live">● Live market data</span>';
+  } catch (e) { $("cards").innerHTML = ""; }
   return "";
 };
 function srch(v) {

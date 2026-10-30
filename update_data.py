@@ -562,6 +562,12 @@ MACRO = [  # key, name, Yahoo ticker, group
 ]
 
 
+EXTRA_INDICES = [  # key, name, Yahoo tickers to try in order
+    ("midcap100", "Nifty Midcap 100", ["NIFTY_MIDCAP_100.NS", "^CNXMIDCAP"]),
+    ("smallcap100", "Nifty Smallcap 100", ["^CNXSC", "NIFTY_SMALLCAP_100.NS"]),
+]
+
+
 def fetch_macro():
     try:
         px = yf.download([m[2] for m in MACRO], period="6mo", auto_adjust=True,
@@ -586,6 +592,23 @@ def fetch_macro():
                      "w": round((v / x.iloc[-6] - 1) * 100, 2),
                      "m": round((v / x.iloc[-22] - 1) * 100, 2),
                      "a": round(v - float(x.iloc[-22]), 2)})
+    for k, n, tickers in EXTRA_INDICES:  # extra index cards; tries each ticker until one works
+        for t in tickers:
+            try:
+                x = yf.download(t, period="6mo", auto_adjust=True, progress=False)["Close"].squeeze().dropna()
+            except Exception:
+                continue
+            if len(x) < 23:
+                continue
+            v = float(x.iloc[-1])
+            rows.append({"k": k, "n": n, "g": "Indices", "v": round(v, 2),
+                         "d": round((v / x.iloc[-2] - 1) * 100, 2),
+                         "w": round((v / x.iloc[-6] - 1) * 100, 2),
+                         "m": round((v / x.iloc[-22] - 1) * 100, 2),
+                         "a": round(v - float(x.iloc[-22]), 2)})
+            break
+        else:
+            print("Index skipped:", n)
     return rows
 
 
