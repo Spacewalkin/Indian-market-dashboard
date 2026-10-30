@@ -8,7 +8,7 @@
 :root{--bg:#0d1128;--panel:#151a38;--line:#262d57;--tx:#e9ebf8;--mu:#8e95bd;--up:#4fd1a5;--dn:#ff6b6b;--am:#f2b84b;--ac:#7c8cff}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:680px;margin:0 auto;padding:18px 16px 60px;overflow-wrap:anywhere}
+main{max-width:1500px;margin:0 auto;padding:6px 20px 60px;overflow-wrap:anywhere}
 h1{font-size:19px;margin:0}h2{font-size:15px;margin:28px 0 10px}
 .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px}
 .pill{border:1px solid var(--line);border-radius:14px;padding:4px 12px;font-size:12px;color:var(--mu);max-width:100%}
@@ -77,13 +77,52 @@ input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1
 .fg{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fg label{font-size:12px;color:var(--mu);display:block}
 .sl{color:var(--tx);text-decoration:underline dotted;cursor:pointer}.chartbox svg{width:100%;height:auto}
 .tag.r{color:var(--dn);border-color:var(--dn)}.ul{margin:6px 0;padding-left:18px}.ul li{margin:4px 0}
+.search{position:relative;margin:14px 0 6px}
+.search input{width:100%;padding:12px 14px;font-size:15px;border:2px solid var(--line);border-radius:12px}
+.search input:focus{outline:none;border-color:var(--ac)}
+.sres{position:absolute;left:0;right:0;top:100%;margin-top:6px;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.sres button{display:flex;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:0;border-bottom:1px solid var(--line);padding:11px 14px;text-align:left;font-size:14px}
+.sres button:last-child{border-bottom:0}
+.sres button:hover,.sres button:focus-visible{background:var(--bg)}
+.sres small{color:var(--mu)}
+:root[data-theme=light]{--bg:#eef2f7;--panel:#fff;--line:#d9e0ea;--tx:#14213d;--mu:#5b6780;--up:#0e8a5f;--dn:#c8344b;--am:#b7791f;--ac:#3a4fd7;color-scheme:light}
+:root[data-theme=light] .banner{background:#fde8ec}:root[data-theme=light] .banner.mid{background:#fbf0da}:root[data-theme=light] .banner.ok{background:#e2f4ec}
+:root[data-theme=light] .rg i{border:1px solid #14213d}:root[data-theme=light] .gauge i{border:1px solid #14213d}
+.shell{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+.side{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;padding:16px 12px;background:var(--panel);border-right:1px solid var(--line)}
+.brand b{font-size:17px;display:block}.brand small{color:var(--mu);font-size:11px}
+.side nav{display:flex;flex-direction:column;gap:4px;margin-top:20px}
+.side nav button{display:flex;gap:10px;align-items:center;border:0;border-radius:10px;padding:10px 12px;text-align:left;font-size:14px;color:var(--mu)}
+.side nav button.on{background:color-mix(in srgb,var(--ac) 22%,transparent);color:var(--tx);font-weight:600}
+.quote{margin-top:auto;padding:14px 8px 4px;border-top:1px solid var(--line);font-style:italic;font-size:13px;line-height:1.5;color:var(--mu)}
+.quote small{display:block;font-style:normal;font-size:11px;margin-top:6px}
+.mainc{min-width:0}
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;padding:12px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar .search{flex:1;margin:0;max-width:640px}
+#thm{border-radius:50%;width:36px;height:36px;padding:0;flex:none}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;padding:14px 20px 0}
+.mc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.mc small{color:var(--mu);font-size:12px;display:block}.mc strong{font-size:24px}.mc span{font-size:12px;margin-left:8px}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:static;height:auto;padding:10px 12px;border-right:0;border-bottom:1px solid var(--line)}.side nav{flex-direction:row;overflow-x:auto;margin-top:10px}.side nav button{white-space:nowrap}.quote{display:none}.topbar{padding:10px 12px}.cards{padding:12px 12px 0}main{padding:6px 12px 60px}}
 </style>
 </head>
 <body>
-<main>
-  <div class="top"><h1>India market dashboard</h1><span class="pill" id="asof">Loading…</span></div>
-  <div id="app"></div>
-</main>
+<div class="shell">
+  <aside class="side">
+    <div class="brand"><b>📈 India Market</b><small>Track · Analyse · Grow</small></div>
+    <nav id="snav" aria-label="Sections"></nav>
+    <div class="quote" id="quote"></div>
+  </aside>
+  <div class="mainc">
+    <header class="topbar">
+      <div class="search"><input id="sq" type="search" placeholder="Search stocks or companies…" autocomplete="off" aria-label="Search stocks" oninput="srch(this.value)"><div class="sres" id="sres" hidden></div></div>
+      <span class="pill" id="asof">Loading…</span>
+      <button id="thm" onclick="toggleTheme()" aria-label="Switch dark or light theme" title="Dark / light">◐</button>
+    </header>
+    <div class="cards" id="cards"></div>
+    <main><div id="app"></div></main>
+  </div>
+</div>
 <script>
 // ---- Rules you can change ----
 const PERIODS = {"1 week":5, "1 month":21, "3 months":63, "6 months":126};
@@ -219,8 +258,28 @@ let view = "ov", swF = "brk", curStock = null, backView = "ov", chRange = 66, PR
 const ALLM = {m: 0};
 const f1 = v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%";
 const fv = v => Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
-const nav = () => `<div class="chips nav">${[["ov", "Overview"], ["seg", "Market and sectors"], ["macro", "Global factors"], ["swing", "Swing trading"], ["news", "News and events"], ["journal", "Journal"]].map(([k, n]) =>
-  `<button class="${view === k ? "on" : ""}" onclick="go('${k}')">${n}</button>`).join("")}</div>`;
+const NAVS = [["ov", "🏠", "Overview"], ["seg", "📊", "Market and sectors"], ["macro", "🌍", "Global factors"], ["swing", "🎯", "Swing trading"], ["news", "📰", "News and events"], ["journal", "📓", "Journal"]];
+const QUOTES = ["Discipline today builds freedom tomorrow.", "Plan the trade, then trade the plan.", "Protect your capital first. Profits follow.", "Cut losses short and let winners run.", "The trend is your friend until it ends.", "Patience pays more than prediction.", "Small, steady gains beat big, risky bets.", "Better decisions build a wealthier tomorrow."];
+const nav = () => {
+  const on = view === "stock" ? backView : view;
+  $("snav").innerHTML = NAVS.map(([k, i, n]) => `<button class="${on === k ? "on" : ""}" onclick="go('${k}')"><span>${i}</span>${n}</button>`).join("");
+  $("quote").innerHTML = "“" + QUOTES[Math.floor(Date.now() / 864e5) % QUOTES.length] + "”";
+  try { $("cards").innerHTML = D.segments.filter(x => x.group === "cap").map(x => { const r = calc(x); return `<div class="mc"><small>${esc(x.name)}</small><strong style="color:${r.color}">${r.score}</strong><span style="color:${r.color}">${r.mood}</span></div>`; }).join(""); } catch (e) { $("cards").innerHTML = ""; }
+  return "";
+};
+function srch(v) {
+  const t = v.trim().toLowerCase(), box = $("sres");
+  if (!t) { box.hidden = true; return; }
+  const m = Object.entries(D.stocks).map(([k, x]) => ({k, n: x.n || k, d: x.d, r: k.toLowerCase().startsWith(t) ? 0 : (x.n || "").toLowerCase().startsWith(t) ? 1 : (k.toLowerCase().includes(t) || (x.n || "").toLowerCase().includes(t)) ? 2 : 9}))
+    .filter(x => x.r < 9).sort((a, b) => a.r - b.r || a.k.localeCompare(b.k)).slice(0, 8);
+  box.hidden = false;
+  box.innerHTML = m.length ? m.map(x => `<button onclick="pickS('${esc(x.k)}')"><span>${esc(x.n)} <small>${esc(x.k)}</small></span><span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></button>`).join("") : '<button disabled>No match. Try the stock symbol.</button>';
+}
+function pickS(k) { $("sq").value = ""; $("sres").hidden = true; openStock(k); }
+document.addEventListener("click", e => { if (!e.target.closest(".search")) $("sres").hidden = true; });
+function setTheme(t) { document.documentElement.dataset.theme = t; try { localStorage.setItem("theme", t); } catch (e) {} }
+function toggleTheme() { setTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light"); }
+(function () { let t = null; try { t = localStorage.getItem("theme"); } catch (e) {} document.documentElement.dataset.theme = t || (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"); })();
 function go(k) { if (k !== "journal") JPRE = {}; view = k; location.hash = k === "seg" ? seg : k; render(); window.scrollTo(0, 0); }
 const link = (t, l) => /^https?:/.test(l || "") ? `<a href="${esc(l)}" target="_blank" rel="noopener">${esc(t)}</a>` : esc(t);
 
