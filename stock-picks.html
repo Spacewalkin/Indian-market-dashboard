@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Breakout picks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#eef1f5;--card:#fff;--ink:#17212b;--mute:#5d6b7a;--line:#d5dce4;--acc:#2f4bd1;--good:#13795b;--bad:#b3261e;--warn:#b26a00}
+@media (prefers-color-scheme:dark){:root{--bg:#10151b;--card:#18202a;--ink:#e6ebf1;--mute:#93a1b0;--line:#2b3644;--acc:#7b93ff;--good:#3ecf9e;--bad:#ff8a80;--warn:#f0b24a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+a.back{color:var(--acc);text-decoration:none}
+h1{font-size:22px;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 14px}
+.bar{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:12px}
+label{font-size:13px;color:var(--mute)}
+input,select{display:block;margin-top:3px;padding:8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink);font:inherit}
+input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:10px;padding:0}
+summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;padding:12px 14px}
+summary::-webkit-details-marker{display:none}
+.score{font-size:20px;font-weight:600;text-align:center;line-height:1.1}
+.score small{display:block;font-size:11px;font-weight:400;color:var(--mute)}
+.score.hi{color:var(--good)}.score.mid{color:var(--warn)}.score.lo{color:var(--bad)}
+.nm b{font-size:16px}
+.nm span{display:block;color:var(--mute);font-size:13px}
+.nums{text-align:right;font-size:13px;color:var(--mute)}
+.nums b{color:var(--ink);font-size:14px}
+.body{padding:4px 14px 14px;border-top:1px solid var(--line)}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:4px 16px;margin:10px 0}
+.checks div{font-size:14px}
+.y{color:var(--good)}.n{color:var(--bad)}
+.todo{font-size:13px;color:var(--mute)}
+.empty{padding:30px;text-align:center;color:var(--mute);background:var(--card);border:1px solid var(--line);border-radius:10px}
+@media (max-width:560px){summary{grid-template-columns:44px 1fr}.nums{grid-column:1/-1;text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="index.html">Back to dashboard</a>
+<h1>Breakout picks</h1>
+<p class="sub" id="meta">Loading…</p>
+
+<div class="bar">
+<label>Minimum score<select id="min"><option value="8">8 (all checks)</option><option value="7">7 or more</option><option value="6" selected>6 or more</option><option value="0">Show all</option></select></label>
+<label>Breakout age<select id="age"><option value="999">Any</option><option value="10">Up to 10 days</option><option value="30">Up to 30 days</option><option value="60">Up to 60 days</option></select></label>
+<label>Search<input id="q" type="search" placeholder="Name or symbol"></label>
+</div>
+
+<div id="list"></div>
+<p class="todo">Based on daily closing prices for the Nifty 500. The score counts the checks the data can verify. You still need to confirm on the chart: the weekly high line, earnings or events in your holding window, and at least 2R to the next resistance.</p>
+</div>
+
+<script>
+var LABELS={volume:"Breakout-day volume at least 1.5× average",strong_close:"Closed in the top of the day’s range",above_50ema:"Above the 50 EMA",tight_base:"Tight base before breakout",rel_strength:"Beating the Nifty over 3 and 6 months",sector:"Industry is strong (most stocks above 50 EMA)",not_extended:"Not extended from the level or 20 EMA",stop_ok:"Stop within 10% of entry"};
+var data=null;
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function render(){
+  if(!data)return;
+  var min=+document.getElementById("min").value,age=+document.getElementById("age").value,q=document.getElementById("q").value.trim().toLowerCase();
+  var rows=data.picks.filter(function(p){return p.score>=min&&p.age<=age&&(!q||(p.symbol+" "+p.name).toLowerCase().indexOf(q)>-1)});
+  var el=document.getElementById("list");
+  if(!rows.length){el.innerHTML='<div class="empty">No stocks match these filters today. Lower the minimum score or widen the breakout age.</div>';return}
+  el.innerHTML=rows.map(function(p){
+    var cls=p.score>=7?"hi":p.score>=6?"mid":"lo";
+    var ch=Object.keys(LABELS).map(function(k){var ok=p.checks[k];return '<div class="'+(ok?"y":"n")+'">'+(ok?"Yes":"No")+" · "+LABELS[k]+"</div>"}).join("");
+    return '<details class="card"><summary><div class="score '+cls+'">'+p.score+"<small>of "+data.max_score+"</small></div>"+
+      '<div class="nm"><b>'+esc(p.symbol)+"</b><span>"+esc(p.name)+" · "+esc(p.industry)+"</span></div>"+
+      '<div class="nums">Entry above <b>₹'+p.entry+"</b> · Stop <b>₹"+p.stop+"</b><br>Risk "+p.risk_pct+"% · breakout "+p.age+" days ago</div></summary>"+
+      '<div class="body"><div class="checks">'+ch+'</div><div class="todo">Breakout level ₹'+p.breakout_level+" · Last close ₹"+p.close+" · Breakout volume "+p.vol_ratio+"× average. Entry is the latest day’s high and the stop is the breakout candle’s low; adjust both on the chart.</div></div></details>";
+  }).join("");
+}
+["min","age","q"].forEach(function(i){document.getElementById(i).oninput=render});
+fetch("breakouts.json?t="+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+  data=j;document.getElementById("meta").textContent=j.count+" stocks are holding above a 52-week-high breakout. Updated "+j.generated+".";render();
+}).catch(function(){
+  document.getElementById("meta").textContent="No data yet.";
+  document.getElementById("list").innerHTML='<div class="empty">breakouts.json was not found. Run the “Daily breakout screener” workflow once from the Actions tab of your repo.</div>';
+});
+</script>
+</body>
+</html>
