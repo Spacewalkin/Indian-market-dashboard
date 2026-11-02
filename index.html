@@ -121,6 +121,15 @@ input,select,textarea{font:inherit;color:var(--tx);background:var(--bg);border:1
 .bar .live{margin-left:auto;color:var(--up)}
 main{padding-bottom:84px}
 @media(max-width:860px){.bar{left:0;padding:8px 12px}.greet{padding:12px 12px 0}main{padding-bottom:84px}}
+
+.ds{margin:10px 20px 0;border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:8px;background:var(--panel);padding:8px 12px;font-size:13px}
+.ds.ok{border-left-color:var(--up)}.ds.prov{border-left-color:var(--am)}.ds.unk{border-left-color:var(--mu)}
+.ds.bad{border-color:var(--dn);border-left-color:var(--dn);background:rgba(255,107,107,.12)}
+.ds .lbl{margin-right:6px}.ds.ok .lbl{color:var(--up)}.ds.prov .lbl{color:var(--am)}.ds.bad .lbl{color:var(--dn)}
+.ds .dsm{color:var(--mu);font-size:12px;margin-top:3px}
+.ds details summary{cursor:pointer;color:var(--mu);font-size:12px;margin-top:5px}
+.ds ul{margin:4px 0 0;padding-left:18px;font-size:12px}
+@media(max-width:860px){.ds{margin:8px 12px 0}}
 </style>
 </head>
 <body>
@@ -136,6 +145,7 @@ main{padding-bottom:84px}
       <span class="pill" id="asof">Loading…</span>
       <button id="thm" onclick="toggleTheme()" aria-label="Switch dark or light theme" title="Dark / light">◐</button>
     </header>
+    <div id="dstat" aria-live="polite"></div>
     <div class="greet" id="greet"></div>
     <div class="cards" id="cards"></div>
     <main><div id="app"></div></main>
@@ -567,12 +577,14 @@ function validSetups() {
   return (D.swing || []).map(c => { const type = c.brk && c.vx >= 1.5 ? "brk" : "near"; return {c, type, t: tradePlan(type, c)}; }).filter(x => x.t.status === "valid");
 }
 function decision() {
+  if (gateOn()) return "NO TRADE";
   const M = D.mood;
   if (!M) return null;
   const v = validSetups();
   return (M.dec === "TRADE" && !v.length) ? "WAIT" : M.dec;
 }
 function decisionPanel() {
+  if (gateOn()) return `<div class="plan" style="border-color:#ff6b6b"><div style="font-size:26px;font-weight:800;color:#ff6b6b">⛔ ${BLOCK_MSG}</div><div class="sub">The data checks failed or the data is out of date, so no setup is shown as valid. Open the Data checks panel at the top to see why. Do not enter new trades from this page until the status turns green or blue.</div></div>`;
   const M = D.mood, dec = decision();
   if (!M) return '<div class="card"><div class="sub">Run "Update market data" once to build the Trade / Wait / No Trade panel.</div></div>';
   const c = {"TRADE": "#4fd1a5", "WAIT": "#f2b84b", "NO TRADE": "#ff6b6b"}[dec], ic = {"TRADE": "✅", "WAIT": "⏳", "NO TRADE": "⛔"}[dec], lv = M.lv;
@@ -686,17 +698,17 @@ function why(s, r, ra, k) {
 
 function setupCard(type, c) {
   const rd0 = ((D.events || {}).results || []).find(x => x.s === c.s), rdn = rd0 ? daysTo(rd0.d) : 99, nw = ((D.news || {})[c.s] || [])[0];
-  const mkt = D.mood && decision() === "NO TRADE";
+  const mkt = (D.mood || gateOn()) && decision() === "NO TRADE";
   const T = {brk: '<span class="tag g">Breakout in last 3 days</span>', near: `<span class="tag a">${c.d52 >= -0.5 ? "At 52-week high" : Math.abs(c.d52) + "% below 52-week high"}</span>`,
     pull: `<span class="tag g">Bounce off the ${c.ema} EMA</span>`, retest: `<span class="tag g">Retesting ₹${fv(c.lvl || 0)}</span>`, rs: `<span class="tag g">Top ${100 - (c.rank || 80)}% for strength, ${f1(c.rs || 0)} pts vs Nifty</span>`,
     vol: `<span class="tag ${c.d >= 0 ? "g" : "r"}">Volume ${c.vx}x on a ${f1(c.d)} move</span>`, weak: `<span class="tag r">Below 50 and 200 EMA, ${f1(c.rs || 0)} pts vs Nifty</span>`}[type];
   let chip = "", plan = "";
   if (["brk", "near", "pull", "retest"].includes(type)) {
     const t = tradePlan(type, c);
-    chip = mkt ? '<span class="tag r">Watchlist only: market says NO TRADE</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
+    chip = mkt ? '<span class="tag r">' + (gateOn() ? BLOCK_MSG : "Watchlist only: market says NO TRADE") + '</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
     plan = `<details><summary>Trade plan</summary><ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)${c.h52 && c.h52 > t.entry ? ", with the 52-week high at ₹" + fv(c.h52) + " as resistance" : ""}</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul></details>`;
   }
-  return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}${provTag()}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(c.p)} <span class="${c.d >= 0 ? "up" : "dn"}">${f1(c.d)}</span> today · ${f1(c.m)} in a month</div>${rangeBar(D.stocks[c.s])}${plan}
   <div class="why">${nw ? "Latest headline: " + link(nw.t, nw.l) + " (" + esc(nw.p) + ")" : "No recent headline found. Check the company's announcements before trading."}</div></div>`;
 }
@@ -718,7 +730,7 @@ function pickCard(c) {
   let v, cls;
   if (live < c.stop) { v = "Setup failed: price is below the stop"; cls = "r"; }
   else if (rdn <= 10) { v = "Not yet: results " + inDays(rdn); cls = "r"; }
-  else if (dec === "NO TRADE") { v = "Not yet: market says NO TRADE"; cls = "r"; }
+  else if (dec === "NO TRADE") { v = gateOn() ? BLOCK_MSG : "Not yet: market says NO TRADE"; cls = "r"; }
   else if (live > c.entry * 1.03) { v = "Wait for a pullback: already 3% above the trigger"; cls = "a"; }
   else if (c.score >= 7 && dec === "TRADE") { v = "Ready"; cls = "g"; }
   else if (c.score >= 7) { v = "Ready, half size"; cls = "a"; }
@@ -740,7 +752,7 @@ function pickCard(c) {
 function pickList(list) {
   if (!PICKS) return '<p class="sub">Top picks are not available yet. Run "Daily breakout screener" once from the Actions tab of your GitHub repo, then reload.</p>';
   const dec = decision();
-  const B = {"TRADE": ["#4fd1a5", "✅ Safe to trade", "The market supports new breakouts. Take only picks marked Ready."], "WAIT": ["#f2b84b", "⏳ Be selective", "The market is not fully clear. Take only picks marked Ready, at half size."], "NO TRADE": ["#ff6b6b", "⛔ Not yet", "The market says NO TRADE. Treat every pick below as a watchlist idea."]}[dec] || ["#f2b84b", "Market verdict not available yet", "Treat every pick below as a watchlist idea."];
+  const B = gateOn() ? ["#ff6b6b", "⛔ " + BLOCK_MSG, "Treat every pick below as a watchlist idea until the data checks pass."] : {"TRADE": ["#4fd1a5", "✅ Safe to trade", "The market supports new breakouts. Take only picks marked Ready."], "WAIT": ["#f2b84b", "⏳ Be selective", "The market is not fully clear. Take only picks marked Ready, at half size."], "NO TRADE": ["#ff6b6b", "⛔ Not yet", "The market says NO TRADE. Treat every pick below as a watchlist idea."]}[dec] || ["#f2b84b", "Market verdict not available yet", "Treat every pick below as a watchlist idea."];
   const head = `<div class="plan" style="border-color:${B[0]};margin-bottom:8px"><b style="color:${B[0]}">${B[1]}</b><div class="sub">${B[2]}</div><div class="mu" style="margin-top:4px">${PICKS.count} stocks are holding above a 52-week-high breakout; ${list.length} score 6 or more. Screened ${esc(PICKS.generated)} on daily closes.</div></div>`;
   return head + (list.length ? list.slice(0, 25).map(pickCard).join("") : '<p class="sub">No stock scores 6 or more today. When few setups exist, forcing trades is the mistake.</p>');
 }
@@ -757,7 +769,7 @@ function renderSwing() {
   $("asof").textContent = stamp();
   const all = D.segments.find(x => x.key === "all"), p20 = avg(all.p20, 5), p50 = avg(all.p50, 5), mr = macroRisk();
   const dec = decision() || (p50 < 35 || mr.label === "High" ? "NO TRADE" : p50 >= 50 && p20 >= 40 && mr.label !== "Elevated" ? "TRADE" : "WAIT");
-  const L = {"TRADE": ["Take only setups marked Valid now.", "Risk about 1% of your capital per trade and hold up to 5 or 6 positions across different sectors.", "Set the stop-loss before you buy.", "Take profit on half at 1:2 and trail the rest under the 20 EMA."],
+  const L = gateOn() ? ["Data is not verified, so take no new trades from this page.", "Check the Data checks panel at the top to see what failed.", "Wait for the next update, or check prices on your broker terminal.", "Existing trades: keep following your own stop-loss."] : {"TRADE": ["Take only setups marked Valid now.", "Risk about 1% of your capital per trade and hold up to 5 or 6 positions across different sectors.", "Set the stop-loss before you buy.", "Take profit on half at 1:2 and trail the rest under the 20 EMA."],
     "WAIT": ["Take only setups marked Valid now, and nothing else.", "Risk about 0.5% of capital per trade or less and keep to 2 or 3 positions.", "Waiting is a position: don't force a trade.", "Book half at the first target and move the stop to cost."],
     "NO TRADE": ["Avoid fresh buys: breakouts fail more often in this kind of market.", "Use the lists below as a watchlist and wait for the market to improve.", "If you still trade, use a quarter of your normal size and tight stops.", "Never average down on a losing trade."]}[dec];
   const ALW = ["Check the results date before entering, and avoid holding through results unless it is planned.", "Skip a stock that is already more than 5% above its breakout level and wait for a pullback.", "Never move a stop-loss further away.", "Avoid trading on the day of RBI policy, US Fed decisions or other major events."];
@@ -912,7 +924,7 @@ function drivers(sym, st) {
     out.push(`Sector (${esc(sec.name)}): ${ss.r.mood.toLowerCase()}, ${f1(ss.r.move)} over ${per}, and ${ss.k.adv} of ${ss.n} stocks are up today. ${Math.abs(diff) >= 1 ? "Today this stock is " + (diff > 0 ? "outperforming" : "lagging") + " its sector average (" + f1(st.d) + " vs " + f1(ss.avgc) + ")." : "Today it is moving in line with its sector."}`);
     signals().filter(x => x.imp[sec.key]).forEach(x => out.push(`${esc(x.txt)} Effect on ${esc(sec.name)}: ${x.imp[sec.key] === "+" ? "positive" : "negative"}.`));
   }
-  if (M) out.push(`Market: today's decision is ${decision()} (regime: ${esc(M.regime)}, mood ${M.score}). ${decision() === "NO TRADE" ? "Even strong stocks struggle against a weak market, so treat any setup as a watchlist idea." : decision() === "WAIT" ? "Conditions are not clear yet, so be selective." : "Conditions support taking valid setups."}`);
+  if (M) out.push(`Market: today's decision is ${decision()} (regime: ${esc(M.regime)}, mood ${M.score}). ${gateOn() ? "The data checks have not passed, so treat any setup as a watchlist idea." : decision() === "NO TRADE" ? "Even strong stocks struggle against a weak market, so treat any setup as a watchlist idea." : decision() === "WAIT" ? "Conditions are not clear yet, so be selective." : "Conditions support taking valid setups."}`);
   const rd0 = (E.results || []).find(x => x.s === sym);
   if (rd0) out.push(`Results: due on ${fd(rd0.d)} (${inDays(daysTo(rd0.d))}). Expect a bigger move, and plan the trade around that date.`);
   (E.actions || []).filter(x => x.s === sym).forEach(x => out.push(`Corporate action: ${esc(x.what)} (${fd(x.d)}).`));
@@ -932,7 +944,7 @@ function renderStock() {
   let plan = "";
   if (long) {
     const t = tradePlan(long[0], long[1]), c = long[1];
-    plan = `<h2>Trade plan</h2><div class="plan" style="border-color:${t.status === "valid" ? "#4fd1a5" : "#f2b84b"}"><b>${t.status === "valid" ? "Valid now" : "Wait for the trigger"}</b>${D.mood && decision() === "NO TRADE" ? ' <span class="tag r">Market says NO TRADE: watchlist only</span>' : ""}
+    plan = `<h2>Trade plan</h2><div class="plan" style="border-color:${t.status === "valid" ? "#4fd1a5" : "#f2b84b"}"><b>${t.status === "valid" ? "Valid now" : "Wait for the trigger"}</b>${(D.mood || gateOn()) && decision() === "NO TRADE" ? ' <span class="tag r">' + (gateOn() ? BLOCK_MSG : "Market says NO TRADE: watchlist only") + '</span>' : ""}
     <ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul>
     <button onclick='JPRE=${JSON.stringify({sym: sym, setup: {brk: "Breakout", near: "Near 52-week high", pull: "EMA pullback", retest: "Breakout retest"}[long[0]], entry: +t.entry.toFixed(2), stop: +t.stop.toFixed(2), target: +t.t1.toFixed(2)})};go("journal")'>Log this trade in the journal</button></div>`;
   }
@@ -958,21 +970,77 @@ function setPer(q) { per = q; render(); }
 const LIVE_BASE = "https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/data/";
 const LIVE_URL = LIVE_BASE + "data.json";
 const getJ = u => fetch(u).then(r => r.ok ? r.text() : null).then(t => t ? JSON.parse(t.replace(/\bNaN\b/g, "null").replace(/-?\bInfinity\b/g, "null")) : null).catch(() => null);
+
+// ---- Data safety: status.json written by the update script, plus a stale-feed check done in the browser ----
+let ST = null, shownGate = null;
+const BLOCK_MSG = "DATA NOT VERIFIED — NO NEW TRADE";
+const STALE_MIN = 120;  // minutes without a successful update, during the scheduled refresh window, before the page blocks new trades
+const isBusy = () => { const el = document.activeElement; return view === "journal" || !!document.querySelector("details[open]") || !!(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)); };
+function istNow() { const n = new Date(); return new Date(n.getTime() + n.getTimezoneOffset() * 60000 + 19800000); }
+function ageMin() { return D && D.ts ? (Date.now() / 1000 - D.ts) / 60 : null; }
+function staleBrowser() {
+  if (!D || !D.ts) return false;
+  const n = istNow(), wd = n.getDay(), hm = n.getHours() * 60 + n.getMinutes();
+  return wd >= 1 && wd <= 5 && hm >= 9 * 60 + 15 && hm <= 22 * 60 && ageMin() > STALE_MIN;
+}
+const gateOn = () => !!(ST && ST.gate === "BLOCKED") || staleBrowser();
+const provTag = () => ST && ST.state === "LIVE" && !gateOn() ? '<span class="tag a">PROVISIONAL</span>' : "";
+async function loadStatus() {
+  const t = Math.floor(Date.now() / 60000);
+  const [a, b] = await Promise.all([getJ(LIVE_BASE + "status.json?t=" + t), getJ("status.json?v=" + t)]);
+  const ts = x => x ? Math.max(x.fetched_ts || 0, x.failed_ts || 0, x.rechecked_ts || 0) : 0;
+  ST = [a, b].filter(Boolean).sort((x, y) => ts(y) - ts(x))[0] || ST;
+  renderStatus();
+}
+function renderStatus() {
+  const el = $("dstat");
+  if (!el) return;
+  const g = gateOn();
+  if (shownGate !== null && shownGate !== g && D && !isBusy()) { shownGate = g; render(); } else shownGate = g;
+  if (el.querySelector("details[open]")) return;
+  const fdt = iso => { try { return new Date(iso + "T00:00:00").toLocaleDateString("en-IN", {day: "numeric", month: "short", year: "numeric"}); } catch (e) { return iso; } };
+  const ago = m => m == null ? "unknown" : m < 1 ? "just now" : m < 90 ? Math.round(m) + " min ago" : (m / 60).toFixed(1) + " h ago";
+  const stale = staleBrowser();
+  if (!ST && !stale) { el.innerHTML = '<div class="ds unk"><b class="lbl">DATA STATUS UNKNOWN</b><span class="mu">The data checks have not reported yet. Run "Update market data" once in GitHub Actions so status.json is created.</span></div>'; return; }
+  const state = stale ? "STALE" : ST.state;
+  const bad = g;
+  const cls = bad ? "bad" : state === "CONFIRMED" ? "ok" : "prov";
+  const lbl = bad ? state : state === "CONFIRMED" ? "CONFIRMED" : "LIVE · PROVISIONAL";
+  const msg = bad ? BLOCK_MSG + ". The picks below are for reference only." : state === "CONFIRMED" ? "Official close" + (ST.last_candle ? " of " + esc(fdt(ST.last_candle)) : "") + ". Picks use a completed daily candle." : "Today's candle is still forming. Picks stay provisional until the evening run confirms them.";
+  const S = ST || {}, r = S.records || {};
+  const meta = [];
+  if (S.source) meta.push("Source: " + esc(S.source));
+  if (S.last_candle) meta.push("Latest candle: " + esc(fdt(S.last_candle)));
+  if (S.market) meta.push("Market: " + esc(S.market));
+  meta.push((bad ? "Last good data: " : "Last update: ") + ago(ageMin()) + (D && D.updated ? " (" + esc(D.updated) + ")" : ""));
+  if (r.requested != null) meta.push(r.used + " of " + r.requested + " stocks used, " + r.rejected + " rejected");
+  const probs = (stale ? ["Updates have stopped: the last successful update was " + ago(ageMin()) + "."] : []).concat(S.problems || []);
+  const li = a => a.map(x => "<li>" + x + "</li>").join("");
+  const det = [];
+  if (probs.length) det.push("<b>Problems</b><ul>" + li(probs.map(esc)) + "</ul>");
+  if ((S.checks || []).length) det.push("<b>Checks</b><ul>" + li(S.checks.map(c => (c.ok ? "✅ " : "❌ ") + esc(c.t))) + "</ul>");
+  if ((S.rejected || []).length) det.push("<b>Stocks left out of this run</b><ul>" + li(S.rejected.map(x => esc(x.s) + ": " + esc(x.why))) + "</ul>");
+  if ((S.volume_flags || []).length) det.push("<b>Unusually high volume (check before trusting)</b><ul>" + li(S.volume_flags.map(x => esc(x.s) + ": " + x.x + "x the 20-day average")) + "</ul>");
+  if ((S.segments_skipped || []).length) det.push("<b>NSE lists that did not download</b><ul>" + li(S.segments_skipped.map(esc)) + "</ul>");
+  el.innerHTML = `<div class="ds ${cls}"><b class="lbl">${esc(lbl)}</b><span>${msg}</span><div class="dsm">${meta.join(" · ")}</div>${det.length ? "<details><summary>Data checks</summary>" + det.join("") + "</details>" : ""}</div>`;
+}
 async function loadData(first) {
   const t = Math.floor(Date.now() / 60000);
   const [live, base] = await Promise.all([getJ(LIVE_URL + "?t=" + t), first ? getJ("data.json?v=" + t) : null]);
   return [live, base].filter(Boolean).sort((a, b) => (b.ts || 0) - (a.ts || 0))[0] || null;
 }
 async function poll() {
+  await loadStatus();
   const d = await loadData(false);
   if (!d || !D || (d.ts || 0) <= (D.ts || 0)) return;
   D = d; PR = null;
   const el = document.activeElement, busy = view === "journal" || document.querySelector("details[open]") || (el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
   if (busy) $("asof").textContent = stamp(); else render();
 }
-loadData(true).then(d => {
+Promise.all([loadData(true), loadStatus()]).then(([d]) => {
   if (!d) { $("app").innerHTML = '<p class="dn">Could not load the data. Run "Update market data" in GitHub Actions and reload.</p>'; $("asof").textContent = "No data"; return; }
   D = d;
+  renderStatus();
   loadPicks();
   setInterval(loadPicks, 600000);
   const h = location.hash.slice(1);
@@ -981,7 +1049,7 @@ loadData(true).then(d => {
   else if (D.segments.some(x => x.key === h)) { seg = h; view = "seg"; }
   render();
   setInterval(poll, 60000);
-  setInterval(() => { if (D) $("asof").textContent = stamp(); }, 30000);
+  setInterval(() => { if (D) { $("asof").textContent = stamp(); renderStatus(); } }, 30000);
 });
 </script>
 </body>

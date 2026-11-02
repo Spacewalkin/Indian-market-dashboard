@@ -3,8 +3,13 @@
 One price download covers every stock; each segment (cap size or sector) is then
 worked out from the same prices. A segment whose NSE list can't be downloaded is
 skipped, and the rest still work.
+
+Data safety (added): every run validates the downloaded candles, judges how fresh
+they are, writes status.json and appends to audit_log.jsonl. If the data cannot be
+trusted, data.json is left untouched (last good copy) and status.json says
+DATA NOT VERIFIED - NO NEW TRADE.
 """
-import io, json, math, os, re, sys, time
+import io, json, math, os, re, sys, time, traceback
 import xml.etree.ElementTree as ET
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
@@ -314,6 +319,203 @@ def ist_now():
     return datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=5, minutes=30)
 
 
+# ---------------- data safety: validation, freshness status and audit trail ----------------
+SOURCE = "Yahoo Finance via yfinance (unofficial feed, no timestamp guarantee) and NSE index lists"
+BLOCK_MSG = "DATA NOT VERIFIED — NO NEW TRADE"
+MAX_REJECT_PCT = 5     # more than this share of stocks rejected: scan is INCOMPLETE and blocked
+FAIL_REJECT_PCT = 20   # more than this: the download itself looks broken, keep the old data
+FINAL_AFTER = (16, 0)  # IST time after which today's daily candle is treated as final
+AUDIT_KEEP = 1500      # lines kept in audit_log.jsonl
+
+
+def write_json(path, obj):
+    """Write to a temp file first, so a crash never leaves a half-written file behind."""
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(clean(obj), f, separators=(",", ":"))
+    os.replace(tmp, path)
+
+
+def prev_weekday(d):
+    d -= timedelta(days=1)
+    while d.weekday() >= 5:
+        d -= timedelta(days=1)
+    return d
+
+
+def market_clock(now=None):
+    """Which daily candle dates are acceptable right now (IST), and whether the session is open."""
+    now = now or ist_now()
+    today, t = now.date(), (now.hour, now.minute)
+    if today.weekday() >= 5:
+        return {"market": "CLOSED", "accept": {prev_weekday(today)}, "final_now": True}
+    if t < (9, 15):
+        return {"market": "PRE-OPEN" if t >= (9, 0) else "CLOSED", "accept": {prev_weekday(today)}, "final_now": True}
+    if t < (9, 30):  # session just started, Yahoo may not have today's bar yet
+        return {"market": "OPEN", "accept": {prev_weekday(today), today}, "final_now": False}
+    if t < (15, 30):
+        return {"market": "OPEN", "accept": {today}, "final_now": False}
+    return {"market": "CLOSED", "accept": {today}, "final_now": t >= FINAL_AFTER}
+
+
+def validate_candles(close, opn, high, low, vol, last_real, recent=5):
+    """Return {symbol: reason} for stocks whose latest data cannot be trusted.
+    Nothing is repaired or guessed: a bad stock is left out of this run and listed."""
+    bad = {}
+
+    def flag(mask, why):
+        for s in mask[mask].index:
+            bad.setdefault(s, why)
+
+    c, o, h, l, v = (x.iloc[-recent:] for x in (close, opn, high, low, vol))
+    flag(~last_real.reindex(close.columns).fillna(False).astype(bool),
+         "no price for the latest session (an older value was carried forward)")
+    flag(((h < l) | (h < np.maximum(o, c) * 0.999) | (l > np.minimum(o, c) * 1.001)).any(),
+         "impossible candle (high or low does not fit open and close)")
+    flag(((c <= 0) | (o <= 0) | (h <= 0) | (l <= 0)).any(), "zero or negative price")
+    flag((v < 0).any(), "negative volume")
+    flag((c.max() == c.min()) & (c.notna().sum() >= recent),
+         f"price unchanged for {recent} sessions (stale or suspended)")
+    jump = close.pct_change().iloc[-1].abs()
+    flag(jump > 0.30, "price moved more than 30% in one session (possible unadjusted split or bonus)")
+    return bad
+
+
+def volume_flags(vol, limit=25):
+    """Information only: stocks whose latest volume is abnormally high versus their 20-day average."""
+    avg = vol.shift(1).rolling(20).mean().iloc[-1]
+    ratio = (vol.iloc[-1] / avg).replace([np.inf, -np.inf], np.nan)
+    r = ratio[ratio > limit].sort_values(ascending=False)
+    return [{"s": s, "x": round(float(x), 1)} for s, x in r.head(20).items()]
+
+
+def judge(last_date, vproblems, clock, now):
+    """ERROR > STALE > INCOMPLETE > LIVE or CONFIRMED."""
+    problems = list(vproblems)
+    if last_date > now.date():
+        problems.insert(0, "latest candle is dated in the future")
+        return "ERROR", problems
+    if last_date not in clock["accept"]:
+        want = max(clock["accept"])
+        problems.insert(0, f"latest candle is {last_date:%d %b %Y} but {want:%d %b %Y} was expected "
+                           "(normal if today is an NSE holiday)")
+        return "STALE", problems
+    if vproblems:
+        return "INCOMPLETE", problems
+    final = last_date < now.date() or clock["final_now"]
+    return ("CONFIRMED" if final else "LIVE"), problems
+
+
+def assess(close, rejected, n_received, n_requested, nifty_last, segments_skipped, vflags):
+    """Build the status record that goes into status.json and data.json."""
+    now = ist_now()
+    clock = market_clock(now)
+    last_date = close.index[-1].date()
+    vproblems = []
+    dup_ok = not close.index.duplicated().any()
+    gaps = pd.Series(close.index[-60:]).diff().dt.days.dropna()
+    gap_ok = not (gaps > 5).any()
+    nifty_ok = nifty_last is not None and nifty_last == last_date
+    pct = len(rejected) / max(n_received, 1) * 100
+    pct_ok = pct <= MAX_REJECT_PCT
+    if not dup_ok:
+        vproblems.append("duplicate dates in the price history")
+    if not gap_ok:
+        vproblems.append("missing sessions in the last 60 days (a gap of more than 5 days)")
+    if nifty_last is None:
+        vproblems.append("Nifty 50 index data is missing")
+    elif not nifty_ok:
+        vproblems.append(f"Nifty 50 ({nifty_last:%d %b}) and stock prices ({last_date:%d %b}) disagree on the latest date")
+    if not pct_ok:
+        vproblems.append(f"{len(rejected)} of {n_received} stocks failed validation ({pct:.0f}%)")
+    state, problems = judge(last_date, vproblems, clock, now)
+    ok = state in ("LIVE", "CONFIRMED")
+    return {
+        "state": state, "gate": "OK" if ok else "BLOCKED", "message": "" if ok else BLOCK_MSG,
+        "problems": problems, "vproblems": vproblems,
+        "checks": [
+            {"t": "Latest candle is the expected trading date", "ok": state not in ("ERROR", "STALE")},
+            {"t": "No duplicate or missing sessions", "ok": bool(dup_ok and gap_ok)},
+            {"t": "Nifty 50 and stocks agree on the latest date", "ok": bool(nifty_ok)},
+            {"t": f"No more than {MAX_REJECT_PCT}% of stocks rejected", "ok": bool(pct_ok)},
+        ],
+        "source": SOURCE, "market": clock["market"],
+        "last_candle": last_date.isoformat(),
+        "candle_final": bool(last_date < now.date() or clock["final_now"]),
+        "fetched": now.strftime("%d %b %Y, %I:%M %p IST").lstrip("0"),
+        "fetched_ts": int(time.time()),
+        "records": {"requested": n_requested, "received": n_received, "rejected": len(rejected),
+                    "used": n_received - len(rejected)},
+        "rejected": [{"s": s, "why": w} for s, w in list(rejected.items())[:40]],
+        "volume_flags": vflags,
+        "segments_skipped": segments_skipped,
+    }
+
+
+def refresh_status(old_status):
+    """Re-judge how fresh already-validated data is, without downloading prices (pre-open run)."""
+    if not old_status or not old_status.get("last_candle"):
+        return None
+    now = ist_now()
+    clock = market_clock(now)
+    last_date = datetime.strptime(old_status["last_candle"], "%Y-%m-%d").date()
+    state, problems = judge(last_date, old_status.get("vproblems", []), clock, now)
+    ok = state in ("LIVE", "CONFIRMED")
+    s = dict(old_status)
+    s.update(state=state, gate="OK" if ok else "BLOCKED", message="" if ok else BLOCK_MSG, problems=problems,
+             market=clock["market"], candle_final=bool(last_date < now.date() or clock["final_now"]),
+             rechecked_ts=int(time.time()))
+    return s
+
+
+def append_audit(entry):
+    """One line per run: what was fetched, how much passed validation, and the verdict."""
+    entry = {"ts": int(time.time()), "ist": ist_now().strftime("%Y-%m-%d %H:%M"), **entry}
+    try:
+        lines = open("audit_log.jsonl").read().splitlines() if os.path.exists("audit_log.jsonl") else []
+    except Exception:
+        lines = []
+    lines.append(json.dumps(clean(entry), separators=(",", ":")))
+    with open("audit_log.jsonl", "w") as f:
+        f.write("\n".join(lines[-AUDIT_KEEP:]) + "\n")
+
+
+def audit_entry(mode, s):
+    r = s.get("records", {})
+    return {"mode": mode, "state": s.get("state"), "gate": s.get("gate"), "last_candle": s.get("last_candle"),
+            "requested": r.get("requested"), "received": r.get("received"), "rejected": r.get("rejected"),
+            "used": r.get("used"), "segments_skipped": s.get("segments_skipped", []), "problems": s.get("problems", [])}
+
+
+def save_snapshot(day, status, mood, swing, scans):
+    """Keep what the scanner saw on a confirmed day, so a signal can be reproduced later."""
+    os.makedirs("snapshots", exist_ok=True)
+    write_json(f"snapshots/picks-{day}.json", {
+        "day": day, "saved": ist_now().strftime("%Y-%m-%d %H:%M IST"),
+        "status": {k: status.get(k) for k in ("state", "last_candle", "records", "source")},
+        "mood": {k: (mood or {}).get(k) for k in ("score", "label", "regime", "dec")},
+        "swing": swing, "scans": scans})
+
+
+def fail(reason):
+    """Hard stop: leave the last good data.json untouched, record why, and make the workflow run show as failed."""
+    print("DATA NOT VERIFIED:", reason)
+    try:
+        old = json.load(open("data.json"))
+    except Exception:
+        old = {}
+    now = ist_now()
+    status = {"state": "ERROR", "gate": "BLOCKED", "message": BLOCK_MSG, "problems": [reason], "source": SOURCE,
+              "failed": now.strftime("%d %b %Y, %I:%M %p IST").lstrip("0"), "failed_ts": int(time.time()),
+              "last_good": {"asof": old.get("asof"), "updated": old.get("updated"), "ts": old.get("ts")}}
+    try:
+        write_json("status.json", status)
+        append_audit({"mode": "fail", "state": "ERROR", "gate": "BLOCKED", "problems": [reason]})
+    except Exception as e:
+        print("Could not write status files:", e)
+    sys.exit(1)
+
+
 def gap_preview(macro, fiidii):
     """Rough read of how Indian stocks may open, from overnight global moves."""
     m = {x["k"]: x for x in macro}
@@ -351,8 +553,12 @@ def preopen_run(old):
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
     old["mode"] = "preopen"
     old["ts"] = int(time.time())
-    with open("data.json", "w") as f:
-        json.dump(clean(old), f, separators=(",", ":"))
+    st = refresh_status(old.get("status"))  # price data is not re-downloaded; only its freshness is re-judged
+    if st:
+        old["status"] = st
+        write_json("status.json", st)
+        append_audit(audit_entry("preopen", st))
+    write_json("data.json", old)
     print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
 
 
@@ -690,18 +896,19 @@ def main():
             else "live" if sched == "*/5 3-10 * * 1-5" else "full")
     if mode == "preopen" and old.get("segments"):
         return preopen_run(old)
-    lists, names = {}, {}
+    lists, names, skipped = {}, {}, []
     for key, name, group, fname in SEGMENTS:
         got = get_list(fname)
         if not got:
             print(f"SKIPPING segment {name}: list not available")
+            skipped.append(name)
             continue
         lists[key] = list(got)
         names.update(got)
         print(f"{name}: {len(got)} stocks")
 
     if "all" not in lists:
-        sys.exit("Nifty 500 list failed to download - keeping the old data.json")
+        fail("The Nifty 500 stock list failed to download")
 
     symbols = sorted(names)
     raw = yf.download([s + ".NS" for s in symbols], period="1y",
@@ -709,16 +916,33 @@ def main():
     close = raw["Close"]
     close.columns = [c[:-3] if str(c).endswith(".NS") else c for c in close.columns]
     close = close.dropna(axis=1, how="all").dropna(axis=0, how="all").ffill(limit=3)
+    # which stocks really have a price on the latest date (before anything is carried forward)
+    rc = raw["Close"].copy()
+    rc.columns = [c[:-3] if str(c).endswith(".NS") else c for c in rc.columns]
+    rc = rc.dropna(axis=0, how="all")
+    last_real = rc.iloc[-1].notna().reindex(close.columns).fillna(False).astype(bool)
+
     def aligned(name):
         d = raw[name].copy()
         d.columns = [c[:-3] if str(c).endswith(".NS") else c for c in d.columns]
         return d.reindex(index=close.index, columns=close.columns)
     opn, high, low, vol = aligned("Open"), aligned("High"), aligned("Low"), aligned("Volume")
     if len(close) < DAYS:
-        sys.exit("Not enough price history downloaded - keeping the old data.json")
+        fail("Not enough price history was downloaded")
 
     if close.shape[1] < 0.7 * len(symbols):
-        sys.exit("Too many stocks failed to download (Yahoo may be limiting requests) - keeping the old data.json")
+        fail("Too many stocks failed to download (Yahoo may be limiting requests)")
+
+    # ---- validate every candle; bad stocks are left out of this run and listed, never repaired ----
+    n_received = close.shape[1]
+    rejected = validate_candles(close, opn, high, low, vol, last_real)
+    if len(rejected) > FAIL_REJECT_PCT / 100 * n_received:
+        fail(f"{len(rejected)} of {n_received} stocks failed validation - the download looks unreliable")
+    if rejected:
+        print(f"Rejected {len(rejected)} stocks:", ", ".join(f"{s} ({w})" for s, w in list(rejected.items())[:15]))
+        keep = [s for s in close.columns if s not in rejected]
+        close, opn, high, low, vol = (x[keep] for x in (close, opn, high, low, vol))
+    vflags = volume_flags(vol)
 
     emas = {n: close.ewm(span=n, adjust=False, min_periods=n).mean() for n in (20, 50, 200)}
     valid = {n: emas[n].notna() for n in emas}
@@ -726,15 +950,31 @@ def main():
     chg = close.pct_change()
     idx = close.index[-DAYS:]
 
-    nifty, nifty_full = None, None
+    nifty, nifty_full, nifty_last = None, None, None
     try:
         nf = yf.download("^NSEI", period="1y", auto_adjust=True, progress=False)["Close"]
         if isinstance(nf, pd.DataFrame):
             nf = nf.iloc[:, 0]
+        nifty_last = nf.dropna().index[-1].date()
         nifty_full = nf.reindex(close.index).ffill()
         nifty = nifty_full.loc[idx].round(2).tolist()
     except Exception as e:
         print("Nifty 50 download failed:", e)
+
+    # ---- freshness and trust verdict ----
+    status = assess(close, rejected, n_received, len(symbols), nifty_last, skipped, vflags)
+    print(f"DATA STATUS: {status['state']} (gate {status['gate']}), latest candle {status['last_candle']}, "
+          f"{status['records']['used']} of {status['records']['requested']} stocks used")
+    for p in status["problems"]:
+        print("  problem:", p)
+    write_json("status.json", status)
+    append_audit(audit_entry(mode, status))
+    if status["gate"] == "BLOCKED" and old.get("segments"):
+        # hard stop: keep the last good data.json for reference, do not publish untrusted data
+        print(BLOCK_MSG, "- keeping the last good data.json")
+        if status["state"] != "STALE":  # STALE is usually just an NSE holiday, so it does not fail the run
+            sys.exit(1)
+        return
 
     hi52, lo52 = high.max(), low.min()
     r2 = lambda v: round(float(v), 2) if pd.notna(v) else None
@@ -793,6 +1033,11 @@ def main():
         events.update(fetch_headlines(names))
     scans = scan_more(close, high, low, vol, emas, nifty_full, stocks, sector_map(lists))
     mood = mood_index(nifty_full, segs, macro, events)
+    if status["gate"] == "BLOCKED":
+        # only reached on a first run with no earlier good data: publish no picks and no trade call
+        swing, scans = [], {k: [] for k in scans}
+        if mood:
+            mood["dec"] = "NO TRADE"
     mood_hist = [h for h in old.get("mood_hist", []) if h["d"] != idx[-1].date().isoformat()]
     if mood and mode != "midday":
         mood_hist.append({"d": idx[-1].date().isoformat(), "s": mood["score"], "r": mood["regime"], "k": mood["dec"]})
@@ -801,8 +1046,7 @@ def main():
     focus = list(dict.fromkeys([c["s"] for c in swing] + [c["s"] for v in scans.values() for c in v]
                                + [x["s"] for x in events.get("results", [])] + ranked[:20] + ranked[-20:]
                                + lists.get("large", [])))[:260]
-    with open("prices.json", "w") as f:
-        json.dump(build_prices(close, opn, high, low, vol, emas, focus), f, separators=(",", ":"))
+    write_json("prices.json", build_prices(close, opn, high, low, vol, emas, focus))
     print(f"{len(swing)} swing setups, news for {len(news)} stocks, {len(macro)} market factors, "
           f"{len(events['results'])} upcoming results, {len(events['catalysts'])} stock catalysts")
 
@@ -824,11 +1068,19 @@ def main():
         "mood": mood,
         "mood_hist": mood_hist,
         "scans": scans,
+        "status": status,
     }
-    with open("data.json", "w") as f:
-        json.dump(clean(out), f, separators=(",", ":"))
+    write_json("data.json", out)
+    if status["state"] == "CONFIRMED":
+        save_snapshot(idx[-1].date().isoformat(), status, mood, swing, scans)
     print(f"Saved {DAYS} days for {', '.join(s['key'] for s in segs)} - latest: {out['asof']}")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:
+        traceback.print_exc()
+        fail(f"Unexpected error: {type(e).__name__}: {e}")

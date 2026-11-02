@@ -2,10 +2,13 @@ name: Update market data
 
 on:
   schedule:
-    - cron: "15 3 * * 1-5"   # 8:45 AM IST, pre-open preview
-    - cron: "30 7 * * 1-5"   # 1:00 PM IST, midday refresh
-    - cron: "30 11 * * 1-5"  # 5:00 PM IST, after the close
-    - cron: "0 14 * * 1-5"   # 7:30 PM IST, evening (final FII/DII)
+    - cron: "15 3 * * 1-5"      # 8:45 AM IST
+    - cron: "40 3 * * 1-5"      # 9:10 AM IST
+    - cron: "30 4 * * 1-5"      # 10:00 AM IST
+    - cron: "15 5 * * 1-5"      # 10:45 AM IST
+    - cron: "0,30 6 * * 1-5"    # 11:30 AM and 12:00 PM IST
+    - cron: "30 7 * * 1-5"      # 1:00 PM IST
+    - cron: "0,30 8-16 * * 1-5" # every 30 min, 1:30 PM to 10:00 PM IST
   workflow_dispatch:         # lets you run it by hand too
 
 permissions:
@@ -18,29 +21,24 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install yfinance pandas requests
-      - name: Start from the latest saved data
-        run: |
-          git fetch origin data --depth=1 && for f in data.json prices.json; do git show FETCH_HEAD:$f > /tmp/prev_$f && cp /tmp/prev_$f $f || true; done || echo "No data branch yet"
       - run: python update_data.py
         env:
           RUN_SCHEDULE: ${{ github.event.schedule }}
-      - name: Save to the main branch
+      # "if: always()" saves status.json and the audit log even when the script fails,
+      # so the site can show DATA NOT VERIFIED. The run still shows as failed (and GitHub emails you).
+      - name: Save results
+        if: always()
         run: |
           git config user.name "market-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data.json
+          for f in data.json prices.json status.json audit_log.jsonl snapshots; do
+            if [ -e "$f" ]; then git add "$f"; fi
+          done
           git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
-      - name: Publish to the data branch
-        run: |
-          mkdir /tmp/pub && cp data.json /tmp/pub/ && (cp prices.json /tmp/pub/ 2>/dev/null || true) && cd /tmp/pub
-          git init -q -b data
-          git config user.name "market-bot"
-          git config user.email "bot@users.noreply.github.com"
-          git add -A && git commit -qm "Latest data"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" data
