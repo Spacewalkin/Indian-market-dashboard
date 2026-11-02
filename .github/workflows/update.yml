@@ -21,6 +21,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,8 +31,14 @@ jobs:
       - run: python update_data.py
         env:
           RUN_SCHEDULE: ${{ github.event.schedule }}
-      - run: |
+      # "if: always()" saves status.json and the audit log even when the script fails,
+      # so the site can show DATA NOT VERIFIED. The run still shows as failed (and GitHub emails you).
+      - name: Save results
+        if: always()
+        run: |
           git config user.name "market-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data.json
+          for f in data.json prices.json status.json audit_log.jsonl snapshots; do
+            if [ -e "$f" ]; then git add "$f"; fi
+          done
           git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
