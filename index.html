@@ -309,7 +309,7 @@ function srch(v) {
   const m = Object.entries(D.stocks).map(([k, x]) => ({k, n: x.n || k, d: x.d, r: k.toLowerCase().startsWith(t) ? 0 : (x.n || "").toLowerCase().startsWith(t) ? 1 : (k.toLowerCase().includes(t) || (x.n || "").toLowerCase().includes(t)) ? 2 : 9}))
     .filter(x => x.r < 9).sort((a, b) => a.r - b.r || a.k.localeCompare(b.k)).slice(0, 8);
   box.hidden = false;
-  box.innerHTML = m.length ? m.map(x => `<button onclick="pickS('${esc(x.k)}')"><span>${esc(x.n)} <small>${esc(x.k)}</small></span><span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></button>`).join("") : '<button disabled>No match. Try the stock symbol.</button>';
+  box.innerHTML = m.length ? m.map(x => `<button onclick="pickS('${esc(x.k)}')"><span>${esc(x.n)} <small>${esc(x.k)}${capOf(x.k) ? " · " + esc(capOf(x.k)) : ""}</small></span><span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></button>`).join("") : '<button disabled>No match. Try the stock symbol.</button>';
 }
 function pickS(k) { $("sq").value = ""; $("sres").hidden = true; openStock(k); }
 document.addEventListener("click", e => { if (!e.target.closest(".search")) $("sres").hidden = true; });
@@ -708,7 +708,7 @@ function setupCard(type, c) {
     chip = mkt ? '<span class="tag r">' + (gateOn() ? BLOCK_MSG : "Watchlist only: market says NO TRADE") + '</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
     plan = `<details><summary>Trade plan</summary><ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)${c.h52 && c.h52 > t.entry ? ", with the 52-week high at ₹" + fv(c.h52) + " as resistance" : ""}</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul></details>`;
   }
-  return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${T}${chip}${provTag()}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${capTag(c.s)}${T}${chip}${provTag()}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(c.p)} <span class="${c.d >= 0 ? "up" : "dn"}">${f1(c.d)}</span> today · ${f1(c.m)} in a month</div>${rangeBar(D.stocks[c.s])}${plan}
   <div class="why">${nw ? "Latest headline: " + link(nw.t, nw.l) + " (" + esc(nw.p) + ")" : "No recent headline found. Check the company's announcements before trading."}</div></div>`;
 }
@@ -738,7 +738,7 @@ function pickCard(c) {
   const failed = Object.keys(PCHK).filter(k => c.checks && c.checks[k] === false).map(k => PCHK[k]);
   const cancel = ["It gaps more than 3% above ₹" + fv(c.entry), lv ? "Nifty closes below its 50 EMA (₹" + fv(lv.e50) + ")" : "The market turns to NO TRADE", "Results are due within 10 days", "It closes back below the breakout level ₹" + fv(c.breakout_level)];
   return `<div class="cand"><b>${st ? stk(c.s, c.n) : esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span>
-  <div><span class="tag ${cls}">${esc(v)}</span><span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  <div>${capTag(c.s)}<span class="tag ${cls}">${esc(v)}</span><span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(live)}${st ? ` <span class="${st.d >= 0 ? "up" : "dn"}">${f1(st.d)}</span> today` : ""} · buy above ₹${fv(c.entry)} · stop ₹${fv(c.stop)} (${c.risk_pct}% risk)</div>${st ? rangeBar(st) : ""}
   <details><summary>Trade plan</summary><ul class="ul">
   <li><b>Entry trigger:</b> buy on a move above ₹${fv(c.entry)} while the stock holds above the breakout level ₹${fv(c.breakout_level)}. Check the chart and adjust if needed.</li>
@@ -857,6 +857,8 @@ function renderJournal() {
   <h2>Backup</h2><div class="chips" id="jbk"><button onclick="jexport()">Export journal</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="jimport(this)" style="width:auto"></label></div>`;
 }
 
+const capOf = s => (D && D.caps && D.caps[s]) || "";
+const capTag = s => capOf(s) ? `<span class="tag">${esc(capOf(s))}</span>` : "";
 const stk = (sym, name) => sym ? `<a href="#" class="sl" onclick="openStock('${esc(sym)}');return false">${esc(name)}</a>` : esc(name);
 function openStock(sym) {
   if (view !== "stock") backView = view;
@@ -954,7 +956,7 @@ function renderStock() {
   const news = nw.length || cats.length ? nl(nw.concat(cats)) : '<p class="sub">No recent headline found for this stock. Check the company announcements before trading.</p>';
   const q = encodeURIComponent, tv = "https://www.tradingview.com/chart/?symbol=NSE%3A" + q(sym.replace(/-/g, "_"));
   $("app").innerHTML = `${nav()}${back}
-  <h2 style="margin-top:14px">${esc(st.n)}</h2><div class="mu">${esc(sym)}${sec ? " · " + esc(sec.name) : ""}</div>
+  <h2 style="margin-top:14px">${esc(st.n)}</h2><div class="mu">${esc(sym)}${sec ? " · " + esc(sec.name) : ""}${capOf(sym) ? " · " + esc(capOf(sym)) : ""}</div>
   <div style="font-size:28px;font-weight:800;margin-top:4px">₹${fv(st.p)} <span class="${st.d >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(st.d)}</span></div>${rangeBar(st)}<div style="margin-top:6px">${tags}</div>
   <div class="card chartbox" id="chart" style="margin-top:12px"><div class="sub">Loading chart…</div></div>${plan}
   <h2>What is driving this stock</h2><div class="card"><ul class="ul" style="margin:0">${li(drivers(sym, st))}</ul></div>

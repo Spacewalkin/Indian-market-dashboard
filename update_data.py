@@ -51,6 +51,8 @@ SEGMENTS = [
     ("chem", "Chemicals", "sector", "ind_niftychemicalslist.csv"),
 ]
 
+MICRO_FILE = "ind_niftymicrocap250_list.csv"  # only used to tag stocks, never downloaded for prices
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
@@ -910,6 +912,18 @@ def main():
     if "all" not in lists:
         fail("The Nifty 500 stock list failed to download")
 
+    # cap tag for every stock: Large / Mid / Small come from the lists above, Micro from the Microcap 250 list
+    caps = {}
+    for key, label in (("small", "Small cap"), ("mid", "Mid cap"), ("large", "Large cap")):
+        for sym in lists.get(key, []):
+            caps[sym] = label
+    try:
+        micro = get_list(MICRO_FILE) or {}
+    except Exception:
+        micro = {}
+    for sym in micro:
+        caps.setdefault(sym, "Micro cap")
+
     symbols = sorted(names)
     raw = yf.download([s + ".NS" for s in symbols], period="1y",
                       auto_adjust=True, progress=False, threads=True)
@@ -1055,6 +1069,7 @@ def main():
         "dates": [d.strftime("%Y-%m-%d") for d in idx],
         "segments": segs,
         "stocks": stocks,
+        "caps": caps,
         "swing": swing,
         "news": news,
         "macro": macro,
