@@ -9,7 +9,12 @@ on:
     - cron: "0,30 6 * * 1-5"    # 11:30 AM and 12:00 PM IST
     - cron: "30 7 * * 1-5"      # 1:00 PM IST
     - cron: "0,30 8-16 * * 1-5" # every 30 min, 1:30 PM to 10:00 PM IST
-  workflow_dispatch:         # lets you run it by hand too
+  workflow_dispatch:            # lets you run it by hand, or an outside timer trigger it
+    inputs:
+      run_schedule:
+        description: "Leave empty for a full run. An outside timer sends the quick live mode here."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -30,15 +35,41 @@ jobs:
       - run: pip install yfinance pandas requests
       - run: python update_data.py
         env:
-          RUN_SCHEDULE: ${{ github.event.schedule }}
+          RUN_SCHEDULE: ${{ github.event.schedule || github.event.inputs.run_schedule }}
       # "if: always()" saves status.json and the audit log even when the script fails,
       # so the site can show DATA NOT VERIFIED. The run still shows as failed (and GitHub emails you).
       - name: Save results
         if: always()
+        env:
+          RUN_SCHEDULE: ${{ github.event.schedule || github.event.inputs.run_schedule }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "market-bot"
           git config user.email "bot@users.noreply.github.com"
-          for f in data.json prices.json status.json audit_log.jsonl snapshots; do
-            if [ -e "$f" ]; then git add "$f"; fi
+
+          # 1) Live copy: the page reads data.json, prices.json and status.json from the "data" branch
+          #    every minute. It is replaced by one fresh commit each run, so the repo never grows
+          #    and the website is not rebuilt.
+          rm -rf /tmp/databr && mkdir /tmp/databr
+          for f in data.json prices.json status.json; do
+            if [ -e "$f" ]; then cp "$f" /tmp/databr/; fi
           done
-          git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
+          if [ -n "$(ls -A /tmp/databr)" ]; then
+            (
+              cd /tmp/databr
+              git init -q -b data
+              git config user.name "market-bot"
+              git config user.email "bot@users.noreply.github.com"
+              git add -A
+              git commit -q -m "Live data $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+              git push -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" data:data
+            )
+          fi
+
+          # 2) Main copy (the site's own backup and the history): skipped for the quick live runs
+          if [ "$RUN_SCHEDULE" != "*/5 3-10 * * 1-5" ]; then
+            for f in data.json prices.json status.json audit_log.jsonl snapshots; do
+              if [ -e "$f" ]; then git add "$f"; fi
+            done
+            git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
+          fi
