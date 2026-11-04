@@ -20,6 +20,10 @@ import requests
 import yfinance as yf
 
 DAYS = 130  # trading days kept in data.json
+WEEK52 = 252  # trading days in 52 weeks
+FRESH_DAYS = 5  # a close above the old 52-week high counts as a NEW breakout if there was none in the 5 sessions before
+LEVEL_FROM = "high"  # the 52-week line is drawn from the highest "high" (use "close" to draw it from the highest close)
+INDUSTRY = {}  # symbol -> NSE industry name, filled from the NSE stock lists
 BASE = "https://nsearchives.nseindia.com/content/indices/"
 
 # key, display name, group, NSE list file
@@ -73,6 +77,9 @@ def get_list(fname):
                     sym = str(row["Symbol"]).strip()
                     if sym and not sym.upper().startswith("DUMMY"):
                         out[sym] = str(row.get("Company Name", sym)).strip()
+                        ind = str(row.get("Industry", "")).strip()
+                        if ind and ind.lower() != "nan":
+                            INDUSTRY.setdefault(sym, ind)  # the Nifty 500 list is read first, so it wins
                 return out
             print(f"  {fname}: HTTP {r.status_code}")
         except Exception as e:
@@ -569,7 +576,7 @@ def clamp(v, a, b):
 
 
 def sector_map(lists):
-    out = {}
+    out = dict(INDUSTRY)  # NSE industry first: every Nifty 500 stock has one
     for key, name, group, _ in SEGMENTS:
         if group == "sector" and key in lists:
             for sym in lists[key]:
@@ -820,23 +827,35 @@ def fetch_macro():
     return rows
 
 
-def swing_candidates(close, high, low, vol, stocks, lists):
-    """Stocks near their 52-week high or with a fresh volume breakout, in an uptrend."""
-    sector_of = {}
-    for key, name, group, _ in SEGMENTS:
-        if group == "sector" and key in lists:
-            for sym in lists[key]:
-                sector_of.setdefault(sym, name)
+def swing_candidates(close, high, low, vol, stocks, lists, final=True):
+    """Breakout candidates by the 52-week-high rule.
+
+    The line is the highest high of the 252 sessions BEFORE each day. A stock has broken out when it
+    CLOSES above that line. States:
+      ready    closed above the line on the last finished session and had not in the 5 sessions before.
+               This is "ready to trade" for the next session: you still decide, it can pull back.
+      pending  (only while the market is open) trading above the line right now; today's close is not final.
+      holding  broke out 1-5 sessions ago and the latest finished close is still above that line.
+      near     in an uptrend, within 5% below the line. Not a breakout yet: wait for a close above.
+    A breakout that closed back under its line is dropped.
+    final = True when the last candle is a finished session (False while the market is open)."""
+    sector_of = sector_map(lists)
+    n = len(close)
+    j = n - 1 if final else n - 2  # position of the last FINISHED session
+    if j < 2 * FRESH_DAYS + 1:
+        return []
     pc = close.shift(1)
     tr = np.maximum(high - low, np.maximum((high - pc).abs(), (low - pc).abs()))
     atr = tr.rolling(14).mean().iloc[-1]
     avgv = vol.shift(1).rolling(20).mean()
     vx_s = (vol / avgv).replace([np.inf, -np.inf], np.nan)
-    ph = close.shift(1).rolling(20).max()
-    brk = ((close > ph) & (vx_s >= 1.5)).iloc[-3:].any()  # breakout in the last 3 sessions
-    vx = vx_s.iloc[-3:].max()
-    hi52 = high.max()
-    bl = close.shift(3).rolling(20).max().iloc[-1]
+    src = high if LEVEL_FROM == "high" else close
+    level = src.shift(1).rolling(WEEK52, min_periods=230).max()  # the 52-week line as it stood before each day
+    crossed = (close > level).to_numpy()
+    cl, lv, hg, lw, vxa = close.to_numpy(), level.to_numpy(), high.to_numpy(), low.to_numpy(), vx_s.to_numpy()
+    col = {s: i for i, s in enumerate(close.columns)}
+    dates = close.index
+    hi52 = high.tail(WEEK52).max()
     last = close.iloc[-1]
     turn = avgv.iloc[-1] * last / 1e7
     out = []
@@ -846,22 +865,53 @@ def swing_candidates(close, high, low, vol, stocks, lists):
                 continue
             if pd.isna(turn[sym]) or turn[sym] < MIN_TURNOVER_CR or pd.isna(atr[sym]):
                 continue
+            i = col[sym]
+            state, t = None, None
+            # most recent NEW breakout among the last 6 finished sessions
+            for tt in range(j, j - FRESH_DAYS - 1, -1):
+                if crossed[tt, i] and not crossed[tt - FRESH_DAYS:tt, i].any():
+                    t = tt
+                    break
+            if t is not None:
+                if cl[j, i] > lv[t, i]:
+                    state = "ready" if t == j else "holding"
+            elif not final and crossed[n - 1, i] and not crossed[n - 1 - FRESH_DAYS:n - 1, i].any():
+                state, t = "pending", n - 1  # breaking out right now, close not final
+            if t is not None and state is None:
+                continue  # it broke out, then closed back under the line: a failed breakout, dropped
             d52 = (last[sym] / hi52[sym] - 1) * 100
-            near, b = bool(d52 >= -5), bool(brk[sym])
-            if not (near or b):
-                continue
-            v = float(vx[sym]) if pd.notna(vx[sym]) else 0.0
+            near = bool(d52 >= -5)
+            if state is None:
+                if not near or crossed[j, i]:
+                    continue  # not close enough, or a stale breakout that already ran
+                state = "near"
+            if state == "near":
+                lvl = float(lv[n - 1, i]) if not np.isnan(lv[n - 1, i]) else None
+                v = float(np.nanmax(vxa[j - 2:j + 1, i])) if not np.all(np.isnan(vxa[j - 2:j + 1, i])) else 0.0
+                strong, ext, age, bd = False, None, None, None
+            else:
+                lvl = float(lv[t, i])
+                v = float(vxa[t, i]) if not np.isnan(vxa[t, i]) else 0.0
+                rng = hg[t, i] - lw[t, i]
+                strong = bool(rng > 0 and (cl[t, i] - lw[t, i]) / rng >= 0.7)  # closed in the top 30% of the day's range
+                ext = round((st["p"] / lvl - 1) * 100, 1)
+                age, bd = int(j - t) if state != "pending" else 0, dates[t].date().isoformat()
             stop = float(last[sym] - 1.5 * atr[sym])
-            score = (3 if b else 0) + (2 if near else 0) + (1 if v >= 1.5 else 0) + (1 if st["d"] > 0 else 0)
+            base = {"ready": 4, "pending": 3, "holding": 2, "near": 1}[state]
+            vol_pt = 1 if (v >= 1.5 and state != "pending") else 0  # a live volume figure is only part of a day
+            tight = 1 if ((ext is not None and ext <= 5) or (state == "near" and d52 >= -2)) else 0
+            score = base + vol_pt + (1 if strong else 0) + tight
             out.append({"s": sym, "n": st["n"], "sec": sector_of.get(sym, ""), "p": st["p"],
                         "d": st["d"], "m": st["m"], "d52": round(float(d52), 1), "vx": round(v, 1),
-                        "brk": b, "near": near, "stop": round(stop, 2),
-                        "bl": round(float(bl[sym]), 2) if pd.notna(bl[sym]) else None,
+                        "brk": state != "near", "near": near, "stop": round(stop, 2),
+                        "bl": round(lvl, 2) if lvl else None,  # the 52-week line to close above (or that was crossed)
                         "h52": round(float(hi52[sym]), 2), "ht": round(float(high.iloc[-1][sym]), 2),
-                        "risk": round((st["p"] - stop) / st["p"] * 100, 1), "score": score})
+                        "risk": round((st["p"] - stop) / st["p"] * 100, 1), "score": score,
+                        "st": state, "bd": bd, "age": age, "ext": ext, "cs": strong})
         except Exception:
             continue
-    out.sort(key=lambda c: (-c["score"], -c["vx"]))
+    order = {"ready": 0, "pending": 1, "holding": 2, "near": 3}
+    out.sort(key=lambda c: (order[c["st"]], -c["score"], -c["vx"]))
     return out[:60]
 
 
@@ -925,8 +975,10 @@ def main():
         caps.setdefault(sym, "Micro cap")
 
     symbols = sorted(names)
-    raw = yf.download([s + ".NS" for s in symbols], period="1y",
-                      auto_adjust=True, progress=False, threads=True)
+    # 2 years, so the 200 EMA has settled before the 130 days shown. auto_adjust=False keeps prices
+    # adjusted for splits and bonuses only (like Chartink), not for dividends.
+    raw = yf.download([s + ".NS" for s in symbols], period="2y",
+                      auto_adjust=False, progress=False, threads=True)
     close = raw["Close"]
     close.columns = [c[:-3] if str(c).endswith(".NS") else c for c in close.columns]
     close = close.dropna(axis=1, how="all").dropna(axis=0, how="all").ffill(limit=3)
@@ -966,7 +1018,7 @@ def main():
 
     nifty, nifty_full, nifty_last = None, None, None
     try:
-        nf = yf.download("^NSEI", period="1y", auto_adjust=True, progress=False)["Close"]
+        nf = yf.download("^NSEI", period="2y", auto_adjust=False, progress=False)["Close"]
         if isinstance(nf, pd.DataFrame):
             nf = nf.iloc[:, 0]
         nifty_last = nf.dropna().index[-1].date()
@@ -990,17 +1042,19 @@ def main():
             sys.exit(1)
         return
 
-    hi52, lo52 = high.max(), low.min()
+    hi52, lo52 = high.tail(WEEK52).max(), low.tail(WEEK52).min()
     r2 = lambda v: round(float(v), 2) if pd.notna(v) else None
     # latest-day facts for every stock
     last = close.iloc[-1]
     m1 = close.iloc[-1] / close.iloc[-22] - 1
+    sec_of = sector_map(lists)
     stocks = {}
     for s in close.columns:
         if pd.isna(last[s]):
             continue
         stocks[s] = {
             "n": names.get(s, s),
+            "sec": sec_of.get(s, ""),
             "p": round(float(last[s]), 2),
             "d": round(float(chg[s].iloc[-1] * 100), 2) if pd.notna(chg[s].iloc[-1]) else 0,
             "m": round(float(m1[s] * 100), 1) if pd.notna(m1[s]) else 0,
@@ -1032,7 +1086,7 @@ def main():
             seg["line"], seg["real"] = (norm.mean(axis=1) * 100).round(2).tolist(), False
         segs.append(seg)
 
-    swing = swing_candidates(close, high, low, vol, stocks, lists)
+    swing = swing_candidates(close, high, low, vol, stocks, lists, final=bool(status.get("candle_final", True)))
     wanted = [c["s"] for c in swing[:15]]
     for seg in segs:
         mv = sorted([x for x in seg["stocks"] if x in stocks], key=lambda x: stocks[x]["d"])
