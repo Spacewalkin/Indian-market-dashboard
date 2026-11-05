@@ -434,6 +434,50 @@ def market_clock(now=None):
     return {"market": "CLOSED", "accept": {today}, "final_now": t >= FINAL_AFTER}
 
 
+def retry_missing(raw, tries=2):
+    """Yahoo sometimes leaves the latest candle empty for a share of the stocks in one big download.
+    Ask again for just those stocks, in small batches. Only real prices Yahoo returns are used."""
+    raw = raw.copy()
+    for attempt in range(tries):
+        cl = raw["Close"]
+        cover = cl.notna().mean(axis=1)
+        full = cover[cover >= 0.5].index
+        if not len(full):
+            return raw
+        ref = full[-1]
+        missing = [c for c in cl.columns if pd.isna(cl.loc[ref, c])]
+        if not missing:
+            break
+        print(f"Retry {attempt + 1}: {len(missing)} stocks have no price on {ref.date()}; asking Yahoo again in small batches")
+        time.sleep(5)
+        fixed = 0
+        for k in range(0, len(missing), 40):
+            part = missing[k:k + 40]
+            try:
+                new = yf.download(part, period="2y", auto_adjust=False, progress=False, threads=False)
+            except Exception as e:
+                print("  retry batch failed:", e)
+                continue
+            if new is None or new.empty:
+                continue
+            if not isinstance(new.columns, pd.MultiIndex):
+                new.columns = pd.MultiIndex.from_product([list(new.columns), part[:1]])
+            for t in part:
+                if ("Close", t) not in new.columns:
+                    continue
+                got = new[("Close", t)].reindex(raw.index)
+                if pd.isna(got.get(ref)):
+                    continue
+                for f in set(raw.columns.get_level_values(0)):
+                    if (f, t) in new.columns and (f, t) in raw.columns:
+                        raw[(f, t)] = new[(f, t)].reindex(raw.index)
+                fixed += 1
+        print(f"  got the latest price for {fixed} of {len(missing)} stocks")
+        if fixed == 0:
+            break
+    return raw
+
+
 def validate_candles(close, opn, high, low, vol, last_real, recent=5):
     """Return {symbol: reason} for stocks whose latest data cannot be trusted.
     Nothing is repaired or guessed: a bad stock is left out of this run and listed."""
@@ -1079,6 +1123,7 @@ def main():
     # adjusted for splits and bonuses only (like Chartink), not for dividends.
     raw = yf.download([s + ".NS" for s in symbols], period="2y",
                       auto_adjust=False, progress=False, threads=True)
+    raw = retry_missing(raw)
     # A trailing row where fewer than half of the stocks have a price is not a real session (Yahoo
     # sometimes adds an empty or partial row for today before the market opens), so it is dropped.
     cover = raw["Close"].notna().mean(axis=1)
