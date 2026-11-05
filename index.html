@@ -514,14 +514,27 @@ const PRE = {
 function preopenCard() {
   const P = D.preopen;
   if (!P || !PRE[P.key]) return "";
-  const now = new Date().toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"});
-  if (now.slice(0, 10) !== P.date || now.slice(11, 16) >= "16:00") return "";
+  const ist = d => d.toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"});
+  const now = ist(new Date()), hm = now.slice(11, 16);
+  if (now.slice(0, 10) !== P.date || hm >= "15:30") return "";  // only today, and not after the NSE close
   const p = PRE[P.key];
+  // Nifty's move today, only if the saved data was refreshed after the 9:15 open
+  const nf = (D.macro || []).find(x => x.k === "nifty"), fresh = D.ts && ist(new Date(D.ts * 1000)).slice(0, 10) === P.date && ist(new Date(D.ts * 1000)).slice(11, 16) >= "09:15";
+  const actual = hm >= "09:15" && nf && fresh ? `<div class="row"><span>Nifty 50 so far today</span><span class="${nf.d >= 0 ? "up" : "dn"}">${f1(nf.d)}</span></div>` : "";
   const val = r => r.cr ? (r.v >= 0 ? "+" : "-") + "₹" + fv(Math.abs(r.v)) + " cr" : f1(r.v);
-  return `<div class="plan" style="border-color:${p[1]};margin-top:12px"><h3>${p[0]}</h3><div class="mu">Pre-open view, ${esc(P.time)} IST</div>
+  const rows = P.rows.map(r => `<div class="row"><span>${esc(r.n)}</span><span class="${r.p >= 0 ? "up" : "dn"}">${val(r)}</span></div>`).join("");
+  if (hm >= "09:45") {  // the open has settled: keep it to one line
+    return `<div class="note" style="margin-top:12px"><b>Today's pre-open view was ${p[0]}</b> (made at ${esc(P.time)} IST).${actual ? " Nifty so far: " + f1(nf.d) + "." : ""} The first 30 minutes are over, so judge the day from the chart now.</div>`;
+  }
+  const phase = hm < "09:00" ? "NSE pre-open session starts at 9:00 and the market opens at 9:15."
+    : hm < "09:15" ? "NSE pre-open session is on now: orders 9:00-9:08, matching 9:08-9:12, then a short buffer. The market opens at 9:15. Check the indicative open price on NSE."
+    : "The market opened at 9:15. The first 30 minutes are the noisiest, so wait until 9:45 before new entries.";
+  const gift = hm < "09:15" ? `<div class="chips" style="margin-top:8px"><a href="https://www.google.com/search?q=GIFT+Nifty+live" target="_blank" rel="noopener"><button>Check GIFT Nifty</button></a><a href="https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market" target="_blank" rel="noopener"><button>NSE pre-open data</button></a></div>` : "";
+  return `<div class="plan" style="border-color:${p[1]};margin-top:12px"><h3>${p[0]}</h3><div class="mu">${hm >= "09:15" ? "Pre-open estimate" : "Pre-open view"}, made at ${esc(P.time)} IST</div>
+  <div class="sub" style="margin:4px 0">${phase}</div>
   <ul style="margin:6px 0">${li(p[2])}</ul>
-  ${P.rows.map(r => `<div class="row"><span>${esc(r.n)}</span><span class="${r.p >= 0 ? "up" : "dn"}">${val(r)}</span></div>`).join("")}
-  <div class="note">An estimate from overnight global moves, not a forecast. GIFT Nifty is not available here, so check it before the open.</div></div>`;
+  ${actual}${rows}${gift}
+  <div class="note">An estimate from overnight global moves and the last FII figure, not a forecast. GIFT Nifty is not available here, so check it before the open.</div></div>`;
 }
 
 let ovTab = "dash";
@@ -554,7 +567,7 @@ function spark(L, col) {
   return `<svg viewBox="0 0 200 40" style="height:38px"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
 }
 const heat = v => v >= 0 ? `rgba(79,209,165,${Math.min(0.75, 0.18 + v / 12).toFixed(2)})` : `rgba(255,107,107,${Math.min(0.75, 0.18 - v / 12).toFixed(2)})`;
-const SCN = {pick: "Stocks that broke above their 52-week high and held it, scored out of 8 on volume, base, strength, sector and risk. Updated each evening after the close.", brk: "Closed above the previous 52-week high within the last 5 sessions and is still above it. Ready means it happened on the last finished session. Needs volume at least 1.5 times normal on the breakout day. Pending means it is above the line now but the close is not final.", near: "Within 5% below the 52-week high, above the 20 and 50 EMA, with enough daily turnover. Not a breakout yet: wait for a close above the line.",
+const SCN = {pick: "Stocks that broke above their 52-week high and held it, scored out of 8 on volume, base, strength, sector and risk. Updated each evening after the close.", brk: "Closed above the previous 52-week high within the last 5 sessions and is still above it. Ready to trade means it closed above the line on the last finished session and price has now moved above that day's high (the PDH); you do not need to wait for today's close. Needs volume at least 1.5 times normal on the breakout day. Pending means it is above the line now but the close is not final.", near: "Within 5% below the 52-week high, above the 20 and 50 EMA, with enough daily turnover. Not a breakout yet: wait for a close above the line.",
   pull: "Uptrend (above rising 50 EMA and the 200 EMA) that pulled back to the 20 or 50 EMA, held it and turned up today.", retest: "Broke out 3 to 12 sessions ago, came back to the breakout level and held it.",
   rs: "Top 20% of Nifty 500 for 3-month strength against Nifty, above the 50 and 200 EMA.", vol: "Volume at least 2 times normal on a move of 3% or more, up or down.",
   weak: "Below the 50 and 200 EMA, behind Nifty over 3 months and down over the last month. For avoiding, not buying.", res: "Companies reporting results in the next 10 days. Plan around the date."};
@@ -563,12 +576,16 @@ function tradePlan(type, c) {
   let entry = c.p, trig, status, inv, stop = c.stop;
   if (type === "brk") {
     const bl = c.bl, ext = bl && c.p > bl * 1.05, under = bl && c.p < bl;
-    entry = c.ht || c.p;
+    const armed = c.st === "ready" && c.pdh, crossed = armed && c.p > c.pdh, run = armed && c.p > c.pdh * 1.03;
+    entry = armed ? c.pdh : (c.ht || c.p);
     if (bl) stop = Math.min(c.stop, bl * 0.99);
-    status = ext || under || c.st === "pending" ? "wait" : "valid";
+    status = ext || under || run || c.st === "pending" || (armed && !crossed) ? "wait" : "valid";
     trig = c.st === "pending" ? `Not confirmed yet. Wait to see if it closes above ₹${fv(bl)} today; a breakout that closes back under the line is not valid.`
       : under ? `Price is back under the 52-week-high line ₹${fv(bl)}. Skip it unless it closes back above that line.`
       : ext ? `Wait for a pullback toward ₹${fv(bl)} (the breakout level) that holds, then a move above that day's high.`
+      : run ? `It is already more than 3% above the previous day's high ₹${fv(c.pdh)}. Wait for a pullback that holds, then a move back above that day's high.`
+      : armed && crossed ? `Ready to trade: it closed above ₹${fv(bl)} on ${c.bd ? fd(c.bd) : "the last session"} and has now moved above the previous day's high ₹${fv(c.pdh)}. No need to wait for today's close. Your call: buy while it holds above ₹${fv(bl)}.`
+      : armed ? `It closed above ₹${fv(bl)} on ${c.bd ? fd(c.bd) : "the last session"}. It becomes ready to trade when price moves above the previous day's high ₹${fv(c.pdh)} (PDH). No need to wait for the close.`
       : c.st === "ready" ? `It closed above ₹${fv(bl)} on ${c.bd ? fd(c.bd) : "the last session"}. Your call: buy on a move above ₹${fv(c.ht || c.p)} while it holds above ₹${fv(bl)}. A pullback to the line is also possible.`
       : `Buy on a move above today's high ₹${fv(c.ht || c.p)} while the stock holds above ₹${fv(bl || c.p)}.`;
     inv = `A daily close below ₹${fv(stop)}.`;
@@ -591,6 +608,8 @@ const isBrk = c => c.brk && (c.vx >= 1.5 || c.st === "pending");
 const isNear = c => c.st ? c.st === "near" : c.near;
 function stateTag(c) {
   const lvl = "₹" + fv(c.bl || 0), when = c.bd ? fd(c.bd) : "";
+  if (c.st === "ready" && c.pdh) return c.p > c.pdh ? `<span class="tag g">Ready to trade: closed above ${lvl} on ${when}, now above the previous day's high ₹${fv(c.pdh)}</span>`
+    : `<span class="tag a">Breakout confirmed ${when}: ready on a move above ₹${fv(c.pdh)} (PDH)</span>`;
   if (c.st === "ready") return `<span class="tag g">Ready: closed above the 52-week high ${lvl} on ${when}</span>`;
   if (c.st === "pending") return `<span class="tag a">Breaking out now: not confirmed until the close</span>`;
   if (c.st === "holding") return `<span class="tag g">Broke out ${c.age} ${c.age === 1 ? "day" : "days"} ago, holding above ${lvl}</span>`;
@@ -613,7 +632,8 @@ function decisionPanel() {
   const c = {"TRADE": "#4fd1a5", "WAIT": "#f2b84b", "NO TRADE": "#ff6b6b"}[dec], ic = {"TRADE": "✅", "WAIT": "⏳", "NO TRADE": "⛔"}[dec], lv = M.lv;
   const why = {"TRADE": "Direction, volatility and agreement line up. Take only setups marked Valid now.", "WAIT": M.dec === "TRADE" ? "The market is fine, but no setup has hit its trigger yet." : "The market is not clear enough yet. Wait for the missing conditions below.", "NO TRADE": "Conditions are poor: downtrend, weak mood or high volatility. Protect your capital."}[dec];
   const need = M.checks.filter(x => !x.ok).map(x => x.t);
-  const lvl = M.regime !== "Trending up" ? `<li>Nifty needs a daily close above its 20 EMA (₹${fv(lv.e20)}) and then its 50 EMA (₹${fv(lv.e50)}). It closed at ₹${fv(lv.c)}.</li>` : "";
+  const ew = lv.ew, pc = (a, b) => ((a / b - 1) * 100).toFixed(1) + "%";
+  const lvl = M.regime !== "Trending up" ? (M.basis === "stocks" && ew ? `<li>The average stock needs to close back above its 20 EMA and then its 50 EMA. It is now ${pc(ew.c, ew.e20)} versus its 20 EMA and ${pc(ew.c, ew.e50)} versus its 50 EMA. Nifty 50 closed at ₹${fv(lv.c)} (50 EMA ₹${fv(lv.e50)}).</li>` : `<li>Nifty needs a daily close above its 20 EMA (₹${fv(lv.e20)}) and then its 50 EMA (₹${fv(lv.e50)}). It closed at ₹${fv(lv.c)}.</li>`) : "";
   return `<div class="plan" style="border-color:${c}"><div style="font-size:26px;font-weight:800;color:${c}">${ic} ${dec}</div><div class="sub">${why}</div>
   <div class="mu" style="margin-top:6px">Mood ${M.score}/100 (${M.mixed ? "mixed" : esc(M.label)}) · regime: ${esc(M.regime)} · confidence ${esc(M.conf)}</div>
   <ul class="ul" style="margin:8px 0 0">${M.checks.map(x => `<li>${x.ok ? "✅" : "❌"} ${esc(x.t)}</li>`).join("")}</ul>
@@ -629,7 +649,7 @@ function renderOverview() {
   const sent = A.k.adv > A.k.dec * 1.5 ? "More stocks are rising than falling." : A.k.dec > A.k.adv * 1.5 ? "More stocks are falling than rising, so be selective." : "Rising and falling stocks are about even.";
   const hist = D.mood_hist && D.mood_hist.length >= 3 ? `<div class="mu" style="text-align:left;margin-top:10px">Mood Index history (${D.mood_hist.length} days)</div>${spark(D.mood_hist.slice(-60).map(x => x.s), "#7c8cff")}` : "";
   const moodHtml = `<div class="card" style="text-align:center">${gauge(sc, col)}<div style="color:${col};font-weight:800;letter-spacing:.5px">${M ? (M.mixed ? "MIXED: WAIT FOR CONFIRMATION" : M.label.toUpperCase()) : A.z[0]}</div>
-  <div class="sub">${M ? "Market Mood Index · confidence " + esc(M.conf) + " · regime " + esc(M.regime) : "Nifty 500 mood score over the last " + per}</div>
+  <div class="sub">${M ? "Market Mood Index · " + (M.basis === "stocks" ? "based on how all stocks are doing, with Nifty 50 as a smaller part" : "Nifty-based") + " · confidence " + esc(M.conf) + " · regime " + esc(M.regime) : "Nifty 500 mood score over the last " + per}</div>
   ${M ? `<div style="text-align:left;margin-top:12px">${M.parts.map(p => `<div class="bar" style="grid-template-columns:118px 1fr 52px"><b style="font-size:12px">${esc(p.n)}</b><div class="trk"><i style="width:${p.pts / p.max * 100}%"></i></div><span>${p.pts}/${p.max}</span></div>`).join("")}</div>
   <h3 style="text-align:left;margin:12px 0 4px">What moved the score</h3><ul class="ul" style="text-align:left">${M.evidence.map(e => `<li>${e.d > 0 ? "🟢" : e.d < 0 ? "🔴" : "⚪"} ${esc(e.t)}</li>`).join("")}</ul>
   <div class="note" style="text-align:left">${esc(M.regime_note)}${M.missing.length ? " Missing data: " + esc(M.missing.join(", ")) + "." : ""}</div>${hist}` : ""}
@@ -728,7 +748,7 @@ function setupCard(type, c) {
   let chip = "", plan = "";
   if (["brk", "near", "pull", "retest"].includes(type)) {
     const t = tradePlan(type, c);
-    chip = mkt ? '<span class="tag r">' + (gateOn() ? BLOCK_MSG : "Watchlist only: market says NO TRADE") + '</span>' : t.status === "valid" ? '<span class="tag g">Valid now</span>' : '<span class="tag a">Wait for trigger</span>';
+    chip = gateOn() ? '<span class="tag r">' + BLOCK_MSG + '</span>' : (t.status === "valid" ? '<span class="tag g">Ready to trade</span>' : '<span class="tag a">Wait for trigger</span>') + (mkt ? '<span class="tag r">Market says NO TRADE: your call</span>' : "");
     plan = `<details><summary>Trade plan</summary><ul class="ul"><li><b>Entry trigger:</b> ${t.trig}</li><li><b>Stop-loss:</b> ₹${fv(t.stop)} (${t.rp.toFixed(1)}% below entry)</li><li><b>Invalid if:</b> ${t.inv}</li><li><b>Targets:</b> ₹${fv(t.t1)} (1:2) and ₹${fv(t.t2)} (1:3)${c.h52 && c.h52 > t.entry ? ", with the 52-week high at ₹" + fv(c.h52) + " as resistance" : ""}</li><li><b>Cancel the plan if:</b> ${t.cancel.join("; ")}.</li></ul></details>`;
   }
   return `<div class="cand"><b>${stk(c.s, c.n)}</b> <span class="mu">${esc(c.sec || "")}</span><div>${capTag(c.s)}${T}${chip}${provTag()}<span class="tag">Volume ${c.vx}x normal</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
@@ -753,18 +773,19 @@ function pickCard(c) {
   let v, cls;
   if (live < c.stop) { v = "Setup failed: price is below the stop"; cls = "r"; }
   else if (rdn <= 10) { v = "Not yet: results " + inDays(rdn); cls = "r"; }
-  else if (dec === "NO TRADE") { v = gateOn() ? BLOCK_MSG : "Not yet: market says NO TRADE"; cls = "r"; }
+  else if (gateOn()) { v = BLOCK_MSG; cls = "r"; }
   else if (live > c.entry * 1.03) { v = "Wait for a pullback: already 3% above the trigger"; cls = "a"; }
-  else if (c.score >= 7 && dec === "TRADE") { v = "Ready"; cls = "g"; }
-  else if (c.score >= 7) { v = "Ready, half size"; cls = "a"; }
-  else { v = "Watch only: score " + c.score + " of " + mx; cls = "a"; }
+  else if (live > c.entry) { v = "Ready to trade: above the previous high ₹" + fv(c.entry); cls = "g"; }
+  else { v = "Wait: needs a move above ₹" + fv(c.entry) + " (PDH)"; cls = "a"; }
+  const mk = gateOn() || !dec ? "" : dec === "NO TRADE" ? '<span class="tag r">Market says NO TRADE: your call</span>' : dec === "WAIT" ? '<span class="tag a">Market unclear: consider half size</span>' : "";
+  const sq = c.score >= 7 ? "" : '<span class="tag a">Score ' + c.score + " of " + mx + ": lower quality</span>";
   const failed = Object.keys(PCHK).filter(k => c.checks && c.checks[k] === false).map(k => PCHK[k]);
   const cancel = ["It gaps more than 3% above ₹" + fv(c.entry), lv ? "Nifty closes below its 50 EMA (₹" + fv(lv.e50) + ")" : "The market turns to NO TRADE", "Results are due within 10 days", "It closes back below the breakout level ₹" + fv(c.breakout_level)];
   return `<div class="cand"><b>${st ? stk(c.s, c.n) : esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span>
-  <div>${capTag(c.s)}<span class="tag ${cls}">${esc(v)}</span><span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  <div>${capTag(c.s)}<span class="tag ${cls}">${esc(v)}</span>${mk}${sq}<span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(live)}${st ? ` <span class="${st.d >= 0 ? "up" : "dn"}">${f1(st.d)}</span> today` : ""} · buy above ₹${fv(c.entry)} · stop ₹${fv(c.stop)} (${c.risk_pct}% risk)</div>${st ? rangeBar(st) : ""}
   <details><summary>Trade plan</summary><ul class="ul">
-  <li><b>Entry trigger:</b> buy on a move above ₹${fv(c.entry)} while the stock holds above the breakout level ₹${fv(c.breakout_level)}. Check the chart and adjust if needed.</li>
+  <li><b>Entry trigger:</b> buy on a move above ₹${fv(c.entry)} (the previous high) while the stock holds above the breakout level ₹${fv(c.breakout_level)}. You do not need to wait for the close. Check the chart and adjust if needed.</li>
   <li><b>Stop-loss:</b> ₹${fv(c.stop)}, the low of the breakout candle (${c.risk_pct}% below entry). Never move it further away.</li>
   <li><b>Exit rule:</b> at 1:1 (₹${fv(r1)}) move the stop to your cost. After that, exit on a daily close below the 10 EMA. Exit early if it closes back below ₹${fv(c.breakout_level)}, or if it has gone nowhere after 8 sessions.</li>
   <li><b>Reference targets:</b> ₹${fv(t1)} (1:2) and ₹${fv(t2)} (1:3).</li>
@@ -775,7 +796,7 @@ function pickCard(c) {
 function pickList(list) {
   if (!PICKS) return '<p class="sub">Top picks are not available yet. Run "Daily breakout screener" once from the Actions tab of your GitHub repo, then reload.</p>';
   const dec = decision();
-  const B = gateOn() ? ["#ff6b6b", "⛔ " + BLOCK_MSG, "Treat every pick below as a watchlist idea until the data checks pass."] : {"TRADE": ["#4fd1a5", "✅ Safe to trade", "The market supports new breakouts. Take only picks marked Ready."], "WAIT": ["#f2b84b", "⏳ Be selective", "The market is not fully clear. Take only picks marked Ready, at half size."], "NO TRADE": ["#ff6b6b", "⛔ Not yet", "The market says NO TRADE. Treat every pick below as a watchlist idea."]}[dec] || ["#f2b84b", "Market verdict not available yet", "Treat every pick below as a watchlist idea."];
+  const B = gateOn() ? ["#ff6b6b", "⛔ " + BLOCK_MSG, "Treat every pick below as a watchlist idea until the data checks pass."] : {"TRADE": ["#4fd1a5", "✅ Safe to trade", "The market supports new breakouts. A pick is Ready once price moves above its previous high; you do not need to wait for the close."], "WAIT": ["#f2b84b", "⏳ Be selective", "The market is not fully clear. Take only picks marked Ready, at half size."], "NO TRADE": ["#ff6b6b", "⛔ Market says NO TRADE", "Market conditions are poor. A pick marked Ready has still crossed its trigger, but the market works against it, so the final call is yours."]}[dec] || ["#f2b84b", "Market verdict not available yet", "Treat every pick below as a watchlist idea."];
   const head = `<div class="plan" style="border-color:${B[0]};margin-bottom:8px"><b style="color:${B[0]}">${B[1]}</b><div class="sub">${B[2]}</div><div class="mu" style="margin-top:4px">${PICKS.count} stocks are holding above a 52-week-high breakout; ${list.length} score 6 or more. Screened ${esc(PICKS.generated)} on daily closes.</div></div>`;
   return head + (list.length ? list.slice(0, 25).map(pickCard).join("") : '<p class="sub">No stock scores 6 or more today. When few setups exist, forcing trades is the mistake.</p>');
 }

@@ -382,6 +382,19 @@ def ist_now():
     return datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=5, minutes=30)
 
 
+# NSE weekday trading holidays you want the dashboard to respect (YYYY-MM-DD). The pre-open verdict is
+# skipped on these days. Fill this from NSE's official holiday circular; only add dates you have checked.
+# Dates to check for the rest of 2026: 9 Nov (Diwali Balipratipada), 24 Nov (Guru Nanak Jayanti).
+# Muhurat trading is a special evening session on Sunday 8 Nov 2026 (timings come from an NSE circular).
+HOLIDAYS = {
+    "2026-12-25",  # Christmas Day
+}
+
+
+def is_holiday(d):
+    return d.isoformat() in HOLIDAYS
+
+
 # ---------------- data safety: validation, freshness status and audit trail ----------------
 SOURCE = "Yahoo Finance via yfinance (unofficial feed, no timestamp guarantee) and NSE index lists"
 BLOCK_MSG = "DATA NOT VERIFIED — NO NEW TRADE"
@@ -410,7 +423,7 @@ def market_clock(now=None):
     """Which daily candle dates are acceptable right now (IST), and whether the session is open."""
     now = now or ist_now()
     today, t = now.date(), (now.hour, now.minute)
-    if today.weekday() >= 5:
+    if today.weekday() >= 5 or is_holiday(today):
         return {"market": "CLOSED", "accept": {prev_weekday(today)}, "final_now": True}
     if t < (9, 15):
         return {"market": "PRE-OPEN" if t >= (9, 0) else "CLOSED", "accept": {prev_weekday(today)}, "final_now": True}
@@ -614,7 +627,8 @@ def preopen_run(old):
     ev["gtop"] = fetch_top(GLOBAL_TOP)
     ev["dtop"] = fetch_top(DOMESTIC_TOP)
     old["events"] = ev
-    old["preopen"] = gap_preview(old["macro"], old.get("fiidii"))
+    t0 = ist_now()
+    old["preopen"] = None if (t0.weekday() >= 5 or is_holiday(t0.date())) else gap_preview(old["macro"], old.get("fiidii"))
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
     old["mode"] = "preopen"
     old["ts"] = int(time.time())
@@ -624,7 +638,10 @@ def preopen_run(old):
         write_json("status.json", st)
         append_audit(audit_entry("preopen", st))
     write_json("data.json", old)
-    print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
+    if old["preopen"]:
+        print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
+    else:
+        print("No pre-open preview today (weekend or NSE holiday)")
 
 
 def clamp(v, a, b):
@@ -644,8 +661,10 @@ BULL_WORDS = ("rally", "surge", "jump", "gain", "record high", "rebound", "soar"
 BEAR_WORDS = ("fall", "slump", "plunge", "crash", "sell-off", "selloff", "tumble", "drop", "slide", "fear", "sink")
 
 
-def mood_index(nf, segs, macro, ev):
-    """Market Mood Index (0-100) from Nifty trend, breadth, volatility, sectors and headline tone."""
+def mood_index(nf, segs, macro, ev, ew=None, hl=None):
+    """Market Mood Index (0-100). Built mainly from how the stocks are doing: the trend of the average stock
+    (equal-weight line of every stock), breadth, new highs versus new lows, and sector strength. Nifty 50 is a
+    smaller input, with volatility and headline tone."""
     if nf is None:
         return None
     x = nf.dropna()
@@ -655,27 +674,46 @@ def mood_index(nf, segs, macro, ev):
     c = float(x.iloc[-1])
     ema = lambda n: x.ewm(span=n, adjust=False, min_periods=n).mean()
     e = {n: float(ema(n).iloc[-1]) for n in (20, 50, 200)}
-    slope50 = e[50] / float(ema(50).iloc[-11]) - 1
     mom = c / float(x.iloc[-22]) - 1
+    # the average stock: equal-weight line of all stocks (falls back to Nifty if it is not available)
+    y = ew.dropna() if ew is not None else x
+    stock_basis = ew is not None and len(y) >= 210
+    if not stock_basis:
+        y = x
+    cy = float(y.iloc[-1])
+    emy = lambda n: y.ewm(span=n, adjust=False, min_periods=n).mean()
+    ey = {n: float(emy(n).iloc[-1]) for n in (20, 50, 200)}
+    slope50 = ey[50] / float(emy(50).iloc[-11]) - 1
+    momy = cy / float(y.iloc[-22]) - 1
+    who = "The average stock" if stock_basis else "Nifty 50"
     evid, missing = [], []
     note = lambda t, d: evid.append({"t": t, "d": d})
 
-    # 1) price trend, 35 points
-    above = [n for n in (20, 50, 200) if c > e[n]]
-    tp = 10 * len(above) + 5 * clamp((mom * 100 + 5) / 10, 0, 1)
+    # 1) price trend, 35 points: 70% the average stock, 30% Nifty 50
+    tr = lambda cc, ee, mm: 10 * sum(cc > ee[n] for n in (20, 50, 200)) + 5 * clamp((mm * 100 + 5) / 10, 0, 1)
+    above = [n for n in (20, 50, 200) if cy > ey[n]]
+    tp = (0.7 * tr(cy, ey, momy) + 0.3 * tr(c, e, mom)) if stock_basis else tr(c, e, mom)
     if len(above) == 3:
-        note("Nifty 50 is above its 20, 50 and 200 EMA", 1)
+        note(f"{who} is above its 20, 50 and 200 EMA", 1)
     elif not above:
-        note("Nifty 50 is below its 20, 50 and 200 EMA", -1)
+        note(f"{who} is below its 20, 50 and 200 EMA", -1)
     else:
-        note("Nifty 50 is above its " + " and ".join(map(str, above)) + " EMA but below the others", 1 if len(above) == 2 else -1)
-    note(f"Nifty 50 moved {mom * 100:+.1f}% over the last month", 1 if mom > 0 else -1)
+        note(f"{who} is above its " + " and ".join(map(str, above)) + " EMA but below the others", 1 if len(above) == 2 else -1)
+    note(f"{who} moved {momy * 100:+.1f}% over the last month", 1 if momy > 0 else -1)
+    if stock_basis:
+        note(f"Nifty 50 moved {mom * 100:+.1f}% over the last month (a smaller input, since a few large stocks drive it)", 1 if mom > 0 else -1)
 
     # 2) breadth, 30 points
     p20, p50, p200 = al["p20"][-1], al["p50"][-1], al["p200"][-1]
     adv, dec = al["adv"][-1], al["dec"][-1]
     ad = adv / (adv + dec) * 100 if adv + dec else 50
-    bp = 30 * (0.25 * p20 + 0.35 * p50 + 0.25 * p200 + 0.15 * ad) / 100
+    hlscore = None
+    if hl:
+        near_hi, near_lo = hl
+        hlscore = clamp(50 + (near_hi - near_lo) * 1.5, 0, 100)
+        note(f"{near_hi:.0f}% of stocks are within 5% of their 52-week high and {near_lo:.0f}% within 5% of their 52-week low", 1 if near_hi > near_lo else -1)
+    bp = 30 * ((0.2 * p20 + 0.3 * p50 + 0.2 * p200 + 0.15 * ad + 0.15 * hlscore) if hlscore is not None
+               else (0.25 * p20 + 0.35 * p50 + 0.25 * p200 + 0.15 * ad)) / 100
     note(f"{p50:.0f}% of Nifty 500 stocks are above the 50 EMA and {p200:.0f}% above the 200 EMA", 1 if p50 >= 50 else -1)
     note(f"{adv} stocks rose and {dec} fell today", 1 if adv > dec else -1)
     n5 = c / float(x.iloc[-6]) - 1
@@ -726,16 +764,17 @@ def mood_index(nf, segs, macro, ev):
     conf = "Low" if mixed else ("High" if (bulls == 3 or bears == 3) and not missing else "Medium")
     label = "Bearish" if score < 30 else "Weak" if score < 45 else "Neutral" if score < 55 else "Positive" if score < 70 else "Bullish"
 
-    if c > e[50] and e[20] > e[50] > e[200]:
-        regime, rnote = "Trending up", "Nifty is above a rising stack of EMAs. Pullback buys and breakouts have the best odds."
-    elif c < e[50] and e[20] < e[50] < e[200]:
-        regime, rnote = "Trending down", "Nifty is below falling EMAs. Rallies tend to fail, so stay mostly in cash."
-    elif abs(c / e[50] - 1) < 0.03 and abs(slope50) < 0.01:
-        regime, rnote = "Ranging", "Nifty is moving sideways around its 50 EMA. Breakouts often fail, so trade smaller and take profits early."
+    wl = who.lower()
+    if cy > ey[50] and ey[20] > ey[50] > ey[200]:
+        regime, rnote = "Trending up", f"{who} is above a rising stack of EMAs. Pullback buys and breakouts have the best odds."
+    elif cy < ey[50] and ey[20] < ey[50] < ey[200]:
+        regime, rnote = "Trending down", f"{who} is below falling EMAs. Rallies tend to fail, so stay mostly in cash."
+    elif abs(cy / ey[50] - 1) < 0.03 and abs(slope50) < 0.01:
+        regime, rnote = "Ranging", f"{who} is moving sideways around its 50 EMA. Breakouts often fail, so trade smaller and take profits early."
     else:
-        regime, rnote = "Uncertain", "The trend is in transition. Wait for Nifty to reclaim or lose its 50 EMA before committing."
+        regime, rnote = "Uncertain", f"The trend is in transition. Wait for {wl} to reclaim or lose its 50 EMA before committing."
 
-    checks = [{"t": "Nifty is in a confirmed uptrend (above stacked, rising EMAs)", "ok": regime == "Trending up"},
+    checks = [{"t": f"{who} is in a confirmed uptrend (above stacked, rising EMAs)", "ok": regime == "Trending up"},
               {"t": "Market Mood Index is 55 or higher", "ok": score >= 55},
               {"t": "Signals agree with each other (not mixed)", "ok": not mixed},
               {"t": "Volatility is below 20", "ok": vix < 20}]
@@ -747,7 +786,9 @@ def mood_index(nf, segs, macro, ev):
         decision = "WAIT"
     return {"score": score, "label": label, "conf": conf, "mixed": mixed, "regime": regime, "regime_note": rnote,
             "dec": decision, "checks": checks, "evidence": evid, "parts": parts, "missing": missing,
-            "lv": {"c": round(c, 2), "e20": round(e[20], 2), "e50": round(e[50], 2), "e200": round(e[200], 2)}}
+            "basis": "stocks" if stock_basis else "nifty",
+            "lv": {"c": round(c, 2), "e20": round(e[20], 2), "e50": round(e[50], 2), "e200": round(e[200], 2),
+                   "ew": {"c": round(cy, 2), "e20": round(ey[20], 2), "e50": round(ey[50], 2), "e200": round(ey[200], 2)}}}
 
 
 def scan_more(close, high, low, vol, emas, nf, stocks, sector_of):
@@ -962,6 +1003,7 @@ def swing_candidates(close, high, low, vol, stocks, lists, final=True):
                         "brk": state != "near", "near": near, "stop": round(stop, 2),
                         "bl": round(lvl, 2) if lvl else None,  # the 52-week line to close above (or that was crossed)
                         "h52": round(float(hi52[sym]), 2), "ht": round(float(high.iloc[-1][sym]), 2),
+                        "pdh": round(float(hg[j, i]), 2), "live": not final,  # high of the last finished session; True while the market is open
                         "risk": round((st["p"] - stop) / st["p"] * 100, 1), "score": score,
                         "st": state, "bd": bd, "age": age, "ext": ext, "cs": strong})
         except Exception:
@@ -1000,7 +1042,9 @@ def main():
     except Exception:
         old = {}
     sched = os.environ.get("RUN_SCHEDULE", "")
-    mode = ("preopen" if sched == "15 3 * * 1-5" else "midday" if sched == "30 7 * * 1-5"
+    t_now = ist_now()
+    early = bool(sched) and t_now.weekday() < 5 and (t_now.hour, t_now.minute) < (9, 15)  # before the NSE open
+    mode = ("preopen" if sched == "15 3 * * 1-5" or early else "midday" if sched == "30 7 * * 1-5"
             else "live" if sched == "*/5 3-10 * * 1-5" else "full")
     if mode == "preopen" and old.get("segments"):
         return preopen_run(old)
@@ -1035,6 +1079,16 @@ def main():
     # adjusted for splits and bonuses only (like Chartink), not for dividends.
     raw = yf.download([s + ".NS" for s in symbols], period="2y",
                       auto_adjust=False, progress=False, threads=True)
+    # A trailing row where fewer than half of the stocks have a price is not a real session (Yahoo
+    # sometimes adds an empty or partial row for today before the market opens), so it is dropped.
+    cover = raw["Close"].notna().mean(axis=1)
+    cut = 0
+    while cut < len(cover) - 1 and cover.iloc[-1 - cut] < 0.5:
+        cut += 1
+    if cut:
+        print(f"Ignoring {cut} partial trailing row(s) from Yahoo (dated {', '.join(str(d.date()) for d in cover.index[-cut:])}): "
+              f"only {cover.iloc[-1] * 100:.0f}% of stocks had a price")
+        raw = raw.iloc[:-cut]
     close = raw["Close"]
     close.columns = [c[:-3] if str(c).endswith(".NS") else c for c in close.columns]
     close = close.dropna(axis=1, how="all").dropna(axis=0, how="all").ffill(limit=3)
@@ -1059,6 +1113,10 @@ def main():
     n_received = close.shape[1]
     rejected = validate_candles(close, opn, high, low, vol, last_real)
     if len(rejected) > FAIL_REJECT_PCT / 100 * n_received:
+        from collections import Counter
+        print("Why stocks were rejected:", dict(Counter(rejected.values())))
+        print("Latest date in the price data:", close.index[-1].date(), "| stocks with a real price that day:", int(last_real.sum()))
+        print("Sample:", ", ".join(f"{k} ({v})" for k, v in list(rejected.items())[:8]))
         fail(f"{len(rejected)} of {n_received} stocks failed validation - the download looks unreliable")
     if rejected:
         print(f"Rejected {len(rejected)} stocks:", ", ".join(f"{s} ({w})" for s, w in list(rejected.items())[:15]))
@@ -1077,6 +1135,7 @@ def main():
         nf = yf.download("^NSEI", period="2y", auto_adjust=False, progress=False)["Close"]
         if isinstance(nf, pd.DataFrame):
             nf = nf.iloc[:, 0]
+        nf = nf[nf.index.date <= close.index[-1].date()]  # never newer than the stock data
         nifty_last = nf.dropna().index[-1].date()
         nifty_full = nf.reindex(close.index).ffill()
         nifty = nifty_full.loc[idx].round(2).tolist()
@@ -1156,7 +1215,9 @@ def main():
     if mode == "live":
         events.update(fetch_headlines(names))
     scans = scan_more(close, high, low, vol, emas, nifty_full, stocks, sector_map(lists))
-    mood = mood_index(nifty_full, segs, macro, events)
+    ew = (close.pct_change().clip(-0.2, 0.2).mean(axis=1).fillna(0) + 1).cumprod() * 100  # equal-weight "average stock" line
+    hl = (float((last >= hi52 * 0.95).mean() * 100), float((last <= lo52 * 1.05).mean() * 100))
+    mood = mood_index(nifty_full, segs, macro, events, ew, hl)
     if status["gate"] == "BLOCKED":
         # only reached on a first run with no earlier good data: publish no picks and no trade call
         swing, scans = [], {k: [] for k in scans}
