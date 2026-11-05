@@ -71,5 +71,20 @@ jobs:
             for f in data.json prices.json status.json audit_log.jsonl snapshots; do
               if [ -e "$f" ]; then git add "$f"; fi
             done
-            git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
+            # The log file only ever grows, so when two copies differ keep the lines from both.
+            # The other files are rebuilt every run, so on a clash keep the newest version (ours).
+            echo "audit_log.jsonl merge=union" >> .git/info/attributes
+            if ! git diff --staged --quiet; then
+              git commit -m "Update market data"
+              saved=0
+              for i in 1 2 3 4; do
+                if git pull --rebase --autostash -X theirs && git push; then saved=1; break; fi
+                git rebase --abort 2>/dev/null || true
+                echo "Save attempt $i did not go through, trying again"
+                sleep 8
+              done
+              if [ "$saved" != "1" ]; then
+                echo "Could not save the main copy. The live copy on the data branch was already updated."
+              fi
+            fi
           fi
