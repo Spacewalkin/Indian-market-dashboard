@@ -1156,6 +1156,19 @@ def main():
 
     # ---- validate every candle; bad stocks are left out of this run and listed, never repaired ----
     n_received = close.shape[1]
+    # While the market is open, Yahoo's candle for today is still being built: its high and low can lag
+    # behind the open and close (worst in the first minutes after 9:15). The true high is at least the
+    # larger of open and close, and the true low at most the smaller, so today's row is set to fit.
+    # Finished sessions are never touched, and they are still checked strictly below.
+    _now = ist_now()
+    if close.index[-1].date() == _now.date() and not market_clock(_now)["final_now"]:
+        o1, c1 = opn.iloc[-1], close.iloc[-1]
+        fixed_hi = high.iloc[-1].values, np.fmax(high.iloc[-1], np.fmax(o1, c1)).values
+        fixed_lo = low.iloc[-1].values, np.fmin(low.iloc[-1], np.fmin(o1, c1)).values
+        n_fix = int((~np.isclose(fixed_hi[0], fixed_hi[1], equal_nan=True)).sum() + (~np.isclose(fixed_lo[0], fixed_lo[1], equal_nan=True)).sum())
+        high.iloc[-1] = fixed_hi[1]
+        low.iloc[-1] = fixed_lo[1]
+        print(f"Live candle for {close.index[-1].date()}: adjusted high/low to fit open and close on {n_fix} values (market is open)")
     rejected = validate_candles(close, opn, high, low, vol, last_real)
     if len(rejected) > FAIL_REJECT_PCT / 100 * n_received:
         from collections import Counter
