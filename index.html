@@ -414,6 +414,14 @@ const keyDates = r => {
   return a.length ? a.map(e => `<div class="nc neu"><span class="cd">${inDays(daysTo(e.d))}</span> <b>${fd(e.d)}</b> ${esc(e.t)}<div class="mu">${esc(e.n)}</div></div>`).join("") : '<p class="sub">No dates listed.</p>';
 };
 
+const topNews = (a, empty) => {
+  if (!a || !a.length) return '<p class="sub">' + empty + '</p>';
+  const tg = {pos: "g", neg: "r", neu: ""}, themes = [...new Set(a.map(x => x.theme))];
+  return themes.map(t => `<h3 style="margin:14px 0 4px">${esc(t)}</h3>` + a.filter(x => x.theme === t).map(x =>
+    `<div class="nc ${x.tone}"><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p)} ${esc(x.d)} · <span class="tag ${tg[x.tone]}">${esc(x.note)}</span></div></div>`).join("")).join("") +
+    '<div class="note">The tag is a rough keyword read of the headline, not a forecast. Markets often react before the news reaches you, so confirm on the chart.</div>';
+};
+
 function scoreboard() {
   const C = (D.countries || []).slice().sort((a, b) => a.dd - b.dd);
   if (!C.length) return '<p class="sub">No country data yet. Run "Update market data" and reload.</p>';
@@ -475,7 +483,7 @@ function renderNews() {
       const a = E.catalysts.filter(x => x.cat === c);
       return a.length ? `<h3 style="margin:16px 0 4px">${EM[c]} ${c}</h3>` + a.map(x => `<div class="nc ${x.tone}"><b>${x.n ? stk(x.s, x.n) : "Market"}</b> <span class="tag ${tone[x.tone][0]}">${tone[x.tone][1]}</span><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p)} ${esc(x.d)}</div></div>`).join("") : "";
     }).join("");
-    body = `<h2>FII and DII buying and selling</h2>${fiiBlock()}<h2>Upcoming key dates in India</h2>${keyDates("Domestic")}
+    body = `<h2>Major India news that can move the market</h2>${topNews(E.dtop, "No headlines yet. They appear after the next data update.")}<h2>FII and DII buying and selling</h2>${fiiBlock()}<h2>Upcoming key dates in India</h2>${keyDates("Domestic")}
     <h2>Upcoming results (next 30 days)</h2>${res}
     <div class="note">Stocks often gap 5-10% on results. Swing traders usually exit or cut size before the date unless they are holding on purpose. The Q2 results season runs roughly from mid-October to mid-November.</div>
     <h2>Splits, bonus, dividends and buybacks</h2>${act}
@@ -484,9 +492,11 @@ function renderNews() {
     <h2>India market headlines</h2>${nlist(E.dom)}`;
   } else {
     const fl = signals().filter(x => x.lvl !== "ok");
-    body = `<h2>Global markets scoreboard</h2>${scoreboard()}<h2>Upcoming key dates worldwide</h2>${keyDates("Global")}
+    body = `<h2>Major global news that can move the market</h2>${topNews(E.gtop, "No headlines yet. They appear after the next data update.")}
     <h2>What global moves mean for India now</h2>${fl.length ? '<ul class="ul">' + fl.map(x => `<li><span class="sig ${x.lvl}">${x.lvl === "risk" ? "Risk" : "Watch"}</span> <b>${esc(x.n)}:</b> ${esc(x.txt)}</li>`).join("") + "</ul>" : '<p class="sub">No warning signs in global markets right now.</p>'}
+    <h2>Upcoming key dates worldwide</h2>${keyDates("Global")}
     ${Object.keys(E.glob).map(t => `<h2>${esc(t)}</h2>${nlist(E.glob[t])}`).join("")}
+    <h2>Global markets scoreboard</h2>${scoreboard()}
     <div class="note">Headlines come from news feeds and are shown as links. They are not a forecast. The Global factors tab has the numbers behind each market.</div>`;
   }
   $("app").innerHTML = nav() + tabs + (E.ts ? '<div class="mu">Headlines refreshed ' + ago(E.ts) + "</div>" : "") + body;

@@ -113,6 +113,58 @@ GLOBAL_TOPICS = {
 }
 
 
+# Major headlines that can move markets, grouped by theme. Global and domestic are kept separate.
+GLOBAL_TOP = {
+    "US politics": ["US midterm election results", "Congress Democrats Republicans markets Trump"],
+    "Crude oil": ["crude oil prices Brent", "OPEC oil supply output"],
+    "War and geopolitics": ["war ceasefire talks", "Russia Ukraine war", "Israel Iran Gaza Middle East", "China Taiwan tensions sanctions"],
+    "Central banks and rates": ["Federal Reserve rate cut OR hike", "US inflation jobs data"],
+    "Trade and tariffs": ["Trump tariffs trade deal India", "US China trade"],
+    "Gold and dollar": ["gold price record", "US dollar index treasury yields"],
+}
+DOMESTIC_TOP = {
+    "RBI and economy": ["RBI repo rate", "India GDP inflation CPI"],
+    "Government and policy": ["India budget GST government policy", "SEBI new rules"],
+    "Flows and rupee": ["FII selling OR buying India", "rupee dollar record"],
+    "Earnings and sectors": ["India Q2 results earnings Nifty", "India IPO market"],
+}
+POS_WORDS = ["rally", "rate cut", "cuts rates", "ceasefire", "peace", "truce", "trade deal", "record high", "stimulus",
+             "surge in", "gains", "rebound", "eases", "easing", "cooling", "beats estimates", "upgrade", "inflows", "buying"]
+NEG_WORDS = ["war", "attack", "strike", "sanction", "tariff", "crash", "selloff", "sell-off", "rate hike", "escalat",
+             "recession", "slump", "plunge", "tumble", "fears", "warning", "missile", "default", "outflows", "selling",
+             "downgrade", "shutdown", "tensions"]
+OIL_UP = ["surge", "jump", "spike", "rise", "rises", "climb", "soar", "rally", "higher", "gain"]
+OIL_DOWN = ["fall", "falls", "drop", "drops", "slump", "slide", "tumble", "plunge", "decline", "lower", "ease", "dip"]
+
+
+def impact(theme, title):
+    """Rough read of whether a headline is usually good or bad for Indian stocks, from keywords only."""
+    tl = " " + title.lower() + " "
+    if theme == "Crude oil" or "crude" in tl:
+        up, down = any(" " + w in tl for w in OIL_UP), any(" " + w in tl for w in OIL_DOWN)
+        if down and not up:
+            return "pos", "Crude falling: usually good for India"
+        if up and not down:
+            return "neg", "Crude rising: usually bad for India"
+    pos, neg = any(w in tl for w in POS_WORDS), any(w in tl for w in NEG_WORDS)
+    if pos and not neg:
+        return "pos", "Possible positive for markets"
+    if neg and not pos:
+        return "neg", "Possible negative for markets"
+    return "neu", "Watch: impact unclear"
+
+
+def fetch_top(topics, per_theme=3):
+    out = []
+    for theme, qs in topics.items():
+        rows = uniq([r for q in qs for r in rss(q, 8, days=2)], 40)
+        rows.sort(key=lambda r: r["d"], reverse=True)
+        for r in rows[:per_theme]:
+            tone, note = impact(theme, r["t"])
+            out.append({**r, "theme": theme, "tone": tone, "note": note})
+    return out
+
+
 def rss(query, n=12, days=2):
     url = "https://news.google.com/rss/search?q=" + quote(f"{query} when:{days}d") + "&hl=en-IN&gl=IN&ceid=IN:en"
     try:
@@ -182,6 +234,8 @@ def fetch_headlines(names):
     ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
     for topic, qs in GLOBAL_TOPICS.items():
         ev["glob"][topic] = uniq([r for q in qs for r in rss(q, 8)], 5)
+    ev["gtop"] = fetch_top(GLOBAL_TOP)
+    ev["dtop"] = fetch_top(DOMESTIC_TOP)
     ev["ts"] = int(time.time())
     return ev
 
@@ -557,6 +611,8 @@ def preopen_run(old):
     ev = old.get("events") or {}
     ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
     ev["glob"] = {t: uniq([r for q in qs for r in rss(q, 8)], 5) for t, qs in GLOBAL_TOPICS.items()}
+    ev["gtop"] = fetch_top(GLOBAL_TOP)
+    ev["dtop"] = fetch_top(DOMESTIC_TOP)
     old["events"] = ev
     old["preopen"] = gap_preview(old["macro"], old.get("fiidii"))
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
