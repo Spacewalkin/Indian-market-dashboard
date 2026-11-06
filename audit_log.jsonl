@@ -63,3 +63,4 @@
 {"ts":1793936628,"ist":"2026-11-06 09:13","mode":"fail","state":"ERROR","gate":"BLOCKED","problems":["457 of 506 stocks failed validation - the download looks unreliable"]}
 {"ts":1793937005,"ist":"2026-11-06 09:20","mode":"full","state":"LIVE","gate":"OK","last_candle":"2026-11-06","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1793937492,"ist":"2026-11-06 09:28","mode":"preopen","state":"LIVE","gate":"OK","last_candle":"2026-11-06","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
+{"ts":1793939336,"ist":"2026-11-06 09:58","mode":"full","state":"LIVE","gate":"OK","last_candle":"2026-11-06","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
