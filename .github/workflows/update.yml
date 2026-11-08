@@ -3,12 +3,15 @@ name: Update market data
 on:
   schedule:
     - cron: "15 3 * * 1-5"      # 8:45 AM IST
-    - cron: "40 3 * * 1-5"      # 9:10 AM IST
+    - cron: "37 3 * * 1-5"      # 9:07 AM IST  (pre-open, order collection ending)
+    - cron: "40 3 * * 1-5"      # 9:10 AM IST  (pre-open, indicative opening prices)
+    - cron: "44 3 * * 1-5"      # 9:14 AM IST  (pre-open final, just before the open)
     - cron: "30 4 * * 1-5"      # 10:00 AM IST
     - cron: "15 5 * * 1-5"      # 10:45 AM IST
     - cron: "0,30 6 * * 1-5"    # 11:30 AM and 12:00 PM IST
     - cron: "30 7 * * 1-5"      # 1:00 PM IST
     - cron: "0,30 8-16 * * 1-5" # every 30 min, 1:30 PM to 10:00 PM IST
+    - cron: "23 3,9,15 * * 0,6" # Saturday and Sunday: news only, at 8:53 AM, 2:53 PM and 8:53 PM IST
   workflow_dispatch:            # lets you run it by hand, or an outside timer trigger it
     inputs:
       run_schedule:
@@ -32,6 +35,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # Keeps the downloaded packages between runs so installing takes seconds, not minutes
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: pip-market-v1
       - run: pip install yfinance pandas requests
       - run: python update_data.py
         env:
@@ -66,25 +74,17 @@ jobs:
             )
           fi
 
-          # 2) Main copy (the site's own backup and the history): skipped for the quick live runs
-          if [ "$RUN_SCHEDULE" != "*/5 3-10 * * 1-5" ]; then
-            for f in data.json prices.json status.json audit_log.jsonl snapshots; do
-              if [ -e "$f" ]; then git add "$f"; fi
-            done
-            # The log file only ever grows, so when two copies differ keep the lines from both.
-            # The other files are rebuilt every run, so on a clash keep the newest version (ours).
-            echo "audit_log.jsonl merge=union" >> .git/info/attributes
-            if ! git diff --staged --quiet; then
-              git commit -m "Update market data"
-              saved=0
-              for i in 1 2 3 4; do
-                if git pull --rebase --autostash -X theirs && git push; then saved=1; break; fi
-                git rebase --abort 2>/dev/null || true
-                echo "Save attempt $i did not go through, trying again"
-                sleep 8
+          # 2) Main copy (the site's own backup and the history): skipped for the quick live runs only.
+          #    Pre-open and weekend news runs are saved here too, because the next full run starts from
+          #    this copy and would otherwise lose their fresh content.
+          case "$RUN_SCHEDULE" in
+            "*/5 3-10 * * 1-5")
+              echo "Skipping main-branch backup for this run"
+              ;;
+            *)
+              for f in data.json prices.json status.json audit_log.jsonl snapshots; do
+                if [ -e "$f" ]; then git add "$f"; fi
               done
-              if [ "$saved" != "1" ]; then
-                echo "Could not save the main copy. The live copy on the data branch was already updated."
-              fi
-            fi
-          fi
+              git diff --staged --quiet || (git commit -m "Update market data" && git pull --rebase && git push)
+              ;;
+          esac
