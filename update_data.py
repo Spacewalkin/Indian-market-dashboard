@@ -1242,6 +1242,13 @@ def main():
     # adjusted for splits and bonuses only (like Chartink), not for dividends.
     raw = yf.download([s + ".NS" for s in symbols], period="2y",
                       auto_adjust=False, progress=False, threads=True)
+    # Special sessions are not normal trading days: Muhurat trading on a Sunday (Diwali), or a row Yahoo adds on a
+    # weekend or NSE holiday. Their candles are partial and often inconsistent, and one of them in the last few
+    # rows would make the whole scan fail validation, so every such row is removed before anything else.
+    odd_days = [d for d in raw.index if d.weekday() >= 5 or is_holiday(d.date())]
+    if odd_days:
+        print("Ignoring special-session or holiday rows:", ", ".join(str(d.date()) for d in odd_days[-5:]))
+        raw = raw.drop(index=odd_days)
     raw = retry_missing(raw)
     # A trailing row where fewer than half of the stocks have a price is not a real session (Yahoo
     # sometimes adds an empty or partial row for today before the market opens), so it is dropped.
