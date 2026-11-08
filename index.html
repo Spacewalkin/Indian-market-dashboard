@@ -511,6 +511,21 @@ const PRE = {
   gapdown1: ["📉 Mild gap-down likely", "#ff9a6b", ["Don't buy the first dip. Wait for the market to settle after 9:45.", "Check the stops on stocks you hold, especially those close to their stop price."]],
   gapdown2: ["🔻 Strong gap-down likely", "#ff6b6b", ["Avoid fresh buying at the open and keep position sizes small today.", "Stops can slip on a gap, so decide now what you will do if one is hit at the open."]],
 };
+// NSE's own pre-open session numbers (indicative, 9:00-9:12), when the update script could get them
+const px2 = v => v == null ? "-" : Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
+const gp = v => v == null ? "-" : (v >= 0 ? "+" : "") + Number(v).toFixed(2) + "%";
+function nseBlock(P, hm) {
+  const N = P.nse;
+  if (!N) {
+    return hm >= "09:00" && hm < "09:20" ? `<div class="note" style="margin-top:8px">NSE pre-open numbers are not available right now (NSE may be blocking the data feed). The view above is only an estimate from overnight global moves.</div>` : "";
+  }
+  const n = N.nifty, cls = v => (v >= 0 ? "up" : "dn");
+  const nrow = n && n.p != null ? `<div class="row"><span>Nifty 50 indicative open</span><span class="${cls(n.pc || 0)}">${px2(n.p)}${n.pc != null ? " (" + gp(n.pc) + ")" : ""}</span></div>` : "";
+  const brow = n && n.adv != null ? `<div class="row"><span>Nifty 50 stocks indicated up / down</span><span>${n.adv} / ${n.dec}</span></div>` : "";
+  const prow = (N.picks || []).map(x => `<div class="row"><span><b>${esc(x.s)}</b> <span class="mu">prev ${px2(x.prev)}</span></span><span class="${cls(x.pc || 0)}">${px2(x.p)} (${gp(x.pc)})${x.pc != null && x.pc >= 2 ? " ⚠ don't chase" : ""}</span></div>`).join("");
+  return `<div style="margin-top:10px"><b>NSE pre-open (indicative)</b> <span class="mu">as of ${esc(N.time)} IST</span>${nrow}${brow}${prow ? `<div class="lab" style="margin-top:8px">Your picks</div>${prow}` : ""}
+  <div class="sub" style="margin-top:4px">Indicative prices can still change until about 9:12. Real opening prices come at 9:15.</div></div>`;
+}
 function preopenCard() {
   const P = D.preopen;
   if (!P || !PRE[P.key]) return "";
@@ -524,7 +539,7 @@ function preopenCard() {
   const val = r => r.cr ? (r.v >= 0 ? "+" : "-") + "₹" + fv(Math.abs(r.v)) + " cr" : f1(r.v);
   const rows = P.rows.map(r => `<div class="row"><span>${esc(r.n)}</span><span class="${r.p >= 0 ? "up" : "dn"}">${val(r)}</span></div>`).join("");
   if (hm >= "09:45") {  // the open has settled: keep it to one line
-    return `<div class="note" style="margin-top:12px"><b>Today's pre-open view was ${p[0]}</b> (made at ${esc(P.time)} IST).${actual ? " Nifty so far: " + f1(nf.d) + "." : ""} The first 30 minutes are over, so judge the day from the chart now.</div>`;
+    return `<div class="note" style="margin-top:12px"><b>Today's pre-open view was ${p[0]}</b> (made at ${esc(P.time)} IST).${P.nse && P.nse.nifty && P.nse.nifty.pc != null ? " NSE pre-open Nifty gap was " + gp(P.nse.nifty.pc) + "." : ""}${actual ? " Nifty so far: " + f1(nf.d) + "." : ""} The first 30 minutes are over, so judge the day from the chart now.</div>`;
   }
   const phase = hm < "09:00" ? "NSE pre-open session starts at 9:00 and the market opens at 9:15."
     : hm < "09:15" ? "NSE pre-open session is on now: orders 9:00-9:08, matching 9:08-9:12, then a short buffer. The market opens at 9:15. Check the indicative open price on NSE."
@@ -533,8 +548,8 @@ function preopenCard() {
   return `<div class="plan" style="border-color:${p[1]};margin-top:12px"><h3>${p[0]}</h3><div class="mu">${hm >= "09:15" ? "Pre-open estimate" : "Pre-open view"}, made at ${esc(P.time)} IST</div>
   <div class="sub" style="margin:4px 0">${phase}</div>
   <ul style="margin:6px 0">${li(p[2])}</ul>
-  ${actual}${rows}${gift}
-  <div class="note">An estimate from overnight global moves and the last FII figure, not a forecast. GIFT Nifty is not available here, so check it before the open.</div></div>`;
+  ${actual}${nseBlock(P, hm)}${P.nse ? `<div class="lab" style="margin-top:10px">Global cues (estimate)</div>` : ""}${rows}${gift}
+  <div class="note">The global cues are an estimate from overnight moves and the last FII figure, not a forecast.${P.nse ? "" : " GIFT Nifty is not available here, so check it before the open."}</div></div>`;
 }
 
 let ovTab = "dash";

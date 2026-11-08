@@ -242,7 +242,7 @@ def fetch_headlines(names):
 
 def build_events(names, watch, large):
     ev = {"results": [], "actions": [], "catalysts": [], "dom": [], "glob": {}}
-    today = datetime.now().date()
+    today = ist_now().date()
     horizon = today + timedelta(days=30)
 
     # 1) NSE calendars (NSE sometimes blocks GitHub servers; then this part is skipped)
@@ -384,9 +384,11 @@ def ist_now():
 
 # NSE weekday trading holidays you want the dashboard to respect (YYYY-MM-DD). The pre-open verdict is
 # skipped on these days. Fill this from NSE's official holiday circular; only add dates you have checked.
-# Dates to check for the rest of 2026: 9 Nov (Diwali Balipratipada), 24 Nov (Guru Nanak Jayanti).
-# Muhurat trading is a special evening session on Sunday 8 Nov 2026 (timings come from an NSE circular).
+# Checked against the NSE 2026 holiday circular. Muhurat trading is a special session on Sunday 8 Nov 2026
+# (a weekend, so the dashboard treats it as closed).
 HOLIDAYS = {
+    "2026-11-10",  # Diwali-Balipratipada (Tuesday)
+    "2026-11-24",  # Guru Nanak Jayanti (Tuesday)
     "2026-12-25",  # Christmas Day
 }
 
@@ -661,6 +663,72 @@ def gap_preview(macro, fiidii):
             "score": round(pts, 2), "key": key, "rows": rows}
 
 
+def _num(x):
+    try:
+        v = float(str(x).replace(",", ""))
+        return v if math.isfinite(v) else None
+    except Exception:
+        return None
+
+
+def fetch_nse_preopen(picks):
+    """NSE's own pre-open session (orders 9:00-9:08, matching 9:08-9:12): the indicative Nifty 50 open and the
+    indicative price of each pick. Best effort: NSE often blocks GitHub's servers and this feed is unofficial, so
+    any failure or unexpected format returns None and the dashboard falls back to the global-cues estimate."""
+    now = ist_now()
+    if now.weekday() >= 5 or is_holiday(now.date()) or not ((9, 0) <= (now.hour, now.minute) < (9, 20)):
+        return None  # outside the window in which the pre-open session has numbers
+    try:
+        s = requests.Session()
+        s.headers.update({**HEADERS, "Accept": "application/json"})
+        s.get("https://www.nseindia.com", timeout=20)
+        s.get("https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market", timeout=20)
+        out = {"date": now.date().isoformat(), "time": now.strftime("%I:%M %p").lstrip("0"), "nifty": None, "picks": []}
+
+        r = s.get("https://www.nseindia.com/api/market-data-pre-open", params={"key": "NIFTY"}, timeout=25)
+        if r.status_code == 200:
+            j = r.json()
+            ns = j.get("niftyPreopenStatus") or {}
+            px, ch, pc = _num(ns.get("lastPrice")), _num(ns.get("change")), _num(ns.get("pChange"))
+            adv, dec = _num(j.get("advances")), _num(j.get("declines"))
+            if px is not None or adv is not None:
+                out["nifty"] = {"p": px, "c": ch, "pc": pc,
+                                "adv": None if adv is None else int(adv), "dec": None if dec is None else int(dec)}
+        else:
+            print("NSE pre-open (Nifty): HTTP", r.status_code)
+
+        want = set(picks)
+        if want:
+            r = s.get("https://www.nseindia.com/api/market-data-pre-open", params={"key": "ALL"}, timeout=40)
+            if r.status_code == 200:
+                for e in r.json().get("data", []):
+                    try:
+                        m = e.get("metadata") or {}
+                        sym = str(m.get("symbol", "")).strip()
+                        if sym not in want:
+                            continue
+                        pm = (e.get("detail") or {}).get("preOpenMarket") or {}
+                        price = next((v for v in (_num(m.get("iep")), _num(pm.get("IEP")), _num(pm.get("finalPrice")),
+                                                  _num(m.get("lastPrice"))) if v), None)
+                        prev = _num(m.get("previousClose"))
+                        pct = _num(m.get("pChange"))
+                        if pct is None and price and prev:
+                            pct = round((price / prev - 1) * 100, 2)
+                        if price is not None:
+                            out["picks"].append({"s": sym, "p": price, "prev": prev, "pc": pct})
+                    except Exception:
+                        continue
+            else:
+                print("NSE pre-open (all stocks): HTTP", r.status_code)
+        if out["nifty"] is None and not out["picks"]:
+            print("NSE pre-open: nothing usable came back")
+            return None
+        return out
+    except Exception as e:
+        print("NSE pre-open skipped:", e)
+        return None
+
+
 def preopen_run(old):
     """Light early-morning run: refresh global cues, headlines and the gap preview only."""
     old["macro"] = fetch_macro() or old.get("macro", [])
@@ -670,9 +738,18 @@ def preopen_run(old):
     ev["glob"] = {t: uniq([r for q in qs for r in rss(q, 8)], 5) for t, qs in GLOBAL_TOPICS.items()}
     ev["gtop"] = fetch_top(GLOBAL_TOP)
     ev["dtop"] = fetch_top(DOMESTIC_TOP)
+    ev["ts"] = int(time.time())
     old["events"] = ev
     t0 = ist_now()
+    prev_nse = (old.get("preopen") or {}).get("nse")  # an earlier run today may have got NSE's numbers
     old["preopen"] = None if (t0.weekday() >= 5 or is_holiday(t0.date())) else gap_preview(old["macro"], old.get("fiidii"))
+    if old["preopen"]:
+        picks = [c["s"] for c in (old.get("swing") or [])[:15] if isinstance(c, dict) and c.get("s")]
+        nse = fetch_nse_preopen(picks)
+        if not nse and prev_nse and prev_nse.get("date") == t0.date().isoformat():
+            nse = prev_nse  # keep the earlier NSE numbers rather than lose them if this try is blocked
+        if nse:
+            old["preopen"]["nse"] = nse
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
     old["mode"] = "preopen"
     old["ts"] = int(time.time())
@@ -686,6 +763,42 @@ def preopen_run(old):
         print("Pre-open preview:", old["preopen"]["key"], old["preopen"]["score"])
     else:
         print("No pre-open preview today (weekend or NSE holiday)")
+
+
+def news_run(old):
+    """News-only run (used on weekends): refreshes the News and events page without touching prices.
+    A part that fails to download keeps its previous content instead of being wiped."""
+    ev = old.get("events") or {}
+    names = {s: v.get("n", s) for s, v in (old.get("stocks") or {}).items()}
+    fresh = fetch_headlines(names)
+    got = 0
+    for k, v in fresh.items():
+        if k == "glob":
+            for topic, rows in v.items():
+                if rows:
+                    ev.setdefault("glob", {})[topic] = rows
+                    got += 1
+        elif k == "ts":
+            continue
+        elif v:
+            ev[k] = v
+            got += 1
+    if not got:
+        print("No news could be downloaded - keeping the earlier news")
+        return
+    ev["ts"] = int(time.time())
+    old["events"] = ev
+    old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
+    old["mode"] = "news"
+    old["ts"] = int(time.time())
+    st = refresh_status(old.get("status"))  # prices are not re-downloaded; only their freshness is re-judged
+    if st:
+        old["status"] = st
+        write_json("status.json", st)
+        append_audit(audit_entry("news", st))
+    write_json("data.json", old)
+    print(f"News refreshed: {len(ev.get('dom', []))} domestic, {len(ev.get('gtop', []))} global top, "
+          f"{len(ev.get('catalysts', []))} stock catalysts")
 
 
 def clamp(v, a, b):
@@ -1088,8 +1201,14 @@ def main():
     sched = os.environ.get("RUN_SCHEDULE", "")
     t_now = ist_now()
     early = bool(sched) and t_now.weekday() < 5 and (t_now.hour, t_now.minute) < (9, 15)  # before the NSE open
-    mode = ("preopen" if sched == "15 3 * * 1-5" or early else "midday" if sched == "30 7 * * 1-5"
-            else "live" if sched == "*/5 3-10 * * 1-5" else "full")
+    # The pre-open mode follows the schedule line, not the clock: GitHub often starts a run 10-30 minutes late,
+    # and a late "9:10" run used to turn into a slow full run that finished long after the open.
+    PREOPEN_CRONS = {"15 3 * * 1-5", "37 3 * * 1-5", "40 3 * * 1-5", "44 3 * * 1-5"}
+    NEWS_CRONS = {"23 3,9,15 * * 0,6"}  # weekends: news only
+    mode = ("preopen" if sched in PREOPEN_CRONS or early else "news" if sched in NEWS_CRONS
+            else "midday" if sched == "30 7 * * 1-5" else "live" if sched == "*/5 3-10 * * 1-5" else "full")
+    if mode == "news" and old.get("segments"):
+        return news_run(old)
     if mode == "preopen" and old.get("segments"):
         return preopen_run(old)
     lists, names, skipped = {}, {}, []
