@@ -415,8 +415,9 @@ def write_json(path, obj):
 
 
 def prev_weekday(d):
+    """The last NSE trading day before d: skips weekends AND the holidays listed above."""
     d -= timedelta(days=1)
-    while d.weekday() >= 5:
+    while d.weekday() >= 5 or is_holiday(d):
         d -= timedelta(days=1)
     return d
 
