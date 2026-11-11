@@ -120,3 +120,4 @@
 {"ts":1794331257,"ist":"2026-11-10 22:50","mode":"full","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-09","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1794368118,"ist":"2026-11-11 09:05","mode":"full","state":"STALE","gate":"BLOCKED","last_candle":"2026-11-09","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":["latest candle is 09 Nov 2026 but 10 Nov 2026 was expected (normal if today is an NSE holiday)"]}
 {"ts":1794369077,"ist":"2026-11-11 09:21","mode":"full","state":"LIVE","gate":"OK","last_candle":"2026-11-11","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
+{"ts":1794369581,"ist":"2026-11-11 09:29","mode":"full","state":"LIVE","gate":"OK","last_candle":"2026-11-11","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
