@@ -243,6 +243,9 @@ function render() {
   if (view === "ov") return renderOverview();
   if (view === "stock") return renderStock();
   if (view === "journal") return renderJournal();
+  if (view === "port") return renderPort();
+  if (view === "res") return renderRes();
+  if (view === "lt") return renderLT();
   if (view === "macro") return renderMacro();
   if (view === "swing") return renderSwing();
   if (view === "news") return renderNews();
@@ -288,7 +291,7 @@ let view = "ov", swF = "brk", curStock = null, backView = "ov", chRange = 66, PR
 const ALLM = {m: 0};
 const f1 = v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%";
 const fv = v => Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
-const NAVS = [["ov", "🏠", "Overview"], ["seg", "📊", "Market and sectors"], ["macro", "🌍", "Global factors"], ["swing", "🎯", "Swing trading"], ["news", "📰", "News and events"], ["journal", "📓", "Journal"]];
+const NAVS = [["ov", "🏠", "Overview"], ["seg", "📊", "Market and sectors"], ["macro", "🌍", "Global factors"], ["swing", "🎯", "Swing trading"], ["port", "💼", "Portfolio"], ["lt", "🌱", "Long-term ideas"], ["res", "📑", "Quarterly results"], ["news", "📰", "News and events"], ["journal", "📓", "Journal"]];
 const QUOTES = ["Discipline today builds freedom tomorrow.", "Plan the trade, then trade the plan.", "Protect your capital first. Profits follow.", "Cut losses short and let winners run.", "The trend is your friend until it ends.", "Patience pays more than prediction.", "Small, steady gains beat big, risky bets.", "Better decisions build a wealthier tomorrow."];
 const nav = () => {
   const on = view === "stock" ? backView : view;
@@ -849,6 +852,213 @@ function renderSwing() {
   <div class="note">${D.mode === "midday" ? "Midday refresh: today's volume is still building, so volume breakouts may be understated until the evening run. " : ""}Stocks must trade at least ₹5 crore a day and, for long setups, sit above their 20 and 50 EMA. Breakouts use the previous 52-week high as the line. Stops use the setup level or 1.5 times the 14-day average range. Targets are 2 and 3 times the risk. These are screens and conditional plans, not recommendations: check the chart and news first, and expect some setups to fail.</div>`;
 }
 
+// ---- Portfolio (your holdings, saved only in this browser) and Quarterly results ----
+const PK = "imd_portfolio_v1";
+const pload = () => { try { return JSON.parse(localStorage.getItem(PK) || "[]"); } catch (e) { return []; } };
+const psave = a => { try { localStorage.setItem(PK, JSON.stringify(a)); } catch (e) { alert("This browser could not save the portfolio."); } };
+let RES = null, resF = "all";
+function loadRes() {
+  getJ("results.json?v=" + Math.floor(Date.now() / 60000)).then(r => {
+    RES = r && r.stocks ? r : {stocks: {}, none: true};
+    const el = document.activeElement;
+    if ((view === "res" || view === "port" || view === "lt") && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) && !document.querySelector("details[open]")) render();
+  });
+}
+const resOf = s => RES && RES.stocks ? RES.stocks[s] : null;
+const resFresh = r => r && r.sig && r.qe && (Date.now() - new Date(r.qe + "T00:00:00")) / 864e5 <= 130;
+const sigCls = s => s === "Good" ? "g" : s === "Bad" ? "r" : "a";
+function padd() {
+  const v = id => document.getElementById(id).value.trim(), num = x => x === "" ? null : Number(x);
+  const t = {id: Date.now(), sym: v("p_sym").toUpperCase(), qty: num(v("p_qty")), avg: num(v("p_avg")), stop: num(v("p_stop")), tgt: num(v("p_tgt")), d: v("p_date") || new Date().toISOString().slice(0, 10), note: v("p_note")};
+  if (!t.sym || !D.stocks[t.sym]) { alert("Pick a stock symbol from the Nifty 500 suggestions."); return; }
+  if (!(t.qty > 0) || !(t.avg > 0)) { alert("Enter the quantity and your average buy price."); return; }
+  const a = pload(), ex = a.find(x => x.sym === t.sym && !x.sold);
+  if (ex) {  // buying more of a stock you hold: combine into one holding at the weighted average price
+    ex.avg = Math.round((ex.avg * ex.qty + t.avg * t.qty) / (ex.qty + t.qty) * 100) / 100; ex.qty += t.qty;
+    if (t.stop != null) ex.stop = t.stop;
+    if (t.tgt != null) ex.tgt = t.tgt;
+    if (t.note) ex.note = t.note;
+  } else a.unshift(t);
+  psave(a); render();
+}
+function pedit(id) {
+  const a = pload(), h = a.find(x => x.id === id), ask = (m, cur) => { const x = prompt(m, cur == null ? "" : cur); return x === null ? undefined : x.trim() === "" ? null : isNaN(Number(x)) ? undefined : Number(x); };
+  const s = ask("Stop-loss price (blank to clear)", h.stop); if (s === undefined) return;
+  const t = ask("Target price (blank to clear)", h.tgt); if (t === undefined) return;
+  h.stop = s; h.tgt = t; psave(a); render();
+}
+function psell(id) {
+  const a = pload(), h = a.find(x => x.id === id), q = prompt("How many shares did you sell? (you hold " + h.qty + ")", h.qty);
+  if (q === null || !(Number(q) > 0) || Number(q) > h.qty) return;
+  const px = prompt("Sell price per share?");
+  if (px === null || !(Number(px) > 0)) return;
+  const n = Number(q);
+  a.unshift({id: Date.now(), sym: h.sym, qty: n, avg: h.avg, d: h.d, sold: {px: Number(px), d: new Date().toISOString().slice(0, 10)}});
+  h.qty -= n;
+  psave(a.filter(x => x.sold || x.qty > 0)); render();
+}
+function pdel(id) { if (confirm("Delete this entry?")) { psave(pload().filter(x => x.id !== id)); render(); } }
+function pexport() {
+  const b = new Blob([JSON.stringify(pload(), null, 1)], {type: "application/json"}), a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = "portfolio.json"; a.click();
+}
+function pimport(inp) {
+  const f = inp.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { try { const n = JSON.parse(r.result), a = pload(), ids = new Set(a.map(x => x.id)); n.forEach(x => { if (!ids.has(x.id)) a.push(x); }); psave(a); render(); } catch (e) { alert("That file could not be read."); } };
+  r.readAsText(f);
+}
+// Rule-based review of one holding. Not a forecast: it reads price, trend, your own stop/target and the latest results.
+function review(h, weight) {
+  const s = D.stocks[h.sym];
+  if (!s) return {sig: "NO DATA", cls: "a", why: ["This symbol is not in today's Nifty 500 data."], tips: []};
+  const p = s.p, gain = (p / h.avg - 1) * 100, e = s.e || [1, 1, 1], dd = s.h ? (p / s.h - 1) * 100 : null;
+  const r = resOf(h.sym), rf = resFresh(r), rd0 = ((D.events || {}).results || []).find(x => x.s === h.sym), rdn = rd0 ? daysTo(rd0.d) : 99;
+  const dec = decision(), why = [], tips = [];
+  let sig = "HOLD", cls = "g";
+  if (h.stop != null && p <= h.stop) { sig = "EXIT"; cls = "r"; why.push("Price ₹" + fv(p) + " is at or below your stop ₹" + fv(h.stop) + ". Your own plan says exit."); }
+  else if (h.tgt != null && p >= h.tgt) { sig = "BOOK PROFIT"; cls = "a"; why.push("Your target ₹" + fv(h.tgt) + " is reached. Sell all or part and trail the rest."); }
+  else if (!e[1] && !e[2]) { if (gain >= 10) { sig = "BOOK PROFIT"; cls = "a"; why.push("Up " + gain.toFixed(1) + "% but below both the 50 and 200 EMA: protect the gain."); } else { sig = "EXIT / REDUCE"; cls = "r"; why.push("Below both the 50 and 200 EMA: the trend has broken."); } }
+  else if (gain >= 20 && !e[0]) { sig = "BOOK PROFIT"; cls = "a"; why.push("Up " + gain.toFixed(1) + "% and slipped below the 20 EMA: book part of the gain."); }
+  else if (rf && r.sig === "Bad") { sig = "REVIEW"; cls = "a"; why.push("Latest results (" + r.q + ") look weak: " + r.why.join("; ") + "."); }
+  else if (e[0] && e[1] && e[2] && dd != null && dd >= -5 && gain >= 0 && gain <= 15 && rdn > 10 && dec !== "NO TRADE" && !gateOn() && weight < 20 && !(rf && r.sig !== "Good") && !(r && !rf && r.sig === "Bad")) {
+    sig = "ADD (small)"; cls = "g"; why.push("Above the 20, 50 and 200 EMA, within 5% of its 52-week high, in profit but not stretched" + (rf ? ", and the latest results are good." : "."));
+  } else why.push(e[1] ? "Above the 50 EMA: the trend is intact." : "Below the 50 EMA but above the 200 EMA: weaker, watch it closely.");
+  if (rf && r.sig === "Good" && sig !== "ADD (small)") why.push("Latest results (" + r.q + ") are good.");
+  if (rdn <= 10) tips.push("Results " + inDays(rdn) + ": decide now whether to hold through. A gap against you can jump past a stop.");
+  if (h.stop == null) tips.push("No stop set. A common rule is 7-8% below cost (₹" + fv(h.avg * 0.93) + "). Use your own level from the chart.");
+  else if (gain > 0 && h.stop < h.avg && gain >= (h.avg - h.stop) / h.avg * 100) tips.push("You are at least 1R up: move the stop to your cost ₹" + fv(h.avg) + ".");
+  if (weight > 25) tips.push("This is " + weight.toFixed(0) + "% of your portfolio. One stock this large is concentration risk.");
+  if (dec === "NO TRADE" && sig === "ADD (small)") tips.push("Market says NO TRADE.");
+  return {sig, cls, why, tips, gain};
+}
+function renderPort() {
+  $("asof").textContent = stamp();
+  const a = pload(), open = a.filter(x => !x.sold), sold = a.filter(x => x.sold);
+  const val = open.reduce((t, h) => t + h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg), 0), inv = open.reduce((t, h) => t + h.qty * h.avg, 0);
+  const day = open.reduce((t, h) => { const s = D.stocks[h.sym]; return t + (s && s.pc ? h.qty * (s.p - s.pc) : 0); }, 0);
+  const rv = open.map(h => ({h, r: review(h, val ? h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg) / val * 100 : 0)}));
+  const sec = {}; open.forEach(h => { const k = (D.stocks[h.sym] || {}).sec || "Other"; sec[k] = (sec[k] || 0) + h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg); });
+  const topSec = Object.entries(sec).sort((x, y) => y[1] - x[1])[0], pl = val - inv;
+  const cnt = k => rv.filter(x => x.r.sig.startsWith(k)).length;
+  const sum = open.length ? `<div class="stats"><div><strong>₹${fv(Math.round(val))}</strong><small>current value (cost ₹${fv(Math.round(inv))})</small></div><div><strong class="${pl >= 0 ? "up" : "dn"}">${pl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pl)))}</strong><small>total P&amp;L (${f1(inv ? pl / inv * 100 : 0)})</small></div><div><strong class="${day >= 0 ? "up" : "dn"}">${day >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(day)))}</strong><small>change today</small></div></div>
+    <div class="sub" style="margin-top:8px">${cnt("EXIT")} exit · ${cnt("BOOK")} book profit · ${cnt("REVIEW")} review · ${cnt("ADD")} add · ${cnt("HOLD")} hold${topSec && val && topSec[1] / val > 0.4 ? " · ⚠ " + Math.round(topSec[1] / val * 100) + "% of the money is in " + esc(topSec[0]) : ""}</div>` : '<p class="sub">Add your holdings below and each one gets a review.</p>';
+  const card = ({h, r}) => { const s = D.stocks[h.sym] || {}, p = s.p || h.avg, pnl = h.qty * (p - h.avg);
+    return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(h.sym, s.n || h.sym)}</b><span class="tag ${r.cls}">${gateOn() ? esc(BLOCK_MSG) : esc(r.sig)}</span></div>
+    <div class="cs">${h.qty} shares · avg ₹${fv(h.avg)} · now ₹${fv(p)} <span class="${p >= h.avg ? "up" : "dn"}">${f1((p / h.avg - 1) * 100)}</span> · ${pnl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pnl)))}</div>
+    <div class="mu">${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
+    <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}${r.tips.map(x => "<li><i>" + esc(x) + "</i></li>").join("")}</ul>
+    <div class="chips"><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
+  const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pdel(${x.id})">x</button></div>`; };
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">My portfolio</h2>
+  <div class="note" style="margin-top:0">Your holdings are saved only in this browser on this device and are not uploaded. Use Export to keep a backup. Each review is rule-based, from price, trend (20/50/200 EMA), your own stop and target, and the latest quarterly results. It is not a forecast or a certainty, so the final call is yours.${gateOn() ? " Data is not verified right now, so treat every signal as reference only." : ""}</div>
+  <h2>Summary</h2>${sum}
+  <h2>Add a holding</h2><div class="card"><div class="fg">
+  <div><label>Stock</label><input id="p_sym" list="plist" placeholder="e.g. TATAMOTORS"><datalist id="plist">${Object.keys(D.stocks).sort().map(k => `<option value="${esc(k)}">${esc(D.stocks[k].n || "")}</option>`).join("")}</datalist></div>
+  <div><label>Quantity</label><input id="p_qty" type="number" step="any"></div><div><label>Average buy price</label><input id="p_avg" type="number" step="any"></div><div><label>Buy date</label><input id="p_date" type="date" value="${new Date().toISOString().slice(0, 10)}"></div>
+  <div><label>Stop-loss (optional)</label><input id="p_stop" type="number" step="any"></div><div><label>Target (optional)</label><input id="p_tgt" type="number" step="any"></div></div>
+  <label style="margin-top:8px;font-size:12px;color:var(--mu);display:block">Notes</label><textarea id="p_note" rows="2"></textarea>
+  <div class="mu" style="margin-top:6px">Adding a stock you already hold combines it into one holding at the weighted average price.</div><button style="margin-top:8px" onclick="padd()">Save holding</button></div>
+  <h2>Holdings (${open.length})</h2>${open.length ? rv.map(card).join("") : '<p class="sub">No holdings yet.</p>'}
+  ${sold.length ? `<h2>Sold (${sold.length})</h2>${sold.map(sc).join("")}` : ""}
+  <h2>Backup</h2><div class="chips"><button onclick="pexport()">Export portfolio</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="pimport(this)" style="width:auto"></label></div>`;
+}
+function renderRes() {
+  $("asof").textContent = stamp();
+  const held = new Set(pload().filter(x => !x.sold).map(x => x.sym));
+  const soon = ((D.events || {}).results || []).filter(x => daysTo(x.d) <= 10 && daysTo(x.d) >= 0).slice(0, 15);
+  const soonH = soon.length ? `<h2>Results due in the next 10 days</h2><div class="chips">${soon.map(x => `<span class="tag ${held.has(x.s) ? "a" : ""}">${esc(x.s)} ${inDays(daysTo(x.d))}${held.has(x.s) ? " · you hold it" : ""}</span>`).join("")}</div>` : "";
+  let body;
+  if (!RES) body = '<p class="sub">Loading results…</p>';
+  else {
+    const all = Object.entries(RES.stocks).map(([k, r]) => ({k, ...r})).filter(r => D.stocks[r.k] && resFresh(r));
+    if (!all.length) body = '<p class="sub">No quarterly results are available yet. Run "Update quarterly results" once from the Actions tab of your GitHub repo, then reload. It fills in over a few runs.</p>';
+    else {
+      const c = s => all.filter(r => r.sig === s).length;
+      const list = all.filter(r => resF === "all" || (resF === "mine" ? held.has(r.k) : r.sig === resF)).sort((x, y) => y.qe.localeCompare(x.qe) || (y.pat == null) - (x.pat == null) || (y.pat || 0) - (x.pat || 0));
+      const chip = (k, t) => `<button class="${resF === k ? "on" : ""}" onclick="resF='${k}';render()">${t}</button>`;
+      const cell = r => { const s = D.stocks[r.k], m = v => v == null ? "n/a" : f1(v);
+        return `<div class="cand"><b>${stk(r.k, r.n || r.k)}</b> <span class="mu">${esc(r.sec || "")}</span><div><span class="tag ${sigCls(r.sig)}">${esc(r.sig)} results</span><span class="tag">${esc(r.q)}</span>${held.has(r.k) ? '<span class="tag a">You hold it</span>' : ""}</div>
+        <div class="cs">Revenue ${m(r.rev)} · Profit ${m(r.pat)} (vs last year)${r.opmc != null ? " · Margin " + (r.opmc >= 0 ? "+" : "") + r.opmc + " pts" : ""}</div>
+        <div class="mu">vs last quarter: revenue ${m(r.rev_q)}, profit ${m(r.pat_q)}${r.rev_cr != null ? " · revenue ₹" + fv(r.rev_cr) + " cr" : ""}${r.pat_cr != null ? ", profit ₹" + fv(r.pat_cr) + " cr" : ""} · price today <span class="${s.d >= 0 ? "up" : "dn"}">${f1(s.d)}</span></div>
+        <div class="mu">${r.why.map(esc).join(" · ")}</div></div>`; };
+      body = `<div class="sub">${all.length} stocks with a result in the last 130 days: ${c("Good")} good, ${c("Average")} average, ${c("Bad")} bad. Updated ${esc(RES.updated || "")}.</div><div class="chips" style="margin:8px 0">${chip("all", "All")}${chip("Good", "Good")}${chip("Average", "Average")}${chip("Bad", "Bad")}${chip("mine", "My holdings")}</div>${list.length ? list.slice(0, 60).map(cell).join("") : '<p class="sub">Nothing matches this filter.</p>'}
+      <div class="note">Signals compare the latest quarter with the same quarter last year: revenue and profit growth, and the operating margin change. Good: strong growth. Bad: a loss or a clear fall. Figures come from Yahoo Finance (usually consolidated) and can be late or wrong, and banks and finance companies are scored on revenue and profit only. A good result can still sell off, and a bad one can already be in the price, so check the company's filing.</div>`;
+    }
+  }
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Quarterly results</h2>${soonH}${body}`;
+}
+
+// ---- Long-term ideas: fundamentals (longterm.json) + live trend + latest quarterly result ----
+let LT = null, ltF = "all";
+function loadLT() {
+  getJ("longterm.json?v=" + Math.floor(Date.now() / 60000)).then(r => {
+    LT = r && r.stocks ? r : {stocks: {}, none: true};
+    const el = document.activeElement;
+    if (view === "lt" && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName))) render();
+  });
+}
+const isFin = sym => /bank|financ|nbfc|insur/i.test((D.stocks[sym] || {}).sec || "");
+function sectorPE() {
+  const by = {}, all = [];
+  Object.entries(LT.stocks).forEach(([k, f]) => { if (f.pe && f.pe < 200 && D.stocks[k]) { (by[D.stocks[k].sec || "?"] = by[D.stocks[k].sec || "?"] || []).push(f.pe); all.push(f.pe); } });
+  const med = a => { a = a.slice().sort((x, y) => x - y); return a.length ? a[Math.floor(a.length / 2)] : null; }, o = {_all: med(all)};
+  Object.keys(by).forEach(k => { o[k] = by[k].length >= 4 ? med(by[k]) : o._all; });
+  return o;
+}
+// Returns null when a stock does not qualify (loss-making, weak return on equity, downtrend or missing data).
+function ltScore(sym, f, spe) {
+  const s = D.stocks[sym], e = s.e || [0, 0, 0], fin = isFin(sym);
+  if (!f || f.rev_cagr == null || f.pat_cagr == null || f.yrs < 2 || f.loss_year || f.roe == null || f.roe < 10 || !e[2]) return null;
+  const parts = {}, why = [], flags = [];
+  const g = (f.rev_cagr >= 15 ? 10 : f.rev_cagr >= 10 ? 6 : f.rev_cagr >= 5 ? 3 : 0) + (f.pat_cagr >= 20 ? 15 : f.pat_cagr >= 12 ? 10 : f.pat_cagr >= 5 ? 4 : 0);
+  const r = resOf(sym), rf = resFresh(r);
+  parts.Growth = Math.max(0, Math.min(30, g + (rf ? (r.sig === "Good" ? 5 : r.sig === "Bad" ? -10 : 0) : 0)));
+  why.push("Revenue " + f1(f.rev_cagr) + " a year and profit " + f1(f.pat_cagr) + " a year over " + f.yrs + " years");
+  if (rf && r.sig === "Good") why.push("Latest quarter (" + r.q + ") is good");
+  if (rf && r.sig === "Bad") flags.push("Latest quarter (" + r.q + ") is weak");
+  const q = (f.roe >= 20 ? 15 : f.roe >= 15 ? 10 : 5) + (fin ? 6 : f.de == null ? 4 : f.de <= 0.3 ? 10 : f.de <= 1 ? 6 : f.de <= 2 ? 2 : 0) + (f.ocf_ok === true ? 10 : f.ocf_ok === null ? 4 : 0);
+  parts.Quality = Math.min(35, q);
+  why.push("Return on equity " + f.roe + "%" + (!fin && f.de != null ? ", debt/equity " + f.de : ""));
+  if (!fin && f.de != null && f.de > 1.5) flags.push("High debt (debt/equity " + f.de + ")");
+  if (f.ocf_ok === false) flags.push("Operating cash flow is under half of the profit: check the quality of earnings");
+  const dd = s.h ? (s.p / s.h - 1) * 100 : null;
+  parts.Trend = 8 + (e[1] ? 6 : 0) + (dd != null && dd >= -25 ? 6 : 0);
+  why.push("Above its 200 EMA" + (e[1] ? " and 50 EMA" : "") + (dd != null ? ", " + Math.abs(dd).toFixed(0) + "% below its 52-week high" : ""));
+  if (s.m >= 25) flags.push("Up " + s.m + "% in a month: stretched, wait for a pullback");
+  const mp = spe[(s.sec || "?")] || spe._all;
+  parts.Value = f.pe && mp ? (f.pe <= mp ? 15 : f.pe <= mp * 1.3 ? 9 : f.pe <= mp * 1.8 ? 4 : 0) : 0;
+  if (f.pe) { why.push("P/E " + f.pe + (mp ? " against about " + mp.toFixed(0) + " for its sector" : "")); if (mp && f.pe > mp * 1.8) flags.push("Expensive: P/E is far above its sector"); }
+  else flags.push("P/E not available");
+  if (f.mcap_cr != null && f.mcap_cr < 2000) flags.push("Small company (₹" + fv(f.mcap_cr) + " cr): thin trading, bigger swings");
+  if (f.ins != null && f.ins < 30) flags.push("Insider holding " + f.ins + "% (Yahoo): check promoter holding and pledging");
+  return {score: Math.round(parts.Growth + parts.Quality + parts.Trend + parts.Value), parts, why, flags};
+}
+function renderLT() {
+  $("asof").textContent = stamp();
+  let body;
+  if (!LT) body = '<p class="sub">Loading…</p>';
+  else if (!Object.keys(LT.stocks).length) body = '<p class="sub">Long-term data is not available yet. Run "Update long-term data" once from the Actions tab of your GitHub repo, then reload. It fills in over a few runs.</p>';
+  else {
+    const spe = sectorPE(), held = new Set(pload().filter(x => !x.sold).map(x => x.sym)), n = Object.keys(LT.stocks).length;
+    const all = Object.keys(LT.stocks).filter(k => D.stocks[k]).map(k => ({k, r: ltScore(k, LT.stocks[k], spe)})).filter(x => x.r && x.r.score >= 60).sort((a, b) => b.r.score - a.r.score);
+    const list = all.filter(x => ltF === "all" || capOf(x.k) === ltF).slice(0, 30);
+    const chip = (k, t) => `<button class="${ltF === k ? "on" : ""}" onclick="ltF='${k}';render()">${t}</button>`;
+    const cell = ({k, r}) => { const f = LT.stocks[k], s = D.stocks[k];
+      return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(k, s.n || k)}</b><span class="tag ${r.score >= 75 ? "g" : "a"}">Score ${r.score}/100</span></div>
+      <div><span class="mu">${esc(s.sec || "")}</span> ${capTag(k)}${held.has(k) ? '<span class="tag a">You hold it</span>' : ""}<span class="tag">Growth ${r.parts.Growth}/30</span><span class="tag">Quality ${r.parts.Quality}/35</span><span class="tag">Trend ${r.parts.Trend}/20</span><span class="tag">Value ${r.parts.Value}/15</span></div>
+      <div class="cs">₹${fv(s.p)} <span class="${s.d >= 0 ? "up" : "dn"}">${f1(s.d)}</span> today · ${f1(s.m)} in a month${f.mcap_cr != null ? " · market cap ₹" + fv(f.mcap_cr) + " cr" : ""}</div>
+      <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
+      ${r.flags.length ? "<div>" + r.flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
+      <details><summary>Before you buy</summary><ul class="ul"><li>Buy in 2 or 3 parts over a few weeks, not all at once.</li><li>Check promoter holding and pledging, the latest conference call and any pending litigation.</li><li>Decide your exit now: for example, a close below the 200 EMA together with weak results.</li><li>Keep any one stock to a size you can live with if it halves.</li></ul></details></div>`; };
+    body = `<div class="sub">${n} of ${Object.keys(D.stocks).length} Nifty 500 stocks analysed so far (updated ${esc(LT.updated || "")}). ${all.length} qualify with a score of 60 or more.</div>
+    <div class="chips" style="margin:8px 0">${chip("all", "All")}${chip("Large cap", "Large cap")}${chip("Mid cap", "Mid cap")}${chip("Small cap", "Small cap")}</div>
+    ${list.length ? list.map(cell).join("") : '<p class="sub">No stock matches this filter yet.</p>'}
+    <div class="note">How the score works: growth (30), quality (35), trend (20) and value against the sector (15). A stock must have grown profit and revenue over 2 to 3 years, never made a loss in those years, earn a return on equity of at least 10%, and trade above its 200 EMA. This is a screen for ideas to research, not a list of future winners: nobody can reliably pick multibaggers, and small caps can fall hard. Figures come from Yahoo Finance and can be late or wrong. The final call is yours.</div>`;
+  }
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2>${body}`;
+}
+
 const JK = "imd_journal_v1";
 const jload = () => { try { return JSON.parse(localStorage.getItem(JK) || "[]"); } catch (e) { return []; } };
 const jsave = a => { try { localStorage.setItem(JK, JSON.stringify(a)); } catch (e) { alert("This browser could not save the journal."); } };
@@ -1039,7 +1249,7 @@ const getJ = u => fetch(u).then(r => r.ok ? r.text() : null).then(t => t ? JSON.
 let ST = null, shownGate = null;
 const BLOCK_MSG = "DATA NOT VERIFIED — NO NEW TRADE";
 const STALE_MIN = 120;  // minutes without a successful update, during the scheduled refresh window, before the page blocks new trades
-const isBusy = () => { const el = document.activeElement; return view === "journal" || !!document.querySelector("details[open]") || !!(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)); };
+const isBusy = () => { const el = document.activeElement; return ["journal", "port"].includes(view) || !!document.querySelector("details[open]") || !!(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)); };
 function istNow() { const n = new Date(); return new Date(n.getTime() + n.getTimezoneOffset() * 60000 + 19800000); }
 function ageMin() { return D && D.ts ? (Date.now() / 1000 - D.ts) / 60 : null; }
 function staleBrowser() {
@@ -1098,7 +1308,7 @@ async function poll() {
   const d = await loadData(false);
   if (!d || !D || (d.ts || 0) <= (D.ts || 0)) return;
   D = d; PR = null;
-  const el = document.activeElement, busy = view === "journal" || document.querySelector("details[open]") || (el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
+  const el = document.activeElement, busy = ["journal", "port"].includes(view) || document.querySelector("details[open]") || (el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName));
   if (busy) $("asof").textContent = stamp(); else render();
 }
 Promise.all([loadData(true), loadStatus()]).then(([d]) => {
@@ -1106,10 +1316,13 @@ Promise.all([loadData(true), loadStatus()]).then(([d]) => {
   D = d;
   renderStatus();
   loadPicks();
+  loadRes();
+  loadLT();
   setInterval(loadPicks, 600000);
+  setInterval(loadRes, 900000);
   const h = location.hash.slice(1);
   if (h.startsWith("stock-") && D.stocks[decodeURIComponent(h.slice(6))]) { curStock = decodeURIComponent(h.slice(6)); view = "stock"; }
-  else if (["ov", "macro", "swing", "news", "journal"].includes(h)) view = h;
+  else if (["ov", "macro", "swing", "news", "journal", "port", "res", "lt"].includes(h)) view = h;
   else if (D.segments.some(x => x.key === h)) { seg = h; view = "seg"; }
   render();
   setInterval(poll, 60000);
