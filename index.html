@@ -881,16 +881,54 @@ function padd() {
   } else a.unshift(t);
   psave(a); render();
 }
-function pfix(id) {  // correct a holding: quantity, average buy price, buy date, note
+function pfix(id) {  // one form to correct everything about a holding
+  const h = pload().find(x => x.id === id); if (!h) return;
+  const old = document.getElementById("pfixbox"); if (old) old.remove();
+  const val = x => x == null ? "" : x, fld = (l, i, v, t) => `<div><label>${l}</label><input id="${i}" type="${t || "number"}" step="any" value="${esc(String(val(v)))}"></div>`;
+  const box = document.createElement("div"); box.id = "pfixbox";
+  box.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto";
+  box.innerHTML = `<div class="card" style="max-width:460px;width:100%;border:1px solid var(--line)">
+    <h2 style="margin-top:0">Edit ${esc(h.sym)}</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${fld("Quantity (total)", "f_qty", h.qty)}${fld("Average buy price (₹)", "f_avg", h.avg)}
+      ${fld("Stop-loss price (₹)", "f_stop", h.stop)}${fld("Target price (₹)", "f_tgt", h.tgt)}
+      ${fld("Buy date", "f_date", h.d, "date")}${fld("Note", "f_note", h.note, "text")}
+    </div>
+    <div class="mu" style="margin:8px 0">Quantity is the total you hold now. To add shares, type the new total.</div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button onclick="document.getElementById('pfixbox').remove()">Cancel</button><button onclick="pfixsave(${id})">Save</button></div></div>`;
+  document.body.appendChild(box);
+}
+function pfixsold(id) {  // correct a recorded sale: quantity, buy price, sell price, sell date
+  const h = pload().find(x => x.id === id); if (!h || !h.sold) return;
+  const old = document.getElementById("pfixbox"); if (old) old.remove();
+  const fld = (l, i, v, t) => `<div><label>${l}</label><input id="${i}" type="${t || "number"}" step="any" value="${esc(String(v == null ? "" : v))}"></div>`;
+  const box = document.createElement("div"); box.id = "pfixbox";
+  box.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto";
+  box.innerHTML = `<div class="card" style="max-width:460px;width:100%;border:1px solid var(--line)">
+    <h2 style="margin-top:0">Edit sale: ${esc(h.sym)}</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      ${fld("Quantity sold", "f_qty", h.qty)}${fld("Buy price (₹)", "f_avg", h.avg)}
+      ${fld("Sell price (₹)", "f_px", h.sold.px)}${fld("Sell date", "f_sd", h.sold.d, "date")}
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px"><button onclick="document.getElementById('pfixbox').remove()">Cancel</button><button onclick="pfixsoldsave(${id})">Save</button></div></div>`;
+  document.body.appendChild(box);
+}
+function pfixsoldsave(id) {
+  const g = i => document.getElementById(i).value.trim();
+  const q = Number(g("f_qty")), v = Number(g("f_avg")), px = Number(g("f_px"));
+  if (!(q > 0) || !(v > 0) || !(px > 0)) { alert("Quantity, buy price and sell price must be numbers above 0."); return; }
+  const a = pload(), h = a.find(x => x.id === id); if (!h || !h.sold) return;
+  h.qty = q; h.avg = v; h.sold.px = px; if (g("f_sd")) h.sold.d = g("f_sd");
+  psave(a); document.getElementById("pfixbox").remove(); render();
+}
+function pfixsave(id) {
+  const g = i => document.getElementById(i).value.trim(), num = x => x === "" ? null : Number(x);
+  const q = num(g("f_qty")), v = num(g("f_avg")), st = num(g("f_stop")), tg = num(g("f_tgt"));
+  if (!(q > 0) || !(v > 0)) { alert("Quantity and average buy price must be numbers above 0."); return; }
+  if ((st != null && !(st > 0)) || (tg != null && !(tg > 0))) { alert("Stop-loss and target must be numbers above 0, or left blank."); return; }
   const a = pload(), h = a.find(x => x.id === id); if (!h) return;
-  const q = prompt("Total quantity you hold (change it to add more or fix a mistake)", h.qty); if (q === null) return;
-  const v = prompt("Average buy price per share", h.avg); if (v === null) return;
-  const d = prompt("Buy date (YYYY-MM-DD)", h.d || ""); if (d === null) return;
-  const n = prompt("Note (blank to clear)", h.note || ""); if (n === null) return;
-  if (!(Number(q) > 0) || !(Number(v) > 0)) { alert("Quantity and average price must be numbers above 0. Nothing was changed."); return; }
-  if (d.trim() && isNaN(new Date(d.trim()))) { alert("That date was not understood. Use the form 2026-11-11. Nothing was changed."); return; }
-  h.qty = Number(q); h.avg = Number(v); if (d.trim()) h.d = d.trim(); h.note = n.trim();
-  psave(a); render();
+  h.qty = q; h.avg = v; h.stop = st; h.tgt = tg; if (g("f_date")) h.d = g("f_date"); h.note = g("f_note");
+  psave(a); document.getElementById("pfixbox").remove(); render();
 }
 function pedit(id) {
   const a = pload(), h = a.find(x => x.id === id), ask = (m, cur) => { const x = prompt(m, cur == null ? "" : cur); return x === null ? undefined : x.trim() === "" ? null : isNaN(Number(x)) ? undefined : Number(x); };
@@ -972,7 +1010,7 @@ function renderPort() {
     <div class="mu">${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
     <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}${r.tips.map(x => "<li><i>" + esc(x) + "</i></li>").join("")}</ul>
     <div class="chips"><button onclick="pfix(${h.id})">Edit holding</button><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
-  const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pdel(${x.id})">x</button></div>`; };
+  const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pfixsold(${x.id})">Edit</button> <button onclick="pdel(${x.id})">x</button></div>`; };
   $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">My portfolio</h2>
   <div class="note" style="margin-top:0">Your holdings are saved only in this browser on this device and are not uploaded. Use Export to keep a backup. Each review is rule-based, from price, trend (20/50/200 EMA), your own stop and target, and the latest quarterly results. It is not a forecast or a certainty, so the final call is yours.${gateOn() ? " Data is not verified right now, so treat every signal as reference only." : ""}</div>
   <h2>Summary</h2>${sum}
