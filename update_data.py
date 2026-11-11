@@ -663,6 +663,15 @@ def gap_preview(macro, fiidii):
             "score": round(pts, 2), "key": key, "rows": rows}
 
 
+MIN_PREOPEN_STOCKS = 250   # at least this many Nifty 500 stocks need a pre-open price before the stock-based verdict is used
+GAP_UP2, GAP_UP1 = 0.5, 0.2  # median Nifty 500 stock gap (%) for "gap up big" / "gap up"; the same numbers negative for down
+
+
+def stock_gap_key(median):
+    return ("gapup2" if median >= GAP_UP2 else "gapup1" if median >= GAP_UP1 else "flat" if median > -GAP_UP1
+            else "gapdown1" if median > -GAP_UP2 else "gapdown2")
+
+
 def _num(x):
     try:
         v = float(str(x).replace(",", ""))
@@ -671,7 +680,7 @@ def _num(x):
         return None
 
 
-def fetch_nse_preopen(picks):
+def fetch_nse_preopen(picks, universe=None):
     """NSE's own pre-open session (orders 9:00-9:08, matching 9:08-9:12): the indicative Nifty 50 open and the
     indicative price of each pick. Best effort: NSE often blocks GitHub's servers and this feed is unofficial, so
     any failure or unexpected format returns None and the dashboard falls back to the global-cues estimate."""
@@ -698,14 +707,22 @@ def fetch_nse_preopen(picks):
             print("NSE pre-open (Nifty): HTTP", r.status_code)
 
         want = set(picks)
-        if want:
-            r = s.get("https://www.nseindia.com/api/market-data-pre-open", params={"key": "ALL"}, timeout=40)
-            if r.status_code == 200:
+        uni = set(universe or [])
+        if want or uni:
+            r = None
+            for attempt in range(3):  # NSE often answers the first try with an error; one more try usually works
+                r = s.get("https://www.nseindia.com/api/market-data-pre-open", params={"key": "ALL"}, timeout=40)
+                if r.status_code == 200:
+                    break
+                print("NSE pre-open (all stocks): HTTP", r.status_code, "- try", attempt + 1)
+                time.sleep(3)
+            if r is not None and r.status_code == 200:
+                gaps = []  # indicative gap % of every Nifty 500 stock that has a pre-open price
                 for e in r.json().get("data", []):
                     try:
                         m = e.get("metadata") or {}
                         sym = str(m.get("symbol", "")).strip()
-                        if sym not in want:
+                        if sym not in want and sym not in uni:
                             continue
                         pm = (e.get("detail") or {}).get("preOpenMarket") or {}
                         price = next((v for v in (_num(m.get("iep")), _num(pm.get("IEP")), _num(pm.get("finalPrice")),
@@ -714,13 +731,20 @@ def fetch_nse_preopen(picks):
                         pct = _num(m.get("pChange"))
                         if pct is None and price and prev:
                             pct = round((price / prev - 1) * 100, 2)
-                        if price is not None:
+                        if sym in want and price is not None:
                             out["picks"].append({"s": sym, "p": price, "prev": prev, "pc": pct})
+                        if sym in uni and pct is not None:
+                            gaps.append(pct)
                     except Exception:
                         continue
-            else:
-                print("NSE pre-open (all stocks): HTTP", r.status_code)
-        if out["nifty"] is None and not out["picks"]:
+                if len(gaps) >= MIN_PREOPEN_STOCKS:
+                    import statistics
+                    out["breadth"] = {"n": len(gaps), "up": sum(g > 0.1 for g in gaps), "down": sum(g < -0.1 for g in gaps),
+                                      "median": round(statistics.median(gaps), 2)}
+                    out["breadth"]["flat"] = len(gaps) - out["breadth"]["up"] - out["breadth"]["down"]
+                else:
+                    print(f"NSE pre-open: only {len(gaps)} Nifty 500 stocks had a price, breadth not used")
+        if out["nifty"] is None and not out["picks"] and not out.get("breadth"):
             print("NSE pre-open: nothing usable came back")
             return None
         return out
@@ -729,27 +753,37 @@ def fetch_nse_preopen(picks):
         return None
 
 
-def preopen_run(old):
-    """Light early-morning run: refresh global cues, headlines and the gap preview only."""
-    old["macro"] = fetch_macro() or old.get("macro", [])
-    old["countries"] = fetch_countries() or old.get("countries", [])
-    ev = old.get("events") or {}
-    ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
-    ev["glob"] = {t: uniq([r for q in qs for r in rss(q, 8)], 5) for t, qs in GLOBAL_TOPICS.items()}
-    ev["gtop"] = fetch_top(GLOBAL_TOP)
-    ev["dtop"] = fetch_top(DOMESTIC_TOP)
-    ev["ts"] = int(time.time())
-    old["events"] = ev
+def preopen_run(old, fast=False):
+    """Light early-morning run: refresh global cues, headlines and the gap preview only.
+    fast=True (the 9:10 and 9:14 runs) skips the global cues and headlines, which the 9:07 run refreshed,
+    so NSE's pre-open numbers are fetched within seconds of the run starting."""
+    if not fast:
+        old["macro"] = fetch_macro() or old.get("macro", [])
+        old["countries"] = fetch_countries() or old.get("countries", [])
+        ev = old.get("events") or {}
+        ev["dom"] = uniq([r for q in DOMESTIC_QUERIES for r in rss(q, 10)], 14)
+        ev["glob"] = {t: uniq([r for q in qs for r in rss(q, 8)], 5) for t, qs in GLOBAL_TOPICS.items()}
+        ev["gtop"] = fetch_top(GLOBAL_TOP)
+        ev["dtop"] = fetch_top(DOMESTIC_TOP)
+        ev["ts"] = int(time.time())
+        old["events"] = ev
     t0 = ist_now()
     prev_nse = (old.get("preopen") or {}).get("nse")  # an earlier run today may have got NSE's numbers
     old["preopen"] = None if (t0.weekday() >= 5 or is_holiday(t0.date())) else gap_preview(old["macro"], old.get("fiidii"))
     if old["preopen"]:
         picks = [c["s"] for c in (old.get("swing") or [])[:15] if isinstance(c, dict) and c.get("s")]
-        nse = fetch_nse_preopen(picks)
+        nse = fetch_nse_preopen(picks, universe=list((old.get("stocks") or {}).keys()))
         if not nse and prev_nse and prev_nse.get("date") == t0.date().isoformat():
             nse = prev_nse  # keep the earlier NSE numbers rather than lose them if this try is blocked
         if nse:
             old["preopen"]["nse"] = nse
+        b = (nse or {}).get("breadth")
+        old["preopen"]["basis"] = "global"
+        if b:
+            # stock based verdict: the median indicative gap of the Nifty 500 stocks decides, global cues stay as context
+            old["preopen"]["global_key"] = old["preopen"]["key"]
+            old["preopen"]["key"] = stock_gap_key(b["median"])
+            old["preopen"]["basis"] = "stocks"
     old["updated"] = ist_now().strftime("%d %b, %I:%M %p IST").lstrip("0").replace(", 0", ", ")
     old["mode"] = "preopen"
     old["ts"] = int(time.time())
@@ -1203,14 +1237,18 @@ def main():
     early = bool(sched) and t_now.weekday() < 5 and (t_now.hour, t_now.minute) < (9, 15)  # before the NSE open
     # The pre-open mode follows the schedule line, not the clock: GitHub often starts a run 10-30 minutes late,
     # and a late "9:10" run used to turn into a slow full run that finished long after the open.
-    PREOPEN_CRONS = {"15 3 * * 1-5", "37 3 * * 1-5", "40 3 * * 1-5", "44 3 * * 1-5"}
+    PREOPEN_CRONS = {"37 3 * * 1-5", "40 3 * * 1-5", "44 3 * * 1-5"}
+    FAST_PREOPEN_CRONS = {"40 3 * * 1-5", "44 3 * * 1-5"}  # NSE numbers only, no news (the 9:07 run did that)
     NEWS_CRONS = {"23 3,9,15 * * 0,6"}  # weekends: news only
     mode = ("preopen" if sched in PREOPEN_CRONS or early else "news" if sched in NEWS_CRONS
             else "midday" if sched == "30 7 * * 1-5" else "live" if sched == "*/5 3-10 * * 1-5" else "full")
     if mode == "news" and old.get("segments"):
         return news_run(old)
+    if mode == "preopen" and t_now.weekday() < 5 and (t_now.hour, t_now.minute) >= (9, 30):
+        print("Pre-open run started after 9:30 (GitHub was late): skipped, the market is already open")
+        return
     if mode == "preopen" and old.get("segments"):
-        return preopen_run(old)
+        return preopen_run(old, fast=sched in FAST_PREOPEN_CRONS)
     lists, names, skipped = {}, {}, []
     for key, name, group, fname in SEGMENTS:
         got = get_list(fname)

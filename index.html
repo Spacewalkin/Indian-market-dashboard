@@ -507,7 +507,7 @@ const ago = t => t ? Math.max(0, Math.round((Date.now() / 1000 - t) / 60)) + " m
 const PRE = {
   gapup2: ["🚀 Strong gap-up likely", "#4fd1a5", ["Don't chase gaps of 2% or more at the open. Wait for the first 30 minutes.", "If a stock gaps above your entry zone, wait for a pullback instead of buying the open."]],
   gapup1: ["📈 Mild gap-up likely", "#4fd1a5", ["A normal day. Let the first 15 minutes settle before entering.", "Keep your stops where you planned them."]],
-  flat: ["➖ Flat open expected", "#f2b84b", ["Global cues are quiet. Follow your setups and your plan."]],
+  flat: ["➖ Flat open expected", "#f2b84b", ["No strong gap either way. Follow your setups and your plan."]],
   gapdown1: ["📉 Mild gap-down likely", "#ff9a6b", ["Don't buy the first dip. Wait for the market to settle after 9:45.", "Check the stops on stocks you hold, especially those close to their stop price."]],
   gapdown2: ["🔻 Strong gap-down likely", "#ff6b6b", ["Avoid fresh buying at the open and keep position sizes small today.", "Stops can slip on a gap, so decide now what you will do if one is hit at the open."]],
 };
@@ -522,8 +522,10 @@ function nseBlock(P, hm) {
   const n = N.nifty, cls = v => (v >= 0 ? "up" : "dn");
   const nrow = n && n.p != null ? `<div class="row"><span>Nifty 50 indicative open</span><span class="${cls(n.pc || 0)}">${px2(n.p)}${n.pc != null ? " (" + gp(n.pc) + ")" : ""}</span></div>` : "";
   const brow = n && n.adv != null ? `<div class="row"><span>Nifty 50 stocks indicated up / down</span><span>${n.adv} / ${n.dec}</span></div>` : "";
+  const B = N.breadth;
+  const b5 = B ? `<div class="row"><span>Nifty 500 stocks gapping up / down / flat</span><span><span class="up">${B.up}</span> / <span class="dn">${B.down}</span> / ${B.flat}</span></div><div class="row"><span>Median Nifty 500 stock gap</span><span class="${cls(B.median || 0)}">${gp(B.median)}</span></div><div class="mu" style="font-size:11px">Out of ${B.n} stocks that have an indicative price. A gap under 0.1% counts as flat.</div>` : "";
   const prow = (N.picks || []).map(x => `<div class="row"><span><b>${esc(x.s)}</b> <span class="mu">prev ${px2(x.prev)}</span></span><span class="${cls(x.pc || 0)}">${px2(x.p)} (${gp(x.pc)})${x.pc != null && x.pc >= 2 ? " ⚠ don't chase" : ""}</span></div>`).join("");
-  return `<div style="margin-top:10px"><b>NSE pre-open (indicative)</b> <span class="mu">as of ${esc(N.time)} IST</span>${nrow}${brow}${prow ? `<div class="lab" style="margin-top:8px">Your picks</div>${prow}` : ""}
+  return `<div style="margin-top:10px"><b>NSE pre-open (indicative)</b> <span class="mu">as of ${esc(N.time)} IST</span>${nrow}${brow}${b5}${prow ? `<div class="lab" style="margin-top:8px">Your picks</div>${prow}` : ""}
   <div class="sub" style="margin-top:4px">Indicative prices can still change until about 9:12. Real opening prices come at 9:15.</div></div>`;
 }
 function preopenCard() {
@@ -546,6 +548,7 @@ function preopenCard() {
     : "The market opened at 9:15. The first 30 minutes are the noisiest, so wait until 9:45 before new entries.";
   const gift = hm < "09:15" ? `<div class="chips" style="margin-top:8px"><a href="https://www.google.com/search?q=GIFT+Nifty+live" target="_blank" rel="noopener"><button>Check GIFT Nifty</button></a><a href="https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market" target="_blank" rel="noopener"><button>NSE pre-open data</button></a></div>` : "";
   return `<div class="plan" style="border-color:${p[1]};margin-top:12px"><h3>${p[0]}</h3><div class="mu">${hm >= "09:15" ? "Pre-open estimate" : "Pre-open view"}, made at ${esc(P.time)} IST</div>
+  ${P.basis === "stocks" && P.nse && P.nse.breadth ? `<div class="mu">Based on the median indicative gap of ${P.nse.breadth.n} Nifty 500 stocks (NSE pre-open).</div>` : `<div class="mu">Based on overnight global cues (NSE stock data was not available).</div>`}
   <div class="sub" style="margin:4px 0">${phase}</div>
   <ul style="margin:6px 0">${li(p[2])}</ul>
   ${actual}${nseBlock(P, hm)}${P.nse ? `<div class="lab" style="margin-top:10px">Global cues (estimate)</div>` : ""}${rows}${gift}
