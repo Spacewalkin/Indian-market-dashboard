@@ -2,10 +2,9 @@ name: Update market data
 
 on:
   schedule:
-    - cron: "15 3 * * 1-5"      # 8:45 AM IST
-    - cron: "37 3 * * 1-5"      # 9:07 AM IST  (pre-open, order collection ending)
-    - cron: "40 3 * * 1-5"      # 9:10 AM IST  (pre-open, indicative opening prices)
-    - cron: "44 3 * * 1-5"      # 9:14 AM IST  (pre-open final, just before the open)
+    - cron: "37 3 * * 1-5"      # 9:07 AM IST  (first morning run: global cues + headlines)
+    - cron: "40 3 * * 1-5"      # 9:10 AM IST  (quick: NSE pre-open numbers only)
+    - cron: "44 3 * * 1-5"      # 9:14 AM IST  (quick: final NSE pre-open numbers)
     - cron: "30 4 * * 1-5"      # 10:00 AM IST
     - cron: "15 5 * * 1-5"      # 10:45 AM IST
     - cron: "0,30 6 * * 1-5"    # 11:30 AM and 12:00 PM IST
