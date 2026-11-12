@@ -1005,30 +1005,41 @@ function review(h, weight) {
 let pSecF = null, PSECS = [];
 const SECCOL = ["#7c8cff", "#4fd1a5", "#f2b84b", "#ff6b6b", "#c084fc", "#38bdf8", "#fb923c", "#a3e635", "#f472b6", "#94a3b8"];
 function psecf(i) { const k = PSECS[i]; pSecF = pSecF === k ? null : k; render(); }
+function pround(ws, dec) {  // round percentages so the shown numbers add up to exactly 100
+  const m = Math.pow(10, dec || 0), tot = ws.reduce((t, x) => t + x, 0); if (!tot) return ws.map(() => 0);
+  const raw = ws.map(x => x / tot * 100 * m), fl = raw.map(Math.floor); let left = Math.round(100 * m) - fl.reduce((t, x) => t + x, 0);
+  raw.map((x, i) => [x - Math.floor(x), i]).sort((a, b) => b[0] - a[0]).forEach(([, i]) => { if (left > 0) { fl[i]++; left--; } });
+  return fl.map(x => x / m);
+}
 function renderPort() {
   $("asof").textContent = stamp();
   const a = pload(), open = a.filter(x => !x.sold), sold = a.filter(x => x.sold);
   const val = open.reduce((t, h) => t + h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg), 0), inv = open.reduce((t, h) => t + h.qty * h.avg, 0);
-  const day = open.reduce((t, h) => { const s = D.stocks[h.sym]; return t + (s && s.pc ? h.qty * (s.p - s.pc) : 0); }, 0);
+  const today = new Date().toISOString().slice(0, 10);
+  const day = open.reduce((t, h) => { const s = D.stocks[h.sym]; if (!s) return t; return t + (h.d >= today ? h.qty * (s.p - h.avg) : s.pc ? h.qty * (s.p - s.pc) : 0); }, 0);
+  const realised = sold.reduce((t, x) => t + x.qty * (x.sold.px - x.avg), 0), soldCost = sold.reduce((t, x) => t + x.qty * x.avg, 0);
   const rv = open.map(h => ({h, r: review(h, val ? h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg) / val * 100 : 0)}));
   const sec = {}; open.forEach(h => { const k = (D.stocks[h.sym] || {}).sec || "Other"; sec[k] = (sec[k] || 0) + h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg); });
   const topSec = Object.entries(sec).sort((x, y) => y[1] - x[1])[0], pl = val - inv;
   const scnt = {}; open.forEach(h => { const k = (D.stocks[h.sym] || {}).sec || "Other"; scnt[k] = (scnt[k] || 0) + 1; });
-  const secL = Object.keys(sec).map(k => ({k, n: scnt[k], v: sec[k], w: val ? sec[k] / val * 100 : 0})).sort((x, y) => y.n - x.n || y.v - x.v);
+  const secK = Object.keys(sec), secW = pround(secK.map(k => sec[k]), 1);
+  const secL = secK.map((k, i) => ({k, n: scnt[k], v: sec[k], w: secW[i]})).sort((x, y) => y.n - x.n || y.v - x.v);
   PSECS = secL.map(x => x.k); if (pSecF && !PSECS.includes(pSecF)) pSecF = null;
   const secBlock = open.length ? `<h2>Sector allocation</h2><div class="card">
-    <div style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)">${secL.map((x, i) => `<div title="${esc(x.k)} ${x.w.toFixed(0)}%" style="width:${x.w}%;background:${SECCOL[i % SECCOL.length]}"></div>`).join("")}</div>
-    <div class="chips" style="margin-top:10px">${secL.map((x, i) => `<button onclick="psecf(${i})" style="${pSecF === x.k ? "outline:2px solid var(--ac);" : ""}"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SECCOL[i % SECCOL.length]};margin-right:6px"></span>${esc(x.k)} <b>${x.n}</b> <span class="mu">· ${x.w.toFixed(0)}%</span></button>`).join("")}</div>
-    <div class="mu" style="margin-top:8px">${open.length} stock${open.length > 1 ? "s" : ""} in ${secL.length} sector${secL.length > 1 ? "s" : ""}. The number is how many stocks you hold there; the percentage is the share of your money. Tap a sector to show only those holdings.</div>
-    ${secL[0].w > 30 && secL.length > 1 ? `<div class="sub" style="margin-top:6px">⚠ ${secL[0].w.toFixed(0)}% of your money is in ${esc(secL[0].k)}. One sector this large means one bad news cycle can hurt a lot.</div>` : ""}</div>` : "";
+    <div style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)">${secL.map((x, i) => `<div title="${esc(x.k)} ${x.w.toFixed(1)}%" style="width:${x.w}%;background:${SECCOL[i % SECCOL.length]}"></div>`).join("")}</div>
+    <div class="chips" style="margin-top:10px">${secL.map((x, i) => `<button onclick="psecf(${i})" style="${pSecF === x.k ? "outline:2px solid var(--ac);" : ""}"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SECCOL[i % SECCOL.length]};margin-right:6px"></span>${esc(x.k)} <b>${x.n}</b> <span class="mu">· ${x.w.toFixed(1)}%</span></button>`).join("")}</div>
+    <div class="mu" style="margin-top:8px">${open.length} stock${open.length > 1 ? "s" : ""} in ${secL.length} sector${secL.length > 1 ? "s" : ""}. The number is how many stocks you hold there; the percentage is the share of your money (adds up to 100%). Tap a sector to show only those holdings.</div>
+    ${secL[0].w > 30 && secL.length > 1 ? `<div class="sub" style="margin-top:6px">⚠ ${secL[0].w.toFixed(1)}% of your money is in ${esc(secL[0].k)}. One sector this large means one bad news cycle can hurt a lot.</div>` : ""}</div>` : "";
+  const hw = {}; pround(open.map(h => h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg)), 1).forEach((w, i) => { hw[open[i].id] = w; });
   const rvShow = pSecF ? rv.filter(x => ((D.stocks[x.h.sym] || {}).sec || "Other") === pSecF) : rv;
   const cnt = k => rv.filter(x => x.r.sig.startsWith(k)).length;
-  const sum = open.length ? `<div class="stats"><div><strong>₹${fv(Math.round(val))}</strong><small>current value (cost ₹${fv(Math.round(inv))})</small></div><div><strong class="${pl >= 0 ? "up" : "dn"}">${pl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pl)))}</strong><small>total P&amp;L (${f1(inv ? pl / inv * 100 : 0)})</small></div><div><strong class="${day >= 0 ? "up" : "dn"}">${day >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(day)))}</strong><small>change today</small></div></div>
+  const tpl = pl + realised, tbase = inv + soldCost, sg = x => (x >= 0 ? "+" : "-") + "₹" + fv(Math.abs(Math.round(x))), cl = x => x >= 0 ? "up" : "dn";
+  const sum = open.length || sold.length ? `<div class="stats" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><div><strong>₹${fv(Math.round(val))}</strong><small>current value (cost ₹${fv(Math.round(inv))})</small></div><div><strong class="${cl(pl)}">${sg(pl)}</strong><small>unrealised P&amp;L on holdings (${f1(inv ? pl / inv * 100 : 0)})</small></div><div><strong class="${cl(realised)}">${sg(realised)}</strong><small>realised P&amp;L from ${sold.length} sale${sold.length === 1 ? "" : "s"}</small></div><div><strong class="${cl(tpl)}">${sg(tpl)}</strong><small>total P&amp;L, realised + unrealised (${f1(tbase ? tpl / tbase * 100 : 0)})</small></div><div><strong class="${cl(day)}">${sg(day)}</strong><small>change today</small></div></div>
     <div class="sub" style="margin-top:8px">${cnt("EXIT")} exit · ${cnt("BOOK")} book profit · ${cnt("REVIEW")} review · ${cnt("ADD")} add · ${cnt("HOLD")} hold${topSec && val && topSec[1] / val > 0.4 ? " · ⚠ " + Math.round(topSec[1] / val * 100) + "% of the money is in " + esc(topSec[0]) : ""}</div>` : '<p class="sub">Add your holdings below and each one gets a review.</p>';
   const card = ({h, r}) => { const s = D.stocks[h.sym] || {}, p = s.p || h.avg, pnl = h.qty * (p - h.avg);
     return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(h.sym, s.n || h.sym)}</b><span class="tag ${r.cls}">${gateOn() ? esc(BLOCK_MSG) : esc(r.sig)}</span></div>
     <div class="cs">${h.qty} shares · avg ₹${fv(h.avg)} · now ₹${fv(p)} <span class="${p >= h.avg ? "up" : "dn"}">${f1((p / h.avg - 1) * 100)}</span> · ${pnl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pnl)))}</div>
-    <div class="mu">${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
+    <div class="mu">${hw[h.id] != null ? hw[h.id].toFixed(1) + "% of portfolio · " : ""}${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
     <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}${r.tips.map(x => "<li><i>" + esc(x) + "</i></li>").join("")}</ul>
     <div class="chips"><button onclick="pfix(${h.id})">Edit holding</button><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
   const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pfixsold(${x.id})">Edit</button> <button onclick="pdel(${x.id})">x</button></div>`; };
