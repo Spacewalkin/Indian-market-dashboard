@@ -531,8 +531,29 @@ function nseBlock(P, hm) {
   return `<div style="margin-top:10px"><b>NSE pre-open (indicative)</b> <span class="mu">as of ${esc(N.time)} IST</span>${nrow}${brow}${b5}${prow ? `<div class="lab" style="margin-top:8px">Your picks</div>${prow}` : ""}
   <div class="sub" style="margin-top:4px">Indicative prices can still change until about 9:12. Real opening prices come at 9:15.</div></div>`;
 }
+// Pre-open numbers saved by preopen_local.py from your own computer (NSE blocks GitHub's servers).
+let PREL = null;
+const PRE_LOCAL_URL = "https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/preopen/preopen.json";
+function loadPreLocal() {
+  const n = new Date().toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"}), hm = n.slice(11, 16);
+  if (hm < "08:55" || hm >= "09:45") return;
+  getJ(PRE_LOCAL_URL + "?t=" + Math.floor(Date.now() / 15000)).then(r => {
+    if (!r || !r.nse || JSON.stringify(r) === JSON.stringify(PREL)) return;
+    PREL = r;
+    const el = document.activeElement;
+    if (view === "ov" && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) && !document.querySelector("details[open]")) render();
+  });
+}
+const tmin = s => { const m = /(\d+):(\d+)\s*(AM|PM)/.exec(s || ""); return m ? (+m[1] % 12 + (m[3] === "PM" ? 12 : 0)) * 60 + +m[2] : -1; };
+function preData() {
+  const P = D.preopen, L = PREL, today = new Date().toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"}).slice(0, 10);
+  if (!L || !L.nse || L.date !== today || !L.key) return P;
+  if (P && P.date === today && P.nse && tmin(P.nse.time) > tmin(L.nse.time)) return P;  // the website's own copy is newer
+  const base = P && P.date === today ? P : {date: today, rows: [], score: 0};
+  return {...base, nse: L.nse, time: L.time, key: L.key, basis: L.basis};
+}
 function preopenCard() {
-  const P = D.preopen;
+  const P = preData();
   if (!P || !PRE[P.key]) return "";
   const ist = d => d.toLocaleString("sv-SE", {timeZone: "Asia/Kolkata"});
   const now = ist(new Date()), hm = now.slice(11, 16);
@@ -551,7 +572,7 @@ function preopenCard() {
     : "The market opened at 9:15. The first 30 minutes are the noisiest, so wait until 9:45 before new entries.";
   const gift = hm < "09:15" ? `<div class="chips" style="margin-top:8px"><a href="https://www.google.com/search?q=GIFT+Nifty+live" target="_blank" rel="noopener"><button>Check GIFT Nifty</button></a><a href="https://www.nseindia.com/market-data/pre-open-market-cm-and-emerge-market" target="_blank" rel="noopener"><button>NSE pre-open data</button></a></div>` : "";
   return `<div class="plan" style="border-color:${p[1]};margin-top:12px"><h3>${p[0]}</h3><div class="mu">${hm >= "09:15" ? "Pre-open estimate" : "Pre-open view"}, made at ${esc(P.time)} IST</div>
-  ${P.basis === "stocks" && P.nse && P.nse.breadth ? `<div class="mu">Based on the median indicative gap of ${P.nse.breadth.n} Nifty 500 stocks (NSE pre-open).</div>` : `<div class="mu">Based on overnight global cues (NSE stock data was not available).</div>`}
+  ${P.basis === "stocks" && P.nse && P.nse.breadth ? `<div class="mu">Based on the median indicative gap of ${P.nse.breadth.n} Nifty 500 stocks (NSE pre-open).</div>` : P.basis === "nifty" ? `<div class="mu">Based on NSE's indicative Nifty 50 opening gap.</div>` : `<div class="mu">Based on overnight global cues (NSE stock data was not available).</div>`}
   <div class="sub" style="margin:4px 0">${phase}</div>
   <ul style="margin:6px 0">${li(p[2])}</ul>
   ${actual}${nseBlock(P, hm)}${P.nse ? `<div class="lab" style="margin-top:10px">Global cues (estimate)</div>` : ""}${rows}${gift}
@@ -588,7 +609,7 @@ function spark(L, col) {
   return `<svg viewBox="0 0 200 40" style="height:38px"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="2"/></svg>`;
 }
 const heat = v => v >= 0 ? `rgba(79,209,165,${Math.min(0.75, 0.18 + v / 12).toFixed(2)})` : `rgba(255,107,107,${Math.min(0.75, 0.18 - v / 12).toFixed(2)})`;
-const SCN = {pick: "Stocks that broke above their 52-week high and held it, scored out of 8 on volume, base, strength, sector and risk. Updated each evening after the close.", brk: "Closed above the previous 52-week high within the last 5 sessions and is still above it. Ready to trade means it closed above the line on the last finished session and price has now moved above that day's high (the PDH); you do not need to wait for today's close. Needs volume at least 1.5 times normal on the breakout day. Pending means it is above the line now but the close is not final.", near: "Within 5% below the 52-week high, above the 20 and 50 EMA, with enough daily turnover. Not a breakout yet: wait for a close above the line.",
+const SCN = {pick: "Stocks that broke above their 52-week high and held it, scored out of 8 on volume, base, strength, sector and risk. Updated each evening after the close.", brk: "Closed above the previous 52-week high within the last 5 sessions and is still above it. Ready to trade means it closed above the line on the last finished session and price has now moved above that day's high (the PDH); you do not need to wait for today's close. Needs volume at least 1.5 times normal on the breakout day. Breaking out now means it is above the line right now and is shown green; the close can still change, and the call is yours.", near: "Within 5% below the 52-week high, above the 20 and 50 EMA, with enough daily turnover. Not a breakout yet: wait for a close above the line.",
   pull: "Uptrend (above rising 50 EMA and the 200 EMA) that pulled back to the 20 or 50 EMA, held it and turned up today.", retest: "Broke out 3 to 12 sessions ago, came back to the breakout level and held it.",
   rs: "Top 20% of Nifty 500 for 3-month strength against Nifty, above the 50 and 200 EMA.", vol: "Volume at least 2 times normal on a move of 3% or more, up or down.",
   weak: "Below the 50 and 200 EMA, behind Nifty over 3 months and down over the last month. For avoiding, not buying.", res: "Companies reporting results in the next 10 days. Plan around the date."};
@@ -600,8 +621,8 @@ function tradePlan(type, c) {
     const armed = c.st === "ready" && c.pdh, crossed = armed && c.p > c.pdh, run = armed && c.p > c.pdh * 1.03;
     entry = armed ? c.pdh : (c.ht || c.p);
     if (bl) stop = Math.min(c.stop, bl * 0.99);
-    status = ext || under || run || c.st === "pending" || (armed && !crossed) ? "wait" : "valid";
-    trig = c.st === "pending" ? `Not confirmed yet. Wait to see if it closes above ₹${fv(bl)} today; a breakout that closes back under the line is not valid.`
+    status = ext || under || run || (armed && !crossed) ? "wait" : "valid";
+    trig = c.st === "pending" ? `Breaking out now: it is trading above the 52-week-high line ₹${fv(bl)}${c.pdh ? " and above the previous day's high ₹" + fv(c.pdh) : ""}. No need to wait for the close. Your call: buy while it holds above ₹${fv(bl)}; if it falls back under that line the breakout has failed.`
       : under ? `Price is back under the 52-week-high line ₹${fv(bl)}. Skip it unless it closes back above that line.`
       : ext ? `Wait for a pullback toward ₹${fv(bl)} (the breakout level) that holds, then a move above that day's high.`
       : run ? `It is already more than 3% above the previous day's high ₹${fv(c.pdh)}. Wait for a pullback that holds, then a move back above that day's high.`
@@ -632,7 +653,7 @@ function stateTag(c) {
   if (c.st === "ready" && c.pdh) return c.p > c.pdh ? `<span class="tag g">Ready to trade: closed above ${lvl} on ${when}, now above the previous day's high ₹${fv(c.pdh)}</span>`
     : `<span class="tag a">Breakout confirmed ${when}: ready on a move above ₹${fv(c.pdh)} (PDH)</span>`;
   if (c.st === "ready") return `<span class="tag g">Ready: closed above the 52-week high ${lvl} on ${when}</span>`;
-  if (c.st === "pending") return `<span class="tag a">Breaking out now: not confirmed until the close</span>`;
+  if (c.st === "pending") return `<span class="tag g">Breaking out now: above ${lvl}${c.pdh ? ", previous day's high ₹" + fv(c.pdh) : ""}</span>`;
   if (c.st === "holding") return `<span class="tag g">Broke out ${c.age} ${c.age === 1 ? "day" : "days"} ago, holding above ${lvl}</span>`;
   return '<span class="tag g">Breakout in last 3 days</span>';  // older data without a state
 }
@@ -881,55 +902,6 @@ function padd() {
   } else a.unshift(t);
   psave(a); render();
 }
-function pfix(id) {  // one form to correct everything about a holding
-  const h = pload().find(x => x.id === id); if (!h) return;
-  const old = document.getElementById("pfixbox"); if (old) old.remove();
-  const val = x => x == null ? "" : x, fld = (l, i, v, t) => `<div><label>${l}</label><input id="${i}" type="${t || "number"}" step="any" value="${esc(String(val(v)))}"></div>`;
-  const box = document.createElement("div"); box.id = "pfixbox";
-  box.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto";
-  box.innerHTML = `<div class="card" style="max-width:460px;width:100%;border:1px solid var(--line)">
-    <h2 style="margin-top:0">Edit ${esc(h.sym)}</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      ${fld("Quantity (total)", "f_qty", h.qty)}${fld("Average buy price (₹)", "f_avg", h.avg)}
-      ${fld("Stop-loss price (₹)", "f_stop", h.stop)}${fld("Target price (₹)", "f_tgt", h.tgt)}
-      ${fld("Buy date", "f_date", h.d, "date")}${fld("Note", "f_note", h.note, "text")}
-    </div>
-    <div class="mu" style="margin:8px 0">Quantity is the total you hold now. To add shares, type the new total.</div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button onclick="document.getElementById('pfixbox').remove()">Cancel</button><button onclick="pfixsave(${id})">Save</button></div></div>`;
-  document.body.appendChild(box);
-}
-function pfixsold(id) {  // correct a recorded sale: quantity, buy price, sell price, sell date
-  const h = pload().find(x => x.id === id); if (!h || !h.sold) return;
-  const old = document.getElementById("pfixbox"); if (old) old.remove();
-  const fld = (l, i, v, t) => `<div><label>${l}</label><input id="${i}" type="${t || "number"}" step="any" value="${esc(String(v == null ? "" : v))}"></div>`;
-  const box = document.createElement("div"); box.id = "pfixbox";
-  box.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto";
-  box.innerHTML = `<div class="card" style="max-width:460px;width:100%;border:1px solid var(--line)">
-    <h2 style="margin-top:0">Edit sale: ${esc(h.sym)}</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      ${fld("Quantity sold", "f_qty", h.qty)}${fld("Buy price (₹)", "f_avg", h.avg)}
-      ${fld("Sell price (₹)", "f_px", h.sold.px)}${fld("Sell date", "f_sd", h.sold.d, "date")}
-    </div>
-    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:10px"><button onclick="document.getElementById('pfixbox').remove()">Cancel</button><button onclick="pfixsoldsave(${id})">Save</button></div></div>`;
-  document.body.appendChild(box);
-}
-function pfixsoldsave(id) {
-  const g = i => document.getElementById(i).value.trim();
-  const q = Number(g("f_qty")), v = Number(g("f_avg")), px = Number(g("f_px"));
-  if (!(q > 0) || !(v > 0) || !(px > 0)) { alert("Quantity, buy price and sell price must be numbers above 0."); return; }
-  const a = pload(), h = a.find(x => x.id === id); if (!h || !h.sold) return;
-  h.qty = q; h.avg = v; h.sold.px = px; if (g("f_sd")) h.sold.d = g("f_sd");
-  psave(a); document.getElementById("pfixbox").remove(); render();
-}
-function pfixsave(id) {
-  const g = i => document.getElementById(i).value.trim(), num = x => x === "" ? null : Number(x);
-  const q = num(g("f_qty")), v = num(g("f_avg")), st = num(g("f_stop")), tg = num(g("f_tgt"));
-  if (!(q > 0) || !(v > 0)) { alert("Quantity and average buy price must be numbers above 0."); return; }
-  if ((st != null && !(st > 0)) || (tg != null && !(tg > 0))) { alert("Stop-loss and target must be numbers above 0, or left blank."); return; }
-  const a = pload(), h = a.find(x => x.id === id); if (!h) return;
-  h.qty = q; h.avg = v; h.stop = st; h.tgt = tg; if (g("f_date")) h.d = g("f_date"); h.note = g("f_note");
-  psave(a); document.getElementById("pfixbox").remove(); render();
-}
 function pedit(id) {
   const a = pload(), h = a.find(x => x.id === id), ask = (m, cur) => { const x = prompt(m, cur == null ? "" : cur); return x === null ? undefined : x.trim() === "" ? null : isNaN(Number(x)) ? undefined : Number(x); };
   const s = ask("Stop-loss price (blank to clear)", h.stop); if (s === undefined) return;
@@ -981,9 +953,6 @@ function review(h, weight) {
   if (dec === "NO TRADE" && sig === "ADD (small)") tips.push("Market says NO TRADE.");
   return {sig, cls, why, tips, gain};
 }
-let pSecF = null, PSECS = [];
-const SECCOL = ["#7c8cff", "#4fd1a5", "#f2b84b", "#ff6b6b", "#c084fc", "#38bdf8", "#fb923c", "#a3e635", "#f472b6", "#94a3b8"];
-function psecf(i) { const k = PSECS[i]; pSecF = pSecF === k ? null : k; render(); }
 function renderPort() {
   $("asof").textContent = stamp();
   const a = pload(), open = a.filter(x => !x.sold), sold = a.filter(x => x.sold);
@@ -992,15 +961,6 @@ function renderPort() {
   const rv = open.map(h => ({h, r: review(h, val ? h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg) / val * 100 : 0)}));
   const sec = {}; open.forEach(h => { const k = (D.stocks[h.sym] || {}).sec || "Other"; sec[k] = (sec[k] || 0) + h.qty * (D.stocks[h.sym] ? D.stocks[h.sym].p : h.avg); });
   const topSec = Object.entries(sec).sort((x, y) => y[1] - x[1])[0], pl = val - inv;
-  const scnt = {}; open.forEach(h => { const k = (D.stocks[h.sym] || {}).sec || "Other"; scnt[k] = (scnt[k] || 0) + 1; });
-  const secL = Object.keys(sec).map(k => ({k, n: scnt[k], v: sec[k], w: val ? sec[k] / val * 100 : 0})).sort((x, y) => y.n - x.n || y.v - x.v);
-  PSECS = secL.map(x => x.k); if (pSecF && !PSECS.includes(pSecF)) pSecF = null;
-  const secBlock = open.length ? `<h2>Sector allocation</h2><div class="card">
-    <div style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--line)">${secL.map((x, i) => `<div title="${esc(x.k)} ${x.w.toFixed(0)}%" style="width:${x.w}%;background:${SECCOL[i % SECCOL.length]}"></div>`).join("")}</div>
-    <div class="chips" style="margin-top:10px">${secL.map((x, i) => `<button onclick="psecf(${i})" style="${pSecF === x.k ? "outline:2px solid var(--ac);" : ""}"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${SECCOL[i % SECCOL.length]};margin-right:6px"></span>${esc(x.k)} <b>${x.n}</b> <span class="mu">· ${x.w.toFixed(0)}%</span></button>`).join("")}</div>
-    <div class="mu" style="margin-top:8px">${open.length} stock${open.length > 1 ? "s" : ""} in ${secL.length} sector${secL.length > 1 ? "s" : ""}. The number is how many stocks you hold there; the percentage is the share of your money. Tap a sector to show only those holdings.</div>
-    ${secL[0].w > 30 && secL.length > 1 ? `<div class="sub" style="margin-top:6px">⚠ ${secL[0].w.toFixed(0)}% of your money is in ${esc(secL[0].k)}. One sector this large means one bad news cycle can hurt a lot.</div>` : ""}</div>` : "";
-  const rvShow = pSecF ? rv.filter(x => ((D.stocks[x.h.sym] || {}).sec || "Other") === pSecF) : rv;
   const cnt = k => rv.filter(x => x.r.sig.startsWith(k)).length;
   const sum = open.length ? `<div class="stats"><div><strong>₹${fv(Math.round(val))}</strong><small>current value (cost ₹${fv(Math.round(inv))})</small></div><div><strong class="${pl >= 0 ? "up" : "dn"}">${pl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pl)))}</strong><small>total P&amp;L (${f1(inv ? pl / inv * 100 : 0)})</small></div><div><strong class="${day >= 0 ? "up" : "dn"}">${day >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(day)))}</strong><small>change today</small></div></div>
     <div class="sub" style="margin-top:8px">${cnt("EXIT")} exit · ${cnt("BOOK")} book profit · ${cnt("REVIEW")} review · ${cnt("ADD")} add · ${cnt("HOLD")} hold${topSec && val && topSec[1] / val > 0.4 ? " · ⚠ " + Math.round(topSec[1] / val * 100) + "% of the money is in " + esc(topSec[0]) : ""}</div>` : '<p class="sub">Add your holdings below and each one gets a review.</p>';
@@ -1009,19 +969,18 @@ function renderPort() {
     <div class="cs">${h.qty} shares · avg ₹${fv(h.avg)} · now ₹${fv(p)} <span class="${p >= h.avg ? "up" : "dn"}">${f1((p / h.avg - 1) * 100)}</span> · ${pnl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pnl)))}</div>
     <div class="mu">${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
     <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}${r.tips.map(x => "<li><i>" + esc(x) + "</i></li>").join("")}</ul>
-    <div class="chips"><button onclick="pfix(${h.id})">Edit holding</button><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
-  const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pfixsold(${x.id})">Edit</button> <button onclick="pdel(${x.id})">x</button></div>`; };
+    <div class="chips"><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
+  const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pdel(${x.id})">x</button></div>`; };
   $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">My portfolio</h2>
   <div class="note" style="margin-top:0">Your holdings are saved only in this browser on this device and are not uploaded. Use Export to keep a backup. Each review is rule-based, from price, trend (20/50/200 EMA), your own stop and target, and the latest quarterly results. It is not a forecast or a certainty, so the final call is yours.${gateOn() ? " Data is not verified right now, so treat every signal as reference only." : ""}</div>
   <h2>Summary</h2>${sum}
-  ${secBlock}
   <h2>Add a holding</h2><div class="card"><div class="fg">
   <div><label>Stock</label><input id="p_sym" list="plist" placeholder="e.g. TATAMOTORS"><datalist id="plist">${Object.keys(D.stocks).sort().map(k => `<option value="${esc(k)}">${esc(D.stocks[k].n || "")}</option>`).join("")}</datalist></div>
   <div><label>Quantity</label><input id="p_qty" type="number" step="any"></div><div><label>Average buy price</label><input id="p_avg" type="number" step="any"></div><div><label>Buy date</label><input id="p_date" type="date" value="${new Date().toISOString().slice(0, 10)}"></div>
   <div><label>Stop-loss (optional)</label><input id="p_stop" type="number" step="any"></div><div><label>Target (optional)</label><input id="p_tgt" type="number" step="any"></div></div>
   <label style="margin-top:8px;font-size:12px;color:var(--mu);display:block">Notes</label><textarea id="p_note" rows="2"></textarea>
   <div class="mu" style="margin-top:6px">Adding a stock you already hold combines it into one holding at the weighted average price.</div><button style="margin-top:8px" onclick="padd()">Save holding</button></div>
-  <h2>Holdings (${pSecF ? rvShow.length + " of " + open.length + " · " + esc(pSecF) : open.length})</h2>${open.length ? rvShow.map(card).join("") : '<p class="sub">No holdings yet.</p>'}
+  <h2>Holdings (${open.length})</h2>${open.length ? rv.map(card).join("") : '<p class="sub">No holdings yet.</p>'}
   ${sold.length ? `<h2>Sold (${sold.length})</h2>${sold.map(sc).join("")}` : ""}
   <h2>Backup</h2><div class="chips"><button onclick="pexport()">Export portfolio</button><label style="display:inline-block"><span class="mu">Import:</span> <input type="file" accept=".json" onchange="pimport(this)" style="width:auto"></label></div>`;
 }
@@ -1320,7 +1279,7 @@ function staleBrowser() {
   return wd >= 1 && wd <= 5 && hm >= 9 * 60 + 15 && hm <= 22 * 60 && ageMin() > STALE_MIN;
 }
 const gateOn = () => !!(ST && ST.gate === "BLOCKED") || staleBrowser();
-const provTag = () => ST && ST.state === "LIVE" && !gateOn() ? '<span class="tag a">PROVISIONAL</span>' : "";
+const provTag = () => ST && ST.state === "LIVE" && !gateOn() ? '<span class="tag">LIVE</span>' : "";
 async function loadStatus() {
   const t = Math.floor(Date.now() / 60000);
   const [a, b] = await Promise.all([getJ(LIVE_BASE + "status.json?t=" + t), getJ("status.json?v=" + t)]);
@@ -1341,8 +1300,8 @@ function renderStatus() {
   const state = stale ? "STALE" : ST.state;
   const bad = g;
   const cls = bad ? "bad" : state === "CONFIRMED" ? "ok" : "prov";
-  const lbl = bad ? state : state === "CONFIRMED" ? "CONFIRMED" : "LIVE · PROVISIONAL";
-  const msg = bad ? BLOCK_MSG + ". The picks below are for reference only." : state === "CONFIRMED" ? "Official close" + (ST.last_candle ? " of " + esc(fdt(ST.last_candle)) : "") + ". Picks use a completed daily candle." : "Today's candle is still forming. Picks stay provisional until the evening run confirms them.";
+  const lbl = bad ? state : state === "CONFIRMED" ? "CONFIRMED" : "LIVE · MARKET OPEN";
+  const msg = bad ? BLOCK_MSG + ". The picks below are for reference only." : state === "CONFIRMED" ? "Official close" + (ST.last_candle ? " of " + esc(fdt(ST.last_candle)) : "") + ". Picks use a completed daily candle." : "The market is open, so prices and today's candle are live. Picks update with each run and the final call is yours.";
   const S = ST || {}, r = S.records || {};
   const meta = [];
   if (S.source) meta.push("Source: " + esc(S.source));
@@ -1380,8 +1339,10 @@ Promise.all([loadData(true), loadStatus()]).then(([d]) => {
   loadPicks();
   loadRes();
   loadLT();
+  loadPreLocal();
   setInterval(loadPicks, 600000);
   setInterval(loadRes, 900000);
+  setInterval(loadPreLocal, 30000);
   const h = location.hash.slice(1);
   if (h.startsWith("stock-") && D.stocks[decodeURIComponent(h.slice(6))]) { curStock = decodeURIComponent(h.slice(6)); view = "stock"; }
   else if (["ov", "macro", "swing", "news", "journal", "port", "res", "lt"].includes(h)) view = h;
