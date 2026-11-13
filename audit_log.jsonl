@@ -151,3 +151,4 @@
 {"ts":1794497066,"ist":"2026-11-12 20:54","mode":"full","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-12","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1794501060,"ist":"2026-11-12 22:01","mode":"full","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-12","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1794504446,"ist":"2026-11-12 22:57","mode":"full","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-12","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
+{"ts":1794539051,"ist":"2026-11-13 08:34","mode":"fail","state":"ERROR","gate":"BLOCKED","problems":["170 of 506 stocks failed validation - the download looks unreliable"]}
