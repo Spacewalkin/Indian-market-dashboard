@@ -11,6 +11,7 @@ on:
     - cron: "30 7 * * 1-5"      # 1:00 PM IST
     - cron: "0,30 8-16 * * 1-5" # every 30 min, 1:30 PM to 10:00 PM IST
     - cron: "23 3,9,15 * * 0,6" # Saturday and Sunday: news only, at 8:53 AM, 2:53 PM and 8:53 PM IST
+    - cron: "20 17-23,0-2 * * *" # every night, hourly from 10:50 PM to 7:50 AM IST: news and Brent only
   workflow_dispatch:            # lets you run it by hand, or an outside timer trigger it
     inputs:
       run_schedule:
