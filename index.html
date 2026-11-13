@@ -808,6 +808,14 @@ function loadPicks() {
     if (view === "swing" && !document.querySelector("details[open]")) render();
   });
 }
+function secTag(sym) {
+  const me = D.stocks && D.stocks[sym];
+  if (!me || !me.sec) return "";
+  const g = Object.values(D.stocks).filter(x => x.sec === me.sec);
+  if (g.length < 8) return "";
+  const p50 = Math.round(g.filter(x => x.e[1]).length / g.length * 100);
+  return `<span class="tag ${p50 >= 60 ? "g" : p50 >= 40 ? "a" : "r"}" title="${esc(me.sec)}, ${g.length} stocks">Sector: ${p50}% above 50 EMA</span>`;
+}
 function pickCard(c) {
   const dec = decision(), st = D.stocks && D.stocks[c.s], live = st ? st.p : c.close, mx = PICKS.max_score || 8;
   const rd0 = ((D.events || {}).results || []).find(x => x.s === c.s), rdn = rd0 ? daysTo(rd0.d) : 99, lv = D.mood && D.mood.lv;
@@ -824,7 +832,7 @@ function pickCard(c) {
   const failed = Object.keys(PCHK).filter(k => c.checks && c.checks[k] === false).map(k => PCHK[k]);
   const cancel = ["It gaps more than 3% above ₹" + fv(c.entry), lv ? "Nifty closes below its 50 EMA (₹" + fv(lv.e50) + ")" : "The market turns to NO TRADE", "Results are due within 10 days", "It closes back below the breakout level ₹" + fv(c.breakout_level)];
   return `<div class="cand"><b>${st ? stk(c.s, c.n) : esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span>
-  <div>${capTag(c.s)}<span class="tag ${cls}">${esc(v)}</span>${mk}${sq}<span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  <div>${capTag(c.s)}${secTag(c.s)}<span class="tag ${cls}">${esc(v)}</span>${mk}${sq}<span class="tag">Score ${c.score}/${mx}</span><span class="tag">Breakout ${c.age} ${c.age === 1 ? "day" : "days"} ago</span><span class="tag">Volume ${c.vol_ratio}x on breakout day</span>${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
   <div class="cs">₹${fv(live)}${st ? ` <span class="${st.d >= 0 ? "up" : "dn"}">${f1(st.d)}</span> today` : ""} · buy above ₹${fv(c.entry)} · stop ₹${fv(c.stop)} (${c.risk_pct}% risk)</div>${st ? rangeBar(st) : ""}
   <details><summary>Trade plan</summary><ul class="ul">
   <li><b>Entry trigger:</b> buy on a move above ₹${fv(c.entry)} (the previous high) while the stock holds above the breakout level ₹${fv(c.breakout_level)}. You do not need to wait for the close. Check the chart and adjust if needed.</li>
