@@ -301,8 +301,8 @@ const nav = () => {
     const h = new Date().getHours(), mk = k => D.macro.find(x => x.k === k);
     $("greet").innerHTML = `<b>Good ${h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"} 👋</b><span>Here's what's happening in the Indian stock market today.</span>`;
     const cl = (x, inv) => (inv ? x.d <= 0 : x.d >= 0) ? "up" : "dn", ar = x => x.d >= 0 ? "↗" : "↘";
-    $("cards").innerHTML = [["nifty", 0], ["sensex", 0], ["banknifty", 0], ["midcap100", 0], ["smallcap100", 0], ["vix", 1]].map(([k, inv]) => mk(k)).filter(Boolean).map(x => `<div class="mc"><small>${esc(x.n)}</small><strong>${fv(x.v)}</strong><span class="${cl(x, x.k === "vix")}">${ar(x)} ${f1(x.d)} today</span></div>`).join("");
-    $("bar").innerHTML = ["nifty", "sensex", "banknifty"].map(mk).filter(Boolean).map(x => `<span><b>${esc(x.n)}</b> ${fv(x.v)} <span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></span>`).join("") + '<span class="live">● Live market data</span>';
+    $("cards").innerHTML = [["nifty", 0], ["sensex", 0], ["banknifty", 0], ["midcap100", 0], ["smallcap100", 0], ["vix", 1], ["brent", 1]].map(([k, inv]) => mk(k)).filter(Boolean).map(x => `<div class="mc"><small>${esc(x.n)}</small><strong>${fv(x.v)}</strong><span class="${cl(x, x.k === "vix" || x.k === "brent")}">${ar(x)} ${f1(x.d)} today</span></div>`).join("");
+    $("bar").innerHTML = ["nifty", "sensex", "banknifty", "brent"].map(mk).filter(Boolean).map(x => `<span><b>${esc(x.n)}</b> ${fv(x.v)} <span class="${(x.k === "brent" ? x.d <= 0 : x.d >= 0) ? "up" : "dn"}">${f1(x.d)}</span></span>`).join("") + '<span class="live">● Live market data</span>';
   } catch (e) { $("cards").innerHTML = ""; }
   return "";
 };

@@ -116,7 +116,7 @@ GLOBAL_TOPICS = {
 # Major headlines that can move markets, grouped by theme. Global and domestic are kept separate.
 GLOBAL_TOP = {
     "US politics": ["US midterm election results", "Congress Democrats Republicans markets Trump"],
-    "Crude oil": ["crude oil prices Brent", "OPEC oil supply output"],
+    "Crude oil": ["Brent crude price today", "crude oil prices Brent", "OPEC oil supply output"],
     "War and geopolitics": ["war ceasefire talks", "Russia Ukraine war", "Israel Iran Gaza Middle East", "China Taiwan tensions sanctions"],
     "Central banks and rates": ["Federal Reserve rate cut OR hike", "US inflation jobs data"],
     "Trade and tariffs": ["Trump tariffs trade deal India", "US China trade"],
@@ -803,6 +803,7 @@ def preopen_run(old, fast=False):
 def news_run(old):
     """News-only run (used on weekends): refreshes the News and events page without touching prices.
     A part that fails to download keeps its previous content instead of being wiped."""
+    old["macro"] = fetch_macro() or old.get("macro", [])  # keeps Brent crude and the other market factors fresh too
     ev = old.get("events") or {}
     names = {s: v.get("n", s) for s, v in (old.get("stocks") or {}).items()}
     fresh = fetch_headlines(names)
@@ -1240,7 +1241,7 @@ def main():
     # and a late "9:10" run used to turn into a slow full run that finished long after the open.
     PREOPEN_CRONS = {"37 3 * * 1-5", "40 3 * * 1-5", "44 3 * * 1-5"}
     FAST_PREOPEN_CRONS = {"40 3 * * 1-5", "44 3 * * 1-5"}  # NSE numbers only, no news (the 9:07 run did that)
-    NEWS_CRONS = {"23 3,9,15 * * 0,6"}  # weekends: news only
+    NEWS_CRONS = {"23 3,9,15 * * 0,6", "20 17-23,0-2 * * *"}  # news + Brent only: weekends, and every night after the 10 pm run until the pre-open
     mode = ("preopen" if sched in PREOPEN_CRONS or early else "news" if sched in NEWS_CRONS
             else "midday" if sched == "30 7 * * 1-5" else "live" if sched == "*/5 3-10 * * 1-5" else "full")
     if mode == "news" and old.get("segments"):
