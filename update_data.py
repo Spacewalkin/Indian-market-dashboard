@@ -1206,6 +1206,98 @@ def swing_candidates(close, high, low, vol, stocks, lists, final=True):
     return out[:60]
 
 
+# ---- Backtested system: breadth filter + fresh breakout + 30 EMA exit ----
+SYS_VOL = 1.5           # breakout-day volume must be at least this many times the 20-day average
+SYS_MAX_AGE = 5         # a breakout stays a candidate for this many finished sessions, if it has not triggered yet
+SYS_RISK_RS = 200       # rupees risked per trade (used for the quantity shown)
+SYS_MAX_RISK = 8.0      # the backtest skipped stops wider than this %; the page now shows them with a flag instead
+SYS_EMA = 30            # exit: a daily close below this EMA, sell at the next open
+SYS_BREADTH_MIN = 50.0  # new trades only while more than this % of stocks are above their 50-day average
+SYS_SLOTS = 0           # 0 = no limit on open trades (the backtest tried 6, 10 and unlimited)
+
+
+def system_scan(close, high, low, vol, stocks, final=True):
+    """Candidates for the backtested system (Nifty 500, 2016-2026 test).
+
+    Market filter: more than 50% of stocks closed above their 50-day simple average.
+    Signal: a FRESH breakout (close above the highest high of the 252 sessions before it, and the session before
+    did not close above its own line) on at least 1.5 times the 20-day average volume. Entry: the next session
+    on a move above the last finished session's high. Stop: below the breakout candle's low. A breakout is
+    still a candidate for up to SYS_MAX_AGE sessions, as long as it never closed back under its line, never
+    traded under the breakout candle's low, and has not yet traded above a previous day's high.
+    Exit: a daily close below the 30 EMA, sell at the next open (the page checks this for your holdings
+    with the \"px\" table: [last finished close, 30 EMA]).
+    final = True when the last candle is a finished session (False while the market is open)."""
+    n = len(close)
+    j = n - 1 if final else n - 2  # position of the last FINISHED session
+    if j < WEEK52 + 10:
+        return {"ok": False}
+    sma50 = close.rolling(50).mean()
+    valid = sma50.notna()
+    br = ((close > sma50) & valid).sum(axis=1) / valid.sum(axis=1).replace(0, np.nan) * 100
+    now_b = float(br.iloc[j])
+    hist = [{"d": close.index[k].date().isoformat(), "v": round(float(br.iloc[k]), 1)} for k in range(j - 4, j + 1)]
+    ema = close.ewm(span=SYS_EMA, adjust=False).mean().to_numpy()
+    line = high.shift(1).rolling(WEEK52).max()
+    brk = (close > line).to_numpy()
+    ln = line.to_numpy()
+    cl, hg, lw = close.to_numpy(), high.to_numpy(), low.to_numpy()
+    avgv = vol.shift(1).rolling(20).mean()
+    vx = (vol / avgv).replace([np.inf, -np.inf], np.nan).to_numpy()
+    turn = avgv.iloc[j] * close.iloc[j] / 1e7
+    jump = close.pct_change().abs().iloc[max(j - 29, 1):j + 1].max()  # biggest one-day move in 30 sessions
+    col = {s: i for i, s in enumerate(close.columns)}
+    cands, px = [], {}
+    for sym, st in stocks.items():
+        i = col.get(sym)
+        if i is None:
+            continue
+        try:
+            if np.isfinite(cl[j, i]) and np.isfinite(ema[j, i]):
+                px[sym] = [round(float(cl[j, i]), 2), round(float(ema[j, i]), 2)]
+            b = None
+            for tt in range(j, j - SYS_MAX_AGE - 1, -1):
+                if brk[tt, i] and not brk[tt - 1, i]:
+                    b = tt
+                    break
+            if b is None or not (vx[b, i] >= SYS_VOL):
+                continue
+            thin = bool(pd.isna(turn[sym]) or turn[sym] < MIN_TURNOVER_CR)  # flagged, not hidden
+            lvl, stop = float(ln[b, i]), float(lw[b, i])
+            waiting = True
+            for d in range(b + 1, j + 1):  # since the breakout: no close under the line, no trade under the stop, no trigger yet
+                if cl[d, i] < lvl or lw[d, i] <= stop or hg[d, i] >= hg[d - 1, i]:
+                    waiting = False
+                    break
+            if not waiting:
+                continue
+            trig = float(hg[j, i])
+            risk = trig - stop
+            if not (risk > 0):
+                continue  # no room between the buy trigger and the stop, so no trade can be sized
+            qty = max(1, int(SYS_RISK_RS // risk))
+            cands.append({"s": sym, "n": st["n"], "sec": st.get("sec", ""), "p": st["p"], "d": st["d"],
+                          "buy": round(trig, 2), "stop": round(stop, 2),
+                          "skip": round(stop / (1 - SYS_MAX_RISK / 100), 2),  # if it opens above this, the stop is too far: skip
+                          "qty": qty, "risk_rs": int(qty * risk), "pos": int(qty * trig),
+                          "risk": round(risk / trig * 100, 1), "vx": round(float(vx[b, i]), 1),
+                          "age": int(j - b), "bd": close.index[b].date().isoformat(), "bl": round(lvl, 2),
+                          "e30": round(float(ema[j, i]), 2),
+                          "wide": bool(risk / trig * 100 > SYS_MAX_RISK),   # stop wider than the backtest allowed
+                          "over": bool(qty * risk > SYS_RISK_RS * 1.05),    # even a small quantity risks more than the target
+                          "thin": thin,                                      # thinly traded
+                          "ca": bool(jump.get(sym, 0) > 0.35)})  # big one-day jump lately: check for a split or bonus
+        except Exception:
+            continue
+    cands.sort(key=lambda c: -c["vx"])  # the backtest ranked competing signals by breakout volume
+    return {"ok": True, "asof": close.index[j].date().isoformat(), "final": bool(final),
+            "breadth": {"now": round(now_b, 1), "go": bool(now_b > SYS_BREADTH_MIN), "min": SYS_BREADTH_MIN,
+                        "hist": hist, "n": int(valid.iloc[j].sum())},
+            "cfg": {"risk": SYS_RISK_RS, "slots": SYS_SLOTS, "vol": SYS_VOL, "ema": SYS_EMA,
+                    "max_risk": SYS_MAX_RISK, "age": SYS_MAX_AGE},
+            "cands": cands, "px": px}
+
+
 def parse_news(it):
     c = it.get("content") or it
     url = (c.get("canonicalUrl") or {}).get("url") or c.get("link") or it.get("link") or ""
@@ -1426,6 +1518,11 @@ def main():
         segs.append(seg)
 
     swing = swing_candidates(close, high, low, vol, stocks, lists, final=bool(status.get("candle_final", True)))
+    try:
+        sysd = system_scan(close, high, low, vol, stocks, final=bool(status.get("candle_final", True)))
+    except Exception as e:  # never let the new scan stop the rest of the update
+        print("Backtested-system scan failed:", e)
+        sysd = {"ok": False}
     wanted = [c["s"] for c in swing[:15]]
     for seg in segs:
         mv = sorted([x for x in seg["stocks"] if x in stocks], key=lambda x: stocks[x]["d"])
@@ -1445,6 +1542,9 @@ def main():
     if status["gate"] == "BLOCKED":
         # only reached on a first run with no earlier good data: publish no picks and no trade call
         swing, scans = [], {k: [] for k in scans}
+        if sysd.get("ok"):
+            sysd["cands"] = []
+            sysd["breadth"]["go"] = False
         if mood:
             mood["dec"] = "NO TRADE"
     mood_hist = [h for h in old.get("mood_hist", []) if h["d"] != idx[-1].date().isoformat()]
@@ -1466,6 +1566,7 @@ def main():
         "stocks": stocks,
         "caps": caps,
         "swing": swing,
+        "sys": sysd,
         "news": news,
         "macro": macro,
         "events": events,
