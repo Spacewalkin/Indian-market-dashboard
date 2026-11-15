@@ -850,10 +850,68 @@ function pickList(list) {
   const head = `<div class="plan" style="border-color:${B[0]};margin-bottom:8px"><b style="color:${B[0]}">${B[1]}</b><div class="sub">${B[2]}</div><div class="mu" style="margin-top:4px">${PICKS.count} stocks are holding above a 52-week-high breakout; ${list.length} score 6 or more. Screened ${esc(PICKS.generated)} on daily closes.</div></div>`;
   return head + (list.length ? list.slice(0, 25).map(pickCard).join("") : '<p class="sub">No stock scores 6 or more today. When few setups exist, forcing trades is the mistake.</p>');
 }
-const SC = [["pick", "Top picks"], ["brk", "Breakouts"], ["near", "Near 52W high"], ["pull", "EMA pullback"], ["retest", "Breakout retest"], ["rs", "Relative strength"], ["vol", "Volume surge"], ["weak", "Weak stocks"], ["res", "Results soon"]];
+// ---- Backtested system: breadth filter, fresh breakout on volume, exit on a close below the 30 EMA ----
+SCN.sys = "The system tested on the Nifty 500 (2016 to 2026, costs included). New trades only while more than 50% of stocks are above their 50-day average. Candidates are fresh 52-week-high breakouts (closed above the previous high line) on at least 1.5 times normal volume, up to 5 sessions old, that have not triggered yet. Buy above the last finished session's high, stop below the breakout candle's low, risk about ₹200 per trade, at most 6 positions, highest breakout volume first. There is no profit target: stay in until a daily close is below the 30 EMA, then sell at the next open.";
+const sysSlots = () => D.sys && D.sys.cfg ? D.sys.cfg.slots : 6;
+const sysOpen = () => { try { return pload().filter(x => !x.sold && x.sys); } catch (e) { return []; } };
+function sysCard(c, go) {
+  const S = D.sys, st = D.stocks && D.stocks[c.s], live = st ? st.p : c.p;
+  const rd0 = ((D.events || {}).results || []).find(x => x.s === c.s), rdn = rd0 ? daysTo(rd0.d) : 99;
+  let v, cls;
+  if (gateOn()) { v = BLOCK_MSG; cls = "r"; }
+  else if (!go) { v = "Breadth is " + S.breadth.now + "%, not above " + S.breadth.min + "%: watch only, no new trades"; cls = "r"; }
+  else if (live <= c.stop) { v = "Setup failed: price is at or below the stop ₹" + fv(c.stop); cls = "r"; }
+  else if (rdn <= 10) { v = "Not yet: results " + inDays(rdn); cls = "r"; }
+  else if (live > c.skip) { v = "Skip: price is too far above the trigger, so the stop would be over " + S.cfg.max_risk + "% away"; cls = "a"; }
+  else if (live >= c.buy) { v = "Triggered: price is above ₹" + fv(c.buy); cls = "g"; }
+  else { v = "Wait: needs a move above ₹" + fv(c.buy); cls = "a"; }
+  const when = c.age === 0 ? "Broke out on the last session (" + fd(c.bd) + ")" : "Broke out " + c.age + " sessions ago (" + fd(c.bd) + ")";
+  return `<div class="cand"><b>${st ? stk(c.s, c.n) : esc(c.n)}</b> <span class="mu">${esc(c.sec || "")}</span>
+  <div>${capTag(c.s)}<span class="tag ${cls}">${esc(v)}</span><span class="tag">Volume ${c.vx}x on breakout day</span><span class="tag">${esc(when)}</span>${c.ca ? '<span class="tag a">Big one-day jump lately: check for a split or bonus</span>' : ""}${rdn <= 10 ? '<span class="tag r">Results ' + inDays(rdn) + "</span>" : ""}</div>
+  <div class="cs">₹${fv(live)}${st ? ` <span class="${st.d >= 0 ? "up" : "dn"}">${f1(st.d)}</span> today` : ""} · buy above ₹${fv(c.buy)} · stop ₹${fv(c.stop)} (${c.risk}% risk)</div>
+  <div class="mu">${c.qty} shares = position ₹${fv(c.pos)}, risks about ₹${fv(c.risk_rs)} if the stop is hit</div>${st ? rangeBar(st) : ""}
+  <details><summary>Trade plan</summary><ul class="ul">
+  <li><b>Entry:</b> buy on a move above ₹${fv(c.buy)}, the high of the last finished session, while the stock stays above the breakout line ₹${fv(c.bl)} and above ₹${fv(c.stop)}. If it opens above ₹${fv(c.skip)}, skip it: the stop would be too far.</li>
+  <li><b>Stop-loss:</b> ₹${fv(c.stop)}, the low of the breakout candle. Never move it further away.</li>
+  <li><b>Exit:</b> there is no profit target. Hold until a daily close is below the 30 EMA (₹${fv(c.e30)} now), then sell at the next open. The test capped trades at 60 sessions.</li>
+  <li><b>Still check yourself:</b> the chart, the news, and any results date inside your holding period.</li></ul></details></div>`;
+}
+function sysPanel() {
+  const S = D.sys;
+  if (!S || !S.ok) return '<p class="sub">The backtested-system scan is not in the data yet. It appears after the next full "Update market data" run.</p>';
+  const B = S.breadth, go = B.go && !gateOn(), slots = sysSlots(), used = sysOpen().length, free = Math.max(0, slots - used);
+  const col = go ? "#4fd1a5" : "#ff6b6b", open = S.final === false;
+  const head = `<div class="plan" style="border-color:${col};margin-bottom:8px"><div style="font-size:22px;font-weight:800;color:${col}">${go ? "✅ GO: new trades allowed" : "⛔ NO NEW TRADES"}</div>
+  <div class="sub">${B.now}% of ${B.n} stocks closed above their 50-day average on ${fd(S.asof)}. The system needs more than ${B.min}%.${gateOn() ? " Data is not verified right now." : ""}</div>
+  <div class="mu" style="margin-top:4px">Last 5 sessions: ${B.hist.map(h => fd(h.d) + " " + Math.round(h.v) + "%").join(" · ")}</div>
+  <div class="mu" style="margin-top:4px">Open system trades: ${used} of ${slots}${go ? " · take at most " + free + " new, highest breakout volume first" : ""}. Tick "Swing system trade" on a holding in the Portfolio page and it counts here and gets the 30 EMA exit check.</div>
+  <div class="mu" style="margin-top:4px">Candidates use the last finished session (${fd(S.asof)})${open ? "; the market is open, so the price tag shows where it trades now" : ""}.</div></div>`;
+  const list = (S.cands || []).slice(0, 25);
+  const body = list.length ? list.map(c => sysCard(c, go)).join("") : '<p class="sub">No candidate today: no fresh breakout on high volume is waiting for its trigger. When few setups exist, forcing trades is the mistake.</p>';
+  const note = `<div class="note">Backtest on the Nifty 500, about 10 years, costs included: roughly +0.2 to +0.4R per trade on average, with about 31% of trades winning. It lost money in some years (2016, 2019 and 2022) and most of the profit came in strong years like 2021, 2023 and 2024. The test used today's Nifty 500 list, so real results will likely be somewhat lower. These are screens, not recommendations: the final call is yours.</div>`;
+  return head + body + note;
+}
+// Review of a holding marked as a swing system trade: stop, then the 30 EMA close rule. No profit target.
+function sysReview(h, s) {
+  const px = D.sys && D.sys.ok && D.sys.px ? D.sys.px[h.sym] : null;
+  if (!px) return null;
+  const c = px[0], e = px[1], p = s.p, gain = (p / h.avg - 1) * 100, why = [], tips = [];
+  let sig = "HOLD", cls = "g";
+  if (h.stop != null && p <= h.stop) { sig = "EXIT"; cls = "r"; why.push("Price ₹" + fv(p) + " is at or below your stop ₹" + fv(h.stop) + ". Your own plan says exit."); }
+  else if (c < e) { sig = "EXIT at next open"; cls = "r"; why.push("The last finished close ₹" + fv(c) + " is below the 30 EMA ₹" + fv(e) + ". The system's exit rule says sell at the next open."); }
+  else why.push("Closed above its 30 EMA (₹" + fv(e) + ", " + ((c / e - 1) * 100).toFixed(1) + "% above): hold. The system has no profit target; it stays in until a daily close is below the 30 EMA.");
+  if (sig === "HOLD" && p < e) tips.push("It is trading below the 30 EMA right now. The rule uses the daily close, so wait for the close.");
+  if (h.stop == null) tips.push("No stop set. The system uses the low of the breakout candle: add it with Stop / target.");
+  else if (h.stop < h.avg) { const r = (p - h.avg) / (h.avg - h.stop); tips.push("Now about " + (r >= 0 ? "+" : "") + r.toFixed(1) + "R from your cost (R = distance to your stop)."); }
+  const days = h.d ? Math.round((Date.now() - new Date(h.d + "T00:00:00")) / 864e5) : 0;
+  if (days > 85) tips.push("Held about " + days + " days. The test capped trades at 60 trading days, so review whether to stay in.");
+  return {sig, cls, why, tips, gain};
+}
+const SC = [["pick", "Top picks"], ["sys", "Backtested system"], ["brk", "Breakouts"], ["near", "Near 52W high"], ["pull", "EMA pullback"], ["retest", "Breakout retest"], ["rs", "Relative strength"], ["vol", "Volume surge"], ["weak", "Weak stocks"], ["res", "Results soon"]];
 function scanList(k) {
   const sw = D.swing || [], S = D.scans || {};
   if (k === "pick") return PICKS ? PICKS.picks.filter(c => c.score >= 6) : [];
+  if (k === "sys") return D.sys && D.sys.ok ? (D.sys.cands || []) : [];
   if (k === "brk") return sw.filter(isBrk);
   if (k === "near") return sw.filter(isNear);
   if (k === "res") return ((D.events || {}).results || []).filter(x => daysTo(x.d) <= 10);
@@ -872,7 +930,7 @@ function renderSwing() {
   const top = Object.keys(secs).sort((a, b) => secs[b] - secs[a]).slice(0, 5).map(x => `${esc(x)} (${secs[x]})`).join(", ");
   const tabs = SC.map(([k, n]) => `<button class="${swF === k ? "on" : ""}" onclick="swF='${k}';render()">${n} (${scanList(k).length})</button>`).join("");
   const cards = swF === "res" ? (list.length ? list.map(x => `<div class="nc neu"><b>${stk(x.s, x.n)}</b> <span class="cd">${inDays(daysTo(x.d))}</span><div class="mu">Results on ${fd(x.d)} (${esc(x.src)})</div></div>`).join("") : '<p class="sub">No results due in the next 10 days in the data we have.</p>')
-    : swF === "pick" ? pickList(list) : list.length ? list.slice(0, 25).map(c => setupCard(swF, c)).join("") : '<p class="sub">No stocks match right now. That is useful information too: when few setups exist, forcing trades is the mistake.</p>';
+    : swF === "sys" ? sysPanel() : swF === "pick" ? pickList(list) : list.length ? list.slice(0, 25).map(c => setupCard(swF, c)).join("") : '<p class="sub">No stocks match right now. That is useful information too: when few setups exist, forcing trades is the mistake.</p>';
   $("app").innerHTML = `${nav()}${preopenCard()}
   <h2 style="margin-top:20px">Trade, wait or no trade</h2>${decisionPanel()}
   <h2>Swing trading plan for today</h2><div class="plan" style="border-color:${{"TRADE": "#4fd1a5", "WAIT": "#f2b84b", "NO TRADE": "#ff6b6b"}[dec]}"><ul>${li(L)}</ul><h4>Rules that always apply</h4><ul>${li(ALW)}</ul></div>
@@ -898,7 +956,7 @@ const resFresh = r => r && r.sig && r.qe && (Date.now() - new Date(r.qe + "T00:0
 const sigCls = s => s === "Good" ? "g" : s === "Bad" ? "r" : "a";
 function padd() {
   const v = id => document.getElementById(id).value.trim(), num = x => x === "" ? null : Number(x);
-  const t = {id: Date.now(), sym: v("p_sym").toUpperCase(), qty: num(v("p_qty")), avg: num(v("p_avg")), stop: num(v("p_stop")), tgt: num(v("p_tgt")), d: v("p_date") || new Date().toISOString().slice(0, 10), note: v("p_note")};
+  const t = {id: Date.now(), sym: v("p_sym").toUpperCase(), qty: num(v("p_qty")), avg: num(v("p_avg")), stop: num(v("p_stop")), tgt: num(v("p_tgt")), d: v("p_date") || new Date().toISOString().slice(0, 10), note: v("p_note"), sys: !!document.getElementById("p_sys").checked};
   if (!t.sym || !D.stocks[t.sym]) { alert("Pick a stock symbol from the Nifty 500 suggestions."); return; }
   if (!(t.qty > 0) || !(t.avg > 0)) { alert("Enter the quantity and your average buy price."); return; }
   const a = pload(), ex = a.find(x => x.sym === t.sym && !x.sold);
@@ -907,6 +965,7 @@ function padd() {
     if (t.stop != null) ex.stop = t.stop;
     if (t.tgt != null) ex.tgt = t.tgt;
     if (t.note) ex.note = t.note;
+    if (t.sys) ex.sys = true;
   } else a.unshift(t);
   psave(a); render();
 }
@@ -923,6 +982,7 @@ function pfix(id) {  // one form to correct everything about a holding
       ${fld("Stop-loss price (₹)", "f_stop", h.stop)}${fld("Target price (₹)", "f_tgt", h.tgt)}
       ${fld("Buy date", "f_date", h.d, "date")}${fld("Note", "f_note", h.note, "text")}
     </div>
+    <label style="display:flex;gap:8px;align-items:center;margin-top:10px;font-size:13px"><input id="f_sys" type="checkbox" style="width:auto" ${h.sys ? "checked" : ""}> Swing system trade (exit on a daily close below the 30 EMA)</label>
     <div class="mu" style="margin:8px 0">Quantity is the total you hold now. To add shares, type the new total.</div>
     <div style="display:flex;gap:8px;justify-content:flex-end"><button onclick="document.getElementById('pfixbox').remove()">Cancel</button><button onclick="pfixsave(${id})">Save</button></div></div>`;
   document.body.appendChild(box);
@@ -956,7 +1016,7 @@ function pfixsave(id) {
   if (!(q > 0) || !(v > 0)) { alert("Quantity and average buy price must be numbers above 0."); return; }
   if ((st != null && !(st > 0)) || (tg != null && !(tg > 0))) { alert("Stop-loss and target must be numbers above 0, or left blank."); return; }
   const a = pload(), h = a.find(x => x.id === id); if (!h) return;
-  h.qty = q; h.avg = v; h.stop = st; h.tgt = tg; if (g("f_date")) h.d = g("f_date"); h.note = g("f_note");
+  h.qty = q; h.avg = v; h.stop = st; h.tgt = tg; if (g("f_date")) h.d = g("f_date"); h.note = g("f_note"); h.sys = document.getElementById("f_sys").checked;
   psave(a); document.getElementById("pfixbox").remove(); render();
 }
 function pedit(id) {
@@ -990,6 +1050,7 @@ function pimport(inp) {
 function review(h, weight) {
   const s = D.stocks[h.sym];
   if (!s) return {sig: "NO DATA", cls: "a", why: ["This symbol is not in today's Nifty 500 data."], tips: []};
+  if (h.sys) { const sr = sysReview(h, s); if (sr) return sr; }
   const p = s.p, gain = (p / h.avg - 1) * 100, e = s.e || [1, 1, 1], dd = s.h ? (p / s.h - 1) * 100 : null;
   const r = resOf(h.sym), rf = resFresh(r), rd0 = ((D.events || {}).results || []).find(x => x.s === h.sym), rdn = rd0 ? daysTo(rd0.d) : 99;
   const dec = decision(), why = [], tips = [];
@@ -1047,7 +1108,7 @@ function renderPort() {
   const card = ({h, r}) => { const s = D.stocks[h.sym] || {}, p = s.p || h.avg, pnl = h.qty * (p - h.avg);
     return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(h.sym, s.n || h.sym)}</b><span class="tag ${r.cls}">${gateOn() ? esc(BLOCK_MSG) : esc(r.sig)}</span></div>
     <div class="cs">${h.qty} shares · avg ₹${fv(h.avg)} · now ₹${fv(p)} <span class="${p >= h.avg ? "up" : "dn"}">${f1((p / h.avg - 1) * 100)}</span> · ${pnl >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pnl)))}</div>
-    <div class="mu">${hw[h.id] != null ? hw[h.id].toFixed(1) + "% of portfolio · " : ""}${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
+    <div class="mu">${h.sys ? "System trade (30 EMA exit) · " : ""}${hw[h.id] != null ? hw[h.id].toFixed(1) + "% of portfolio · " : ""}${h.stop != null ? "stop ₹" + fv(h.stop) : "no stop"}${h.tgt != null ? " · target ₹" + fv(h.tgt) : ""} · bought ${esc(h.d)}${h.note ? " · " + esc(h.note) : ""}</div>
     <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}${r.tips.map(x => "<li><i>" + esc(x) + "</i></li>").join("")}</ul>
     <div class="chips"><button onclick="pfix(${h.id})">Edit holding</button><button onclick="pedit(${h.id})">Stop / target</button><button onclick="psell(${h.id})">Record a sale</button><button onclick="pdel(${h.id})">Delete</button></div></div>`; };
   const sc = x => { const pn = x.qty * (x.sold.px - x.avg); return `<div class="nc ${pn >= 0 ? "pos" : "neg"}"><b>${esc(x.sym)}</b> sold ${x.qty} at ₹${fv(x.sold.px)} on ${esc(x.sold.d)} (bought at ₹${fv(x.avg)}) <b class="${pn >= 0 ? "up" : "dn"}">${pn >= 0 ? "+" : "-"}₹${fv(Math.abs(Math.round(pn)))}</b> <button onclick="pfixsold(${x.id})">Edit</button> <button onclick="pdel(${x.id})">x</button></div>`; };
@@ -1060,6 +1121,7 @@ function renderPort() {
   <div><label>Quantity</label><input id="p_qty" type="number" step="any"></div><div><label>Average buy price</label><input id="p_avg" type="number" step="any"></div><div><label>Buy date</label><input id="p_date" type="date" value="${new Date().toISOString().slice(0, 10)}"></div>
   <div><label>Stop-loss (optional)</label><input id="p_stop" type="number" step="any"></div><div><label>Target (optional)</label><input id="p_tgt" type="number" step="any"></div></div>
   <label style="margin-top:8px;font-size:12px;color:var(--mu);display:block">Notes</label><textarea id="p_note" rows="2"></textarea>
+  <label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13px"><input id="p_sys" type="checkbox" style="width:auto"> Swing system trade (exit on a daily close below the 30 EMA, no profit target)</label>
   <div class="mu" style="margin-top:6px">Adding a stock you already hold combines it into one holding at the weighted average price.</div><button style="margin-top:8px" onclick="padd()">Save holding</button></div>
   <h2>Holdings (${pSecF ? rvShow.length + " of " + open.length + " · " + esc(pSecF) : open.length})</h2>${open.length ? rvShow.map(card).join("") : '<p class="sub">No holdings yet.</p>'}
   ${sold.length ? `<h2>Sold (${sold.length})</h2>${sold.map(sc).join("")}` : ""}
