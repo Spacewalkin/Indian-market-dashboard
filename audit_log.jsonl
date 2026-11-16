@@ -201,3 +201,4 @@
 {"ts":1794779683,"ist":"2026-11-16 03:24","mode":"preopen","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-13","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1794783263,"ist":"2026-11-16 04:24","mode":"preopen","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-13","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1794787124,"ist":"2026-11-16 05:28","mode":"preopen","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-13","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":[]}
+{"ts":1794793447,"ist":"2026-11-16 07:14","mode":"preopen","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-13","requested":507,"received":506,"rejected":0,"used":506,"segments_skipped":["Chemicals"],"problems":[]}
