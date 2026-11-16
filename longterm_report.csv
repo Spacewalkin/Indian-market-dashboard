@@ -1,0 +1,10 @@
+Symbol,Sector,Score/100,Verdict,Price,From 52W high %,P/E,PEG,Qtr rev YoY %,Qtr profit YoY %,ROE %,Red flags,Data coverage %
+KPIL,Industrials,81,STRONG CANDIDATE - accumulate in tranches,1345.8,-8,19,0.6,13,35,15,,100
+KALYANKJIL,Consumer Cyclical,79,GOOD - buy small / add on dips,708.1,-0,46,1.0,31,64,27,,100
+COFORGE,Technology,78,GOOD - buy small / add on dips,2010.0,-4,39,1.3,54,n/a,13,,86
+HONASA,Consumer Defensive,78,GOOD - buy small / add on dips,501.2,-0,58,0.7,36,86,21,,94
+BEL,Industrials,75,GOOD - buy small / add on dips,401.4,-14,46,1.7,65,59,27,Weak cash conversion (cash flow only 0.25x profit) - check why on Screener,100
+TITAN,Consumer Cyclical,69,WATCH - wait for better price or data,4910.0,-5,62,3.9,n/a,n/a,45,High debt (D/E 2.2) - check what the debt is made of (lease / gold loans / real borrowings),68
+MINDACORP,Consumer Cyclical,68,WATCH - wait for better price or data,706.6,-5,30,3.7,n/a,n/a,20,,68
+MANAPPURAM,Financial Services,65,WATCH - wait for better price or data,303.8,-18,15,n/a,43,n/a,n/a,,61
+SWIGGY,Consumer Cyclical,55,AVOID - thesis check needed,190.7,-54,n/a,n/a,n/a,n/a,-27,"Operating cash flow negative; In a downtrend (below 200-DMA, 6m < -20%); Low data coverage (32%) - verify manually",32
