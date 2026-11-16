@@ -1188,11 +1188,40 @@ function renderRes() {
 // ---- Long-term ideas: fundamentals (longterm.json) + live trend + latest quarterly result ----
 let LT = null, ltF = "all";
 function loadLT() {
+  loadRS();
   getJ("longterm.json?v=" + Math.floor(Date.now() / 60000)).then(r => {
     LT = r && r.stocks ? r : {stocks: {}, none: true};
     const el = document.activeElement;
     if (view === "lt" && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName))) render();
   });
+}
+// ---- Research picks: research.json written by longterm_scanner.py (earnings, quality, valuation, price + your news/sector view) ----
+let RS = null;
+function loadRS() {
+  getJ("research.json?v=" + Math.floor(Date.now() / 60000)).then(r => {
+    RS = r && Array.isArray(r.stocks) ? r : {stocks: [], none: true};
+    const el = document.activeElement;
+    if (view === "lt" && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) && !document.querySelector("details[open]")) render();
+  });
+}
+const rsTone = v => /^(STRONG|GOOD|DIP)/.test(v || "") ? "g" : /^WATCH/.test(v || "") ? "a" : "r";
+function rsHTML() {
+  if (!RS) return "";
+  const head = '<h3 style="margin:16px 0 4px">Research picks</h3>';
+  if (!RS.stocks.length) return head + '<p class="sub">No research data yet. Run the scanner (longterm_scanner.py or the "Long-term research scan" workflow) and reload.</p>';
+  const cell = r => { const sc = r.scores || {}, d = r.dist_high;
+    return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${D.stocks[r.symbol] ? stk(r.symbol, r.name || r.symbol) : esc(r.name || r.symbol)}</b><span class="tag ${rsTone(r.verdict)}">Score ${r.total_score}/100</span></div>
+      <div><span class="tag ${rsTone(r.verdict)}">${esc(r.verdict || "")}</span><span class="mu">${esc(r.sector || "")}</span></div>
+      <div><span class="tag">Growth ${sc.growth}/25</span><span class="tag">Quality ${sc.quality}/15</span><span class="tag">Value ${sc.valuation}/15</span><span class="tag">Price ${sc.setup}/10</span><span class="tag">News ${sc.news}/20</span><span class="tag">Sector ${sc.sector}/15</span>${r.manual_overlay_missing ? '<span class="tag a">News/sector not scored</span>' : ""}</div>
+      <div class="cs">${r.price != null ? "₹" + fv(r.price) : ""}${d != null ? (d > -1 ? " · at its 52-week high" : " · " + Math.abs(d).toFixed(0) + "% below its 52-week high") : ""} · data coverage ${r.coverage_pct}%</div>
+      <ul class="ul">${(r.why || []).map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
+      ${(r.flags || []).length ? "<div>" + r.flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
+      <div class="mu">▶ ${esc(r.entry_note || "")}</div>${r.note ? '<div class="mu">Note: ' + esc(r.note) + "</div>" : ""}
+      <details><summary>Before you buy</summary><ul class="ul"><li>Fill the Screener checklist: promoter holding and pledging, cash flow, debt, and the latest conference call.</li><li>Buy in 2 or 3 parts. If it fell on news, start with about one-third.</li><li>Write your exit triggers and the next result date before you buy.</li></ul></details></div>`; };
+  const list = RS.stocks.slice().sort((a, b) => b.total_score - a.total_score);
+  return head + `<div class="sub">${list.length} stocks researched by earnings, quality, valuation and price, plus your own news and sector view. Updated ${esc(String(RS.generated_at || "").slice(0, 16).replace("T", " "))} UTC.</div>${list.map(cell).join("")}
+    <div class="note">Research picks use a different score from the Nifty 500 screen below: 65 points are measured from the numbers and 35 are your news and sector judgment. A high score is a reason to research further, not a signal to buy. Figures come from Yahoo Finance and can be late or wrong, so confirm on Screener.in. The final call is yours.</div>
+    <h3 style="margin:22px 0 4px">Nifty 500 screen</h3>`;
 }
 const isFin = sym => /bank|financ|nbfc|insur/i.test((D.stocks[sym] || {}).sec || "");
 function sectorPE() {
@@ -1252,7 +1281,7 @@ function renderLT() {
     ${list.length ? list.map(cell).join("") : '<p class="sub">No stock matches this filter yet.</p>'}
     <div class="note">How the score works: growth (30), quality (35), trend (20) and value against the sector (15). A stock must have grown profit and revenue over 2 to 3 years, never made a loss in those years, earn a return on equity of at least 10%, and trade above its 200 EMA. This is a screen for ideas to research, not a list of future winners: nobody can reliably pick multibaggers, and small caps can fall hard. Figures come from Yahoo Finance and can be late or wrong. The final call is yours.</div>`;
   }
-  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2>${body}`;
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2>${rsHTML()}${body}`;
 }
 
 const JK = "imd_journal_v1";
