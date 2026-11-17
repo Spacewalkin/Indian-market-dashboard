@@ -21,8 +21,11 @@ import csv
 import json
 import math
 import sys
+import re
 import time
+import urllib.request
 import datetime as dt
+from html.parser import HTMLParser
 from pathlib import Path
 
 WATCHLIST = Path("watchlist.csv")
@@ -175,6 +178,125 @@ def fetch_metrics(symbol):
     return m
 
 
+# --------------------------------------------------------------------------- Screener.in fallback
+class _SectionTables(HTMLParser):
+    """Reads every table row of a Screener page, grouped by the <section id=...> it sits in."""
+
+    def __init__(self):
+        super().__init__()
+        self.section, self.rows, self._row, self._cell = None, {}, None, None
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "section" and a.get("id"):
+            self.section = a["id"]
+        elif tag == "tr":
+            self._row = []
+        elif tag in ("td", "th") and self._row is not None:
+            self._cell = []
+
+    def handle_data(self, data):
+        if self._cell is not None:
+            self._cell.append(data)
+
+    def handle_endtag(self, tag):
+        if tag in ("td", "th") and self._cell is not None and self._row is not None:
+            self._row.append(" ".join("".join(self._cell).split()))
+            self._cell = None
+        elif tag == "tr" and self._row is not None:
+            if self._row and self.section:
+                self.rows.setdefault(self.section, []).append(self._row)
+            self._row = None
+
+
+def _num(s):
+    return safe(str(s).replace(",", "").replace("%", "").strip()) if s not in (None, "") else None
+
+
+def _find_row(rows, names):
+    for r in rows:
+        if r and r[0].rstrip("+ ").strip().lower() in names:
+            return [_num(x) for x in r[1:]]
+    return None
+
+
+def _headers(rows):
+    for r in rows:
+        cells = r[1:]
+        if len(cells) >= 2 and all(re.fullmatch(r"[A-Za-z]{3} \d{4}", c) for c in cells):
+            return cells
+    return None
+
+
+def parse_screener(html):
+    """Pull latest-quarter growth, ROE and debt/equity out of a Screener.in company page."""
+    p = _SectionTables()
+    p.feed(html)
+    out = {}
+
+    # latest quarter vs the same quarter last year
+    qrows = p.rows.get("quarters", [])
+    hdr = _headers(qrows)
+    sales = _find_row(qrows, {"sales", "revenue"})
+    profit = _find_row(qrows, {"net profit"})
+    if hdr and len(hdr) >= 5:
+        same_qtr = hdr[-1][:3] == hdr[-5][:3] and int(hdr[-1][-4:]) - int(hdr[-5][-4:]) == 1
+        if same_qtr:
+            if sales and len(sales) >= 5:
+                out["q_rev_yoy"] = pct(sales[-1], sales[-5])
+            if profit and len(profit) >= 5:
+                out["q_pat_yoy"] = pct(profit[-1], profit[-5])
+
+    # ROE from the top ratios box
+    m = re.search(r'id="top-ratios"(.*?)</ul>', html, re.S)
+    if m:
+        for li in re.findall(r"<li[^>]*>(.*?)</li>", m.group(1), re.S):
+            nm = re.search(r'class="name">\s*(.*?)\s*</span>', li, re.S)
+            val = re.search(r'class="number">\s*([-\d,\.]+)\s*</span>', li, re.S)
+            if nm and val and nm.group(1).strip().upper() == "ROE":
+                out["roe"] = _num(val.group(1))
+
+    # debt/equity = borrowings / (equity capital + reserves), latest year
+    brows = p.rows.get("balance-sheet", [])
+    eq, res, bor = (_find_row(brows, {n}) for n in ("equity capital", "reserves", "borrowings"))
+    if eq and res and bor and eq[-1] is not None and res[-1] is not None and bor[-1] is not None:
+        net_worth = eq[-1] + res[-1]
+        if net_worth > 0:
+            out["de"] = bor[-1] / net_worth
+    return out
+
+
+def _get(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120 Safari/537.36"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        return r.read().decode("utf-8", "ignore")
+
+
+def fill_from_screener(m, symbol, skip=()):
+    """Fill ONLY the numbers still missing after yfinance. Never overwrites a number we already have."""
+    keys = ("q_rev_yoy", "q_pat_yoy", "roe", "de")
+    fin = m.get("sector") in FINANCIAL_SECTORS
+    need = [k for k in keys if m.get(k) is None and k not in skip and not (k == "de" and fin)]
+    if not need:
+        return
+    got = {}
+    for suffix in ("/consolidated/", "/"):
+        try:
+            got = parse_screener(_get(f"https://www.screener.in/company/{symbol}{suffix}"))
+            if got:
+                break
+        except Exception as e:
+            print(f"  (Screener.in {suffix} not available for {symbol}: {e})")
+    filled = [k for k in need if got.get(k) is not None]
+    for k in filled:
+        m[k] = got[k]
+    if filled:
+        m["auto_filled"] = filled
+        print(f"  filled from Screener.in: {', '.join(filled)}")
+    elif need:
+        print(f"  Screener.in gave nothing for: {', '.join(need)}")
+
+
 # --------------------------------------------------------------------------- scoring
 def score_stock(m, news_score=None, sector_score=None):
     fin = m.get("sector") in FINANCIAL_SECTORS
@@ -231,8 +353,11 @@ def score_stock(m, news_score=None, sector_score=None):
 
     gaps = [lbl for key, lbl in (("q_rev_yoy", "latest-quarter revenue growth"), ("q_pat_yoy", "latest-quarter profit growth"),
                                  ("roe", "ROE"), ("de", "debt/equity")) if m.get(key) is None and not (fin and key == "de")]
+    if m.get("auto_filled"):
+        names = {"q_rev_yoy": "quarter revenue growth", "q_pat_yoy": "quarter profit growth", "roe": "ROE", "de": "debt/equity"}
+        why.append("Auto-filled from Screener.in: " + ", ".join(names[k] for k in m["auto_filled"]) + ".")
     if gaps:
-        why.append("MISSING DATA: " + ", ".join(gaps) + " - fill these in watchlist.csv from Screener.in, then re-run.")
+        why.append("MISSING DATA: " + ", ".join(gaps) + " - fill these in watchlist.csv from Screener.in, then re-run (auto-fetch could not get them).")
 
     # ---- Valuation (15)
     vb = Bucket(W_VALUATION)
@@ -353,6 +478,7 @@ def main(argv):
         print(f"Scanning {it['symbol']} ...", flush=True)
         try:
             m = fetch_metrics(it["symbol"])
+            fill_from_screener(m, it["symbol"], skip=it.get("override", {}))  # auto-fill gaps
             m.update(it.get("override", {}))  # numbers you typed in watchlist.csv win over yfinance
             res = score_stock(m, it["news"], it["sector"])
             res["note"] = it["note"]
