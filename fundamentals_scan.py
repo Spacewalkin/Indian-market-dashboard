@@ -16,8 +16,8 @@ OUT_CSV = "data/fundamentals.csv"
 NSE_URL = "https://archives.nseindia.com/content/indices/ind_nifty500list.csv"
 
 # ---- thresholds (change here if you want stricter / looser) ----
-MIN_REV_YOY = 15      # % sales growth YoY
-MIN_PAT_YOY = 20      # % profit growth YoY
+MIN_REV_YOY = 20      # % sales growth YoY
+MIN_PAT_YOY = 25      # % profit growth YoY
 MIN_CFO_PAT = 0.7     # operating cash flow / PAT, last 3 years
 MAX_DE = 1.0          # debt / equity (not applied to banks/NBFCs)
 MAX_FROM_HIGH = 25    # % below 52-week high allowed
@@ -56,13 +56,22 @@ def row(df, names):
     return None
 
 
+def year_ago(s):
+    """(latest, value ~1 year earlier), matched by DATE so gaps can't shift quarters."""
+    if s is None or len(s) < 2:
+        return None
+    d0 = s.index[0]
+    for d, v in s.items():
+        if 350 <= (d0 - d).days <= 380:
+            return float(s.iloc[0]), float(v)
+    return None
+
+
 def yoy(s):
-    if s is None or len(s) < 5:
+    p = year_ago(s)
+    if p is None or p[1] <= 0:
         return None
-    new, old = float(s.iloc[0]), float(s.iloc[4])
-    if old <= 0:
-        return None
-    return (new - old) / old * 100
+    return (p[0] - p[1]) / p[1] * 100
 
 
 def analyze(sym, name):
@@ -79,9 +88,9 @@ def analyze(sym, name):
     # operating margin now vs a year ago
     opm_now = opm_old = None
     if op is not None:
-        m = (op / rev).dropna()
-        if len(m) >= 5:
-            opm_now, opm_old = float(m.iloc[0]) * 100, float(m.iloc[4]) * 100
+        p = year_ago((op / rev).dropna())
+        if p is not None:
+            opm_now, opm_old = p[0] * 100, p[1] * 100
 
     # financials (banks/NBFCs) are judged differently, skip cash flow & D/E
     try:
@@ -128,7 +137,7 @@ def analyze(sym, name):
     if from_high > MAX_FROM_HIGH: fails.append("far below 52w high")
 
     # ---- score (0-100) ----
-    score = min(rev_yoy, 40) / 40 * 20 + min(pat_yoy, 80) / 80 * 30
+    score = min(rev_yoy, 60) / 60 * 20 + min(pat_yoy, 150) / 150 * 30
     if opm_now is not None and opm_now >= opm_old: score += 10
     if cfo_pat is not None: score += 15 if cfo_pat >= 1 else 8 if cfo_pat >= MIN_CFO_PAT else 0
     if de is not None: score += 10 if de < 0.5 else 5 if de <= MAX_DE else 0
@@ -151,6 +160,8 @@ def analyze(sym, name):
         "price": r(price), "pct_from_52w_high": r(from_high),
         "above_200dma": price >= dma200,
         "holdings": "CHECK (promoter / pledge / FII-DII)",
+        "check_note": "unusual jump - verify one-off / base effect / accounting change"
+                      if (rev_yoy > 100 or pat_yoy > 300) else "",
     }
 
 
