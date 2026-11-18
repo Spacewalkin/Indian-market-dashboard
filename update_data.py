@@ -1051,6 +1051,18 @@ def build_prices(close, opn, high, low, vol, emas, syms, n=90):
     return {"ts": int(time.time()), "dates": [d.strftime("%Y-%m-%d") for d in idx], "s": out}
 
 
+def build_hist(opn, high, low, syms, n=250):
+    """Daily open/high/low history (paise) for every Nifty 500 stock, so the Open trades page can work out
+    each trade's stop ladder in the browser. Written to hist.json (separate from data.json, so the main page stays light)."""
+    idx = high.index[-n:]
+    px = lambda col: [None if pd.isna(v) else int(round(float(v) * 100)) for v in col.loc[idx]]
+    out = {}
+    for sym in syms:
+        if sym in high.columns:
+            out[sym] = {"o": px(opn[sym]), "h": px(high[sym]), "l": px(low[sym])}
+    return {"ts": int(time.time()), "dates": [d.strftime("%Y-%m-%d") for d in idx], "s": out}
+
+
 MIN_TURNOVER_CR = 5  # skip thinly traded stocks (average daily value in crore rupees)
 
 MACRO = [  # key, name, Yahoo ticker, group
@@ -1556,6 +1568,10 @@ def main():
                                + [x["s"] for x in events.get("results", [])] + ranked[:20] + ranked[-20:]
                                + lists.get("large", [])))[:260]
     write_json("prices.json", build_prices(close, opn, high, low, vol, emas, focus))
+    try:
+        write_json("hist.json", build_hist(opn, high, low, list(stocks)))  # for the Open trades page
+    except Exception as e:  # never let this stop the rest of the update
+        print("hist.json not written:", e)
     print(f"{len(swing)} swing setups, news for {len(news)} stocks, {len(macro)} market factors, "
           f"{len(events['results'])} upcoming results, {len(events['catalysts'])} stock catalysts")
 

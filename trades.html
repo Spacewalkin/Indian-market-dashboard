@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open trades – stop ladder</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1b1f27; --muted: #667085; --line: #e3e6eb;
+    --green: #0f7a43; --green-bg: #e3f5ea; --red: #b42318; --red-bg: #fde8e6;
+    --amber: #92580a; --amber-bg: #fdf0d5; --blue: #1d4ed8; --blue-bg: #e6edfd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11141a; --card: #1a1f28; --text: #e8ebf0; --muted: #98a2b3; --line: #2a303c;
+      --green: #4ade80; --green-bg: #12301f; --red: #f87171; --red-bg: #3a1a18;
+      --amber: #fbbf24; --amber-bg: #3a2b0c; --blue: #93b4ff; --blue-bg: #1a2744;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 16px; }
+  h1 { font-size: 20px; margin: 4px 0 2px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+  .rule { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; }
+  .step { background: var(--blue-bg); color: var(--blue); border-radius: 8px; padding: 4px 9px; font-weight: 600; }
+  form { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; align-items: end; }
+  label { display: flex; flex-direction: column; font-size: 12px; color: var(--muted); gap: 4px; }
+  input { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 9px; width: 100%; }
+  button { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); padding: 8px 12px; }
+  button.primary { background: var(--blue); color: #fff; border-color: var(--blue); font-weight: 600; }
+  .msg { font-size: 13px; margin-top: 8px; min-height: 18px; }
+  .err { color: var(--red); } .ok { color: var(--green); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  .trade { margin: 0; }
+  .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .sym { font-weight: 700; font-size: 17px; } .nm { color: var(--muted); font-size: 12px; }
+  .pill { font-size: 11px; font-weight: 700; border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .p-open { background: var(--blue-bg); color: var(--blue); } .p-raise { background: var(--amber-bg); color: var(--amber); }
+  .p-hit { background: var(--red-bg); color: var(--red); } .p-win { background: var(--green-bg); color: var(--green); }
+  dl { display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; margin: 10px 0; font-size: 13px; }
+  dt { color: var(--muted); } dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+  .pos { color: var(--green); } .neg { color: var(--red); }
+  .action { border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; margin-top: 6px; }
+  .a-hold { background: var(--bg); color: var(--text); } .a-raise { background: var(--amber-bg); color: var(--amber); }
+  .a-hit { background: var(--red-bg); color: var(--red); }
+  .row { display: flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 12px; color: var(--muted); }
+  .row input { width: 110px; padding: 5px 7px; }
+  .del { margin-left: auto; font-size: 12px; padding: 5px 9px; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 14px; }
+  .note { color: var(--muted); font-size: 12px; }
+  .empty { text-align: center; color: var(--muted); padding: 22px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Open trades – stop ladder</h1>
+  <div class="sub" id="asof">Loading prices…</div>
+
+  <div class="card">
+    <div class="rule">
+      <b>Exit rule</b> (R = entry − initial stop):
+      <span class="step">Start: initial stop</span> →
+      <span class="step">+2R: stop to entry</span> →
+      <span class="step">+4R: stop to +2R</span> →
+      <span class="step">+6R: stop to +4R …</span>
+      <span class="note">No profit target, no time limit. You exit only when the stop is hit.</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <form id="f" autocomplete="off">
+      <label>Stock (NSE symbol)<input id="sym" list="syms" placeholder="e.g. SBIN" required></label>
+      <label>Entry date<input id="dt" type="date" required></label>
+      <label>Entry price (₹)<input id="ep" type="number" step="0.05" min="0" required></label>
+      <label>Initial stop (₹)<input id="sp" type="number" step="0.05" min="0" required></label>
+      <label>Quantity<input id="qty" type="number" step="1" min="1" required></label>
+      <button class="primary" type="submit">Add trade</button>
+    </form>
+    <datalist id="syms"></datalist>
+    <div id="msg" class="msg"></div>
+  </div>
+
+  <div class="tools">
+    <button id="bk">Copy backup</button>
+    <button id="rs">Restore backup</button>
+    <span class="note">Trades are saved in this browser only. Use Copy backup to move them to another device.</span>
+  </div>
+
+  <div id="list" class="grid"></div>
+  <p class="note" id="foot"></p>
+</div>
+
+<script src="ladder.js"></script>
+<script>
+(function () {
+  var KEY = "openTradesLadder";
+  var data = null, hist = null, trades = [];
+  var $ = function (id) { return document.getElementById(id); };
+  var inr = function (x, d) { return Number(x).toLocaleString("en-IN", { minimumFractionDigits: d == null ? 2 : d, maximumFractionDigits: d == null ? 2 : d }); };
+  var rs = function (x) { return (x < 0 ? "−" : "") + "₹" + inr(Math.abs(x), 0); };
+
+  function load() { try { trades = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { trades = []; } }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(trades)); } catch (e) { say("Could not save in this browser.", true); } }
+  function say(t, bad) { var m = $("msg"); m.textContent = t; m.className = "msg " + (bad ? "err" : "ok"); }
+
+  // Where the data files live. Leave empty to work it out automatically: on GitHub Pages the live files are
+  // read from the "data" branch of the same repo. If your main page uses another address, paste its prefix here,
+  // e.g. "https://raw.githubusercontent.com/YOURNAME/Indian-market-dashboard/data/"
+  var DATA_BASE = "";
+  function base() {
+    if (DATA_BASE) return DATA_BASE;
+    var h = location.hostname;
+    if (/\.github\.io$/.test(h)) {
+      var user = h.split(".")[0], seg = location.pathname.split("/").filter(Boolean)[0];
+      var repo = seg && !/\.html?$/.test(seg) ? seg : h;
+      return "https://raw.githubusercontent.com/" + user + "/" + repo + "/data/";
+    }
+    return "";
+  }
+  function fetchJson(u) { return fetch(base() + u + "?t=" + Date.now()).then(function (r) { if (!r.ok) throw new Error(u + " " + r.status); return r.json(); }); }
+
+  function init() {
+    load();
+    Promise.all([fetchJson("data.json"), fetchJson("hist.json")]).then(function (res) {
+      data = res[0]; hist = res[1];
+      var dl = $("syms"); Object.keys(data.stocks || {}).sort().forEach(function (s) { var o = document.createElement("option"); o.value = s; dl.appendChild(o); });
+      var live = data.status && data.status.candle_final === false;
+      $("asof").textContent = "Prices: " + (data.updated || data.asof || "") + (live ? " · market open, today’s candle is not final" : "") + " · history to " + hist.dates[hist.dates.length - 1];
+      render();
+    }).catch(function (e) {
+      $("asof").textContent = "Could not load prices (" + e.message + "). hist.json appears after the next data update runs.";
+      render();
+    });
+  }
+
+  function view(t) {
+    var h = hist && hist.s[t.sym];
+    if (!h) return { status: "NO DATA", note: "No price history for " + t.sym + " yet." };
+    return ladderEval(hist.dates, h.o.map(function (v) { return v == null ? null : v / 100; }),
+                      h.h.map(function (v) { return v == null ? null : v / 100; }),
+                      h.l.map(function (v) { return v == null ? null : v / 100; }),
+                      t.date, t.entry, t.stop, t.qty);
+  }
+
+  function render() {
+    var box = $("list"); box.innerHTML = "";
+    if (!trades.length) { box.innerHTML = '<div class="card empty" style="grid-column:1/-1">No open trades yet. Add one above.</div>'; return; }
+    var live = data && data.status && data.status.candle_final === false;
+    var lastDate = hist ? hist.dates[hist.dates.length - 1] : null;
+    trades.forEach(function (t, idx) {
+      var r = view(t), st = data && data.stocks && data.stocks[t.sym];
+      var name = st ? st.n : "", price = st ? st.p : null;
+      var risk = t.qty * (t.entry - t.stop);
+      var pill = "p-open", pillTxt = "OPEN", act = "", actCls = "a-hold", rows = "";
+      if (r.status === "STOP HIT") {
+        var today = live && r.exitDate === lastDate;
+        pill = "p-hit"; pillTxt = today ? "STOP TOUCHED TODAY" : "STOP HIT";
+        actCls = "a-hit";
+        act = (today ? "Today’s low reached your stop (candle not final). " : "Stop was hit on " + r.exitDate + ". ") +
+              "Exit near ₹" + inr(r.exitPrice) + " → " + (r.finalR >= 0 ? "+" : "−") + Math.abs(r.finalR).toFixed(2) + "R, " + rs(r.pnl) + ". Remove this trade once you have sold.";
+        rows = '<dt>Stop level</dt><dd>₹' + inr(r.stop) + '</dd>';
+      } else if (r.status === "OPEN") {
+        var curR = price != null ? (price - t.entry) / r.R : null;
+        var unreal = price != null ? t.qty * (price - t.entry) : null;
+        var broker = t.broker != null && t.broker !== "" ? Number(t.broker) : null;
+        if (broker == null) { act = "Set your stop at ₹" + inr(r.stop) + "."; actCls = "a-hold"; }
+        else if (r.stop > broker + 1e-9) { act = "RAISE your stop to ₹" + inr(r.stop) + " (broker has ₹" + inr(broker) + ")."; actCls = "a-raise"; pill = "p-raise"; pillTxt = "RAISE STOP"; }
+        else { act = "Hold. Stop stays at ₹" + inr(r.stop) + "."; }
+        rows = '<dt>Last price</dt><dd>' + (price != null ? '₹' + inr(price) : '–') + '</dd>' +
+               '<dt>Current R</dt><dd class="' + (curR >= 0 ? "pos" : "neg") + '">' + (curR != null ? (curR >= 0 ? "+" : "−") + Math.abs(curR).toFixed(2) + "R" : "–") + '</dd>' +
+               '<dt>Unrealised</dt><dd class="' + (unreal >= 0 ? "pos" : "neg") + '">' + (unreal != null ? rs(unreal) : "–") + '</dd>' +
+               '<dt>Best R reached</dt><dd>' + r.bestR.toFixed(2) + 'R</dd>' +
+               '<dt>Stop today</dt><dd><b>₹' + inr(r.stop) + '</b></dd>' +
+               '<dt>Next trigger</dt><dd>₹' + inr(r.nextPrice) + ' (+' + r.nextR + 'R) → stop ₹' + inr(r.stopAfter) + '</dd>';
+      } else { pillTxt = r.status; act = r.note || ""; }
+      var el = document.createElement("div"); el.className = "card trade";
+      el.innerHTML =
+        '<div class="top"><div><div class="sym"></div><div class="nm"></div></div><span class="pill ' + pill + '">' + pillTxt + '</span></div>' +
+        '<dl><dt>Entry</dt><dd>₹' + inr(t.entry) + ' on ' + t.date + '</dd><dt>Initial stop</dt><dd>₹' + inr(t.stop) + '</dd>' +
+        '<dt>Quantity · risk</dt><dd>' + t.qty + ' · ' + rs(risk) + '</dd>' + rows + '</dl>' +
+        '<div class="action ' + actCls + '"></div>' +
+        (r.partial ? '<div class="note">Entry is older than the stored price history, so the stop may be too low. Check on a chart.</div>' : "") +
+        '<div class="row">Stop in your broker: <input type="number" step="0.05" min="0" placeholder="₹"><button class="del">Remove</button></div>';
+      el.querySelector(".sym").textContent = t.sym; el.querySelector(".nm").textContent = name;
+      el.querySelector(".action").textContent = act;
+      var inp = el.querySelector(".row input"); inp.value = t.broker != null ? t.broker : "";
+      inp.addEventListener("change", function () { t.broker = inp.value === "" ? null : Number(inp.value); save(); render(); });
+      el.querySelector(".del").addEventListener("click", function () { if (confirm("Remove " + t.sym + "?")) { trades.splice(idx, 1); save(); render(); } });
+      box.appendChild(el);
+    });
+    $("foot").textContent = "Uses daily candles, so a day that touches your stop counts as stopped out. The stop is raised from the day after a level is touched. Confirm every action against your broker before placing orders.";
+  }
+
+  $("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var t = { sym: $("sym").value.trim().toUpperCase().replace(".NS", ""), date: $("dt").value,
+              entry: parseFloat($("ep").value), stop: parseFloat($("sp").value), qty: parseInt($("qty").value, 10), broker: null };
+    if (!t.sym || !t.date || !(t.entry > 0) || !(t.stop > 0) || !(t.qty > 0)) return say("Please fill in every field.", true);
+    if (t.stop >= t.entry) return say("The initial stop must be below the entry price.", true);
+    if (data && data.stocks && !data.stocks[t.sym]) return say(t.sym + " is not in the Nifty 500 list on this site.", true);
+    trades.push(t); save(); $("f").reset(); say("Added " + t.sym + ".", false); render();
+  });
+  $("bk").addEventListener("click", function () {
+    var s = JSON.stringify(trades);
+    (navigator.clipboard ? navigator.clipboard.writeText(s) : Promise.reject()).then(function () { say("Backup copied. Paste it somewhere safe.", false); }, function () { window.prompt("Copy this backup:", s); });
+  });
+  $("rs").addEventListener("click", function () {
+    var s = window.prompt("Paste your backup here:"); if (!s) return;
+    try { var a = JSON.parse(s); if (!Array.isArray(a)) throw 0; trades = a; save(); render(); say("Restored " + a.length + " trades.", false); } catch (e) { say("That backup could not be read.", true); }
+  });
+  init();
+})();
+</script>
+</body>
+</html>
