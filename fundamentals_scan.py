@@ -83,7 +83,9 @@ def analyze(sym, name):
 
     rev_yoy, pat_yoy = yoy(rev), yoy(pat)
     if rev_yoy is None or pat_yoy is None:
-        return {"symbol": sym, "name": name, "status": "data missing"}
+        have = [d.strftime("%b%y") for d in (rev.index if rev is not None else [])]
+        return {"symbol": sym, "name": name, "status": "data missing",
+                "reason": "no year-ago quarter in yfinance; quarters found: " + ",".join(have)}
 
     # operating margin now vs a year ago
     opm_now = opm_old = None
@@ -214,6 +216,8 @@ def main():
     }
     json.dump(out, open(OUT_JSON, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     pd.DataFrame([r for r in results if r["status"] != "data missing"]).to_csv(OUT_CSV, index=False)
+    pd.DataFrame([r for r in results if r["status"] == "data missing"]).to_csv(
+        "data/fundamentals_missing.csv", index=False)
     print(f"Done. scanned={out['scanned']} passed={out['passed']} missing={missing}")
     for p in picks:
         print(f"{p['score']:>5}  {p['symbol']:<14} sales {p['sales_yoy']}%  PAT {p['pat_yoy']}%")
