@@ -99,7 +99,8 @@
   var data = null, hist = null, trades = [];
   var $ = function (id) { return document.getElementById(id); };
   var inr = function (x, d) { return Number(x).toLocaleString("en-IN", { minimumFractionDigits: d == null ? 2 : d, maximumFractionDigits: d == null ? 2 : d }); };
-  var rs = function (x) { return (x < 0 ? "−" : "") + "₹" + inr(Math.abs(x), 0); };
+  var rs = function (x) { return (x < 0 && Math.round(Math.abs(x)) > 0 ? "−" : "") + "₹" + inr(Math.abs(x), 0); };
+  var fr = function (x) { var a = Math.abs(x).toFixed(2); return (x < 0 && a !== "0.00" ? "−" : "+") + a + "R"; };
 
   function load() { try { trades = JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { trades = []; } }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(trades)); } catch (e) { say("Could not save in this browser.", true); } }
@@ -159,7 +160,7 @@
         pill = "p-hit"; pillTxt = today ? "STOP TOUCHED TODAY" : "STOP HIT";
         actCls = "a-hit";
         act = (today ? "Today’s low reached your stop (candle not final). " : "Stop was hit on " + r.exitDate + ". ") +
-              "Exit near ₹" + inr(r.exitPrice) + " → " + (r.finalR >= 0 ? "+" : "−") + Math.abs(r.finalR).toFixed(2) + "R, " + rs(r.pnl) + ". Remove this trade once you have sold.";
+              "Exit near ₹" + inr(r.exitPrice) + " → " + fr(r.finalR) + ", " + rs(r.pnl) + ". Remove this trade once you have sold.";
         rows = '<dt>Stop level</dt><dd>₹' + inr(r.stop) + '</dd>';
       } else if (r.status === "OPEN") {
         var curR = price != null ? (price - t.entry) / r.R : null;
@@ -169,7 +170,7 @@
         else if (r.stop > broker + 1e-9) { act = "RAISE your stop to ₹" + inr(r.stop) + " (broker has ₹" + inr(broker) + ")."; actCls = "a-raise"; pill = "p-raise"; pillTxt = "RAISE STOP"; }
         else { act = "Hold. Stop stays at ₹" + inr(r.stop) + "."; }
         rows = '<dt>Last price</dt><dd>' + (price != null ? '₹' + inr(price) : '–') + '</dd>' +
-               '<dt>Current R</dt><dd class="' + (curR >= 0 ? "pos" : "neg") + '">' + (curR != null ? (curR >= 0 ? "+" : "−") + Math.abs(curR).toFixed(2) + "R" : "–") + '</dd>' +
+               '<dt>Current R</dt><dd class="' + (curR >= 0 ? "pos" : "neg") + '">' + (curR != null ? fr(curR) : "–") + '</dd>' +
                '<dt>Unrealised</dt><dd class="' + (unreal >= 0 ? "pos" : "neg") + '">' + (unreal != null ? rs(unreal) : "–") + '</dd>' +
                '<dt>Best R reached</dt><dd>' + r.bestR.toFixed(2) + 'R</dd>' +
                '<dt>Stop today</dt><dd><b>₹' + inr(r.stop) + '</b></dd>' +
@@ -208,7 +209,15 @@
   });
   $("rs").addEventListener("click", function () {
     var s = window.prompt("Paste your backup here:"); if (!s) return;
-    try { var a = JSON.parse(s); if (!Array.isArray(a)) throw 0; trades = a; save(); render(); say("Restored " + a.length + " trades.", false); } catch (e) { say("That backup could not be read.", true); }
+    try {
+      var a = JSON.parse(s); if (!Array.isArray(a)) throw 0;
+      var good = a.filter(function (t) {
+        return t && typeof t.sym === "string" && /^[A-Z0-9&-]{1,20}$/.test(t.sym) && /^\d{4}-\d{2}-\d{2}$/.test(t.date) &&
+          t.entry > 0 && t.stop > 0 && t.stop < t.entry && t.qty > 0 && (t.broker == null || t.broker === "" || isFinite(t.broker));
+      }).map(function (t) { return { sym: t.sym, date: t.date, entry: Number(t.entry), stop: Number(t.stop), qty: Math.floor(Number(t.qty)), broker: t.broker == null || t.broker === "" ? null : Number(t.broker) }; });
+      if (!good.length) throw 0;
+      trades = good; save(); render(); say("Restored " + good.length + " of " + a.length + " trades.", false);
+    } catch (e) { say("That backup could not be read.", true); }
   });
   init();
 })();

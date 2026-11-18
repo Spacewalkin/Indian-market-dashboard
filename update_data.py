@@ -1223,9 +1223,10 @@ SYS_VOL = 1.5           # breakout-day volume must be at least this many times t
 SYS_MAX_AGE = 5         # a breakout stays a candidate for this many finished sessions, if it has not triggered yet
 SYS_RISK_RS = 200       # rupees risked per trade (used for the quantity shown)
 SYS_MAX_RISK = 8.0      # the backtest skipped stops wider than this %; the page now shows them with a flag instead
-SYS_EMA = 30            # exit: a daily close below this EMA, sell at the next open
+SYS_EMA = 30            # only feeds the "px" table; no exit rule uses it now (the stop ladder is the exit)
 SYS_BREADTH_MIN = 50.0  # new trades only while more than this % of stocks are above their 50-day average
 SYS_SLOTS = 0           # 0 = no limit on open trades (the backtest tried 6, 10 and unlimited)
+SYS_CLOSE_POS = 0.6  # the breakout candle must close in its upper 40%: (close - low) / (high - low) >= this
 
 
 def system_scan(close, high, low, vol, stocks, final=True):
@@ -1233,12 +1234,12 @@ def system_scan(close, high, low, vol, stocks, final=True):
 
     Market filter: more than 50% of stocks closed above their 50-day simple average.
     Signal: a FRESH breakout (close above the highest high of the 252 sessions before it, and the session before
-    did not close above its own line) on at least 1.5 times the 20-day average volume. Entry: the next session
+    did not close above its own line) on at least 1.5 times the 20-day average volume, with the candle closing in its upper 40%. Entry: the next session
     on a move above the last finished session's high. Stop: below the breakout candle's low. A breakout is
     still a candidate for up to SYS_MAX_AGE sessions, as long as it never closed back under its line, never
     traded under the breakout candle's low, and has not yet traded above a previous day's high.
-    Exit: a daily close below the 30 EMA, sell at the next open (the page checks this for your holdings
-    with the \"px\" table: [last finished close, 30 EMA]).
+    Exit: the stop ladder on the Open trades page (no 30 EMA exit, no profit target). The "px" table
+    [last finished close, 30 EMA] is still written, but no exit rule uses it.
     final = True when the last candle is a finished session (False while the market is open)."""
     n = len(close)
     j = n - 1 if final else n - 2  # position of the last FINISHED session
@@ -1273,6 +1274,9 @@ def system_scan(close, high, low, vol, stocks, final=True):
                     b = tt
                     break
             if b is None or not (vx[b, i] >= SYS_VOL):
+                continue
+            rng = hg[b, i] - lw[b, i]  # the breakout candle must close in its upper 40%
+            if not (rng > 0 and (cl[b, i] - lw[b, i]) >= SYS_CLOSE_POS * rng):
                 continue
             thin = bool(pd.isna(turn[sym]) or turn[sym] < MIN_TURNOVER_CR)  # flagged, not hidden
             lvl, stop = float(ln[b, i]), float(lw[b, i])
