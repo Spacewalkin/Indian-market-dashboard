@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T12:05:02+00:00",
+  "generated_at": "2026-11-18T12:21:03+00:00",
   "scanned": 501,
   "passed": 22,
   "data_missing": 313,
@@ -411,13 +411,10 @@
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
-        "headlines": [
-          "Emcure Pharmaceuticals Share Price holds near one-year high - Univest",
-          "Emcure Pharmaceuticals Ltd is Rated Hold - MarketsMojo",
-          "Emcure Pharma posts 29.31% rise in PAT to ₹325 cr in Q2 - ET Manufacturing"
-        ],
+        "headlines": [],
         "positive": [],
-        "negative": []
+        "negative": [],
+        "note": "news fetch failed"
       }
     },
     {
@@ -527,18 +524,10 @@
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
-        "headlines": [
-          "Groww shares rise over 1% after Rs 1,905 crore worth of shares change hands in block deal - TradingView",
-          "Billionbrains Garage Ventures Ltd Hits All-Time High of Rs 229.55 as Momentum Builds Across Timeframes - MarketsMojo",
-          "Billionbrains Garage Ventures Ltd Downgraded to Hold Amid Mixed Technical and Valuation Signals - MarketsMojo"
-        ],
-        "positive": [
-          "deal"
-        ],
-        "negative": [
-          "downgrade",
-          "sebi"
-        ]
+        "headlines": [],
+        "positive": [],
+        "negative": [],
+        "note": "news fetch failed"
       }
     },
     {
@@ -590,10 +579,13 @@
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
-        "headlines": [],
+        "headlines": [
+          "BSE Stock Price and Chart — NSE:BSE - TradingView",
+          "BSE Limited (BSE.NS) stock price, news, quote and history - Yahoo Finance Singapore",
+          "BSE Q2 Results: Profit drops over 7% sequentially, margin remains steady - CNBC TV18"
+        ],
         "positive": [],
-        "negative": [],
-        "note": "news fetch failed"
+        "negative": []
       }
     }
   ]
