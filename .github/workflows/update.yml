@@ -55,6 +55,14 @@ jobs:
           git config user.name "market-bot"
           git config user.email "bot@users.noreply.github.com"
 
+          # Keep the last hist.json when this run did not rebuild it (news and pre-open runs do not).
+          # The data branch is replaced on every run, so without this the Open trades page would lose its price history.
+          if [ ! -e hist.json ]; then
+            git fetch --depth=1 origin data 2>/dev/null \
+              && git show FETCH_HEAD:hist.json > hist.json 2>/dev/null \
+              || rm -f hist.json
+          fi
+
           # 1) Live copy: the page reads data.json, prices.json and status.json from the "data" branch
           #    every minute (hist.json feeds the Open trades page). It is replaced by one fresh commit each run, so the repo never grows
           #    and the website is not rebuilt.
