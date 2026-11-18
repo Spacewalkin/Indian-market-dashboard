@@ -1,0 +1,596 @@
+{
+  "generated_at": "2026-11-18T11:50:51+00:00",
+  "scanned": 501,
+  "passed": 94,
+  "data_missing": 34,
+  "picks": [
+    {
+      "symbol": "COFORGE",
+      "name": "Coforge Ltd.",
+      "sector": "Technology",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 100.0,
+      "sales_yoy": 53.64,
+      "pat_yoy": 85.29,
+      "opm_now": 15.96,
+      "opm_year_ago": 14.62,
+      "cfo_to_pat": 1.24,
+      "debt_equity": 0.08,
+      "price": 2049.0,
+      "pct_from_52w_high": 2.38,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Coforge Ltd is Rated Strong Buy - MarketsMojo",
+          "Stock Radar: Coforge stock hits fresh record high in November 2026; will the rally continue? - The Economic Times",
+          "Coforge shares: CLSA maintains high conviction 'Outperform' rating on strong execution, AI play - Business Today"
+        ],
+        "positive": [],
+        "negative": [
+          "cut"
+        ]
+      }
+    },
+    {
+      "symbol": "ETERNAL",
+      "name": "Eternal Ltd.",
+      "sector": "Consumer Cyclical",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 100.0,
+      "sales_yoy": 236.79,
+      "pat_yoy": 400.0,
+      "opm_now": 0.53,
+      "opm_year_ago": -2.78,
+      "cfo_to_pat": 1.27,
+      "debt_equity": 0.15,
+      "price": 366.0,
+      "pct_from_52w_high": 2.41,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Eternal Ltd valuation range reflects growth and margin debate - Multibagg AI",
+          "Saraf and Partners advises Eternal on AdOnMo-Mygate merger; Anoma Legal, Kaizen Law advise Mygate, AdOnMo - ETLegalWorld.com",
+          "Top Gainers & Losers Today, 4 November 2026 at 3:30 PM IST: Bharat Electronics Ltd Leads Gainers - HDFC Sky"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "GESHIP",
+      "name": "Great Eastern Shipping Co. Ltd.",
+      "sector": "Industrials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 100.0,
+      "sales_yoy": 46.92,
+      "pat_yoy": 118.3,
+      "opm_now": 46.36,
+      "opm_year_ago": 34.73,
+      "cfo_to_pat": 1.05,
+      "debt_equity": 0.06,
+      "price": 1530.6,
+      "pct_from_52w_high": 9.13,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "The Great Eastern Shipping Company Limited Q2 PAT Rises 118% - Multibagg AI",
+          "The Great Eastern Shipping Company Stock Price Forecast. Should You Buy GESHIP.NS? - StockInvest.us",
+          "Great Eastern Shipping Company Declares ₹14.40 Dividend and Buyback - Multibagg AI"
+        ],
+        "positive": [
+          "buyback",
+          "dividend"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "LAURUSLABS",
+      "name": "Laurus Labs Ltd.",
+      "sector": "Healthcare",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 100.0,
+      "sales_yoy": 40.57,
+      "pat_yoy": 170.81,
+      "opm_now": 28.23,
+      "opm_year_ago": 16.9,
+      "cfo_to_pat": 2.05,
+      "debt_equity": 0.48,
+      "price": 2322.5,
+      "pct_from_52w_high": 5.36,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [],
+        "positive": [],
+        "negative": [],
+        "note": "news fetch failed"
+      }
+    },
+    {
+      "symbol": "NAVINFLUOR",
+      "name": "Navin Fluorine International Ltd.",
+      "sector": "Basic Materials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 100.0,
+      "sales_yoy": 64.15,
+      "pat_yoy": 129.8,
+      "opm_now": 30.63,
+      "opm_year_ago": 23.65,
+      "cfo_to_pat": 1.81,
+      "debt_equity": 0.32,
+      "price": 10278.0,
+      "pct_from_52w_high": 0.0,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Navin Fluorine International Ltd. Stock News - Value Research",
+          "Navin Fluorine International Ltd Hits All-Time High of Rs 10,165 as Momentum Builds Across Timeframes - MarketsMojo",
+          "Navin Fluorine Share Price: price action and fundamentals - Univest"
+        ],
+        "positive": [
+          "upgrade"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "SONACOMS",
+      "name": "Sona BLW Precision Forgings Ltd.",
+      "sector": "Consumer Cyclical",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 99.7,
+      "sales_yoy": 79.86,
+      "pat_yoy": 79.13,
+      "opm_now": 17.37,
+      "opm_year_ago": 16.23,
+      "cfo_to_pat": 1.21,
+      "debt_equity": 0.07,
+      "price": 889.0,
+      "pct_from_52w_high": 4.0,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Sona BLW Q2FY27 Results: PAT up 29% to ₹223 crore, beats estimates - scanx.trade",
+          "Sona BLW Precision Forgings Ltd Hits All-Time High of Rs 918.05 as Momentum Builds Across Timeframes - MarketsMojo",
+          "Sona BLW Precision Forgings schedules investor meetings for Nov 17-19 - scanx.trade"
+        ],
+        "positive": [
+          "order",
+          "wins"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "HONASA",
+      "name": "Honasa Consumer Ltd.",
+      "sector": "Consumer Defensive",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 97.9,
+      "sales_yoy": 35.89,
+      "pat_yoy": 86.35,
+      "opm_now": 11.21,
+      "opm_year_ago": 6.67,
+      "cfo_to_pat": 1.25,
+      "debt_equity": 0.1,
+      "price": 524.5,
+      "pct_from_52w_high": 0.0,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "HONASA younger brands grow 45%+, led by BBlunt relaunch - Multibagg AI",
+          "Honasa Consumer Share Price Extends Rally, Jumps Over 5%; Should You Buy, Sell Or Hold After Q2 Results? - NDTV Profit",
+          "Honasa Consumer Posts 87% Profit Surge, Weighs Move Into Hair Colour - BigGo Finance"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "LENSKART",
+      "name": "Lenskart Solutions Ltd.",
+      "sector": "Healthcare",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 97.9,
+      "sales_yoy": 35.73,
+      "pat_yoy": 122.15,
+      "opm_now": 10.59,
+      "opm_year_ago": 7.68,
+      "cfo_to_pat": 3.38,
+      "debt_equity": 0.35,
+      "price": 732.1,
+      "pct_from_52w_high": 0.94,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Lenskart Share Price - Upstox",
+          "Lenskart Solutions Limited (LENSKART.NS) Stock Price, News, Quote & History - Yahoo! Finance Canada",
+          "Lenskart Solutions Ltd Q2 Profit Rises 124.7% as Revenue Grows - Multibagg AI"
+        ],
+        "positive": [
+          "upgrade"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "GAIL",
+      "name": "GAIL (India) Ltd.",
+      "sector": "Utilities",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 96.7,
+      "sales_yoy": 33.5,
+      "pat_yoy": 99.21,
+      "opm_now": 12.68,
+      "opm_year_ago": 7.58,
+      "cfo_to_pat": 1.32,
+      "debt_equity": 0.28,
+      "price": 190.0,
+      "pct_from_52w_high": 0.0,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "GAIL Share Price at one-year high: price action and ratios - Univest",
+          "Videocon Insolvency: Supreme Court Upholds Remand Of Twinstar's Plan, Keeps Foreign Oil Assets Out Of CIRP - TradingView",
+          "CII Partnership Summit 2026: 73 MoUs Signed on Day 1 - Yo Vizag"
+        ],
+        "positive": [
+          "wins"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "SHYAMMETL",
+      "name": "Shyam Metalics and Energy Ltd.",
+      "sector": "Basic Materials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 96.7,
+      "sales_yoy": 33.42,
+      "pat_yoy": 88.47,
+      "opm_now": 12.02,
+      "opm_year_ago": 7.32,
+      "cfo_to_pat": 1.84,
+      "debt_equity": 0.09,
+      "price": 1317.1,
+      "pct_from_52w_high": 1.14,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "57 Best Metal Stocks To Buy In India November 2026 - Samco",
+          "APL Apollo Tubes Share Price Up 1.25% on Fresh 52-Week High - Univest",
+          "Shyam Metalics and Energy Ltd (BOM:543299) (Q2 2027) Earnings Ca - GuruFocus"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "MINDACORP",
+      "name": "Minda Corporation Ltd.",
+      "sector": "Consumer Cyclical",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 95.0,
+      "sales_yoy": 57.97,
+      "pat_yoy": 118.91,
+      "opm_now": 8.63,
+      "opm_year_ago": 7.23,
+      "cfo_to_pat": 1.79,
+      "debt_equity": 0.56,
+      "price": 714.2,
+      "pct_from_52w_high": 4.17,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Minda Corporation Ltd. Share Price Today - Minda Corporation Ltd. Stock Price Live NSE/BSE - CNBC TV18",
+          "Minda Corporation Q2 net profit jumps 69% to ₹143 crore, revenue rises 43% - ET Auto",
+          "Minda Corporation Limited Q2 revenue rises 43%, PAT up 69% - Multibagg AI"
+        ],
+        "positive": [
+          "approval",
+          "order",
+          "wins"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "KAJARIACER",
+      "name": "Kajaria Ceramics Ltd.",
+      "sector": "Industrials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 94.3,
+      "sales_yoy": 33.15,
+      "pat_yoy": 73.9,
+      "opm_now": 16.58,
+      "opm_year_ago": 12.99,
+      "cfo_to_pat": 1.47,
+      "debt_equity": 0.07,
+      "price": 1180.2,
+      "pct_from_52w_high": 4.92,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Somany Ceramics Ltd (BOM:531548) (Q2 2027) Earnings Call Highlights: Revenue Jumps 25% as JV ... - Yahoo Finance",
+          "Supreme Court Upholds Tax Exemption for Expansion Under U.P. Trade Tax Act — Clarifies Fixed Capital Investment Interpretation. - Lawtext",
+          "Stocks to BUY, SELL or HOLD Today, November 18: Kajaria Ceramics, Poonawala Fincorp, Lupin, others - ET Now"
+        ],
+        "positive": [
+          "expansion"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "ACE",
+      "name": "Action Construction Equipment Ltd.",
+      "sector": "Industrials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 93.5,
+      "sales_yoy": 35.89,
+      "pat_yoy": 68.07,
+      "opm_now": 14.68,
+      "opm_year_ago": 13.2,
+      "cfo_to_pat": 1.1,
+      "debt_equity": 0.0,
+      "price": 1189.2,
+      "pct_from_52w_high": 5.16,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Action Construction Equipment Q2 FY27 revenue rises 20.5% to ₹932 crore - Multibagg AI",
+          "Action Construction Equipment Ltd is Rated Hold - MarketsMojo",
+          "Action Construction Anticipates 18% To 20% Revenue Growth For FY27 - Sahi"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "DIVISLAB",
+      "name": "Divi's Laboratories Ltd.",
+      "sector": "Healthcare",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 93.0,
+      "sales_yoy": 52.53,
+      "pat_yoy": 106.79,
+      "opm_now": 38.74,
+      "opm_year_ago": 25.6,
+      "cfo_to_pat": 0.89,
+      "debt_equity": 0.0,
+      "price": 11049.0,
+      "pct_from_52w_high": 4.47,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Divi's Laboratories shares gain 6% after JPMorgan upgrade; Goldman raises earnings estimates after strong Q2 - CNBC TV18",
+          "Neutral Divi's Laboratories Ltd For Target Rs.11,110 by Motilal Oswal Financial Services Ltd - Investment Guru India",
+          "Divi's Laboratories Q2 FY27: Stellar Performance Drives 64% Profit Surge - MarketsMojo"
+        ],
+        "positive": [
+          "expansion",
+          "upgrade"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "POWERINDIA",
+      "name": "Hitachi Energy India Ltd.",
+      "sector": "Industrials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 93.0,
+      "sales_yoy": 104.88,
+      "pat_yoy": 142.01,
+      "opm_now": 14.76,
+      "opm_year_ago": 9.74,
+      "cfo_to_pat": 1.95,
+      "debt_equity": 0.02,
+      "price": 30840.0,
+      "pct_from_52w_high": 19.76,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Hitachi Energy Share Price Target: Nomura, Jefferies, JPMorgan see upside towards ₹46,000 levels after Q2 - CNBC TV18",
+          "Top Traded by Value Today 13-Nov-2026: Hitachi Leads Activity - Multibagg AI",
+          "Hitachi Energy, KFin, Jubilant Food flash bullish technical signs: Analyst - Business Standard"
+        ],
+        "positive": [],
+        "negative": [
+          "downgrade"
+        ]
+      }
+    },
+    {
+      "symbol": "OBEROIRLTY",
+      "name": "Oberoi Realty Ltd.",
+      "sector": "Real Estate",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 93.0,
+      "sales_yoy": 69.2,
+      "pat_yoy": 80.81,
+      "opm_now": 58.9,
+      "opm_year_ago": 49.49,
+      "cfo_to_pat": 0.95,
+      "debt_equity": 0.16,
+      "price": 1800.0,
+      "pct_from_52w_high": 7.64,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Oberoi Realty (OBEROIRLTY) Share Price Rises 3.06% to Rs 1,821.25 Today - Univest",
+          "Oberoi Realty Ltd is Rated Hold - MarketsMojo",
+          "Top 45 Real Estate Shares To Watch In November 2026 - Samco"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "PRIVISCL",
+      "name": "Privi Speciality Chemicals Ltd.",
+      "sector": "Basic Materials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 93.0,
+      "sales_yoy": 36.08,
+      "pat_yoy": 88.96,
+      "opm_now": 21.4,
+      "opm_year_ago": 17.15,
+      "cfo_to_pat": 1.95,
+      "debt_equity": 0.72,
+      "price": 3438.3,
+      "pct_from_52w_high": 7.93,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Privi Speciality Chemicals Q2FY27 net profit rises 25% YoY to ₹117.03 crore - scanx.trade",
+          "Privi Speciality Chemicals Ltd is Rated Hold by MarketsMOJO - MarketsMojo",
+          "Privi reports record Q2 revenue, profit and first dividend - Multibagg AI"
+        ],
+        "positive": [
+          "dividend",
+          "upgrade"
+        ],
+        "negative": [
+          "downgrade"
+        ]
+      }
+    },
+    {
+      "symbol": "SOLARINDS",
+      "name": "Solar Industries India Ltd.",
+      "sector": "Basic Materials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 92.6,
+      "sales_yoy": 69.0,
+      "pat_yoy": 78.86,
+      "opm_now": 26.08,
+      "opm_year_ago": 23.64,
+      "cfo_to_pat": 1.21,
+      "debt_equity": 0.29,
+      "price": 18520.0,
+      "pct_from_52w_high": 17.52,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Earnings call transcript: Solar Industries India posts strong Q2 2027 growth By Investing.com - Investing.com India",
+          "Solar Industries India Ltd Hits Intraday Low Amid Price Pressure on 6 Nov 2026 - MarketsMojo",
+          "Top Losers Today 05 Nov 2026: P I Industries Ltd Falls 18.86% - Multibagg AI"
+        ],
+        "positive": [
+          "order",
+          "wins"
+        ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "ACUTAAS",
+      "name": "Acutaas Chemicals Ltd.",
+      "sector": "Basic Materials",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 90.5,
+      "sales_yoy": 110.83,
+      "pat_yoy": 73.27,
+      "opm_now": 37.37,
+      "opm_year_ago": 20.64,
+      "cfo_to_pat": 0.96,
+      "debt_equity": 0.02,
+      "price": 3991.3,
+      "pct_from_52w_high": 1.18,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Diwali 2026 wealth creators: 8 BSE 500 stocks shrug off market weakness, deliver up to 191% returns; do yo - The Economic Times"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "SAILIFE",
+      "name": "Sai Life Sciences Ltd.",
+      "sector": "Healthcare",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 89.8,
+      "sales_yoy": 32.67,
+      "pat_yoy": 62.63,
+      "opm_now": 20.99,
+      "opm_year_ago": 16.76,
+      "cfo_to_pat": 1.8,
+      "debt_equity": 0.12,
+      "price": 1788.1,
+      "pct_from_52w_high": 7.29,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "news": {
+        "headlines": [
+          "Sai Life Sciences’ profit rises 17% as revenue reaches Rs 658.585 crore - Multibagg AI",
+          "Sai Life Sciences Ltd is Rated Hold by MarketsMOJO - MarketsMojo",
+          "Sai Life Sciences more than doubles half-year capital spending - Multibagg AI"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    }
+  ]
+}
