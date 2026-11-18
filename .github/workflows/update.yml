@@ -56,10 +56,10 @@ jobs:
           git config user.email "bot@users.noreply.github.com"
 
           # 1) Live copy: the page reads data.json, prices.json and status.json from the "data" branch
-          #    every minute. It is replaced by one fresh commit each run, so the repo never grows
+          #    every minute (hist.json feeds the Open trades page). It is replaced by one fresh commit each run, so the repo never grows
           #    and the website is not rebuilt.
           rm -rf /tmp/databr && mkdir /tmp/databr
-          for f in data.json prices.json status.json; do
+          for f in data.json prices.json status.json hist.json; do
             if [ -e "$f" ]; then cp "$f" /tmp/databr/; fi
           done
           if [ -n "$(ls -A /tmp/databr)" ]; then
