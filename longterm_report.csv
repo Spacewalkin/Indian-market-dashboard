@@ -1,10 +1,10 @@
 Symbol,Sector,Score/100,Verdict,Price,From 52W high %,P/E,PEG,Qtr rev YoY %,Qtr profit YoY %,ROE %,Red flags,Data coverage %
-KPIL,Industrials,83,STRONG CANDIDATE - accumulate in tranches,1320.9,-9,19,0.6,13,35,15,,100
-KALYANKJIL,Consumer Cyclical,79,GOOD - buy small / add on dips,661.0,-7,43,0.9,31,64,27,,100
-HONASA,Consumer Defensive,77,GOOD - buy small / add on dips,529.6,-0,61,0.7,36,86,21,,94
-COFORGE,Technology,76,GOOD - buy small / add on dips,2041.0,-3,40,1.3,54,42,13,,100
-BEL,Industrials,75,GOOD - buy small / add on dips,404.2,-14,46,1.7,65,59,27,Weak cash conversion (cash flow only 0.25x profit) - check why on Screener,100
-MINDACORP,Consumer Cyclical,75,GOOD - buy small / add on dips,753.2,-0,32,3.9,43,68,20,,94
-TITAN,Consumer Cyclical,70,GOOD - buy small / add on dips,4700.0,-9,59,3.7,10,114,45,High debt (D/E 2.2) - check what the debt is made of (lease / gold loans / real borrowings),94
-MANAPPURAM,Financial Services,67,DIP WITH INTACT FUNDAMENTALS - small tranche,282.9,-24,14,0.1,43,223,13,,93
-SWIGGY,Consumer Cyclical,55,AVOID - thesis check needed,183.3,-56,n/a,n/a,36,n/a,-27,"Operating cash flow negative; In a downtrend (below 200-DMA, 6m < -20%); Low data coverage (45%) - verify manually",45
+KPIL,Industrials,83,STRONG CANDIDATE - accumulate in tranches,1325.6,-9,19,0.6,13,35,15,,100
+KALYANKJIL,Consumer Cyclical,81,STRONG CANDIDATE - accumulate in tranches,638.7,-10,41,0.9,31,64,27,,100
+HONASA,Consumer Defensive,77,GOOD - buy small / add on dips,525.4,-1,61,0.7,36,86,21,,94
+COFORGE,Technology,76,GOOD - buy small / add on dips,2086.7,-1,41,1.3,54,42,13,,100
+BEL,Industrials,75,GOOD - buy small / add on dips,402.0,-14,46,1.7,65,59,27,Weak cash conversion (cash flow only 0.25x profit) - check why on Screener,100
+MINDACORP,Consumer Cyclical,75,GOOD - buy small / add on dips,749.3,-1,32,3.9,43,68,20,,94
+TITAN,Consumer Cyclical,70,GOOD - buy small / add on dips,4620.0,-11,58,3.6,10,114,45,High debt (D/E 2.2) - check what the debt is made of (lease / gold loans / real borrowings),94
+MANAPPURAM,Financial Services,67,DIP WITH INTACT FUNDAMENTALS - small tranche,280.5,-25,13,0.1,43,223,13,,93
+SWIGGY,Consumer Cyclical,55,AVOID - thesis check needed,178.2,-57,n/a,n/a,36,n/a,-27,"Operating cash flow negative; In a downtrend (below 200-DMA, 6m < -20%); Low data coverage (45%) - verify manually",45
