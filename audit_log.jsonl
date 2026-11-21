@@ -315,3 +315,4 @@
 {"ts":1795283867,"ist":"2026-11-21 23:27","mode":"news","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-20","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1795288083,"ist":"2026-11-22 00:38","mode":"news","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-20","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
 {"ts":1795291186,"ist":"2026-11-22 01:29","mode":"news","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-20","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
+{"ts":1795294690,"ist":"2026-11-22 02:28","mode":"news","state":"CONFIRMED","gate":"OK","last_candle":"2026-11-20","requested":507,"received":506,"rejected":2,"used":504,"segments_skipped":["Chemicals"],"problems":[]}
