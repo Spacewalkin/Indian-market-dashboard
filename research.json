@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T14:29:00+00:00",
+  "generated_at": "2026-11-24T23:09:06+00:00",
   "note": "Research support only. Final decision is the investor's.",
   "stocks": [
     {
@@ -7,9 +7,9 @@
       "name": "KALPATARU PROJECT INT LTD",
       "sector": "Industrials",
       "industry": "Engineering & Construction",
-      "mcap_cr": 22637.6073216,
-      "pe": 19.139473,
-      "fwd_pe": 14.152198,
+      "mcap_cr": 22415.6041216,
+      "pe": 18.910818,
+      "fwd_pe": 14.013409,
       "roe": 15.201001,
       "de": 0.34430999999999995,
       "q_rev_yoy": 13.499871175158033,
@@ -21,13 +21,13 @@
       "opm_chg": -0.07232716589238652,
       "ocf_pat": 1.4752944569972597,
       "ocf_negative": false,
-      "price": 1325.6,
+      "price": 1312.6,
       "hi52": 1458.4000244140625,
       "lo52": 1018.0999755859375,
-      "dist_high": -9.105870967563733,
+      "dist_high": -9.99725877491262,
       "above200": true,
-      "ret6m": 3.8220511674216002,
-      "peg": 0.5776474541007894,
+      "ret6m": 3.5581854043392434,
+      "peg": 0.5707464292597494,
       "scores": {
         "growth": 20.0,
         "quality": 11.0,
@@ -47,7 +47,7 @@
         "Latest quarter: revenue 13% YoY, profit 35% YoY; 3-yr CAGR revenue 18%, profit 33%.",
         "ROE 15%; operating margin change -0.1 pts YoY; cash flow/profit 1.48x; debt/equity 0.34.",
         "Valuation: P/E 19, forward P/E 14, PEG 0.6.",
-        "Price: -9% from 52-week high; above 200-day average; 6-month return 4%."
+        "Price: -10% from 52-week high; above 200-day average; 6-month return 4%."
       ],
       "note": "FY27 order inflows above Rs 22000 cr"
     },
@@ -56,9 +56,9 @@
       "name": "KALYAN JEWELLERS IND LTD",
       "sector": "Consumer Cyclical",
       "industry": "Luxury Goods",
-      "mcap_cr": 65961.8070528,
-      "pe": 41.233055,
-      "fwd_pe": 31.489347,
+      "mcap_cr": 67428.3126784,
+      "pe": 42.149776,
+      "fwd_pe": 32.189438,
       "roe": 26.738,
       "de": 0.92305,
       "q_rev_yoy": 31.397426637844628,
@@ -70,13 +70,13 @@
       "opm_chg": -0.0015692188333780166,
       "ocf_pat": 0.9756523091391778,
       "ocf_negative": false,
-      "price": 638.7,
+      "price": 652.9,
       "hi52": 710.9000244140625,
       "lo52": 330.79998779296875,
-      "dist_high": -10.156143189553424,
+      "dist_high": -8.15867525983942,
       "above200": true,
-      "ret6m": 80.93484419263457,
-      "peg": 0.8946070174236987,
+      "ret6m": 85.27242091604175,
+      "peg": 0.9144965220849389,
       "scores": {
         "growth": 25.0,
         "quality": 12.0,
@@ -95,8 +95,8 @@
       "why": [
         "Latest quarter: revenue 31% YoY, profit 64% YoY; 3-yr CAGR revenue 36%, profit 46%.",
         "ROE 27%; operating margin change -0.0 pts YoY; cash flow/profit 0.98x; debt/equity 0.92.",
-        "Valuation: P/E 41, forward P/E 31, PEG 0.9.",
-        "Price: -10% from 52-week high; above 200-day average; 6-month return 81%."
+        "Valuation: P/E 42, forward P/E 32, PEG 0.9.",
+        "Price: -8% from 52-week high; above 200-day average; 6-month return 85%."
       ],
       "note": "Q2 profit +64% but Rs 52 cr one-off duty gain; gapped up 10%"
     },
@@ -105,9 +105,9 @@
       "name": "HONASA CONSUMER LIMITED",
       "sector": "Consumer Defensive",
       "industry": "Household & Personal Products",
-      "mcap_cr": 17142.7627008,
-      "pe": 60.73989,
-      "fwd_pe": 46.961998,
+      "mcap_cr": 17610.973184,
+      "pe": 63.202576,
+      "fwd_pe": 48.244648,
       "roe": 20.555,
       "de": 0.08662,
       "q_rev_yoy": 35.892451255707975,
@@ -119,13 +119,13 @@
       "opm_chg": 4.533982708961693,
       "ocf_pat": 0.7069244042111581,
       "ocf_negative": false,
-      "price": 525.4,
-      "hi52": 529.6500244140625,
+      "price": 539.75,
+      "hi52": 539.75,
       "lo52": 256.29998779296875,
-      "dist_high": -0.8024212627506633,
+      "dist_high": 0.0,
       "above200": true,
-      "ret6m": 45.742024965325925,
-      "peg": 0.703446507345517,
+      "ret6m": 40.43189577955439,
+      "peg": 0.7319675972814502,
       "scores": {
         "growth": 23.8,
         "quality": 13.0,
@@ -144,8 +144,8 @@
       "why": [
         "Latest quarter: revenue 36% YoY, profit 86% YoY; 3-yr CAGR revenue 17%, profit n/a.",
         "ROE 21%; operating margin change 4.5 pts YoY; cash flow/profit 0.71x; debt/equity 0.09.",
-        "Valuation: P/E 61, forward P/E 47, PEG 0.7.",
-        "Price: -1% from 52-week high; above 200-day average; 6-month return 46%."
+        "Valuation: P/E 63, forward P/E 48, PEG 0.7.",
+        "Price: 0% from 52-week high; above 200-day average; 6-month return 40%."
       ],
       "note": "Q2 revenue +36%; Ebitda ~2x; brokerages raised targets"
     },
@@ -154,9 +154,9 @@
       "name": "COFORGE LIMITED",
       "sector": "Technology",
       "industry": "Information Technology Services",
-      "mcap_cr": 92453.9224064,
-      "pe": 40.939766,
-      "fwd_pe": 27.765842,
+      "mcap_cr": 94917.3551104,
+      "pe": 42.030605,
+      "fwd_pe": 28.505663,
       "roe": 13.347000000000001,
       "de": 0.26739999999999997,
       "q_rev_yoy": 53.64007568967234,
@@ -168,16 +168,16 @@
       "opm_chg": 1.3423341495693162,
       "ocf_pat": 1.151700199267211,
       "ocf_negative": false,
-      "price": 2086.7,
-      "hi52": 2099.0,
+      "price": 2142.3,
+      "hi52": 2142.300048828125,
       "lo52": 1073.9000244140625,
-      "dist_high": -0.5859933301572307,
+      "dist_high": -2.2792383758130086e-06,
       "above200": true,
-      "ret6m": 51.53957879448075,
+      "ret6m": 54.444527265963785,
       "auto_filled": [
         "q_pat_yoy"
       ],
-      "peg": 1.3254604727527788,
+      "peg": 1.3607773325667105,
       "scores": {
         "growth": 25.0,
         "quality": 12.0,
@@ -197,8 +197,8 @@
         "Latest quarter: revenue 54% YoY, profit 42% YoY; 3-yr CAGR revenue 27%, profit 31%.",
         "ROE 13%; operating margin change 1.3 pts YoY; cash flow/profit 1.15x; debt/equity 0.27.",
         "Auto-filled from Screener.in: quarter profit growth.",
-        "Valuation: P/E 41, forward P/E 28, PEG 1.3.",
-        "Price: -1% from 52-week high; above 200-day average; 6-month return 52%."
+        "Valuation: P/E 42, forward P/E 29, PEG 1.4.",
+        "Price: -0% from 52-week high; above 200-day average; 6-month return 54%."
       ],
       "note": "Q2 revenue +53.6% YoY; fell 5%; IT sector tailwind weak"
     },
@@ -207,9 +207,9 @@
       "name": "BHARAT ELECTRONICS LTD",
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
-      "mcap_cr": 293853.1217408,
-      "pe": 45.942856,
-      "fwd_pe": 35.97132,
+      "mcap_cr": 289321.0451968,
+      "pe": 45.234283,
+      "fwd_pe": 35.41654,
       "roe": 26.748,
       "de": 0.0032400000000000003,
       "q_rev_yoy": 65.04840373535387,
@@ -221,13 +221,13 @@
       "opm_chg": 0.34372353116886956,
       "ocf_pat": 0.25426756845925436,
       "ocf_negative": false,
-      "price": 402.0,
+      "price": 395.8,
       "hi52": 468.45001220703125,
       "lo52": 362.0,
-      "dist_high": -14.185080686402818,
+      "dist_high": -15.508594367358796,
       "above200": false,
-      "ret6m": -4.376782626931966,
-      "peg": 1.7243093562328176,
+      "ret6m": -4.9813920060134,
+      "peg": 1.6977154707008872,
       "scores": {
         "growth": 24.0,
         "quality": 9.0,
@@ -244,12 +244,12 @@
         "Weak cash conversion (cash flow only 0.25x profit) - check why on Screener"
       ],
       "verdict": "GOOD - buy small / add on dips",
-      "entry_note": "Build in 2-3 tranches over a few weeks.",
+      "entry_note": "Well below high: start with 1/3, add on stabilisation (higher low / result confirmation).",
       "why": [
         "Latest quarter: revenue 65% YoY, profit 59% YoY; 3-yr CAGR revenue 15%, profit 27%.",
         "ROE 27%; operating margin change 0.3 pts YoY; cash flow/profit 0.25x; debt/equity 0.00.",
-        "Valuation: P/E 46, forward P/E 36, PEG 1.7.",
-        "Price: -14% from 52-week high; below 200-day average; 6-month return -4%."
+        "Valuation: P/E 45, forward P/E 35, PEG 1.7.",
+        "Price: -16% from 52-week high; below 200-day average; 6-month return -5%."
       ],
       "note": "Defence orders flowing; Rs 909 cr new orders (Nov 9)"
     },
@@ -258,9 +258,9 @@
       "name": "MINDA CORPORATION LTD",
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
-      "mcap_cr": 17635.5934208,
-      "pe": 32.035057,
-      "fwd_pe": 31.126158,
+      "mcap_cr": 17115.4456576,
+      "pe": 31.09021,
+      "fwd_pe": 30.208118,
       "roe": 20.021998999999997,
       "de": 0.54689,
       "q_rev_yoy": 42.60586319218241,
@@ -272,17 +272,17 @@
       "opm_chg": null,
       "ocf_pat": 1.875104079933389,
       "ocf_negative": false,
-      "price": 749.3,
+      "price": 727.2,
       "hi52": 753.2000122070312,
       "lo52": 480.8500061035156,
-      "dist_high": -0.5177923717238686,
+      "dist_high": -3.451939960920314,
       "above200": true,
-      "ret6m": 39.57344399283744,
+      "ret6m": 26.546588202355682,
       "auto_filled": [
         "q_rev_yoy",
         "q_pat_yoy"
       ],
-      "peg": 3.9106664145622725,
+      "peg": 3.7953246054373526,
       "scores": {
         "growth": 22.0,
         "quality": 13.6,
@@ -302,8 +302,8 @@
         "Latest quarter: revenue 43% YoY, profit 68% YoY; 3-yr CAGR revenue 13%, profit 8%.",
         "ROE 20%; operating margin change n/a YoY; cash flow/profit 1.88x; debt/equity 0.55.",
         "Auto-filled from Screener.in: quarter revenue growth, quarter profit growth.",
-        "Valuation: P/E 32, forward P/E 31, PEG 3.9.",
-        "Price: -1% from 52-week high; above 200-day average; 6-month return 40%."
+        "Valuation: P/E 31, forward P/E 30, PEG 3.8.",
+        "Price: -3% from 52-week high; above 200-day average; 6-month return 27%."
       ],
       "note": "Q2 revenue +42.6%; EV ~35% of new orders; stock fell on results"
     },
@@ -312,9 +312,9 @@
       "name": "TITAN COMPANY LIMITED",
       "sector": "Consumer Cyclical",
       "industry": "Luxury Goods",
-      "mcap_cr": 409938.296832,
-      "pe": 58.311245,
-      "fwd_pe": 52.145958,
+      "mcap_cr": 415262.1531136,
+      "pe": 59.06853,
+      "fwd_pe": 52.823177,
       "roe": 45.271,
       "de": 2.18562,
       "q_rev_yoy": 10.088117489986649,
@@ -326,17 +326,17 @@
       "opm_chg": null,
       "ocf_pat": 1.1019120835797358,
       "ocf_negative": false,
-      "price": 4620.0,
+      "price": 4680.0,
       "hi52": 5169.2001953125,
       "lo52": 3767.0,
-      "dist_high": -10.624471379741152,
+      "dist_high": -9.463750228828694,
       "above200": true,
-      "ret6m": 13.14932011223377,
+      "ret6m": 14.711504093056604,
       "auto_filled": [
         "q_rev_yoy",
         "q_pat_yoy"
       ],
-      "peg": 3.644300037001467,
+      "peg": 3.6916283654142914,
       "scores": {
         "growth": 20.0,
         "quality": 12.3,
@@ -358,8 +358,8 @@
         "Latest quarter: revenue 10% YoY, profit 114% YoY; 3-yr CAGR revenue 29%, profit 16%.",
         "ROE 45%; operating margin change n/a YoY; cash flow/profit 1.10x; debt/equity 2.19.",
         "Auto-filled from Screener.in: quarter revenue growth, quarter profit growth.",
-        "Valuation: P/E 58, forward P/E 52, PEG 3.6.",
-        "Price: -11% from 52-week high; above 200-day average; 6-month return 13%."
+        "Valuation: P/E 59, forward P/E 53, PEG 3.7.",
+        "Price: -9% from 52-week high; above 200-day average; 6-month return 15%."
       ],
       "note": "Fell ~4% despite 25% Q2 consumer growth; Nomura Buy"
     },
@@ -368,9 +368,9 @@
       "name": "MANAPPURAM FINANCE LTD",
       "sector": "Financial Services",
       "industry": "Credit Services",
-      "mcap_cr": 26348.3785216,
-      "pe": 13.408222,
-      "fwd_pe": 8.84858,
+      "mcap_cr": 25456.009216,
+      "pe": 12.954111,
+      "fwd_pe": 8.548896,
       "roe": 12.854,
       "de": 3.81584,
       "q_rev_yoy": 43.061927021053016,
@@ -382,16 +382,16 @@
       "opm_chg": null,
       "ocf_pat": -20.170757912971023,
       "ocf_negative": true,
-      "price": 280.5,
+      "price": 271.0,
       "hi52": 371.8500061035156,
       "lo52": 251.10000610351562,
-      "dist_high": -24.566358640339946,
+      "dist_high": -27.121152197975494,
       "above200": false,
-      "ret6m": -12.996276268521752,
+      "ret6m": -16.383833725247076,
       "auto_filled": [
         "q_pat_yoy"
       ],
-      "peg": 0.06011537549586777,
+      "peg": 0.058079381962809914,
       "scores": {
         "growth": 19.0,
         "quality": 6.0,
@@ -412,7 +412,7 @@
         "ROE 13%; operating margin change n/a YoY.",
         "Auto-filled from Screener.in: quarter profit growth.",
         "Valuation: P/E 13, forward P/E 9, PEG 0.1.",
-        "Price: -25% from 52-week high; below 200-day average; 6-month return -13%."
+        "Price: -27% from 52-week high; below 200-day average; 6-month return -16%."
       ],
       "note": "Dipped ~4% despite strong Q2; gold price/regulation risk"
     },
@@ -421,9 +421,9 @@
       "name": "SWIGGY LIMITED",
       "sector": "Consumer Cyclical",
       "industry": "Internet Retail",
-      "mcap_cr": 46739.21024,
+      "mcap_cr": 46416.5994496,
       "pe": null,
-      "fwd_pe": -21.82382,
+      "fwd_pe": -21.673183,
       "roe": -26.734,
       "de": 0.14814,
       "q_rev_yoy": 36.144578313253014,
@@ -435,12 +435,12 @@
       "opm_chg": null,
       "ocf_pat": null,
       "ocf_negative": true,
-      "price": 178.2,
+      "price": 176.97,
       "hi52": 416.5,
       "lo52": 176.0,
-      "dist_high": -57.21488595438176,
+      "dist_high": -57.51020408163265,
       "above200": false,
-      "ret6m": -28.933200398803592,
+      "ret6m": -29.197838703456497,
       "auto_filled": [
         "q_rev_yoy"
       ],
@@ -470,7 +470,7 @@
         "Auto-filled from Screener.in: quarter revenue growth.",
         "MISSING DATA: latest-quarter profit growth - fill these in watchlist.csv from Screener.in, then re-run (auto-fetch could not get them).",
         "Valuation: P/E n/a, forward P/E -22, PEG n/a.",
-        "Price: -57% from 52-week high; below 200-day average; 6-month return -29%."
+        "Price: -58% from 52-week high; below 200-day average; 6-month return -29%."
       ],
       "note": "Plunged 17% to 52W low; says Instamart losses peaked"
     }
