@@ -1415,20 +1415,36 @@ function findSetups(sym) {
   ["pull", "retest", "rs", "vol", "weak"].forEach(k => { const c = (S[k] || []).find(x => x.s === sym); if (c) out.push([k, c]); });
   return out;
 }
+function weeklyOf(p, dates) {
+  const W = {o: [], h: [], l: [], c: [], a: [], b: [], d: [], v: []}, wd = [], idx = {};
+  const wk = iso => { const t = new Date(iso + "T00:00:00"), dow = (t.getDay() + 6) % 7; t.setDate(t.getDate() - dow); return t.getFullYear() + "-" + t.getMonth() + "-" + t.getDate(); };
+  const last = (arr, v) => v == null ? arr[arr.length - 1] : v;
+  for (let i = 0; i < p.c.length; i++) {
+    if (p.c[i] == null || p.o[i] == null) continue;
+    const key = wk(dates[i]);
+    if (!(key in idx)) { idx[key] = wd.length; wd.push(dates[i]); ["o", "h", "l", "c", "a", "b", "d"].forEach(k => W[k].push(p[k][i])); W.v.push(p.v[i] == null ? 0 : p.v[i]); continue; }
+    const j = idx[key]; wd[j] = dates[i];
+    W.h[j] = Math.max(W.h[j], p.h[i]); W.l[j] = Math.min(W.l[j], p.l[i]); W.c[j] = p.c[i];
+    ["a", "b", "d"].forEach(k => { if (p[k][i] != null) W[k][j] = p[k][i]; });
+    W.v[j] += p.v[i] == null ? 0 : p.v[i];
+  }
+  return {p: W, dates: wd};
+}
 function chartSvg(p, dates, range, lv) {
+  if (range === -1) { const w = weeklyOf(p, dates); p = w.p; dates = w.dates; range = p.c.length; }
   const n = p.c.length, k = Math.min(range, n), s0 = n - k, W = 620, H = 340, L = 6, R = 84, CH = 240, VT = 252, VH = 64;
   const g = a => a.slice(s0).map(v => v == null ? null : v / 100), o = g(p.o), hh = g(p.h), l = g(p.l), c = g(p.c), a1 = g(p.a), a2 = g(p.b), a3 = g(p.d), vv = p.v.slice(s0);
-  let lines = lv ? [["Entry", lv.entry, "#7c8cff"], ["Stop", lv.stop, "#ff6b6b"], ["T1", lv.t1, "#4fd1a5"], ["T2", lv.t2, "#4fd1a5"]] : [], hidden = 0;
-  if (k <= 5) {
-    const cv = hh.concat(l).filter(x => x != null && isFinite(x)), cHi = Math.max(...cv), cLo = Math.min(...cv), sp = (cHi - cLo) || cHi * 0.02;
-    const keep = lines.filter(x => x[1] >= cLo - sp * 0.6 && x[1] <= cHi + sp * 0.6); hidden = lines.length - keep.length; lines = keep;
-  }
+  const lines = lv ? [["Entry", lv.entry, "#7c8cff"], ["Stop", lv.stop, "#ff6b6b"], ["T1", lv.t1, "#4fd1a5"], ["T2", lv.t2, "#4fd1a5"]] : [];
   const vals = hh.concat(l, lines.map(x => x[1])).filter(x => x != null && isFinite(x));
   let hi = Math.max(...vals), lo = Math.min(...vals);
   const pad = (hi - lo) * 0.04 || 1; hi += pad; lo -= pad;
   const step = (W - L - R) / k, X = i => L + (i + 0.5) * step, Y = v => 24 + (hi - v) / (hi - lo) * (CH - 30), bw = Math.min(step * 0.6, 16), mv = Math.max(1, ...vv.filter(x => x != null));
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Price chart with moving averages and volume"><defs><clipPath id="cp"><rect x="${L}" y="0" width="${W - L - R}" height="${CH}"/></clipPath></defs>
-  <text x="8" y="14" font-size="11"><tspan fill="#7c8cff">EMA20  </tspan><tspan fill="#f2b84b">EMA50  </tspan><tspan fill="#c77dff">EMA200</tspan></text>`;
+  const lastI = (() => { for (let i = k - 1; i >= 0; i--) if (c[i] != null) return i; return k - 1; })();
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Price chart with moving averages and volume"><defs><clipPath id="cp"><rect x="${L}" y="0" width="${W - L - R}" height="${CH}"/></clipPath></defs>`;
+  // faint grid + price axis (ticks that would touch a plan label or the price tag are dropped)
+  const ticks = [0, 1, 2, 3, 4, 5].map(i => (hi - pad) - i * ((hi - lo - 2 * pad) / 5));
+  ticks.forEach(v => { const y = Y(v).toFixed(1); s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#8e95bd" opacity=".12"/>`; });
+  s += `<text x="8" y="14" font-size="11"><tspan fill="#7c8cff">EMA20  </tspan><tspan fill="#f2b84b">EMA50  </tspan><tspan fill="#c77dff">EMA200</tspan></text>`;
   for (let i = 0; i < k; i++) {
     if (c[i] == null || o[i] == null) continue;
     const col = c[i] >= o[i] ? "#4fd1a5" : "#ff6b6b", x = X(i);
@@ -1437,21 +1453,32 @@ function chartSvg(p, dates, range, lv) {
   }
   const pl = (a, col) => { const pts = a.map((v, i) => v == null ? null : X(i).toFixed(1) + "," + Y(v).toFixed(1)).filter(Boolean).join(" "); return pts ? `<polyline clip-path="url(#cp)" points="${pts}" fill="none" stroke="${col}" stroke-width="1.6"/>` : ""; };
   s += pl(a1, "#7c8cff") + pl(a2, "#f2b84b") + pl(a3, "#c77dff");
-  // right-hand labels: spread plan labels so none overlap, hide axis ticks that would collide
-  const GAP = 13, lab = lines.filter(x => x[1] != null && isFinite(x[1])).map(([nm, v, col]) => ({nm, v, col, y: Y(v), ly: Y(v)})).sort((a, b) => a.y - b.y);
+  // right-hand labels: plan levels plus the last-price tag, spread so none overlap
+  const GAP = 14, lab = lines.filter(x => x[1] != null && isFinite(x[1])).map(([nm, v, col]) => ({nm, v, col, y: Y(v), ly: Y(v), tag: false}));
+  if (c[lastI] != null) lab.push({nm: "", v: c[lastI], col: c[lastI] >= o[lastI] ? "#4fd1a5" : "#ff6b6b", y: Y(c[lastI]), ly: Y(c[lastI]), tag: true});
+  lab.sort((x, y) => x.y - y.y);
   lab.forEach((q, i) => { if (i && q.ly - lab[i - 1].ly < GAP) q.ly = lab[i - 1].ly + GAP; });
   const over = lab.length ? lab[lab.length - 1].ly - (CH - 4) : 0;
-  if (over > 0) { for (let i = lab.length - 1; i >= 0; i--) { lab[i].ly -= over; if (i && lab[i].ly - lab[i - 1].ly < GAP) { /* pull the one above up too */ } } for (let i = lab.length - 2; i >= 0; i--) if (lab[i + 1].ly - lab[i].ly < GAP) lab[i].ly = lab[i + 1].ly - GAP; }
+  if (over > 0) { lab.forEach(q => q.ly -= over); for (let i = lab.length - 2; i >= 0; i--) if (lab[i + 1].ly - lab[i].ly < GAP) lab[i].ly = lab[i + 1].ly - GAP; }
   lab.forEach(q => {
     const y = q.y.toFixed(1), ly = q.ly.toFixed(1);
-    s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="${q.col}" stroke-dasharray="4 3" opacity=".85"/>`;
+    if (!q.tag) s += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="${q.col}" stroke-dasharray="4 3" opacity=".85"/>`;
+    else s += `<line x1="${X(lastI).toFixed(1)}" x2="${W - R}" y1="${y}" y2="${y}" stroke="${q.col}" stroke-dasharray="1 3" opacity=".7"/>`;
     if (Math.abs(q.ly - q.y) > 1) s += `<polyline points="${W - R},${y} ${W - R + 6},${ly}" fill="none" stroke="${q.col}" opacity=".6"/>`;
-    s += `<text x="${W - R + 8}" y="${(q.ly + 3).toFixed(1)}" font-size="10" fill="${q.col}">${q.nm} ${fv(q.v)}</text>`;
+    if (q.tag) s += `<rect x="${W - R + 6}" y="${(q.ly - 7).toFixed(1)}" width="${R - 8}" height="14" rx="2" fill="${q.col}"/><text x="${W - R + 9}" y="${(q.ly + 3.5).toFixed(1)}" font-size="10" font-weight="700" fill="#0b1020">${fv(q.v)}</text>`;
+    else s += `<text x="${W - R + 8}" y="${(q.ly + 3).toFixed(1)}" font-size="10" fill="${q.col}">${q.nm} ${fv(q.v)}</text>`;
   });
-  [hi - pad, (hi + lo) / 2, lo + pad].forEach(v => { const ty = Y(v); if (lab.some(q => Math.abs(q.ly - ty) < GAP + 2 || Math.abs(q.y - ty) < GAP + 2)) return; s += `<text x="${W - R + 8}" y="${(ty + 3).toFixed(1)}" font-size="10" fill="#8e95bd">${fv(v)}</text>`; });
-  if (hidden) s += `<text x="${W - R}" y="${VT - 2}" font-size="9" text-anchor="end" fill="#8e95bd">${hidden} plan level${hidden > 1 ? "s" : ""} off this scale</text>`;
-  const d = dates.slice(s0);
-  return s + `<text x="${L}" y="${H - 4}" font-size="10" fill="#8e95bd">${fd(d[0])}</text><text x="${W - R}" y="${H - 4}" font-size="10" text-anchor="end" fill="#8e95bd">${fd(d[d.length - 1])}</text></svg>`;
+  ticks.forEach(v => { const ty = Y(v); if (lab.some(q => Math.abs(q.ly - ty) < GAP || Math.abs(q.y - ty) < GAP)) return; s += `<text x="${W - R + 8}" y="${(ty + 3).toFixed(1)}" font-size="10" fill="#8e95bd">${fv(v)}</text>`; });
+  // time axis: month names (like a normal chart); short views show dates
+  const d = dates.slice(s0), mon = iso => new Date(iso + "T00:00:00").toLocaleDateString("en-IN", {month: "short"});
+  if (k > 30) {
+    for (let i = 1; i < k; i++) if (mon(d[i]) !== mon(d[i - 1]) && X(i) < W - R - 40 && X(i) > L + 20) s += `<line x1="${X(i).toFixed(1)}" x2="${X(i).toFixed(1)}" y1="0" y2="${CH}" stroke="#8e95bd" opacity=".08"/><text x="${X(i).toFixed(1)}" y="${H - 4}" font-size="10" text-anchor="middle" fill="#8e95bd">${mon(d[i])}</text>`;
+    s += `<text x="${L}" y="${H - 4}" font-size="10" fill="#8e95bd">${fd(d[0])}</text>`;
+  } else {
+    const every = Math.max(1, Math.round(k / 5));
+    for (let i = 0; i < k; i += every) if (X(i) < W - R - 30) s += `<text x="${X(i).toFixed(1)}" y="${H - 4}" font-size="10" text-anchor="middle" fill="#8e95bd">${fd(d[i])}</text>`;
+  }
+  return s + `<text x="${W - R}" y="${H - 4}" font-size="10" text-anchor="end" fill="#8e95bd">${fd(d[d.length - 1])}</text></svg>`;
 }
 function drawChart() {
   const el = document.getElementById("chart");
@@ -1459,8 +1486,8 @@ function drawChart() {
   const p = PR && PR.s && PR.s[curStock];
   if (!p) { el.innerHTML = '<div class="sub">The price history for this stock isn\'t stored (it covers about 250 stocks: setups, big movers and large caps). Use the TradingView link below for a full chart.</div>'; return; }
   const su = findSetups(curStock).find(x => ["brk", "near", "pull", "retest"].includes(x[0])), t = su ? tradePlan(su[0], su[1]) : null;
-  const chips = [[2, "1 day"], [5, "1 week"], [22, "1 month"], [66, "3 months"]].map(([k, n]) => `<button class="${chRange === k ? "on" : ""}" onclick="chRange=${k};render()">${n}</button>`).join("");
-  el.innerHTML = `<div class="chips" style="margin-bottom:8px">${chips}</div>${chartSvg(p, PR.dates, chRange, t)}<div class="mu">${chRange <= 5 ? "Short view: the last " + chRange + " daily candles (intraday data is not stored)." : "Daily candles, volume below."}${t ? " Dashed lines show the plan: entry, stop-loss and targets." : ""} Prices are delayed about 15 minutes.</div>`;
+  const chips = [[999, "1 day"], [-1, "1 week"], [22, "1 month"], [66, "3 months"]].map(([k, n]) => `<button class="${chRange === k ? "on" : ""}" onclick="chRange=${k};render()">${n}</button>`).join("");
+  el.innerHTML = `<div class="chips" style="margin-bottom:8px">${chips}</div>${chartSvg(p, PR.dates, chRange, t)}<div class="mu">${chRange === -1 ? "Each candle is one week." : chRange === 999 ? "Each candle is one day (everything stored)." : "Daily candles."} Volume below.${t ? " Dashed lines show the plan: entry, stop-loss and targets." : ""} Prices are delayed about 15 minutes.</div>`;
 }
 function drivers(sym, st) {
   const out = [], M = D.mood, pr = PR && PR.s && PR.s[sym], E = D.events || {};
