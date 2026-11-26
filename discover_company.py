@@ -50,6 +50,11 @@ COMMON = {"india", "indian", "global", "bank", "power", "steel", "gold", "future
           "infra", "tech", "motors", "foods", "health", "life", "media", "retail"}
 
 
+ROUNDUP = re.compile(
+    r"stocks? to watch|stocks? in news|stocks? in focus|buzzing|top gainers|top losers|market wrap",
+    re.I)
+
+
 def clean(text):
     text = text.lower().replace("&", " and ")
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]", " ", text)).strip()
@@ -144,10 +149,10 @@ def main():
             print(f"  search failed for '{q}': {e}")
             continue
         print(f"  '{q}': {len(items)} headlines")
-               for item in items:
+        for item in items:
             found = find_companies(item["title"], aliases, companies)
-            if len(found) > 3 or re.search(r"stocks? to watch|stocks? in news|stocks? in focus|buzzing|top gainers|top losers|market wrap", item["title"], re.I):
-                continue
+            if len(found) > 3 or ROUNDUP.search(item["title"]):
+                continue          # skip "stocks to watch" style lists
             for sym in found:
                 lst = hits.setdefault(sym, [])
                 if all(h["title"] != item["title"] for h in lst):
