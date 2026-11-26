@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install tools
+        run: pip install yfinance requests
+
       - name: Find companies in the news and build company.json
         run: python discover_company.py
 
