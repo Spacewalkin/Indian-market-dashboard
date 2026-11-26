@@ -1,0 +1,30 @@
+name: Company feed
+
+on:
+  schedule:
+    - cron: "30 2 * * *"   # every day at 8:00 AM India time
+  workflow_dispatch:         # lets you press a "Run workflow" button
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Find companies in the news and build company.json
+        run: python discover_company.py
+
+      - name: Save results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add company.json discovered.json
+          git diff --staged --quiet || git commit -m "Daily company feed update"
+          git push
