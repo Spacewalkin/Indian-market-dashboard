@@ -1,7 +1,62 @@
 {
-  "generated": "2026-11-26T17:21:45Z",
+  "generated": "2026-11-26T17:37:08Z",
   "days_scanned": 3,
   "companies": [
+    {
+      "symbol": "LUPIN",
+      "name": "Lupin Limited",
+      "mentions": 14,
+      "headlines": [
+        {
+          "title": "Lupin Receives US FDA Approval for Ferric Citrate Tablets",
+          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPd21USzFRa0xDYUloT1BDR2hsVklaWkJpMjZ1d21kRHlQZFZqYlpOV3NkeDJ1a2w5ZE9TRjJSaVdQVDdoYXZiZ2Q0SVBKSzJ3ZGhQTWF4SWpER1FuM2VsaklnVDlPaEt1YVo5d2stT0FUeFQ1V2V0TU9aemYyRnN2NFM1V2ktTk9uMkR2MG80aFlmNGRjMHc?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin Limited (NSE: LUPIN) Receives U.S. FDA Approval for Dalbavancin Injection for Single-Dose Regimen Use",
+          "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQYU1VbF94eWlFUXhuUWxJZzhtc1R3cDFub1RqX0lVMV83WXVaN2N0RWtoV0lzNUdBOVpBMlZmRUoyQ1VNRG54RXlhbTAxaDVUbEd1X1ZzU0pPSHNoVFMwTXBfbHVjX2RsbjdJTGQtenJQT3d6OXZnYXZ4UnhhRVBEU1lTaTNJU0tfX0V2UXpRenJ6a1lzbzNZV253ZWEzejM4ckhLbWNWbDZyLTV6aWxVTDdhMXRQQ3RaT3pveVZtd3hUN1V4N1FRMkRmUmg1NHlENlp2N0R0ak1JczZQaElDcg?oc=5",
+          "date": "2026-11-26",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin Receives Approval from U.S. FDA for Sitagliptin and Metformin Hydrochloride Tablets, in the United States",
+          "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPbTVnWUd0UVdzRVRUb21OcUxQMTRvbmlTbDVxdkRTVVlTX0JscjllUTA4TzczV1NQT2NCWkdrVWxXN1BacmUyNU0wS3p3UkRRNDZHR3E1NzFkTGNpN1ZMd0NjRV9ORVdnVC1jWDJXWm5pNVQwR3FzUVcxeWlZZ0JUYlZrY2lDVFlwTEN3Qk5NMkdEVkh6ZVVqMV81SFdsOHE3MmpWYmZsMDZaQVFHMElfb3ZKbVVXcUY3Vi1vTk1OM0tvVTJYOXlyQ09pbUtfb1J0UEx3OE1oazRhZGw1QWJ5bUhpYzg4SHU0aUNic2JTUUk3eWJ6SFEwUUU0Um1VbTA?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin gets USFDA approval for single-dose dalbavancin injection to treat bacterial skin infections",
+          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPYTFlb3hScnYzX3dEREdNSkZ4RkQwTTdNODNST2dIS1ZScGpFaW53T3VlTXJrQU15OFlqOGFrc1c0dGs4WEFsOGFSTWF6VHRJMzJITUNjRTlYM1FpWkNQNXIwTGZEdXlqVmJzaEJ6SkNLMUJVcERpVTY1bWtHSjBqTDhxclY0SlZKa1pCUzN3X29TbGx3QWNpMFRHdVBTcWJIYmhhbDUxaGlsblJ0SF9lWnhjck80R1B4VEtpQ19qRnZOcW03MDdDNW1WbEpsUEo2bWxXTm5Selloa1p2NUV6dFA0LTRveTFlZFN1ZEptblpLZTRV0gH6AUFVX3lxTE1WRm5HTHQwUDBQY2paWDdUb2p4UW9TcTd3ZnJDNEVaZlM4OWFRMzY5NnJUZUxMbTRmRHF6SjRMMkVrb3hPaVI4WFhiZWwwNkJJWV9DOWdaOWljM3FlVE1IY3JTdGpFQlE1SlFocWRLMkNySkNjMjdqNGp2M2diVjNmaTB2SXdqbWhLUkhlY2Fnb1V2ZVEySHpZZGV1MGI3X1ZfM3NjVkdxUTl4NWZMcHVWNDFxWG80M3pjNHgzeWQtM1Q5TkhPYl83TmJwdzFxaUdTUjd3Y3lyemIxcEY2U0hOclJmZERVaUd4REpQZUhZdUhUZGdMR29uYUE?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin receives US FDA approval for dalbavancin injection in single-dose regimen",
+          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZmktV0xfQXg4WUFEbWhRNkpKZjBYNk9fX25CWW5rV1o0YWlJRUowbEFQWURydE1FS1B1ZF9nQ3JfWldyNjhnTGJpWVJ5MlBEMnktck5vbW5lOUdFYmx5Sm5BNnRPMlRiendHNFZ5ajgyZWQzZzlfOHNXeFVrTDhtTmpfOHhPbVd2VS1DczVKVTdDLTRLRm5aNVNDVXptazJVeThVQTF3VVpZQTNNdDZuWjYtTV9RMFBIYkhNZA?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin Gets USFDA Nod for Diabetes Drug Sitagliptin Metformin",
+          "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQcy1ONE9PQ1RrVDVGaVlLOG82aVZNNDhUOUM4Tm5DaXZnTTd6MzNMMnRYeVEwYVBvejEySGM2c0s1V2JqWmNydGg2SVFrZzE1OFNPcHlOVjhVT1lzc1pDMHdEejJWbkhjNGRvUEd6cENkUGpzYmpnRGlBMFlxdXBLc3VUT0dubXBZUlRfUlpmTXpiUGNsTnlndVJCbmpUZUZibXhGOUlualA3V21BYm5nVVJlT2ZJLUXSAbcBQVVfeXFMUHMtTjRPT0NUa1Q1RmlZSzhvNmlWTTQ4VDlDOE5uQ2l2Z003ejMzTDJ0WHlRMGFQb3oxMkhjNnNLNVdialpjcnRoNklRa2cxNThTT3B5TlY4VU9Zc3NaQzB3RHoyVm5IYzRkb1BHenBDZFBqc2JqZ0RpQTBZcXVwS3N1VE9Hbm1wWVJUX1JaZk16YlBjbE55Z3VSQm5qVGVGYm14RjlJbmpQN1dtQWJuZ1VSZU9mSS1F?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin secures U.S. FDA approval for diabetes treatment tablets",
+          "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQc3lLN0Q0dDBNSGU4TGRtUzd6ZVVVV2JxNTlIV0VWOG5QNkFqMFdCeXRJM2lERmZGRkFrMGFhNW12emdsbXBBc0xkQm1IMEpkR0VNVDhEQU5ZbHczdFM0QzBYU2JYUlUtUVFGR2JJX0c5MXFCa3I0VTJiZktRWjAwMGV4cm8ybmN6dHJPRUI5M0hJanpJZk9ldmFVdHkyY25ndGFLVA?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Lupin Receives Approval from U.S. FDA for Ferric Citrate Tablets - Lupin | Press Release",
+          "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbmdmVUViR0pkakRka2hvYkg4M1RvOFJOVUUycEJveEF5Q1EzT2VwS2w1d2ZuQ0NPZV9OdXZPeFo3SjA5VlcwYnN2MldBcWotbVJZMFJ4YUpEWjBYS1NKZXMyckVVem5RUWJPTXhlWnhleGRYYzl5dG9mWGhUZllqMjM1TWdOekhpSWNoTEx0Q0xoRWVpSUowbWJYQVQxNmpyRHJWWjVFXzQ3Zw?oc=5",
+          "date": "2026-11-24",
+          "query": "USFDA approval India company"
+        }
+      ]
+    },
     {
       "symbol": "SCHAEFFLER",
       "name": "Schaeffler India Limited",
@@ -60,7 +115,7 @@
     {
       "symbol": "WELCORP",
       "name": "Welspun Corp Limited",
-      "mentions": 11,
+      "mentions": 10,
       "headlines": [
         {
           "title": "Welspun Corp Shares Surge After It Bags Global Orders Worth ₹2,264 Crore; Order Book Expands to ~₹50,000 Crore",
@@ -105,120 +160,230 @@
           "query": "order worth crore"
         },
         {
-          "title": "Welspun Corp Wins Export Order as Global Order Book Stands at Rs 50,000 Crore",
-          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPTGFMZGdjakdiSXRNd2o5SWpVc3ZUM09NS0VEQlpacy1CMmtqaEtGWU54dVY2V2p1Uk92cXBqYnJkT0ptQmRSUWV3Wk5TNjFNdjBmb25HYmpyeE1aVGs5LXc2STJ0X3JOUktzdnVFVE5ESmd5R3hBcmdBNnZxV3g5NWY0ZXhNa19rM1dCcHo2OS1zRWdUaVE3bFBHY19zRGJyMlJJTUFtZkhaVkhTZHBwd2xYd041UnNCX0Zv?oc=5",
+          "title": "Welspun Corp Gets LSAW Export Order, ₹2,264 Crore Orders Since October",
+          "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxQRTJXYXdWYUZ0cTgtbW04Mlc0TnpoejNORFB1RF9Fa18td1R2OVVRZnY5M0RSSERPOFU5OGRQdllsWWZnTFl4bm9SdTVRbTFEcE0wX25MMzRHUW5LMDlIQ1VwcGQ1djM3cmpwZWh6S0lIQUc5cVRXR0N3RVVaWlJoS1VKQy1vNVZySW9wV3VNOUJpSmhncVRQSzVLUUh5VTJ3X3hDdmZTMFJOdXNydFh2Q0RVSXFUWXRwX0RlSzJXRXU1bmxqT1YwU2pVcm5Senh2ckJPUnBkQ0g1VnJsMUxweU9UeTNDcXp6NkloS1FYOA?oc=5",
           "date": "2026-11-26",
           "query": "export order India company"
         }
       ]
     },
     {
-      "symbol": "LUPIN",
-      "name": "Lupin Limited",
-      "mentions": 11,
-      "headlines": [
-        {
-          "title": "Lupin shines on getting USFDA’s approval for Ferric Citrate Tablets",
-          "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPWVZOOUZBYzZULWFQbU14djFTTEFtdFBVWWdJTFdfUXpPQzlfTTV6enRxZ2Qwd2dWOEhnUTRZT0VtZXFDOFlsWDFsdXNnR0JINXpqUmYxaFhOQ28wQ1gxQklCd0JKR0VOTWtQVmxQcHVOVmcwa1VtNEFkZ1ZVZmlIQW52Sk94MkgxOHQxY2JPWnU0NFpuMUJr?oc=5",
-          "date": "2026-11-25",
-          "query": "export order India company"
-        },
-        {
-          "title": "Lupin Receives US FDA Approval for Ferric Citrate Tablets",
-          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPd21USzFRa0xDYUloT1BDR2hsVklaWkJpMjZ1d21kRHlQZFZqYlpOV3NkeDJ1a2w5ZE9TRjJSaVdQVDdoYXZiZ2Q0SVBKSzJ3ZGhQTWF4SWpER1FuM2VsaklnVDlPaEt1YVo5d2stT0FUeFQ1V2V0TU9aemYyRnN2NFM1V2ktTk9uMkR2MG80aFlmNGRjMHc?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin Receives Approval from U.S. FDA for Sitagliptin and Metformin Hydrochloride Tablets, in the United States",
-          "link": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxPbTVnWUd0UVdzRVRUb21OcUxQMTRvbmlTbDVxdkRTVVlTX0JscjllUTA4TzczV1NQT2NCWkdrVWxXN1BacmUyNU0wS3p3UkRRNDZHR3E1NzFkTGNpN1ZMd0NjRV9ORVdnVC1jWDJXWm5pNVQwR3FzUVcxeWlZZ0JUYlZrY2lDVFlwTEN3Qk5NMkdEVkh6ZVVqMV81SFdsOHE3MmpWYmZsMDZaQVFHMElfb3ZKbVVXcUY3Vi1vTk1OM0tvVTJYOXlyQ09pbUtfb1J0UEx3OE1oazRhZGw1QWJ5bUhpYzg4SHU0aUNic2JTUUk3eWJ6SFEwUUU0Um1VbTA?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin receives US FDA approval for dalbavancin injection in single-dose regimen",
-          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOZmktV0xfQXg4WUFEbWhRNkpKZjBYNk9fX25CWW5rV1o0YWlJRUowbEFQWURydE1FS1B1ZF9nQ3JfWldyNjhnTGJpWVJ5MlBEMnktck5vbW5lOUdFYmx5Sm5BNnRPMlRiendHNFZ5ajgyZWQzZzlfOHNXeFVrTDhtTmpfOHhPbVd2VS1DczVKVTdDLTRLRm5aNVNDVXptazJVeThVQTF3VVpZQTNNdDZuWjYtTV9RMFBIYkhNZA?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin Gets USFDA Nod for Diabetes Drug Sitagliptin Metformin",
-          "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQcy1ONE9PQ1RrVDVGaVlLOG82aVZNNDhUOUM4Tm5DaXZnTTd6MzNMMnRYeVEwYVBvejEySGM2c0s1V2JqWmNydGg2SVFrZzE1OFNPcHlOVjhVT1lzc1pDMHdEejJWbkhjNGRvUEd6cENkUGpzYmpnRGlBMFlxdXBLc3VUT0dubXBZUlRfUlpmTXpiUGNsTnlndVJCbmpUZUZibXhGOUlualA3V21BYm5nVVJlT2ZJLUXSAbcBQVVfeXFMUHMtTjRPT0NUa1Q1RmlZSzhvNmlWTTQ4VDlDOE5uQ2l2Z003ejMzTDJ0WHlRMGFQb3oxMkhjNnNLNVdialpjcnRoNklRa2cxNThTT3B5TlY4VU9Zc3NaQzB3RHoyVm5IYzRkb1BHenBDZFBqc2JqZ0RpQTBZcXVwS3N1VE9Hbm1wWVJUX1JaZk16YlBjbE55Z3VSQm5qVGVGYm14RjlJbmpQN1dtQWJuZ1VSZU9mSS1F?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin Receives Approval from U.S. FDA for Ferric Citrate Tablets - Lupin | Press Release",
-          "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbmdmVUViR0pkakRka2hvYkg4M1RvOFJOVUUycEJveEF5Q1EzT2VwS2w1d2ZuQ0NPZV9OdXZPeFo3SjA5VlcwYnN2MldBcWotbVJZMFJ4YUpEWjBYS1NKZXMyckVVem5RUWJPTXhlWnhleGRYYzl5dG9mWGhUZllqMjM1TWdOekhpSWNoTEx0Q0xoRWVpSUowbWJYQVQxNmpyRHJWWjVFXzQ3Zw?oc=5",
-          "date": "2026-11-24",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin gets USFDA nod for diabetes drug",
-          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxObUJoa3dVcmJQcHIxMU5GTlA0UXYzZk5GcklFUWpsaW9PS2VKUGFNOUJGZXZxZEhib1NaQjU5MzRtMmYyZGZvTVAxSWMwOTRTQl9YZDgwc0NSVXEwcWwtQVduTVhjaWJjOGFYNU16ZlpCcVlLNEtoYTRzd2NwVG9wcE54MzFDUGswNElwc2VBRFA5SWJtV0VaRUF0a09raVg3UE5FOG9IZS1URXNZVHFpXzdTYnptaFVrdTBLUHlnbzNqZ3RpU3I5V9IByAFBVV95cUxObUJoa3dVcmJQcHIxMU5GTlA0UXYzZk5GcklFUWpsaW9PS2VKUGFNOUJGZXZxZEhib1NaQjU5MzRtMmYyZGZvTVAxSWMwOTRTQl9YZDgwc0NSVXEwcWwtQVduTVhjaWJjOGFYNU16ZlpCcVlLNEtoYTRzd2NwVG9wcE54MzFDUGswNElwc2VBRFA5SWJtV0VaRUF0a09raVg3UE5FOG9IZS1URXNZVHFpXzdTYnptaFVrdTBLUHlnbzNqZ3RpU3I5Vw?oc=5",
-          "date": "2026-11-26",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Lupin gets USFDA approval for single-dose dalbavancin injection to treat bacterial skin infections",
-          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPYTFlb3hScnYzX3dEREdNSkZ4RkQwTTdNODNST2dIS1ZScGpFaW53T3VlTXJrQU15OFlqOGFrc1c0dGs4WEFsOGFSTWF6VHRJMzJITUNjRTlYM1FpWkNQNXIwTGZEdXlqVmJzaEJ6SkNLMUJVcERpVTY1bWtHSjBqTDhxclY0SlZKa1pCUzN3X29TbGx3QWNpMFRHdVBTcWJIYmhhbDUxaGlsblJ0SF9lWnhjck80R1B4VEtpQ19qRnZOcW03MDdDNW1WbEpsUEo2bWxXTm5Selloa1p2NUV6dFA0LTRveTFlZFN1ZEptblpLZTRV0gH6AUFVX3lxTE1WRm5HTHQwUDBQY2paWDdUb2p4UW9TcTd3ZnJDNEVaZlM4OWFRMzY5NnJUZUxMbTRmRHF6SjRMMkVrb3hPaVI4WFhiZWwwNkJJWV9DOWdaOWljM3FlVE1IY3JTdGpFQlE1SlFocWRLMkNySkNjMjdqNGp2M2diVjNmaTB2SXdqbWhLUkhlY2Fnb1V2ZVEySHpZZGV1MGI3X1ZfM3NjVkdxUTl4NWZMcHVWNDFxWG80M3pjNHgzeWQtM1Q5TkhPYl83TmJwdzFxaUdTUjd3Y3lyemIxcEY2U0hOclJmZERVaUd4REpQZUhZdUhUZGdMR29uYUE?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        }
-      ]
-    },
-    {
-      "symbol": "LGEINDIA",
-      "name": "LG Electronics India Limited",
+      "symbol": "ADANIENT",
+      "name": "Adani Enterprises Limited",
       "mentions": 10,
       "headlines": [
         {
-          "title": "LG Electronics India promoter may offload 2% stake for ₹2,320.5 crore",
-          "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbTdvUk50WGZFNWJIYzFpdHNvOVlCQkhXdmlkYW9BMHh1WUJJb1U0cHdoNXB0czlvSnF4Rmh0U3QtOTUzRFJtWWMtSXNUWl9VOVRYMlh6N2o4LXpYWlhsa0FWY1cxNl9MTWNTUFI1RHFoLW9vcFpoUlJrb3pBU2s5dVhYUmY2b183a2czblMwbmJlN0R1OWRTcmlnUmJZVTNiRkU4Ump4NTdxa1FOd213aHlJSzFGUm9ac3ByNlNYTGhNTUV3MzY2b1U2Tzk3N3c4OGfSAdcBQVVfeXFMTmxoLXVHeEI2TFZMSTMwRS1aT3lNV1ZaR1JuaGd3TE5pNGN0dzB0UGJ5R3ZINGVBNkRwOEhHMzJyRGoxZjlBRjJsQ2VjTGhzX1JTTk9VSUN2SGZCTHpJaWhCYy1udDhYTE83Rkp3TGFieW9CcGtKZXZHSkIxLXo0Z1JSalpJZGlxR3c5ZE40LWR4d0hETFE1S3VHQ3JKYk55eURGY05KNXk3SmR0SHJKYTN2Z0J2c1BRREdIeHpaLTBqSEN4REw1dGN5amRuZjBWNFFIT1ExWU0?oc=5",
-          "date": "2026-11-25",
-          "query": "letter of intent crore India"
-        },
-        {
-          "title": "LG Electronics India falls 3% as parent launches ₹2,320-cr stake sale",
-          "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPVmtDN0wtaHlZTkNSLTRHeERLUU5CSTU4RG13Smc0SVdydGp5bjVob013NHFCS0RLaTJhbklDWE9mUHlfVU9TblJHMlpHRFQtMXpHWXVBRV8xR3FDMGx4cnRvbXRUVjY0X0ZoRUxNM1dlSDd2R2N6REJuVmFEcG0tSEhZc1l4Tkw3Qm1Rc21WR3RicFVqNWF1Mi10UklPcndxX2ViVjZXTGJQaFdjLWgxaXVQVWxrcUpjX3NBSEtHNTctemc0cU4yb0xNMGY3MWPSAdQBQVVfeXFMTmFtU0p1WW5CVUJlemVxVDROSkdhaEdET1hUR0s3TUxvYjd1WmgzMG1LbGhwYVBnal9yRlJ2V0pQQTZCS1RXa014QXNqN2YxcnBUcjdDNVZXc1Jxelc5WDlDbF9NbGVGTXlmdE9qdzkyckN3LWwzb1otV2V4OVRoVURETkl0ajFPdzZwMmpjazhabmY4QlBOdURnLVV5NTRJY2d1cUU3ZHVqYXd6ZzZHZmR3dFhZUWVpdGUtRWdoZzBHN3RuMW1UTzJwWHl4RFgtSUp5RkM?oc=5",
+          "title": "Diamond Power Infra Bags Rs 488 Crore Adani Energy Order",
+          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPTlJhZHpNNmxTdVQzOGpITmN0RDE4SUNIenkzbElBYVRfZEpYUFRBNFNlbjV6OGd2NVJiYVFGUWFodDNlWXBZM2ppa2VXQ3pSNTlrai1ZSVVIOXIwVGNvRFU4TkloYjl5RFo5eHRRMWp4QmUwMlhMRDRfMGM1ZnBDanhDNTBLYU9QUjg5aHpoaw?oc=5",
           "date": "2026-11-26",
-          "query": "block deal stake India company"
+          "query": "bags order India company"
         },
         {
-          "title": "LG Electronics India shares fall 3% after Rs 2,464-crore block deal Nov 2026",
-          "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQZzFFRU9TNzdhX0dyNDl1UUlCNklDYko1clNXMDdnaWl2N0l4dklielE0ZGZDaXpJaEd2ck9BSm5PN3UtTGRQajdoWnZQTkU0ZTR1dHZ2R3htQ2k3VTk4TjRxejRpdmRoYndYaElRcUdWcVVtMlNpV3Y0M3BCVVdLTlc5SHljLWU0TEYteml1emdtQ1ZVR3d4YVE4UXltYkpaSmJaTkpHYVJrZnVt?oc=5",
-          "date": "2026-11-26",
-          "query": "block deal stake India company"
-        },
-        {
-          "title": "LG Electronics India shares fall 3% after Rs 2,464-crore block deals; promoters likely sell 2% equity...",
-          "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxNMTg0X1ZudXZiQWwwalRVRVFzTkdZb3QwX01jV3pWRkRINWdCWF9VbWlxazlMOC1jcWNZTEpFMjJyRzBiVEozUE9kLTJzZVFPa3M0bVV3Y1VWRWRrbGR6MUhKWGY4am1rNEdueWstc2h2ektCLUJ5TWxpbzh1UzZ6SWNJS0Z0ZUdQQWp2Z1gycFBsTnZQUHNEcDN1aEZ0WXlyck9sc0xtS28wcC1NMUtFR3d1WFA3LWdUYnhqQnc1VDNacXN2RjRLX294WHJuWHJvVDZLa284d3lMUWJycGxwd0ZaWVd1TEJjZ2lTSXRlbUg4S0ZXS3R1VG1qdnlCZ9IBgwJBVV95cUxPZFpSUE9tRDMtZTNfcm14emJ2RzJVUUROOWY3cDJPQmQyRldWWjMxN3lkaVFKZ3N4a3o2VmZna3UxMGZMR3dsY3dBb3JPTVppcmJvcG9CbWF0Q3dLelZGVm9Zb1oyWFFNU0hWY0tob2JqTExRdENnbGY1MUdzUjllVVB5Tl8xbDl4emtkeDlQV3E3UEM0T2ZCcVVlWk5mbG0tYkFUUXpwTTJkdVZQaWFLX2ZYWlJZTWs0Wnh3VklGTnZUWVlLSTdrQ1AxZWZoR3puc3B4ZnBud1l6a010Vm1URlB2ZnpQeXgwbmN6VDlwekk5Qm5sQmIzMHFSa1V1c0Y5am5V?oc=5",
-          "date": "2026-11-26",
-          "query": "block deal stake India company"
-        },
-        {
-          "title": "LG Electronics India Share Price Drops 3% After ₹2,464 Crore Block Deal Involving 2.05% Equity",
-          "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxONlNRZ0Q3Wlg4a2plTFNmNWZpY3VET3cyRjZUaGljbjlyWTFIU3NmVm16QXlkMm56Yy1HM0d5RHMwSV80RFh1dXhxZlZJQ0FDSWlTa2ZWZHB3SnBfdzN2T0NtWUowYlZwY0hPNmNjTFBhVUdxcjNoNDVXOTEwbWJybUdjVkE3dmpHdE9UY2trcUtXc3g3bzBkTGVrM3E3emNkV3ZPcGtUZ2tpd3c0VVp6VHBYNzdTdDJhZHg4enNZeGFOVU5VZzMw?oc=5",
+          "title": "Diamond Power Infrastructure bags fresh ₹488 crore orders for Adani's Bhadla-Fatehpur HVDC project",
+          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNWHhLdldLTHlibGtUbWp6ZHFjVlZILXBlbzhtMUtObm9uX0RvZW02YjU4ZXVjeTN0aHpRRTU3cTlVdlVsTjg1bFA0VkdEVjB3aFloUm5NS2hjNnJMaWtPejFFclZQYVRmRDh3X2JFSzIxRmE5VVBPZGxMUEFkbHhySWVpejlHWmE4MVc2UG1sZXVvSW1nVXplVGtQMDZVaHY5Rlg3V0hKeFRFRHM5LWpUREw4T01NZWVzdGdkN0NJUERhZnk4WjRYZGFFSTB0VzFpMjA3cVFhYkNJNUMxbFdnZGc2NERERklNVzJIOGd0WWQzaV9hSkHSAfsBQVVfeXFMTkJFd0VCdlNReHhMbWNJU3N6MUZPcTFiY05jblRTZkxkZkpWSm1jZHpxeUFsRDNENElNMk9Ba0xwNEo1a0t6Z21kWUFEZzNhamdhSlY4OUo3WENPT3BZZkZEYjZzYWF6c3R4cHcyYllZaDZBOHhiS0hNQWUtbk1sMm9uZDI2T2YxZlRlVFk0Q2pHb00xYmIyTTZ1cjJtZ2pRM3VraFRhTFg0SzE1MW5hU1lsaUlEeXNZX1ROQWpHa212YnBXczMyUER3a3U3UHM5UGFKUUNteXI4eHlDS2prV2NzQUc1RFpUemo4VGxGVjNia29YcHJkbkh5Tzg?oc=5",
           "date": "2026-11-25",
-          "query": "block deal stake India company"
+          "query": "bags order India company"
         },
         {
-          "title": "LG Electronics India parent launches up to $251 mn block deal to comply with MPS norms",
-          "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQOUVoWlMyclhFUHJOdHlwU0lNM3Y3MDQyMXNsSkcxalJZQzNLZm8tVDdyeG5kR3dxZDYxMmpBNGtkYXlUMUY5cTlRRnBvck13UWNNX2JNcVJaTXFKRTBtZ19lU2NkcjZkZmJLOHdQaXJ4aTZfekgwaHJ5M29FWTNjTDcxVndTd0o5NVhUcGcyN01IZEI2bUlNb0tObUR2Z2dkWmtsaTY1MDBfOVF1dXkyWkp0b1JnVTZmMWdCR1hrc2xGZ2w4S0h1Q21RQnZWZDZqUDJ2ZUhBd2JLeERGMDlLVU9VTGxZMFU?oc=5",
-          "date": "2026-11-25",
-          "query": "block deal stake India company"
-        },
-        {
-          "title": "LG Electronics India shares fall 4% after Rs 2,464 crore block deal; Promoter cuts stake to meet SEBI norms",
-          "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNVmU0bS1Ia2p3WjNZUVVqZENOam51bnd0TnZnWGNibHBLQ252ZmdYZW5lR0tBd253eHJhbGFQYzRyVklkd0NrdzVodGg3TEFFUlFmckloWERGLUZKQ1NWR2RwNDZxTjdDMFVQQlF0VjlNV1Q1Y3l3N2NVUnN1TG82UGhSMGlHbDU1NG1HNWJCQWw5alpnemRBTUxVanM5SU9GVW5uNzU3cEJ2eHJKUTI2X0VkNG5yN0wtelhtTkZ3Ym5rYXlBY2k3b0tzWjN6YTdYOWtyRWo0VE9kV1dvbmlUZjJNVTRrRTg5dEQxWtIB8gFBVV95cUxQUk1jX1NXSnhTS29wdHNMRVBpVVlyZ1pkZ2tkMWtWcGx3VGlPeFU2N3RlZWVPR25RZURFODZXaHA4V2lVd3RCR2FUR0c3ZEFnUmZnajdPdW0zSGNvZmVzQkNkTERmcDBrVzZHQ3VHQ3BQNFBRZFpnSjRzUjhkTU50Y0lUMTA3VnowUnBTdXlseUR6SVpaMnczUm5HZ1RsQmQtSHlhc2taUUVhRHdDeW10T1RkZ0dXRnc2S1NkMTBBbVhKWkdISWpTZ0dGR3hZQm9BZGZTZG41bHZJbHZJM0ZHcTlhazF0SloySEM5ZFYxRUM5QQ?oc=5",
+          "title": "Adani Enterprises and Adani Power Plan Public Bond Issues to Raise at Least ₹2,000 Crore",
+          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPZU1iTGFTcjZJRFJqUjBUVnhkeVdVVmRDN1ZNNE1qbWtMTkw2dHZycy1JM3dzMkkzRTZTZU92eEpGS0xhR0Z3bUhQbll6UTk1aGo1eENsOUVEWDJmNWhLSEZ2S2hRR04yNk5FREJFMjQ0UWh5akVXMHZxQllWY3pibGN3c3pwM2tfODRXU3NuRTRvbk0zOUdQMUdfcGhNYkZJckE?oc=5",
           "date": "2026-11-26",
-          "query": "block deal stake India company"
+          "query": "bags order India company"
         },
         {
-          "title": "LG Electronics India Block Deal: Korean Parent Sets Rs 1,709 Floor For 2% Stake Sale",
-          "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQeU5UZG5Rc0hUa3JCYVlENjFRc0RhYTJyRF9Uak52OUJlVnF5MGVIMHB3dE5SSi0zUkt1Sm5xb1VXcFF1OFloWEZ6WEgtRjNXeEswcXRHNGVHVTMwSmd3Z2Z5MTNWRzRlSWlFSnZmelF1enplSUJpVkVsRVp2cDZSTHlYQWp5M1MzdjNnUWVWc3FnQkJtMTVzNnhwY2M2YmdKNUVBZENzOTRmX0gwZlNrSE9DTzVmMXNjejBzaEVlM2w4ZEtX0gHMAUFVX3lxTE4xb19LV3ZtbG80VEhOWDdaY0xRaU1PSGFQU1pKRlFTVldBQTNFZ19FSkQ0c0lyX0RScDUxUXBPc1hkbTM2QzZRLWxGelNvVXBJZ29tT3FNSGJsZFc0LWJVOFhoMDVJM1dZVF9IYnY4Y1NId0ZyTnUySzFrTmc0RVh4b0I2cHJLY2xxVEtLSWl1enBMMVp3Z013Mk1PbGozTS1reHdHOEROYmhWRkwxMGxlMXZnWFhDMWxmbm0yby10amZEb2NfZWNMQlhzbQ?oc=5",
+          "title": "Adani Energy Solutions Bags 2,500 MW Renewable Power Contract",
+          "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNcklOZXFkMlB6d1l0clNxV2g1Rkxfd0RaampYYUhfTFZ4bUlGUTFQZDBtUFk1RndsdDBsZ2Z4c0xELWlhNndWWXBnR2dYVXVmcEFSdlRoNzQ5TS1kNGwtNHpPRkdRR0R1YUZCdW9kRDFrMm5fMzFiOFpRVGtzbGZvNW4tLVVZSzZrZnhXN2NaWjJZSW96Zy1hVXkxbWtVQzJDOGNxdnpUV1BRQ25FdHA0XzZMN3A1YlFYU1Fpb09pVXNLYXhLVkVWTnJBalJZR1lldFdWTHpRVFRoRjFvSzRodnZmaw?oc=5",
           "date": "2026-11-25",
-          "query": "block deal stake India company"
+          "query": "bags order India company"
+        },
+        {
+          "title": "Diamond Power Bags Rs. 7.08 bn Adani Energy Solutions Order",
+          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPSUNQTXZzSGtnMEZSOHZ6T0Jla1dOUnVPYWFxSktZbVpmSGVIYWJ5TUNKYlc2b3ZJVGJkTTNTQ2VPajRHbnlicWVYZ3c2NTMxcnlxUTVWTUZ0TmJsOU5NdlB0VUNsa2ktbHo5S3pxQ3JQSFpvSFp2OUFZTUpwUWs2c2xOdHlYOEtvakV3M2NqQ0wtVHJiNnV0a09oWGZLS3oyQ0M5aUp4aXY1eHB3eTRIVWpLX3VDN1Z6Q0ljMlo5YTZBSGw3Q0RGMjNjWS1UbWstYVd2aHM0WENvcFJEVUdENC1n?oc=5",
+          "date": "2026-11-25",
+          "query": "bags order India company"
+        },
+        {
+          "title": "Diamond Power Infra bags Rs 488 crore Adani order for HVDC project; shares surge 2%",
+          "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNOXJYaHVBWFdINDZ4VzdlQ1VFQ2ZuMXg2Y2w1WXFvcXplZmxTaFQ2RzVKZGtTOHFvT1E4NXF2akwzRXRsSlFHNGtNOWRpNlNzb014VTFZTnRMcUQyel94a2tUR0ZGYXZ0TjB5SkFjdXhLNk5Pcm9ZQ1Q4Q1lLZUFGcVdRb0VSY3BlbU5KbVR3Y09IeVV6d0ZkZHlpOE0wZ2tXS2dBU3JKUzU5c1FERUF4dm5OTTZJcFpGNDR4Sjczd0J2WW1aNkdFenZfTTdxTlZMQ3ZmM3JudTnSAd8BQVVfeXFMTzZ6TzNtUTJNYVZ2WU9qQzM0d3Qtb0hjTjNLQ3lGeEl4bldMNkMtdVpLeTk2cFFvcGhjQ0xjT1hidTJoZXBXS255UURmVGFHbmZvWmVHaEllaXhtT2RPRlNSaHB3SjdMMjUyalVLLVZMbTVVSzIyTE85UE12RzV4MVBwLXdYNmdocWlacE5FVmllcEI1TGROandubE1uUkg2dzc3Vi1jOVFPaEo1WV9Mc2gwYmRRVm5Ud0o1cFpncEFubWt0X0F6WHJYU0EzREZtck15NmRwWWhfUnp4U2tUQQ?oc=5",
+          "date": "2026-11-26",
+          "query": "bags order India company"
+        },
+        {
+          "title": "Adani Energy Solutions Wins 25-Year Renewable Power Contract for 1,750 MW: 5 Key Highlights of the Deal",
+          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPeFZCSFhKcm9IeEJSUEJkSC1vT0g1Q04xRWk2dWNFVGcyWTV4ZVRCQnQzZFZyXzdYeW5YUmFwSThJYXU2bU5jNlIxLVNQZ3I1UDY2LUVVY2hJMVpLZkl4dE1FTEl1YXA3eEtrc1dtcVF1QzZEQ1MyX3V1RGdzYzEzdlJOTmRrSWN6WE81TzZXUkVFTE1XSGd5U05ZNDA1cEZUOUxKTEpIeWp5NFZrOXJyb3RLa2tiWWRxOGlBX2pYQW42UnZGSHhTRms5UWp4alJkNGttQ044dzE5V3FoOTlVVTln?oc=5",
+          "date": "2026-11-24",
+          "query": "wins contract India company"
+        },
+        {
+          "title": "Diamond Power receives Rs 488.18 crore Adani HVDC orders",
+          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQWXNTV2NsUWtlMmhGYlpsamZwbDBydDhmZjEyUThpa0xoM1BqREdteGI2cURMMXVCQXRKVG5qb0xmWERRcGxpeUlfQ2xXZG1hVXdYSXBtOFlkaUFOUmhGRHhxNElEN0Fmbmp4QUFpUHVhMXkzN1ozaUJYRkRTQUQ0djR0QWdmWW1sMk1MQTBCQU9NVnBNRk1mbG5QTXA2aTQ0bUVzOXh6dDAxSTh0YXJFWW96Sm13Qjhm?oc=5",
+          "date": "2026-11-25",
+          "query": "order worth crore"
+        }
+      ]
+    },
+    {
+      "symbol": "SIEMENS",
+      "name": "Siemens Limited",
+      "mentions": 10,
+      "headlines": [
+        {
+          "title": "Siemens Energy India Reports Over INR 10,000 Crore Revenue in FY2026",
+          "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdWF4RS16cnpYSXZMSWhuMVF3Tk9xRWhPWEc5WU50dzY2VnJaaGJtSjZrb1NmcVgtZi12anlXN1FiekY1WE9vV1o1ZEh2aVpReXNoUEpqQTRhb3F6WTByeFFRRGdVTDhUeGdoNml0U3dHQmx4STlxZDRYeXd1ZDZFZHJ5WmlBTlFneG1IZWQ5bEoyOXp1eXBQVDdvT2hUdFhjMTJiZHdiVWc?oc=5",
+          "date": "2026-11-26",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "Siemens Energy India Q4 Results: Profit zooms 82% as new orders nearly double; declares ₹12 dividend",
+          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNSjRYY1VuN2ZyemhxTTJYb2xTY1oyYUFLQmx6UTF6aU45TGJmS3h1QlluVlVaLS1FczRUalpFWGFTejQyOFpqd3pESG9fS2QxMjdoY29RUk9SSGEwSjlvZzVucm9NVEZad09LSnFib0NWYWp6aHlsai04SjZodTZRS0liTmxfZEsyRnZzck9GSXlJQnVXZlFTU0sxcEZTN09FTXJkQ01VLVJyRndXTEpsUnJ5UkxoN3FJeXkySkx6Y2Z6ODNDanlwYU9SNVdnOTE2UlotaHNxaVp4MUJmdmdfU3VMb1BNQVdnTGdnXzdRSTBkLUlEV3fSAfsBQVVfeXFMTjJrV2NBM1RUMzNvV2ppcDZTQ0dwaEh0bmhXaVRDWkVseWo3eE5rWWpSbzdFSWNtYWZGS2RNYnhkS0FkOUg1b0tET3ZGWHZDY2IzTkFNcUtzRWx5Z3kxZU03cFFBRWwzY3U2SkZNTUVuMlFPWHhwVHIwdFpNTXNMSHh5TmxWSkNnQmoyaWtiaWpsaWh1VDJYTFJkSFBzNndaRFlrZkZNSFlBVmd6QVJSSVlNZDEwMU5XUVVaZ1NqSlcyT1p2YjVXRmVIQXJQNHdjM0dycmlxbDUwVlQybnpCdEZfSTZacTY0MWRSNVZBOGxtek1xdmV3Vk1hb0U?oc=5",
+          "date": "2026-11-25",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "Siemens Energy India quarterly results show 81.5 per cent profit growth, shares gain 4.72 per cent",
+          "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVUE1MmpDenI5ZldUT282S0RocUlPM1FXZHpSUUdsTUI5eDRhZk4zZWV3dHlkLUN6OTZZRGR0bU1STzQ0ejZSUm5GdWpUR2Nod1FVODJVM1ZVb25FYU5UQmM4VU9YMkVlektSYy1vTUtoQXp2LWRVYjJFNG1pcFBkUzZjN3FPVy0ydU5tcjJlTTc0U0tIZFlfTW9zTUpQZXJBeTFuM2xHSGxrM3kyV2N6eFFQWUFnOTA5VVlmZFhOZDFEUF9LaVR3YlNhc2hwc21aUnlqSw?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Nifty 500: Siemens Energy India jumps 7% as profit surges 82%; LG Electronics falls on block deal",
+          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOeXA5d3NqbHNOTXlFNVVQdkJIV3oxUmFxZ3MxT3R3OHRXM3NzdHkxelJUMTlaUFFCSHc2eE51NnpfRWt2bWdLaFhrTkdITkJSdlM5SjM4UUdaclJ3djI0Ri15bXUwdnRoajlKb1c4Qi00R2ZoVVNUYno3TU4tWXExTTBqWElOM2plWDJvTUNsc1hYRHZHcWlldnkzZmYyYVVNZUxFSzc3R0JaNkVJQWxrWWRtcnVCZkZYMll1cm5Yd1BjMG1RS2JCLVFTRUxqMWxNMXpZU01GMHNlRWJTaDZYQWhmZldfN2VGbFBmMTFvRjdkRy1i0gH6AUFVX3lxTE5zc09GZmtFZGRsaUJqNHJRUjFOb1dvSVpPTmlPdDF2eXlXLTN4eHh0ODNxVTJ5RnNTYXhFamVyMUNzS2Vuam1FY3d2bzkxVXByYlFTWmt6WkJOTXByU0pST1dnZ3JVOFhEcXdhT0pxLTluRlF0THlaUDZfR2wteVVnWjk5enRxWGZMYUFJazROYUNuS2pwRXdZMmxWTHZibGNTQWNOSHdOcEFteFcyeV9FdmN4WWVNeDhKczBvLXA2WUJ3c1RxTVBRemZwM05qZE5rVlUwYTYzZndabUhpWVFnVEVob1o5OHBTQ1kxanAzN1BTNlVyUGE4bWc?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Q4 Results: Profit Surges 81.5% as Shares Jump 5%",
+          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNMUZNOG9TeHdhYXdrcFZvSlNMLVZvNVNCWTZHdzJLVUM4TGhMVGZ4a1JzWWotbUVFZDlIOW9USHhSY2F5TWlXY3U1STdTUVFmbVUyczd0aGxvQUE0YmZRN3pSYzdNb2RhemJkeDNaR09nM0lZNTdHcVB5WUVDc2dCbHdKdEg0UjNUZDZBc29HS2pyY0tDVlExbXdOSGtJSVdPS3c?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Q4 Profit Surges 81.5% as Orders Jump 92%",
+          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdTRE5fWk1iZ2IwOUVXMkwtSFJKR09tMFdUTU8wRVE1cUhNRGkwM25JdVlZU3Q5UWpQUzFQdDFmTjhDTThfUUUzX1ZUTE95MFcyV3R2VkRHYTlhZVRJYlZRYTMzbFJEMEhhRkJBTk45TTJfQmxUSWNGVUxkdEhkSWNMZmd5c0l2SmVDcDFkaw?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Stock Jumps Over 9% After Q4 Profit Zooms 81%",
+          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPcURjS29UcmFlNkgzYTdacHBBcHNHdkdBOFRGYVVmb2hPYzlFUmNfcWwxdndTRWJvTVF3R2w1ekVSbjd5bWRSWG1lQTJxN1RmanA5WUM0OGlPYXhIcVJUTnQ1V01ESHFobGxEcWdId3lTZ1F1N0huTWNtaXdXTWxuZFZ3RldVRE5wbm5lMFVSQXhONk9Ma2xiSEtYcmd3M2lLSXlCa2dOdzhlRVdqNUdqaGpqY20tbmNXYTV1RE9oN0RaLTMxUlROci13RknSAdQBQVVfeXFMUHVCZjloSk93QTBGRW9HVHp4WGFfS3VRT0wwTUpyS0tRbXVDeEdrVEJvNC1IcUo5ZzlNR2xESzNkRHQ0alctYjhtYkxRUFhqRnpXb0ZaaGJFcUN3bnlVVFpOT3Vmc285d2xzaDFmaG9oYlFUbFh2NFFqdGJqTjJvcFZhZ0lGamJuNmhPak1DanlxQ3A2UERJODZvSHYyRFJ6cURNUTg5UkVWWXh3Z1gtRTBwT29hYW92cHJVVEZHQ2Y4elZDeXF6NHhaSTBiaEc3Y1NwQkI?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Delivers Stellar Q4 With ₹653 Crore Profit, Record Orders & ₹12 Dividend Take Centre",
+          "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOOFJsc2Z1Ulhkc004WVVZMGx2TWdjNWdSWEZ5dEFKY3EwOXBhQVctZFJPcWlPOVljRXMxTVBOWEdRQVhPY0Z4ZXZBTnpYR0w0cnkwOElvOFBXYjVBVVlONl9FXzlBN3d1U0VSMFRBTFJCVUJ4RUlrT1VLMjg5dWNaNDdPMUVPRlgxbEFMUF9NSnlEakh4ZUs5dmlLeERwUU5QejZFY182RmJFdnpHQlBlNEV6LVZmRDBfQ0NkeUx3RXA2MGJYblljT01aMGtrenhweEYzWmVlMi04OEtWeWFqTtIB5gFBVV95cUxNR29jcHBXMEdlWklHUTVZSjQ1Tk5xejNxZ19ydk9WbDFNY0R3SGN6aEhYbFpSM1Z1X0lHVFJsZkFNX211MFlqbXZBYzZpNGpRVC1kNzlCMnpLVWtRMjQ4WEtxX29iMko2WjhHMDBvTXdPcXUzOVlYMmIwWnNiVFdHN3FxN1BZNnVBRnBSY2dsSVp4cXdCSEVxa2MxcTRMQW5SdF9yd2liRVh2ZG9pYm1heU90ckE4ZlNDMHR4a09mLUxRd2Q0bmR2YWlsWWVGVkh1R2FnQnFRVnVNWmVPZjhOVGtYNFAyUQ?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        }
+      ]
+    },
+    {
+      "symbol": "CIPLA",
+      "name": "Cipla Limited",
+      "mentions": 10,
+      "headlines": [
+        {
+          "title": "SRF, Cipla, Thermax: Who's impacted by US tariffs and who's not; Jefferies answers",
+          "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPNEptODJWNDdqaTlQTXpHdHlTMnBDaUlSZUVpazM2TldVXzdOY08tTFZEb1g2cGdNOHFKU1ZfZmRQcGxSZEpPWVJEN0p5YWpRQUFfZGlud21QT1haUm9wQmJXT3BSNENfRXo5enNOY3V5bElTVGg0OGpJZC1FcDRDMEVFSy0ydFB0ZmE2X01jZGtySllobjZHOXRPUV9ZS1ZhM3o3cDdIQV9kWkFQVUJrZHpOV2JhS2dqV0FLVWxMX09Fc2V4MUpxVzZJRlpYY2otLXZKWktBOGhzdmdwbFHSAeMBQVVfeXFMTjhXcHJ0YmRCeVJDUnFRWmZXVWFzVnJfVXlzUnp1VHpmQjIwZ0JwYmtWRlV6WlFjZ1pwdTZFOE85UUlXVW1qVU5ZWEZXMVprYjBRaGo5dnpaSjFWVmVWY3MtdlN6NUxneWdqeEhWTk1vaWkyWVdpNHNwNDBESFlLRzRlU2hRUHdicHFoMGlXUlNNYTJuQnp5eFl5YTd3OFVwMjNOOEdxN1JLMG51N2ZFcUQxeDFsM29iYVUyT1ZWZW5QeURKb1paZXlBQ3JFVGV1WjRzdExtX0kyaXF0N2lyNXd6Rms?oc=5",
+          "date": "2026-11-26",
+          "query": "tariff exports India company"
+        },
+        {
+          "title": "Cipla Gets USFDA Approval for First Generic Version of Flovent HFA Asthma Drug in Two Strengths",
+          "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQMGpVMnh5UGxIbTF1WTBBYnJaNTVJZnE5Qno4VVl5SG9zVndYcFlNeTEzYTNucHhSRVJhZHBETWF4WnpmUlVEbmJSZ3lRcTJicGI1MzRUMFhNTjlCZFRTbzB4eEdoNVBDdVFYUzAyeDVHRElVTHRzWXlkWTRIVmhJR0xzeWRLNTZOYm44RVdaQ0t5RE1hWWMxcS16S2ZnQl9xQkFr?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Cipla gets USFDA nod for first generic version of Flovent asthma drug",
+          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNWlQ4Qkt3OGwyWjlwbzlWcnF3UFItMUUyZ2VXMFpQdGVIWHRudXFMUnpjdXREeGtpWTg0WW5mUTNvUWdteW9IQVhpV2VOQU52ajZKalk2SmRYbzE3cjhyYzlwSDExVXMxVjNHalZxQnRZdFVwVU02aHhKZmt2UmVwU3hRQ1MxY00zWkdsNjM1UlVWcEJjX0lNSF9jM1VvWUYwb0RXTXRXZTNfU3gxb0lULUNieF9UbUhkb3MxMGdDSktxQV84RXQwbVhsRlZZZE5rempOQWx30gHbAUFVX3lxTE1uM2FIdjYyd1RweHdtcUs3NThGR1dabHk4VW9NcTJlb3Jta0ZyenJUVkJrRjBIcGs1YWhrMlBITnNPTGVVcjZ5RnZvQk9BeFByZ0wwSHZWdkxQZWRadnVULUw0U3AzM21lbC05X1lMbll5S0VxcFNUS3plcDZ2SS13dVZQeFBjNDVqTk9mSUlERHo5TVpoN21uY2RiZW1MNE9PR3JkY0phaGU4bzh0RGtDYlN5c1EyV01ndlR5ZkNfQUdReWx4Z2RTcUlzTlB0QzgybFNwMmVTV0JXaw?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Pharma stocks rally, NIFTY PHARMA up 11% in a month: Why Gland Pharma, Cipla, Sun Pharma are in focus",
+          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNQ0FXcWcyOUZaSjhkOGZrdmdYMUJxZmQxZkpXSEJIT25Hb05EeEx0SzhOV2s5WlE5U2NWZFhrQ0xXeWtqYXlacWxFLW01dFJYVG5QUnVuSmh5X3RKYU1CamdLRlRpdG9nZkFjSVRMZUpHQlIwZ1VmaHcyV3o4VzZUTUZYenZ5Tm5WVGN1MTJPLTVyZld2eEpNOE4wa1dQTEpvRHRNcXhPblZQVng5eExrR3d0dUp3a1JFVEk3RGJZeWV6a2lKOEFEVmhmOVBVcnlkZUk3Nk9sWDhSMFdm?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Cipla, Teva Get USFDA Nod for Generic Flovent HFA Inhaler",
+          "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNTDZPQ3lVZ2NyOWhoZFBzSUVyWDZQTVozQW1kYVpNOVoycnA4dVhhSVl4ZlRHYTBoYTVnNkprTGtETHhxNlRWRmF5N2NlYTVvZ29Na0pWVDFDd0tFcG5nbHQ1Sk8tUzduaXpTbDIyRjc2dXo1em5zTElVLU54NThiUDl0Qmdrb3RhcHExNGpqSVUyZC1Mbmg4TDZPaDZYY0FxLVF5QW9TZmJFaVNqZXVCQktB0gGyAUFVX3lxTE1MNk9DeVVnY3I5aGhkUHNJRXJYNlBNWjNBbWRhWk05WjJycDh1WGFJWXhmVEdhMGhhNWc2SmtMa0RMeHE2VFZGYXk3Y2VhNW9nb01rSlZUMUN3S0VwbmdsdDVKTy1TN25pelNsMjJGNzZ1ejV6bnNMSVUtTng1OGJQOXRCZ2tvdGFwcTE0ampJVTJkLUxuaDhMNk9oNlhjQXEtUXlBb1NmYkVpU2pldUJCS0E?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Cipla and Teva secure US FDA approval for generic Flovent® HFA for asthma treatment",
+          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPbUU5T3owUlBUMzNnWFNEajA4bkVrQ2RCTy11b0RQUElrMnpJbGFyZV83QUVMdTF4SU1jR2txZ2JaWlpZODA3azA4a293OTd2TGl0bFo4elFQVVhfa25XQXYtUHliVTZJT0FVb2JjdFNHOTBBal9QNUU0WnRmdEViUVNyUnhVT2pqX2FkMnNmYm1qclJWYjdGeWNzTk1EMHltWHpMZU1sNnlHbGpNQ2l4MHlhTHpTejRBVHlKRjVoenA?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Cipla surges on receiving USFDA’s approval for Fluticasone HFA MDI",
+          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNanFCNmMzaDBYRkpxb0F5YlZyVGFFdDloM29VVklmY2lFVWk3bGs2b01ZUDRZWVJ4S09kLXl5NlItRThXaGRxa1JZVFdxZjVLRFp5dmNlLW1sNFFIbTRkQ29RWURSd3ZCRHR6RUhOQXRGei01MUtoYnlNc3VCSUpZRVpHOU9PM3FmS05fUUd4bVRKcHNzZUE?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Cipla, Teva Get USFDA Nod For First Generic Flovent HFA Asthma Inhaler",
+          "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTHBkWFByZUN6S2JqbkNRektrVnNiYlZZbTBDMHRvamc0Mkp3eThoQVBIMGJFRzNBaXdyVFFaSmNOS0o4SXZaZWV1X0dYYlhFTkp3LXotZEVrWjFiR1lPNTA3T2kwM2s2eFAzTF9NTzV3RFBNdFR5QkRweUN3UkxEZ0hmQnFsdHVZRFdLampxNmdRZzA1UWloX0libTljdlRoUUdhSTY1UHcyaGvSAbgBQVVfeXFMT3kwd3dPQmR2OV9IQ1BrcDl0VWpKaHNxSFZ6VnJxQkxtY0t6b1JCU205TFhBMTNjRUx5VFY5dzBlcG1WcTRCNXFiSm85R2s3RVdXQkY1V09SLU52dkhhNHFNNUt2X3FlR1ZRS1pYMnlPNElvel9ZcWhsY2NtRWYyenV0YmtfZHBiNk9kWkh1bEwwNGRMVEZjNmp4dUJpNk9vNU5GMGRIa1M4Yk9XNjgxTmsxZGstOTI2Nw?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        }
+      ]
+    },
+    {
+      "symbol": "COFFEEDAY",
+      "name": "Coffee Day Enterprises Limited",
+      "mentions": 10,
+      "headlines": [
+        {
+          "title": "Coffee Day fund diversion case: Sebi names forensic auditor after SAT orders fresh probe",
+          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPZXJ4OEI3UEExMDh4bGpHc1ZubklIZXVrVzNzaHB0cmpQRXVIa1ZzdTRsVGJYNTNyaTNEaENDcy1NaF9BNlBtOU54WjlpSGp5LUJ4MUR4VzJWckh6UEhUN0I5dnByNzVpdHRId2lkWjBvcFhGbVdmc1hRaTQwckQ0T2RHUEg5XzI3YWtYeERiS2N5Sm40bE9zVVRGWXhzMGFibzVJa3hjWFh6a0xQZEtoUnhIdFVvTlZGYTlTMWRJTGVmdTBHc3ctRV9tRXdDaDZQWVZHci1B0gHbAUFVX3lxTE5FTnIzbWZyYWZzWnJQZXZrcVFtMlh5RW9qSDBreEl2SXhRbmtxbE8zNEwyWW1vYTgzYTNEZ0FXUEw4SVF4cThkNmI2Zi1OVEZFYW5VSExYajNqXzVUTWhuSHptcHVXN1Nod3ZvNmlmZmVtSEs0d24wNWF4YnBEUUMwa1poY0JOWjB1alhWRFRpTEd1cUx2S0RFeUNfQk1JekZhTjVmaDdtMkMtcEhnV08xU3dOaWxWV0Y5WmJ0dS1hMnNVdzB5V3JuaFlFSEtYeGJpZjgxT2Y2Uzl1aw?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Sebi appoints auditor to probe Coffee Day Enterprises' fund diversion",
+          "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNRm5vRE5wdUN1aldIYy1KampHbGZLMTJ4MjVDcVZhOUNpU0tlbWE2RWxUeU5GSU5IVDRNTHJpcWtEaVN2MzR0cHdtN05wMmwyS3JUbmw5OHZXOUdpMUJqWDNkekFjNEFLRU5UcEdKVEtBTzZmLUw0djZlMUd3TUJnakR1eWtveDZnbHBQMjBhZ3hCNVBqUWVCS2JocHdMZEtKQ3ctTDZBNldNTjFhaU9TNDBCYnd2WE5oZGZDSGtuSXpmZXdzcXEyazFpQVZlS1MwMDFwMHIyRnrSAdgBQVVfeXFMTUZub0ROcHVDdWpXSGMtSmpqR2xmSzEyeDI1Q3FWYTlDaVNLZW1hNkVsVHlORklOSFQ0TUxyaXFrRGlTdjM0dHB3bTdOcDJsMktyVG5sOTh2VzlHaTFCalgzZHpBYzRBS0VOVHBHSlRLQU82Zi1MNHY2ZTFHd01CZ2pEdXlrb3g2Z2xwUDIwYWd4QjVQalFlQktiaHB3TGRLSkN3LUw2QTZXTU4xYWlPUzQwQmJ3dlhOaGRmQ0hrbkl6ZmV3c3FxMmsxaUFWZUtTMDAxcDByMkZ6?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Sebi Appoints Forensic Auditor To Trace Alleged Rs 3,535 Cr Coffee Day Fund Diversion",
+          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPRmZISnFJdDBZTXE3dnE0N19UeFVjOEZxNFczWFEtV0pyaHhtNHBZT1VvZjBWRDJHS0RBV1RHVjRvSGJUTC1TWHdDYkJoYmtZci1rbXJ2NnpLdy1qek9oMjE2cDA0MGdwX0lUVl9ING44WE1hakFjUFZsb3VqN1hPaUZjZ3BkU3UyUE5kSWY3ZWNTZlAtVHJCaHRQWkpCa2dLR1ZlbUdQbnB2OFBSMUFTQk9PSUpoTlpDeHlCMWVfWGhFOFJTZDhnTQ?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Coffee Day Enterprises (NSE:COFFEEDAY): What Does the SEBI-Ordered Forensic Audit Mean?",
+          "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPek9qQzVLSXdtQmRwTFNOWW1HSS1mZWpOT25IRUw2RVBNNE5WcUVHV2VDUDc4OHM2dnE2VXpVVWFweTFyMzNyNWlZSlBiSmdtQURMaEJJYnZvRU12cFFtTEtjSkRxZ3gtRUJzRFZOazVsSVBhSG8tU0YxSkZseUdvMUJ2OUNaNjhpX2llMXY4bVkyUk9TOTAwb3AwUm14VU5Jb2tTUV9mQndyaHRhdEFKRmVEM3RHQ3h2WlgyMHpxMjhtaFV4amlMSklR?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Coffee Day appoints CLA Indus as forensic auditor after SAT order",
+          "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdUxUWkoxcUdmWTFRWXdwOUhwUk9IWkcwRDBLRTBucFAtaEI2c3VvQTdJUDNEZEN1TVdXeUVnSWNUdUNWZTFMQ21oVk1wZk1KbFBJazFoX1I4SUZ5T29LYlJPTjA4X3Bna1laSno4bFU0NmNrRkNuRWtaY1BfUEJtVnFPbTdxNG9NLVhhN1ZETmZYclNpVkR5cEtUWWZKX0tSaWVpWlhvSW1veUUtZW9MV05uUQ?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Coffee Day Enterprises Ltd: SEBI Appoints Forensic Auditor",
+          "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWWpLcDlFLVU1VWZrRC14NWR2WnRtdHRGTk9ZSXVCOFpZZ3VHT0ZqaWU1a3VDQUxYTEk3cjdGQTkyaGlVb3QzTVRsQlVER29kaklyX3hDbzE4MmZfME5aSkx1dkQ1VlBSWWMxTF9RSUdaVVBtTVlrb2RTMW1MOFM0bG0zVUhSNnJ4bjFXRUUxMnA3ZzBLN2x1eFVvQlZPMlhodEo3UHFn?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Coffee Day Enterprises (NSE: COFFEEDAY) Says SEBI Appointed a Forensic Auditor",
+          "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNSzN1Z0ZqTlZtSThhaFU2Z3R1VGp5ZmQ5RUZsQy1iSFFEZTVFbkI0emF6ZWtlaWZGakp6TlI4Rzg0YVlhMEJwd2ZCa3NEaTRyOTRGc1NnLVNrbldyd2ZJdUhsZ3otR2FtUGtLdG1kZTBmcVQwenZ4T3pTb1JWTHV0R0NPQi1icS0waElBQ2F1N3ZDdjQyNFA1aS1ZV3ZhLWxVU3ktQWhsRmduSDdMQmFwbGZBSDB6TDk4QTVtUHl5dTlRaVRWT3dUajduSHI4VlZjenMxX2tBaGNfOUJQZVcwbWVVaUZ1Wkp6Rmc?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "Sebi appoints forensic auditor to probe alleged Rs 3,535 crore fund diversion at Coffee Day Enterprises",
+          "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPbExKeEs4UXVQX1lNdlVpZmZuVzd0SHB2RDBfY3FkY1FXcy0ycmNybGtPdURGODJxMUdCMUlGeUJQTFFOUHJkeHBUY28xYjFhYXVVU3FlN0xPa3pCZXRTNU1HaWJFNDNaRkItOW0wZVBiVnIwbUh2dzVxYkdZT19YQ2NBWnhKREtad1VuelY2LXNUczROX3ZZLTdDOHQ1Wk5DeHNrOUJuQlc5cHNPUmlDN1ZKaFpmX2s5MWEyQXVuNzNXOFJfSU5HLWxKTDFQZ2tkZ0M5NzhRZDdNZWN4ZF9sZWh3Y1FmNFZhdTBJaTNUVTdxR0psMXlreGFVc05JSkdHQmJScWpXa9IBjAJBVV95cUxPeHZUQ013S1Z3MnpPTjd6bFo3OEtvYjlMeUk1ZElWbVVsTU9kalhzcXQzNGptSG1jbEtGeDBNLTFKZ2thbW9rc3h2Wi1nUlBDZ2NWNi1YUllzMUtfNGFILXZ3T25pQ0dPLXZjdFdLaEdKOWpNVDkzM0JxM3k4TVJmandNVktjU3AxcFJWLWZ4Z3UyOWhjUjVDeDNYckN2OC1ONmE3cy1CX0RQNnEycXJlRXA0dEZvT3Nrb3c1LXlsQ0xubXlMeWc3clJoRmVJZFlJeGV0andzU01DZEE0Nk9QT2htblJ1eHpQZlpFYjFLSkhncy1JRjNYbW1zQ1ZfaUZ3THFjVEdmZHNSXzVK?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
         }
       ]
     },
@@ -333,325 +498,68 @@
       ]
     },
     {
-      "symbol": "SIEMENS",
-      "name": "Siemens Limited",
+      "symbol": "LGEINDIA",
+      "name": "LG Electronics India Limited",
       "mentions": 9,
       "headlines": [
         {
-          "title": "Siemens Energy India Reports Over INR 10,000 Crore Revenue in FY2026",
-          "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOU0J0SFNNOVhqWTRBeGQyR3phYVVqTlhETnp3N0ZLMnpzTHRIQjZqY3c3NzZWcVVFNHFQZlJ1WGdqM3lQTldYQktPaFlOSkFRWGFQb2ljZTNaRE41bUtneS1KaWdjZXdxNWMzemd2Q0hvUk90V2F5aFBjR1RUd09hY3ZMemJTWk9uSFlKLUFXMFRFZkJkMWhRVGN4WnlmY0lmUVg0?oc=5",
-          "date": "2026-11-26",
-          "query": "capacity expansion India company"
-        },
-        {
-          "title": "Siemens Energy India Q4 Results: Profit zooms 82% as new orders nearly double; declares ₹12 dividend",
-          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNSjRYY1VuN2ZyemhxTTJYb2xTY1oyYUFLQmx6UTF6aU45TGJmS3h1QlluVlVaLS1FczRUalpFWGFTejQyOFpqd3pESG9fS2QxMjdoY29RUk9SSGEwSjlvZzVucm9NVEZad09LSnFib0NWYWp6aHlsai04SjZodTZRS0liTmxfZEsyRnZzck9GSXlJQnVXZlFTU0sxcEZTN09FTXJkQ01VLVJyRndXTEpsUnJ5UkxoN3FJeXkySkx6Y2Z6ODNDanlwYU9SNVdnOTE2UlotaHNxaVp4MUJmdmdfU3VMb1BNQVdnTGdnXzdRSTBkLUlEV3fSAfsBQVVfeXFMTjJrV2NBM1RUMzNvV2ppcDZTQ0dwaEh0bmhXaVRDWkVseWo3eE5rWWpSbzdFSWNtYWZGS2RNYnhkS0FkOUg1b0tET3ZGWHZDY2IzTkFNcUtzRWx5Z3kxZU03cFFBRWwzY3U2SkZNTUVuMlFPWHhwVHIwdFpNTXNMSHh5TmxWSkNnQmoyaWtiaWpsaWh1VDJYTFJkSFBzNndaRFlrZkZNSFlBVmd6QVJSSVlNZDEwMU5XUVVaZ1NqSlcyT1p2YjVXRmVIQXJQNHdjM0dycmlxbDUwVlQybnpCdEZfSTZacTY0MWRSNVZBOGxtek1xdmV3Vk1hb0U?oc=5",
+          "title": "LG Electronics India promoter may offload 2% stake for ₹2,320.5 crore",
+          "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNbTdvUk50WGZFNWJIYzFpdHNvOVlCQkhXdmlkYW9BMHh1WUJJb1U0cHdoNXB0czlvSnF4Rmh0U3QtOTUzRFJtWWMtSXNUWl9VOVRYMlh6N2o4LXpYWlhsa0FWY1cxNl9MTWNTUFI1RHFoLW9vcFpoUlJrb3pBU2s5dVhYUmY2b183a2czblMwbmJlN0R1OWRTcmlnUmJZVTNiRkU4Ump4NTdxa1FOd213aHlJSzFGUm9ac3ByNlNYTGhNTUV3MzY2b1U2Tzk3N3c4OGfSAdcBQVVfeXFMTmxoLXVHeEI2TFZMSTMwRS1aT3lNV1ZaR1JuaGd3TE5pNGN0dzB0UGJ5R3ZINGVBNkRwOEhHMzJyRGoxZjlBRjJsQ2VjTGhzX1JTTk9VSUN2SGZCTHpJaWhCYy1udDhYTE83Rkp3TGFieW9CcGtKZXZHSkIxLXo0Z1JSalpJZGlxR3c5ZE40LWR4d0hETFE1S3VHQ3JKYk55eURGY05KNXk3SmR0SHJKYTN2Z0J2c1BRREdIeHpaLTBqSEN4REw1dGN5amRuZjBWNFFIT1ExWU0?oc=5",
           "date": "2026-11-25",
-          "query": "capacity expansion India company"
+          "query": "letter of intent crore India"
         },
         {
-          "title": "Siemens Energy India quarterly results show 81.5 per cent profit growth, shares gain 4.72 per cent",
-          "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVUE1MmpDenI5ZldUT282S0RocUlPM1FXZHpSUUdsTUI5eDRhZk4zZWV3dHlkLUN6OTZZRGR0bU1STzQ0ejZSUm5GdWpUR2Nod1FVODJVM1ZVb25FYU5UQmM4VU9YMkVlektSYy1vTUtoQXp2LWRVYjJFNG1pcFBkUzZjN3FPVy0ydU5tcjJlTTc0U0tIZFlfTW9zTUpQZXJBeTFuM2xHSGxrM3kyV2N6eFFQWUFnOTA5VVlmZFhOZDFEUF9LaVR3YlNhc2hwc21aUnlqSw?oc=5",
+          "title": "LG Electronics India falls 3% as parent launches ₹2,320-cr stake sale",
+          "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPVmtDN0wtaHlZTkNSLTRHeERLUU5CSTU4RG13Smc0SVdydGp5bjVob013NHFCS0RLaTJhbklDWE9mUHlfVU9TblJHMlpHRFQtMXpHWXVBRV8xR3FDMGx4cnRvbXRUVjY0X0ZoRUxNM1dlSDd2R2N6REJuVmFEcG0tSEhZc1l4Tkw3Qm1Rc21WR3RicFVqNWF1Mi10UklPcndxX2ViVjZXTGJQaFdjLWgxaXVQVWxrcUpjX3NBSEtHNTctemc0cU4yb0xNMGY3MWPSAdQBQVVfeXFMTmFtU0p1WW5CVUJlemVxVDROSkdhaEdET1hUR0s3TUxvYjd1WmgzMG1LbGhwYVBnal9yRlJ2V0pQQTZCS1RXa014QXNqN2YxcnBUcjdDNVZXc1Jxelc5WDlDbF9NbGVGTXlmdE9qdzkyckN3LWwzb1otV2V4OVRoVURETkl0ajFPdzZwMmpjazhabmY4QlBOdURnLVV5NTRJY2d1cUU3ZHVqYXd6ZzZHZmR3dFhZUWVpdGUtRWdoZzBHN3RuMW1UTzJwWHl4RFgtSUp5RkM?oc=5",
           "date": "2026-11-26",
-          "query": "quarterly results profit India company"
+          "query": "block deal stake India company"
         },
         {
-          "title": "Nifty 500: Siemens Energy India jumps 7% as profit surges 82%; LG Electronics falls on block deal",
-          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOeXA5d3NqbHNOTXlFNVVQdkJIV3oxUmFxZ3MxT3R3OHRXM3NzdHkxelJUMTlaUFFCSHc2eE51NnpfRWt2bWdLaFhrTkdITkJSdlM5SjM4UUdaclJ3djI0Ri15bXUwdnRoajlKb1c4Qi00R2ZoVVNUYno3TU4tWXExTTBqWElOM2plWDJvTUNsc1hYRHZHcWlldnkzZmYyYVVNZUxFSzc3R0JaNkVJQWxrWWRtcnVCZkZYMll1cm5Yd1BjMG1RS2JCLVFTRUxqMWxNMXpZU01GMHNlRWJTaDZYQWhmZldfN2VGbFBmMTFvRjdkRy1i0gH6AUFVX3lxTE5zc09GZmtFZGRsaUJqNHJRUjFOb1dvSVpPTmlPdDF2eXlXLTN4eHh0ODNxVTJ5RnNTYXhFamVyMUNzS2Vuam1FY3d2bzkxVXByYlFTWmt6WkJOTXByU0pST1dnZ3JVOFhEcXdhT0pxLTluRlF0THlaUDZfR2wteVVnWjk5enRxWGZMYUFJazROYUNuS2pwRXdZMmxWTHZibGNTQWNOSHdOcEFteFcyeV9FdmN4WWVNeDhKczBvLXA2WUJ3c1RxTVBRemZwM05qZE5rVlUwYTYzZndabUhpWVFnVEVob1o5OHBTQ1kxanAzN1BTNlVyUGE4bWc?oc=5",
+          "title": "LG Electronics India shares fall 3% after Rs 2,464-crore block deal Nov 2026",
+          "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQZzFFRU9TNzdhX0dyNDl1UUlCNklDYko1clNXMDdnaWl2N0l4dklielE0ZGZDaXpJaEd2ck9BSm5PN3UtTGRQajdoWnZQTkU0ZTR1dHZ2R3htQ2k3VTk4TjRxejRpdmRoYndYaElRcUdWcVVtMlNpV3Y0M3BCVVdLTlc5SHljLWU0TEYteml1emdtQ1ZVR3d4YVE4UXltYkpaSmJaTkpHYVJrZnVt?oc=5",
           "date": "2026-11-26",
-          "query": "quarterly results profit India company"
+          "query": "block deal stake India company"
         },
         {
-          "title": "Siemens Energy India Q4 Profit Surges 81.5% as Orders Jump 92%",
-          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdTRE5fWk1iZ2IwOUVXMkwtSFJKR09tMFdUTU8wRVE1cUhNRGkwM25JdVlZU3Q5UWpQUzFQdDFmTjhDTThfUUUzX1ZUTE95MFcyV3R2VkRHYTlhZVRJYlZRYTMzbFJEMEhhRkJBTk45TTJfQmxUSWNGVUxkdEhkSWNMZmd5c0l2SmVDcDFkaw?oc=5",
+          "title": "LG Electronics India shares fall 3% after Rs 2,464-crore block deals; promoters likely sell 2% equity...",
+          "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxNMTg0X1ZudXZiQWwwalRVRVFzTkdZb3QwX01jV3pWRkRINWdCWF9VbWlxazlMOC1jcWNZTEpFMjJyRzBiVEozUE9kLTJzZVFPa3M0bVV3Y1VWRWRrbGR6MUhKWGY4am1rNEdueWstc2h2ektCLUJ5TWxpbzh1UzZ6SWNJS0Z0ZUdQQWp2Z1gycFBsTnZQUHNEcDN1aEZ0WXlyck9sc0xtS28wcC1NMUtFR3d1WFA3LWdUYnhqQnc1VDNacXN2RjRLX294WHJuWHJvVDZLa284d3lMUWJycGxwd0ZaWVd1TEJjZ2lTSXRlbUg4S0ZXS3R1VG1qdnlCZ9IBgwJBVV95cUxPZFpSUE9tRDMtZTNfcm14emJ2RzJVUUROOWY3cDJPQmQyRldWWjMxN3lkaVFKZ3N4a3o2VmZna3UxMGZMR3dsY3dBb3JPTVppcmJvcG9CbWF0Q3dLelZGVm9Zb1oyWFFNU0hWY0tob2JqTExRdENnbGY1MUdzUjllVVB5Tl8xbDl4emtkeDlQV3E3UEM0T2ZCcVVlWk5mbG0tYkFUUXpwTTJkdVZQaWFLX2ZYWlJZTWs0Wnh3VklGTnZUWVlLSTdrQ1AxZWZoR3puc3B4ZnBud1l6a010Vm1URlB2ZnpQeXgwbmN6VDlwekk5Qm5sQmIzMHFSa1V1c0Y5am5V?oc=5",
           "date": "2026-11-26",
-          "query": "quarterly results profit India company"
+          "query": "block deal stake India company"
         },
         {
-          "title": "Siemens Energy India Stock Jumps Over 9% After Q4 Profit Zooms 81%",
-          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPcURjS29UcmFlNkgzYTdacHBBcHNHdkdBOFRGYVVmb2hPYzlFUmNfcWwxdndTRWJvTVF3R2w1ekVSbjd5bWRSWG1lQTJxN1RmanA5WUM0OGlPYXhIcVJUTnQ1V01ESHFobGxEcWdId3lTZ1F1N0huTWNtaXdXTWxuZFZ3RldVRE5wbm5lMFVSQXhONk9Ma2xiSEtYcmd3M2lLSXlCa2dOdzhlRVdqNUdqaGpqY20tbmNXYTV1RE9oN0RaLTMxUlROci13RknSAdQBQVVfeXFMUHVCZjloSk93QTBGRW9HVHp4WGFfS3VRT0wwTUpyS0tRbXVDeEdrVEJvNC1IcUo5ZzlNR2xESzNkRHQ0alctYjhtYkxRUFhqRnpXb0ZaaGJFcUN3bnlVVFpOT3Vmc285d2xzaDFmaG9oYlFUbFh2NFFqdGJqTjJvcFZhZ0lGamJuNmhPak1DanlxQ3A2UERJODZvSHYyRFJ6cURNUTg5UkVWWXh3Z1gtRTBwT29hYW92cHJVVEZHQ2Y4elZDeXF6NHhaSTBiaEc3Y1NwQkI?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Siemens Energy India Delivers Stellar Q4 With ₹653 Crore Profit, Record Orders & ₹12 Dividend Take Centre",
-          "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOOFJsc2Z1Ulhkc004WVVZMGx2TWdjNWdSWEZ5dEFKY3EwOXBhQVctZFJPcWlPOVljRXMxTVBOWEdRQVhPY0Z4ZXZBTnpYR0w0cnkwOElvOFBXYjVBVVlONl9FXzlBN3d1U0VSMFRBTFJCVUJ4RUlrT1VLMjg5dWNaNDdPMUVPRlgxbEFMUF9NSnlEakh4ZUs5dmlLeERwUU5QejZFY182RmJFdnpHQlBlNEV6LVZmRDBfQ0NkeUx3RXA2MGJYblljT01aMGtrenhweEYzWmVlMi04OEtWeWFqTtIB5gFBVV95cUxNR29jcHBXMEdlWklHUTVZSjQ1Tk5xejNxZ19ydk9WbDFNY0R3SGN6aEhYbFpSM1Z1X0lHVFJsZkFNX211MFlqbXZBYzZpNGpRVC1kNzlCMnpLVWtRMjQ4WEtxX29iMko2WjhHMDBvTXdPcXUzOVlYMmIwWnNiVFdHN3FxN1BZNnVBRnBSY2dsSVp4cXdCSEVxa2MxcTRMQW5SdF9yd2liRVh2ZG9pYm1heU90ckE4ZlNDMHR4a09mLUxRd2Q0bmR2YWlsWWVGVkh1R2FnQnFRVnVNWmVPZjhOVGtYNFAyUQ?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Siemens Energy jumps 9% as Sept qtr PAT rises 81%; ₹12 dividend declared",
-          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPUmNndnhyVGtKMS1JRzR3dFJwY1NpSm41NkhsaEU2dGlMcGFtSFgzd1k4R09rX3RSZ1pjempadV92bTZfY1JEcHRFaGlHaHBHa3RPaUVLd3NjUEx1SndtaUVOQ3BnbHRjNjZEUXNWa2owLTgzYUkxdzhkX3VBdFhCNTNkblNIWHhHeTZwR21ZeDAyT0EzeUlaRWdZbVJIY3I4ZVhxc1FXZGpadkdfOVppMDB6LUlJWmdHTWVoMmNHaENDRUEtWjN4Y1ZwVm1JOHot0gHWAUFVX3lxTE5FU3RSdnVqSlphSklhbVBJY0ZNN1JXZV9ldG0tQnNrdWRVTEJBODNrTWpVcWhYXzQwVG9uZkhjX2hrMzRiWG4tUjZGOFBWRlpmcXpvdnpralVhbjRjTXRtckQ4Ulo3Znh2bXVGZEdNb1BRYlgwam1qbVRuTE9ybXpHQU9ELU1ZOUI4VjZhMEUzS0wxQzlHTHpvMFlvNGpDY3JPMDhlVUQ4VGllVk9NeC15TDlKTnkzY3dWZzI5blk1X1BTY0Ntc3RjOU1aZXhFYl9tVU0ydmc?oc=5",
-          "date": "2026-11-26",
-          "query": "dividend bonus split India company"
-        }
-      ]
-    },
-    {
-      "symbol": "TATASTEEL",
-      "name": "Tata Steel Limited",
-      "mentions": 9,
-      "headlines": [
-        {
-          "title": "Jefferies maintains Buy on Tata Steel; sees EPS dilution from APL Apollo deal",
-          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQT0RkMUszak1YeWVEdmt1cl9vMHZYWmpEY0ZOVjJzNHhtYUlVa3o2MlIyU3lIUEQxZURjSXZTT3ZGZzUzV1dvbzNsbk95dnRDTjFVQWkyeFpqM1laUFpPcEJyYTZ1eG00eFZxMGdCazMtQU16STh5aldKWWlBMDJnMU0xWmJCU3ZWQ2F2bWYzV0VBVU5LQWJDVVFYNldBWVFFeGx6RkhBdkw2dmtsYk9USXNMRGozLUNQ?oc=5",
+          "title": "LG Electronics India Share Price Drops 3% After ₹2,464 Crore Block Deal Involving 2.05% Equity",
+          "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxONlNRZ0Q3Wlg4a2plTFNmNWZpY3VET3cyRjZUaGljbjlyWTFIU3NmVm16QXlkMm56Yy1HM0d5RHMwSV80RFh1dXhxZlZJQ0FDSWlTa2ZWZHB3SnBfdzN2T0NtWUowYlZwY0hPNmNjTFBhVUdxcjNoNDVXOTEwbWJybUdjVkE3dmpHdE9UY2trcUtXc3g3bzBkTGVrM3E3emNkV3ZPcGtUZ2tpd3c0VVp6VHBYNzdTdDJhZHg4enNZeGFOVU5VZzMw?oc=5",
           "date": "2026-11-25",
-          "query": "acquisition crore India company"
+          "query": "block deal stake India company"
         },
         {
-          "title": "Tata Steel, APL Apollo shares tumble as ₹28,000 crore asset deal raises funding concerns",
-          "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxOcHdaSlByemFoSFVSWUduVm5kM0VIZDdzT3BpLW44di1Sb0l4Z0laZWpCWWtJWXYzR18zeWZTOHNSUUVhMFpuX1FzbGozUzFnc2hDd3BzNzQyVXZTMldlR0Uwb0ZEZEsxaFBjWHYyWENQVUlKaFluVHhqTUVLdFVJeldLSmZncUwtRVY3RWhUcEU0UGFabjBKOHFUaXZoUlJYZlg1LXJVczVNbzdyaFBucEdmRTFEM2dkWWlHcEJwZlZYMHRBZm16QnpzWXlOOUdIUTR0aEJsNzkwX3QxWGpjMzRaTjFhUlRw0gHuAUFVX3lxTE1rN056elRFMG9MMnA4RkJDcE5UZ2pRY2doMFpkdDM2c25peTB6dTVIakdiT3dtbjRrUTdfblAwOEpZWUhGQjNrSWNQaXVKM3RTQWRlQjEwVnpEeXg5bndya2UtTW81aW1RSjVhOHpta1hnamlFVWJxOVFKX0RwR1NUdjByY0tzcjNPSVc0Uml0ZUtaMTE3V0FIa1puaFRBSmFMU0RNRmI3MVFKcXAteGhCTUc3WjAwUFZSZDV0WjhtRDhRNDRtb3VmRy1YSWtUVmtlYk9tUldTSzg2NGxlYW40anhxWEhENlpiX0ppeFE?oc=5",
-          "date": "2026-11-24",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Tata Steel-APL Apollo Deal Raises ₹28,000 Crore Funding Concerns",
-          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPcEhjTFltNDd5bUtXcVlwX1FMSzNsWHA3SWEwWE5TelQwYktFaUxiQV95ekFxLVFFcnhvVWNPYjRyQk1MYlE2SDlvU01PZ05Qa0VKQ0JtZWJIem5PVlIxYkNPV1dFMXJUSElJRUN0a1ZBeWZ1WHktOHdTNzAyOUZSLVJwN2tHNUVVbFM2SWVUWlhlU01uVS01dGw1QjVDSEdY?oc=5",
+          "title": "LG Electronics India parent launches up to $251 mn block deal to comply with MPS norms",
+          "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQOUVoWlMyclhFUHJOdHlwU0lNM3Y3MDQyMXNsSkcxalJZQzNLZm8tVDdyeG5kR3dxZDYxMmpBNGtkYXlUMUY5cTlRRnBvck13UWNNX2JNcVJaTXFKRTBtZ19lU2NkcjZkZmJLOHdQaXJ4aTZfekgwaHJ5M29FWTNjTDcxVndTd0o5NVhUcGcyN01IZEI2bUlNb0tObUR2Z2dkWmtsaTY1MDBfOVF1dXkyWkp0b1JnVTZmMWdCR1hrc2xGZ2w4S0h1Q21RQnZWZDZqUDJ2ZUhBd2JLeERGMDlLVU9VTGxZMFU?oc=5",
           "date": "2026-11-25",
-          "query": "acquisition crore India company"
+          "query": "block deal stake India company"
         },
         {
-          "title": "Tata Steel’s APL Apollo deal: Why investors are worried about the Rs 28,000-crore bet",
-          "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxPdUJFVm5OSTl5dmpNTEd4RzhNdktiZXQtV0ZXMi0xa19QcWp5eUFRNWcybTZFdE9qdE9aTTFlVC1ObzV6eXNsUk01OVJBQy1rWUcwQlV6WjJSaVIxbFM1UWhoUm9wN1piZHR0a04zMjdnMWRKbFp6eGswVW9xSWg2T2pFd19lTnNtZ1BldTRsMkN4Wi1YRHhSWG80X25CaGprQ190alNqcDhLX1JaVVdfZ2NTTWRKbWZ3YkdQQmhEdmxUZFZOa2FkZXN4Sk5hY1pCY3RfclZucUZSeWhDanpQT2lqWmdqemxmMXFwQdIB8wFBVV95cUxPSlRxQTVBLUFLdVV1Mmpoa1I3dURjR2VnMDdFMkQ5ZmJPLWxmSGFFWXVfeFc5d3JoWUFjdWI2UjIyOXBIa3ZqMUU1TmRKbWxrTS13U0ZHbDRXeG82NkRQUjN4MzFxUEE1MTBWazRQVmRWR0lKdlhubzFZYnFKd0ZCMWlwQmxXQV9ETTA5M2laLUFkU0EzVjY5T1ZrTHNNOVFpNHlVWDhZeU83YnB4WnVENTJ5ZGxMOXVzS3FNY1BKSzdqY2h0Rzk5a3BpbHJsMXp2Z0F3d1JVZnoxakVYejdTRHpaTDJfWGozVkc2U2tBMkRHcE0?oc=5",
+          "title": "LG Electronics India shares fall 4% after Rs 2,464 crore block deal; Promoter cuts stake to meet SEBI norms",
+          "link": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxNVmU0bS1Ia2p3WjNZUVVqZENOam51bnd0TnZnWGNibHBLQ252ZmdYZW5lR0tBd253eHJhbGFQYzRyVklkd0NrdzVodGg3TEFFUlFmckloWERGLUZKQ1NWR2RwNDZxTjdDMFVQQlF0VjlNV1Q1Y3l3N2NVUnN1TG82UGhSMGlHbDU1NG1HNWJCQWw5alpnemRBTUxVanM5SU9GVW5uNzU3cEJ2eHJKUTI2X0VkNG5yN0wtelhtTkZ3Ym5rYXlBY2k3b0tzWjN6YTdYOWtyRWo0VE9kV1dvbmlUZjJNVTRrRTg5dEQxWtIB8gFBVV95cUxQUk1jX1NXSnhTS29wdHNMRVBpVVlyZ1pkZ2tkMWtWcGx3VGlPeFU2N3RlZWVPR25RZURFODZXaHA4V2lVd3RCR2FUR0c3ZEFnUmZnajdPdW0zSGNvZmVzQkNkTERmcDBrVzZHQ3VHQ3BQNFBRZFpnSjRzUjhkTU50Y0lUMTA3VnowUnBTdXlseUR6SVpaMnczUm5HZ1RsQmQtSHlhc2taUUVhRHdDeW10T1RkZ0dXRnc2S1NkMTBBbVhKWkdISWpTZ0dGR3hZQm9BZGZTZG41bHZJbHZJM0ZHcTlhazF0SloySEM5ZFYxRUM5QQ?oc=5",
+          "date": "2026-11-26",
+          "query": "block deal stake India company"
+        },
+        {
+          "title": "LG Electronics India Block Deal: Korean Parent Sets Rs 1,709 Floor For 2% Stake Sale",
+          "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQeU5UZG5Rc0hUa3JCYVlENjFRc0RhYTJyRF9Uak52OUJlVnF5MGVIMHB3dE5SSi0zUkt1Sm5xb1VXcFF1OFloWEZ6WEgtRjNXeEswcXRHNGVHVTMwSmd3Z2Z5MTNWRzRlSWlFSnZmelF1enplSUJpVkVsRVp2cDZSTHlYQWp5M1MzdjNnUWVWc3FnQkJtMTVzNnhwY2M2YmdKNUVBZENzOTRmX0gwZlNrSE9DTzVmMXNjejBzaEVlM2w4ZEtX0gHMAUFVX3lxTE4xb19LV3ZtbG80VEhOWDdaY0xRaU1PSGFQU1pKRlFTVldBQTNFZ19FSkQ0c0lyX0RScDUxUXBPc1hkbTM2QzZRLWxGelNvVXBJZ29tT3FNSGJsZFc0LWJVOFhoMDVJM1dZVF9IYnY4Y1NId0ZyTnUySzFrTmc0RVh4b0I2cHJLY2xxVEtLSWl1enBMMVp3Z013Mk1PbGozTS1reHdHOEROYmhWRkwxMGxlMXZnWFhDMWxmbm0yby10amZEb2NfZWNMQlhzbQ?oc=5",
           "date": "2026-11-25",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Tata Steel shares recover over 2% after sliding 10% in 2 days. What should investors do?",
-          "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxOZnIzMmdDZ3hxeXpWazQwZ0N4X3BnTzNsSkZvejI5MlE5RmZZRUtiUENGd3paV19GSnhEUzdQbUN3Q0psWU8tZEdqUjQ0OTRpa1ZJMWJ3azYxVW1yQm1zUXFaWmtkY3J3V0hrNWkyQ1h0RkZZR3hsbHAxMTRvQUJsa1B0cmJ4aWlJdEZQclBteDlCb1pzRlYxa1RZa1VyeEpuNmpObVhaemIyMHk5dS1LWXhmdW9LbzZoWTFJVHRPQmpfN2FNRDZoY2dEVnJRZzBVRlU1UURqNUpJcklBbE04MFFuZUdLSk1JdzRoV0RLMNIB9AFBVV95cUxNUHZBcjlLQ096RXJ6dnpmMmk2UVFZUmtZYi10Z0psUlZCYkpnZEtyS2YtYU9OWVE1M3VuN1Nsai1IeEpvLTluVE1OTWs0aGtydHFCNkZFaXI2N0ZnTW9idGw1ZGJib2NLWml4czFEZDBDVDU0ZEVzak1KNHVWRHoxUjM2Mk9xakQwMDdLaFRqbndSazRTZHhyNk56RHNTdHl2MFVBT2g2eDRVUmNYbnFlWUFIcVhZSzBmcHpMTFpSSDZvQXFMQThBdHNZXzRBdS1GMHprbFpReHFMR1VMdlJ5Q0Y0WlBRU2NCN3RVbDNJOHA4c0dM?oc=5",
-          "date": "2026-11-26",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Tata Steel to acquire 26.38% stake in APL Apollo, sell tubes business to company",
-          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPcXFrZzk0S2w3Ukh2cVViZEFTZzVlSkhFRTN5Vzg5Q2hVcDdxZTF3NW9QLXZyTXlsQ1hVN0lGaW9lY2Q4LWdCOVdFSkZlWlotNHViQzJOU0dfaTMxejgzU1NrUDdrdWxhVkVCNEFiZjVmbnRQcjRnczZRZnVMRkw3eEtiR0VoUzY3VFF3WURzTDNlSmpmd3BfVmR2RlZLbmFGa3c1LTVEeWFjM3hETzBKSXRYd0s1TktvUmRpVy03ZkpSQ1BEOU5TY0ZkdXdhVUIzakZLMTktUDVjQnRmOExCTGtBMXdtQzBsY1B0Y0tIV1B5R0850gH6AUFVX3lxTE5ZYU9QQXp2SGE0V3cwVFB6LUk0c1lCTGxROGwzX1pNREVxQXhmSXlPbi00cVB0S3FERzJzS1o1OENZclA0NTZhZ1h4dnJPYUlSajZJS2w3REt4eHF5TFRfZVVSTExZQWdUZWdVRndKOHZfU3dHYXJMNEw0RXduSVZyUEZZQTlRU0NTMjh1a2JPREFTeE9Tbm05WVdBangwdEk1X1ZrdnpIZzRTbVdvb2xpQ1ZGYnhSQm1keDBHeE1qbUt1bUdUVzY2dENMdE5wZ3U3VEFDQmY4S05zUnlfX0pTck9vQWJhbWFnNThoV0lJWFk4UjhMQld3LXc?oc=5",
-          "date": "2026-11-23",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Tata Steel expects downstream business with APL Apollo to double EBITDA to Rs 10,000 crore in 5-6 years",
-          "link": "https://news.google.com/rss/articles/CBMilAJBVV95cUxQNHlMd00zcENNZTFCaXoxdW04WGo1NUJLNGNzaF9ORkFwMExvamtDRFJpNkpUem0tSng0Rm0xWU5IQVR1MDhQR1RGLVF2Y3dXNzlnaS1SNC0zYU8zeXcwbEg5ZWw0NjVGempQbTJZd2oyN01UTzFJTE05ZzVmUnJmaENMQjZqcDBCN2YzdjNKVkZFbklnTnNlZm9FclpRc2lkaURxVlhDWkduTTBsdV9YQVM3NG9rT0ZJNWQ5RktyUkE3WWRuSlBrUDBmaXR6TG1abVpSVHk4d09vZzV6OU81SmxQMER1V1IyU1hhYnVOdFFvRm4yanBTTmticHZsdzFTeWVUVFJyQm91SVl5cVp6QkRaWW_SAZoCQVVfeXFMTUVhZ2x6MVZ2ZzFBczREQnF2WXRjLUlhaFBRNmlzOEZaOXZBeEt1d3JrbXkwLWVZWWU3ajlwTnY4M3IyWTBtendheTkxRktva0d1ZjRFenhvbkZPdE5FUlBmWExGY2NZdV9wMmRqVGxmVVQ2SXZieWFFSmYyMFJSdnpzX0g2bWdoQXU2VTJGUGlmbkxBai1STnJQV0VFeThJMXdnT0FXZ2c4d2xYb2FtQ1FvZjlrMlZJOTU5OVkyRjliU0kweXM4LWcxY21aR1A4U0Z4M1FQbjdjMFcxMGhoT2k0S0NHRGJkcnNFWEx2QWJPMkllZk80U2pzcjRrTVpIajFLRk5HUTZjeGhfU2JDcFFVTUpYZTY5a2xB?oc=5",
-          "date": "2026-11-24",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Tata Steel Makes ₹5,825 Crore Strategic Move, Acquires 9.91% Stake In APL Apollo Tubes",
-          "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPd1NmNmZlOVBNLXhWdTUzZXhtbEZpS2E0NWstV1VKclozek5Rc2o0SWlyRkk0NXA5YUZSVHJjQnc1SG5CRDU3SXZaZDVTMENiY3d0N2ZqQlAxNUxZM0c0cjNJT2ViLWg0dUtnVGh2N0RHZE9halBneHVCODRwcExTZ3JxNXlpbTc1U05xUFlfSWFKM3MzdWx2WThVQ1llek0zaUdDeVdkMHJUTlZPa2ROWVZQZEc3a3B1R1RLWDl3TdIBxAFBVV95cUxNczc5UVJocGphWXp0aE5HXzJVcGhmMU5RZ3dNTFYwblJRYzRHQW1uZmgyWjhYLUNRcVVhVDhKWDdvZFU4WHdSVmdTTkhEanVmRGpKeDhxTEdGSVRBVEl5RTIwSFZnQlRkSnlTdmtqX1hEaTBBeHdxVGN5TVVCMnJsazB1SG0wTm9LS1NzeS1CVkF3eFR1T2drSWhmdTFUaG8yNng0T2xjSER3STI4alRNQ09jYmZQekl1bVV2WWJQM3MxNWg2?oc=5",
-          "date": "2026-11-24",
-          "query": "acquisition crore India company"
-        }
-      ]
-    },
-    {
-      "symbol": "COFFEEDAY",
-      "name": "Coffee Day Enterprises Limited",
-      "mentions": 9,
-      "headlines": [
-        {
-          "title": "Sebi appoints forensic auditor to probe Coffee Day Enterprises' fund diversion",
-          "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOQ21Sc3B1Sng5UGQ5ODl2NVdXS3pWY2wtNGlxVWo1cUZubzdZRTNIaHh3TDRJSjExNG1IckVoMEV3ejZ2WS1fM04yNTh5QUJYdE1DVVA1ZVJQR1VwQ0tNd2paOUhIZ2prRi1BaHFjZDdBRFNrOWg1TjF6R3RSNkZfSURtX1I5aWVHenpVNFM0emtVaEtkX3hfbzdtQVBwM1Z6NlhXRGw4RllIRkR0T2VKZmtLTnBLRTNVMDJ0ZTBGbW5rc2NzUGxCSVRLaDJwZ9IBzgFBVV95cUxOQ21Sc3B1Sng5UGQ5ODl2NVdXS3pWY2wtNGlxVWo1cUZubzdZRTNIaHh3TDRJSjExNG1IckVoMEV3ejZ2WS1fM04yNTh5QUJYdE1DVVA1ZVJQR1VwQ0tNd2paOUhIZ2prRi1BaHFjZDdBRFNrOWg1TjF6R3RSNkZfSURtX1I5aWVHenpVNFM0emtVaEtkX3hfbzdtQVBwM1Z6NlhXRGw4RllIRkR0T2VKZmtLTnBLRTNVMDJ0ZTBGbW5rc2NzUGxCSVRLaDJwZw?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Sebi appoints auditor to probe Coffee Day Enterprises' fund diversion",
-          "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNRm5vRE5wdUN1aldIYy1KampHbGZLMTJ4MjVDcVZhOUNpU0tlbWE2RWxUeU5GSU5IVDRNTHJpcWtEaVN2MzR0cHdtN05wMmwyS3JUbmw5OHZXOUdpMUJqWDNkekFjNEFLRU5UcEdKVEtBTzZmLUw0djZlMUd3TUJnakR1eWtveDZnbHBQMjBhZ3hCNVBqUWVCS2JocHdMZEtKQ3ctTDZBNldNTjFhaU9TNDBCYnd2WE5oZGZDSGtuSXpmZXdzcXEyazFpQVZlS1MwMDFwMHIyRnrSAdgBQVVfeXFMTUZub0ROcHVDdWpXSGMtSmpqR2xmSzEyeDI1Q3FWYTlDaVNLZW1hNkVsVHlORklOSFQ0TUxyaXFrRGlTdjM0dHB3bTdOcDJsMktyVG5sOTh2VzlHaTFCalgzZHpBYzRBS0VOVHBHSlRLQU82Zi1MNHY2ZTFHd01CZ2pEdXlrb3g2Z2xwUDIwYWd4QjVQalFlQktiaHB3TGRLSkN3LUw2QTZXTU4xYWlPUzQwQmJ3dlhOaGRmQ0hrbkl6ZmV3c3FxMmsxaUFWZUtTMDAxcDByMkZ6?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Coffee Day Enterprises (NSE:COFFEEDAY): What Does the SEBI-Ordered Forensic Audit Mean?",
-          "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPek9qQzVLSXdtQmRwTFNOWW1HSS1mZWpOT25IRUw2RVBNNE5WcUVHV2VDUDc4OHM2dnE2VXpVVWFweTFyMzNyNWlZSlBiSmdtQURMaEJJYnZvRU12cFFtTEtjSkRxZ3gtRUJzRFZOazVsSVBhSG8tU0YxSkZseUdvMUJ2OUNaNjhpX2llMXY4bVkyUk9TOTAwb3AwUm14VU5Jb2tTUV9mQndyaHRhdEFKRmVEM3RHQ3h2WlgyMHpxMjhtaFV4amlMSklR?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Coffee Day appoints CLA Indus as forensic auditor after SAT order",
-          "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPdUxUWkoxcUdmWTFRWXdwOUhwUk9IWkcwRDBLRTBucFAtaEI2c3VvQTdJUDNEZEN1TVdXeUVnSWNUdUNWZTFMQ21oVk1wZk1KbFBJazFoX1I4SUZ5T29LYlJPTjA4X3Bna1laSno4bFU0NmNrRkNuRWtaY1BfUEJtVnFPbTdxNG9NLVhhN1ZETmZYclNpVkR5cEtUWWZKX0tSaWVpWlhvSW1veUUtZW9MV05uUQ?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Coffee Day fund diversion case: Sebi names forensic auditor after SAT orders fresh probe",
-          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPZXJ4OEI3UEExMDh4bGpHc1ZubklIZXVrVzNzaHB0cmpQRXVIa1ZzdTRsVGJYNTNyaTNEaENDcy1NaF9BNlBtOU54WjlpSGp5LUJ4MUR4VzJWckh6UEhUN0I5dnByNzVpdHRId2lkWjBvcFhGbVdmc1hRaTQwckQ0T2RHUEg5XzI3YWtYeERiS2N5Sm40bE9zVVRGWXhzMGFibzVJa3hjWFh6a0xQZEtoUnhIdFVvTlZGYTlTMWRJTGVmdTBHc3ctRV9tRXdDaDZQWVZHci1B0gHbAUFVX3lxTE5FTnIzbWZyYWZzWnJQZXZrcVFtMlh5RW9qSDBreEl2SXhRbmtxbE8zNEwyWW1vYTgzYTNEZ0FXUEw4SVF4cThkNmI2Zi1OVEZFYW5VSExYajNqXzVUTWhuSHptcHVXN1Nod3ZvNmlmZmVtSEs0d24wNWF4YnBEUUMwa1poY0JOWjB1alhWRFRpTEd1cUx2S0RFeUNfQk1JekZhTjVmaDdtMkMtcEhnV08xU3dOaWxWV0Y5WmJ0dS1hMnNVdzB5V3JuaFlFSEtYeGJpZjgxT2Y2Uzl1aw?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Sebi Appoints Forensic Auditor To Trace Alleged Rs 3,535 Cr Coffee Day Fund Diversion",
-          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPRmZISnFJdDBZTXE3dnE0N19UeFVjOEZxNFczWFEtV0pyaHhtNHBZT1VvZjBWRDJHS0RBV1RHVjRvSGJUTC1TWHdDYkJoYmtZci1rbXJ2NnpLdy1qek9oMjE2cDA0MGdwX0lUVl9ING44WE1hakFjUFZsb3VqN1hPaUZjZ3BkU3UyUE5kSWY3ZWNTZlAtVHJCaHRQWkpCa2dLR1ZlbUdQbnB2OFBSMUFTQk9PSUpoTlpDeHlCMWVfWGhFOFJTZDhnTQ?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Coffee Day Enterprises (NSE: COFFEEDAY) Says SEBI Appointed a Forensic Auditor",
-          "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxNSzN1Z0ZqTlZtSThhaFU2Z3R1VGp5ZmQ5RUZsQy1iSFFEZTVFbkI0emF6ZWtlaWZGakp6TlI4Rzg0YVlhMEJwd2ZCa3NEaTRyOTRGc1NnLVNrbldyd2ZJdUhsZ3otR2FtUGtLdG1kZTBmcVQwenZ4T3pTb1JWTHV0R0NPQi1icS0waElBQ2F1N3ZDdjQyNFA1aS1ZV3ZhLWxVU3ktQWhsRmduSDdMQmFwbGZBSDB6TDk4QTVtUHl5dTlRaVRWT3dUajduSHI4VlZjenMxX2tBaGNfOUJQZVcwbWVVaUZ1Wkp6Rmc?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "Sebi appoints forensic auditor to probe alleged Rs 3,535 crore fund diversion at Coffee Day Enterprises",
-          "link": "https://news.google.com/rss/articles/CBMihwJBVV95cUxPbExKeEs4UXVQX1lNdlVpZmZuVzd0SHB2RDBfY3FkY1FXcy0ycmNybGtPdURGODJxMUdCMUlGeUJQTFFOUHJkeHBUY28xYjFhYXVVU3FlN0xPa3pCZXRTNU1HaWJFNDNaRkItOW0wZVBiVnIwbUh2dzVxYkdZT19YQ2NBWnhKREtad1VuelY2LXNUczROX3ZZLTdDOHQ1Wk5DeHNrOUJuQlc5cHNPUmlDN1ZKaFpmX2s5MWEyQXVuNzNXOFJfSU5HLWxKTDFQZ2tkZ0M5NzhRZDdNZWN4ZF9sZWh3Y1FmNFZhdTBJaTNUVTdxR0psMXlreGFVc05JSkdHQmJScWpXa9IBjAJBVV95cUxPeHZUQ013S1Z3MnpPTjd6bFo3OEtvYjlMeUk1ZElWbVVsTU9kalhzcXQzNGptSG1jbEtGeDBNLTFKZ2thbW9rc3h2Wi1nUlBDZ2NWNi1YUllzMUtfNGFILXZ3T25pQ0dPLXZjdFdLaEdKOWpNVDkzM0JxM3k4TVJmandNVktjU3AxcFJWLWZ4Z3UyOWhjUjVDeDNYckN2OC1ONmE3cy1CX0RQNnEycXJlRXA0dEZvT3Nrb3c1LXlsQ0xubXlMeWc3clJoRmVJZFlJeGV0andzU01DZEE0Nk9QT2htblJ1eHpQZlpFYjFLSkhncy1JRjNYbW1zQ1ZfaUZ3THFjVEdmZHNSXzVK?oc=5",
-          "date": "2026-11-26",
-          "query": "SEBI order company India"
-        }
-      ]
-    },
-    {
-      "symbol": "ADANIENT",
-      "name": "Adani Enterprises Limited",
-      "mentions": 8,
-      "headlines": [
-        {
-          "title": "Diamond Power Infrastructure bags fresh ₹488 crore orders for Adani's Bhadla-Fatehpur HVDC project",
-          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNWHhLdldLTHlibGtUbWp6ZHFjVlZILXBlbzhtMUtObm9uX0RvZW02YjU4ZXVjeTN0aHpRRTU3cTlVdlVsTjg1bFA0VkdEVjB3aFloUm5NS2hjNnJMaWtPejFFclZQYVRmRDh3X2JFSzIxRmE5VVBPZGxMUEFkbHhySWVpejlHWmE4MVc2UG1sZXVvSW1nVXplVGtQMDZVaHY5Rlg3V0hKeFRFRHM5LWpUREw4T01NZWVzdGdkN0NJUERhZnk4WjRYZGFFSTB0VzFpMjA3cVFhYkNJNUMxbFdnZGc2NERERklNVzJIOGd0WWQzaV9hSkHSAfsBQVVfeXFMTkJFd0VCdlNReHhMbWNJU3N6MUZPcTFiY05jblRTZkxkZkpWSm1jZHpxeUFsRDNENElNMk9Ba0xwNEo1a0t6Z21kWUFEZzNhamdhSlY4OUo3WENPT3BZZkZEYjZzYWF6c3R4cHcyYllZaDZBOHhiS0hNQWUtbk1sMm9uZDI2T2YxZlRlVFk0Q2pHb00xYmIyTTZ1cjJtZ2pRM3VraFRhTFg0SzE1MW5hU1lsaUlEeXNZX1ROQWpHa212YnBXczMyUER3a3U3UHM5UGFKUUNteXI4eHlDS2prV2NzQUc1RFpUemo4VGxGVjNia29YcHJkbkh5Tzg?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Adani Enterprises and Adani Power Plan Public Bond Issues to Raise at Least ₹2,000 Crore",
-          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPZU1iTGFTcjZJRFJqUjBUVnhkeVdVVmRDN1ZNNE1qbWtMTkw2dHZycy1JM3dzMkkzRTZTZU92eEpGS0xhR0Z3bUhQbll6UTk1aGo1eENsOUVEWDJmNWhLSEZ2S2hRR04yNk5FREJFMjQ0UWh5akVXMHZxQllWY3pibGN3c3pwM2tfODRXU3NuRTRvbk0zOUdQMUdfcGhNYkZJckE?oc=5",
-          "date": "2026-11-26",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power Infra Bags Rs 488 Crore Adani Energy Order",
-          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPTlJhZHpNNmxTdVQzOGpITmN0RDE4SUNIenkzbElBYVRfZEpYUFRBNFNlbjV6OGd2NVJiYVFGUWFodDNlWXBZM2ppa2VXQ3pSNTlrai1ZSVVIOXIwVGNvRFU4TkloYjl5RFo5eHRRMWp4QmUwMlhMRDRfMGM1ZnBDanhDNTBLYU9QUjg5aHpoaw?oc=5",
-          "date": "2026-11-26",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Adani Energy Solutions Bags 2,500 MW Renewable Power Contract",
-          "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNcklOZXFkMlB6d1l0clNxV2g1Rkxfd0RaampYYUhfTFZ4bUlGUTFQZDBtUFk1RndsdDBsZ2Z4c0xELWlhNndWWXBnR2dYVXVmcEFSdlRoNzQ5TS1kNGwtNHpPRkdRR0R1YUZCdW9kRDFrMm5fMzFiOFpRVGtzbGZvNW4tLVVZSzZrZnhXN2NaWjJZSW96Zy1hVXkxbWtVQzJDOGNxdnpUV1BRQ25FdHA0XzZMN3A1YlFYU1Fpb09pVXNLYXhLVkVWTnJBalJZR1lldFdWTHpRVFRoRjFvSzRodnZmaw?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power Bags Rs. 7.08 bn Adani Energy Solutions Order",
-          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPSUNQTXZzSGtnMEZSOHZ6T0Jla1dOUnVPYWFxSktZbVpmSGVIYWJ5TUNKYlc2b3ZJVGJkTTNTQ2VPajRHbnlicWVYZ3c2NTMxcnlxUTVWTUZ0TmJsOU5NdlB0VUNsa2ktbHo5S3pxQ3JQSFpvSFp2OUFZTUpwUWs2c2xOdHlYOEtvakV3M2NqQ0wtVHJiNnV0a09oWGZLS3oyQ0M5aUp4aXY1eHB3eTRIVWpLX3VDN1Z6Q0ljMlo5YTZBSGw3Q0RGMjNjWS1UbWstYVd2aHM0WENvcFJEVUdENC1n?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power Infra bags Rs 488 crore Adani order for HVDC project; shares surge 2%",
-          "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNOXJYaHVBWFdINDZ4VzdlQ1VFQ2ZuMXg2Y2w1WXFvcXplZmxTaFQ2RzVKZGtTOHFvT1E4NXF2akwzRXRsSlFHNGtNOWRpNlNzb014VTFZTnRMcUQyel94a2tUR0ZGYXZ0TjB5SkFjdXhLNk5Pcm9ZQ1Q4Q1lLZUFGcVdRb0VSY3BlbU5KbVR3Y09IeVV6d0ZkZHlpOE0wZ2tXS2dBU3JKUzU5c1FERUF4dm5OTTZJcFpGNDR4Sjczd0J2WW1aNkdFenZfTTdxTlZMQ3ZmM3JudTnSAd8BQVVfeXFMTzZ6TzNtUTJNYVZ2WU9qQzM0d3Qtb0hjTjNLQ3lGeEl4bldMNkMtdVpLeTk2cFFvcGhjQ0xjT1hidTJoZXBXS255UURmVGFHbmZvWmVHaEllaXhtT2RPRlNSaHB3SjdMMjUyalVLLVZMbTVVSzIyTE85UE12RzV4MVBwLXdYNmdocWlacE5FVmllcEI1TGROandubE1uUkg2dzc3Vi1jOVFPaEo1WV9Mc2gwYmRRVm5Ud0o1cFpncEFubWt0X0F6WHJYU0EzREZtck15NmRwWWhfUnp4U2tUQQ?oc=5",
-          "date": "2026-11-26",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power receives Rs 488.18 crore Adani HVDC orders",
-          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQWXNTV2NsUWtlMmhGYlpsamZwbDBydDhmZjEyUThpa0xoM1BqREdteGI2cURMMXVCQXRKVG5qb0xmWERRcGxpeUlfQ2xXZG1hVXdYSXBtOFlkaUFOUmhGRHhxNElEN0Fmbmp4QUFpUHVhMXkzN1ozaUJYRkRTQUQ0djR0QWdmWW1sMk1MQTBCQU9NVnBNRk1mbG5QTXA2aTQ0bUVzOXh6dDAxSTh0YXJFWW96Sm13Qjhm?oc=5",
-          "date": "2026-11-25",
-          "query": "order worth crore"
-        },
-        {
-          "title": "Diamond Power Stock Jumps 3% After Receiving Orders Worth ₹488.18 Crore From Adani Energy Solutions",
-          "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNeGo4OEI2Ukg1ekI3Q29TWjh1dXE5YkdqbkhPU1pIdE9BUWNKUFhRQVg1REdFV010UC1sRXZPaVVHY29nUW11akhlTzdUbUZCaEFZRU1mSy1TVGFwZENyRWZTN0huZ0xfRHpxZEVvaHpueUE4NVM2a0hiY1NwRS1wMEREWTNRQWV4Q3FDOW5QVW9FRVd0N0FDdVVCc0Y1bV9JUkFuTnJjWkZ3ZjVrcWFBU1pXeXNvbHJGRnZsVWFBRm02dzZIVUVKOWJYR1lEUm5hS3pzQjlsSXJNaU0?oc=5",
-          "date": "2026-11-26",
-          "query": "order worth crore"
-        }
-      ]
-    },
-    {
-      "symbol": "ENRIN",
-      "name": "Siemens Energy India Limited",
-      "mentions": 7,
-      "headlines": [
-        {
-          "title": "Siemens Energy India Reports Over INR 10,000 Crore Revenue in FY2026",
-          "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOU0J0SFNNOVhqWTRBeGQyR3phYVVqTlhETnp3N0ZLMnpzTHRIQjZqY3c3NzZWcVVFNHFQZlJ1WGdqM3lQTldYQktPaFlOSkFRWGFQb2ljZTNaRE41bUtneS1KaWdjZXdxNWMzemd2Q0hvUk90V2F5aFBjR1RUd09hY3ZMemJTWk9uSFlKLUFXMFRFZkJkMWhRVGN4WnlmY0lmUVg0?oc=5",
-          "date": "2026-11-26",
-          "query": "capacity expansion India company"
-        },
-        {
-          "title": "Siemens Energy India Q4 Results: Profit zooms 82% as new orders nearly double; declares ₹12 dividend",
-          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNSjRYY1VuN2ZyemhxTTJYb2xTY1oyYUFLQmx6UTF6aU45TGJmS3h1QlluVlVaLS1FczRUalpFWGFTejQyOFpqd3pESG9fS2QxMjdoY29RUk9SSGEwSjlvZzVucm9NVEZad09LSnFib0NWYWp6aHlsai04SjZodTZRS0liTmxfZEsyRnZzck9GSXlJQnVXZlFTU0sxcEZTN09FTXJkQ01VLVJyRndXTEpsUnJ5UkxoN3FJeXkySkx6Y2Z6ODNDanlwYU9SNVdnOTE2UlotaHNxaVp4MUJmdmdfU3VMb1BNQVdnTGdnXzdRSTBkLUlEV3fSAfsBQVVfeXFMTjJrV2NBM1RUMzNvV2ppcDZTQ0dwaEh0bmhXaVRDWkVseWo3eE5rWWpSbzdFSWNtYWZGS2RNYnhkS0FkOUg1b0tET3ZGWHZDY2IzTkFNcUtzRWx5Z3kxZU03cFFBRWwzY3U2SkZNTUVuMlFPWHhwVHIwdFpNTXNMSHh5TmxWSkNnQmoyaWtiaWpsaWh1VDJYTFJkSFBzNndaRFlrZkZNSFlBVmd6QVJSSVlNZDEwMU5XUVVaZ1NqSlcyT1p2YjVXRmVIQXJQNHdjM0dycmlxbDUwVlQybnpCdEZfSTZacTY0MWRSNVZBOGxtek1xdmV3Vk1hb0U?oc=5",
-          "date": "2026-11-25",
-          "query": "capacity expansion India company"
-        },
-        {
-          "title": "Siemens Energy India quarterly results show 81.5 per cent profit growth, shares gain 4.72 per cent",
-          "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVUE1MmpDenI5ZldUT282S0RocUlPM1FXZHpSUUdsTUI5eDRhZk4zZWV3dHlkLUN6OTZZRGR0bU1STzQ0ejZSUm5GdWpUR2Nod1FVODJVM1ZVb25FYU5UQmM4VU9YMkVlektSYy1vTUtoQXp2LWRVYjJFNG1pcFBkUzZjN3FPVy0ydU5tcjJlTTc0U0tIZFlfTW9zTUpQZXJBeTFuM2xHSGxrM3kyV2N6eFFQWUFnOTA5VVlmZFhOZDFEUF9LaVR3YlNhc2hwc21aUnlqSw?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Nifty 500: Siemens Energy India jumps 7% as profit surges 82%; LG Electronics falls on block deal",
-          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOeXA5d3NqbHNOTXlFNVVQdkJIV3oxUmFxZ3MxT3R3OHRXM3NzdHkxelJUMTlaUFFCSHc2eE51NnpfRWt2bWdLaFhrTkdITkJSdlM5SjM4UUdaclJ3djI0Ri15bXUwdnRoajlKb1c4Qi00R2ZoVVNUYno3TU4tWXExTTBqWElOM2plWDJvTUNsc1hYRHZHcWlldnkzZmYyYVVNZUxFSzc3R0JaNkVJQWxrWWRtcnVCZkZYMll1cm5Yd1BjMG1RS2JCLVFTRUxqMWxNMXpZU01GMHNlRWJTaDZYQWhmZldfN2VGbFBmMTFvRjdkRy1i0gH6AUFVX3lxTE5zc09GZmtFZGRsaUJqNHJRUjFOb1dvSVpPTmlPdDF2eXlXLTN4eHh0ODNxVTJ5RnNTYXhFamVyMUNzS2Vuam1FY3d2bzkxVXByYlFTWmt6WkJOTXByU0pST1dnZ3JVOFhEcXdhT0pxLTluRlF0THlaUDZfR2wteVVnWjk5enRxWGZMYUFJazROYUNuS2pwRXdZMmxWTHZibGNTQWNOSHdOcEFteFcyeV9FdmN4WWVNeDhKczBvLXA2WUJ3c1RxTVBRemZwM05qZE5rVlUwYTYzZndabUhpWVFnVEVob1o5OHBTQ1kxanAzN1BTNlVyUGE4bWc?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Siemens Energy India Q4 Profit Surges 81.5% as Orders Jump 92%",
-          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdTRE5fWk1iZ2IwOUVXMkwtSFJKR09tMFdUTU8wRVE1cUhNRGkwM25JdVlZU3Q5UWpQUzFQdDFmTjhDTThfUUUzX1ZUTE95MFcyV3R2VkRHYTlhZVRJYlZRYTMzbFJEMEhhRkJBTk45TTJfQmxUSWNGVUxkdEhkSWNMZmd5c0l2SmVDcDFkaw?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Siemens Energy India Stock Jumps Over 9% After Q4 Profit Zooms 81%",
-          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPcURjS29UcmFlNkgzYTdacHBBcHNHdkdBOFRGYVVmb2hPYzlFUmNfcWwxdndTRWJvTVF3R2w1ekVSbjd5bWRSWG1lQTJxN1RmanA5WUM0OGlPYXhIcVJUTnQ1V01ESHFobGxEcWdId3lTZ1F1N0huTWNtaXdXTWxuZFZ3RldVRE5wbm5lMFVSQXhONk9Ma2xiSEtYcmd3M2lLSXlCa2dOdzhlRVdqNUdqaGpqY20tbmNXYTV1RE9oN0RaLTMxUlROci13RknSAdQBQVVfeXFMUHVCZjloSk93QTBGRW9HVHp4WGFfS3VRT0wwTUpyS0tRbXVDeEdrVEJvNC1IcUo5ZzlNR2xESzNkRHQ0alctYjhtYkxRUFhqRnpXb0ZaaGJFcUN3bnlVVFpOT3Vmc285d2xzaDFmaG9oYlFUbFh2NFFqdGJqTjJvcFZhZ0lGamJuNmhPak1DanlxQ3A2UERJODZvSHYyRFJ6cURNUTg5UkVWWXh3Z1gtRTBwT29hYW92cHJVVEZHQ2Y4elZDeXF6NHhaSTBiaEc3Y1NwQkI?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        },
-        {
-          "title": "Siemens Energy India Delivers Stellar Q4 With ₹653 Crore Profit, Record Orders & ₹12 Dividend Take Centre",
-          "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOOFJsc2Z1Ulhkc004WVVZMGx2TWdjNWdSWEZ5dEFKY3EwOXBhQVctZFJPcWlPOVljRXMxTVBOWEdRQVhPY0Z4ZXZBTnpYR0w0cnkwOElvOFBXYjVBVVlONl9FXzlBN3d1U0VSMFRBTFJCVUJ4RUlrT1VLMjg5dWNaNDdPMUVPRlgxbEFMUF9NSnlEakh4ZUs5dmlLeERwUU5QejZFY182RmJFdnpHQlBlNEV6LVZmRDBfQ0NkeUx3RXA2MGJYblljT01aMGtrenhweEYzWmVlMi04OEtWeWFqTtIB5gFBVV95cUxNR29jcHBXMEdlWklHUTVZSjQ1Tk5xejNxZ19ydk9WbDFNY0R3SGN6aEhYbFpSM1Z1X0lHVFJsZkFNX211MFlqbXZBYzZpNGpRVC1kNzlCMnpLVWtRMjQ4WEtxX29iMko2WjhHMDBvTXdPcXUzOVlYMmIwWnNiVFdHN3FxN1BZNnVBRnBSY2dsSVp4cXdCSEVxa2MxcTRMQW5SdF9yd2liRVh2ZG9pYm1heU90ckE4ZlNDMHR4a09mLUxRd2Q0bmR2YWlsWWVGVkh1R2FnQnFRVnVNWmVPZjhOVGtYNFAyUQ?oc=5",
-          "date": "2026-11-26",
-          "query": "quarterly results profit India company"
-        }
-      ]
-    },
-    {
-      "symbol": "CIPLA",
-      "name": "Cipla Limited",
-      "mentions": 6,
-      "headlines": [
-        {
-          "title": "SRF, Cipla, Thermax: Who's impacted by US tariffs and who's not; Jefferies answers",
-          "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPNEptODJWNDdqaTlQTXpHdHlTMnBDaUlSZUVpazM2TldVXzdOY08tTFZEb1g2cGdNOHFKU1ZfZmRQcGxSZEpPWVJEN0p5YWpRQUFfZGlud21QT1haUm9wQmJXT3BSNENfRXo5enNOY3V5bElTVGg0OGpJZC1FcDRDMEVFSy0ydFB0ZmE2X01jZGtySllobjZHOXRPUV9ZS1ZhM3o3cDdIQV9kWkFQVUJrZHpOV2JhS2dqV0FLVWxMX09Fc2V4MUpxVzZJRlpYY2otLXZKWktBOGhzdmdwbFHSAeMBQVVfeXFMTjhXcHJ0YmRCeVJDUnFRWmZXVWFzVnJfVXlzUnp1VHpmQjIwZ0JwYmtWRlV6WlFjZ1pwdTZFOE85UUlXVW1qVU5ZWEZXMVprYjBRaGo5dnpaSjFWVmVWY3MtdlN6NUxneWdqeEhWTk1vaWkyWVdpNHNwNDBESFlLRzRlU2hRUHdicHFoMGlXUlNNYTJuQnp5eFl5YTd3OFVwMjNOOEdxN1JLMG51N2ZFcUQxeDFsM29iYVUyT1ZWZW5QeURKb1paZXlBQ3JFVGV1WjRzdExtX0kyaXF0N2lyNXd6Rms?oc=5",
-          "date": "2026-11-26",
-          "query": "tariff exports India company"
-        },
-        {
-          "title": "Cipla Gets USFDA Approval for First Generic Version of Flovent HFA Asthma Drug in Two Strengths",
-          "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQMGpVMnh5UGxIbTF1WTBBYnJaNTVJZnE5Qno4VVl5SG9zVndYcFlNeTEzYTNucHhSRVJhZHBETWF4WnpmUlVEbmJSZ3lRcTJicGI1MzRUMFhNTjlCZFRTbzB4eEdoNVBDdVFYUzAyeDVHRElVTHRzWXlkWTRIVmhJR0xzeWRLNTZOYm44RVdaQ0t5RE1hWWMxcS16S2ZnQl9xQkFr?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Cipla gets USFDA nod for first generic version of Flovent asthma drug",
-          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNWlQ4Qkt3OGwyWjlwbzlWcnF3UFItMUUyZ2VXMFpQdGVIWHRudXFMUnpjdXREeGtpWTg0WW5mUTNvUWdteW9IQVhpV2VOQU52ajZKalk2SmRYbzE3cjhyYzlwSDExVXMxVjNHalZxQnRZdFVwVU02aHhKZmt2UmVwU3hRQ1MxY00zWkdsNjM1UlVWcEJjX0lNSF9jM1VvWUYwb0RXTXRXZTNfU3gxb0lULUNieF9UbUhkb3MxMGdDSktxQV84RXQwbVhsRlZZZE5rempOQWx30gHbAUFVX3lxTE1uM2FIdjYyd1RweHdtcUs3NThGR1dabHk4VW9NcTJlb3Jta0ZyenJUVkJrRjBIcGs1YWhrMlBITnNPTGVVcjZ5RnZvQk9BeFByZ0wwSHZWdkxQZWRadnVULUw0U3AzM21lbC05X1lMbll5S0VxcFNUS3plcDZ2SS13dVZQeFBjNDVqTk9mSUlERHo5TVpoN21uY2RiZW1MNE9PR3JkY0phaGU4bzh0RGtDYlN5c1EyV01ndlR5ZkNfQUdReWx4Z2RTcUlzTlB0QzgybFNwMmVTV0JXaw?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Cipla and Teva secure US FDA approval for generic Flovent® HFA for asthma treatment",
-          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPbUU5T3owUlBUMzNnWFNEajA4bkVrQ2RCTy11b0RQUElrMnpJbGFyZV83QUVMdTF4SU1jR2txZ2JaWlpZODA3azA4a293OTd2TGl0bFo4elFQVVhfa25XQXYtUHliVTZJT0FVb2JjdFNHOTBBal9QNUU0WnRmdEViUVNyUnhVT2pqX2FkMnNmYm1qclJWYjdGeWNzTk1EMHltWHpMZU1sNnlHbGpNQ2l4MHlhTHpTejRBVHlKRjVoenA?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Cipla surges on receiving USFDA’s approval for Fluticasone HFA MDI",
-          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNanFCNmMzaDBYRkpxb0F5YlZyVGFFdDloM29VVklmY2lFVWk3bGs2b01ZUDRZWVJ4S09kLXl5NlItRThXaGRxa1JZVFdxZjVLRFp5dmNlLW1sNFFIbTRkQ29RWURSd3ZCRHR6RUhOQXRGei01MUtoYnlNc3VCSUpZRVpHOU9PM3FmS05fUUd4bVRKcHNzZUE?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Cipla, Teva Get USFDA Approval For First Generic Flovent Asthma Inhaler",
-          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNWmZLN1YtUlFUeUE4N2JxcFFKZXBDMDQyb1BKRjNoelhfOHZ0WGh0X2I1ZklQeFJSYk9IbWw4NGRCWEFiZ1RxVzBhOF9Fb3p3Q2NhMm5Ib2YtbUNhRnh2TFlkbDZMby1mRUstSkE3M2hCOS1RX3Fhb0lQcG1NY2VEamlQQUVLWXhmWUxEbFoxdzJnd0hkcWgzZVNhZnlQUm5yWk5PYTBVY0JRTDVnWkVzM1JDZUxnSE13eG9JR3psVUpYRE5LbV80VFdCc2VKbGluTWVtUnpOcDk4Z1lS0gHiAUFVX3lxTE5uaWd5c3YzOW9OM2NrdVpSS0hIUW9abW94Z0RuRWo1ZGVhTWM2d2M4TDhpVVZkeExhb1FsQmg1elhuR2hGdDFuQ1NQRzVuVUN5RzN4MGlQYy05ZjJ5VnBiTTZPM1YxM2VkdDZoWnE0UDF2bFNRd0ptSk1DaEthRVRPZmo0TXN6MW56a0FGdExrd0V4alV5WG1VOGZTVUx5Sld5NGROWnRLb0VqbnFOenVBT242TmlwRlg1Zk9qRk5GaG9PVmdZdkpOOHpqZEQ2OFRIVGFJVHRLS2xqaXd4MHBzTkE?oc=5",
-          "date": "2026-11-25",
-          "query": "USFDA approval India company"
+          "query": "block deal stake India company"
         }
       ]
     },
     {
       "symbol": "ALEMBICLTD",
       "name": "Alembic Limited",
-      "mentions": 6,
+      "mentions": 9,
       "headlines": [
         {
           "title": "Alembic Pharma gets USFDA nod for additional strength of leukemia drug",
-          "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQeFdiSmxwRTRJamo4NFBOTENERFNwTnktTXVxNmFNbnkyckxPcXNiTmU5YUVIN05GVWNuU2g1YmdIejAzQVo1MW5MZ3VWUWE2N2psQUZpbGsta2pUNnVFcUlZRnplemgyNmhuWFdrN2VVMi12bmx2WnFjSHNjYTJaWlVkeEk0aWswS1NTRlk5RHFXZG5QYWFKU2UxVVgxWkhFcmplMGhfSHJUWnVTWHdXQWFxZUI5R3RYcEgwVVhiVGFmTmxoN01rdExUellteDNyX0l2cnN4dFF5UnRuRGVTR19TSG7SAeoBQVVfeXFMTjFKV3dzZzFxV25BWk1PbHV2a0FqOVNHS0FpeHBrN05UWG5fd09uMXZBYzFlMDVsY3NJUVVUZVg2X1NEU0ZVSDBRNEZuSXo4REhLR3Y0QWU4clVudnpkRVhzdW56X1BLNGpoR3p2VU45dlkwd0p5ejE4NV9YWGVwS0dWeThCUHVaQ3p6Z3ZPVkVjWlplUmJrOFhkR2hIZWxqU3c1c1RURDI4MzJ6U1hKTFRlQUFwY0Y3SHBTUUl5Uzk2UVVPYmxRS0syMmpBZEJfQlR6TWZjTnA3OGlIMDA1TmNXa3o1ODlldnV3?oc=5",
+          "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxOYTR2UHItaGgzOG5WaVpRczlieFRPbGFCTnZPRTlzQWNwbXRRenJFWlgxc291WU1pTUd5VzNNbVhHZktyOWZjczdjOGV4eHlrTjl1UFBOMmY4Z09KcEhwUnkyZHM1cGpMNzR5M3ZmcGcyQko1LV9ldURaZlhjQmhFZ0FCM0RFOGVCRUR0N1A3b0R6dV9OWE9ZdzZNRVlsYjFqLTYyblAtWHlsWWh5WUZPYlNnWFhFZUx6UHVuMm5ZSVlrU3pWTUs1OUdkMTJVLXVSaXBRdk96dVlVZUNBQUlNaGlEMllvTy1BRHhOY0V4UDFnSG5Vb3hfQ0JyZEpabjVCRkRsc1hHOTlzRzd4bS1RbmhkTWJIX1NhdlJnMFJB0gHqAUFVX3lxTE4xSld3c2cxcVduQVpNT2x1dmtBajlTR0tBaXhwazdOVFhuX3dPbjF2QWMxZTA1bGNzSVFVVGVYNl9TRFNGVUgwUTRGbkl6OERIS0d2NEFlOHJVbnZ6ZEVYc3Vuel9QSzRqaEd6dlVOOXZZMHdKeXoxODVfWFhlcEtHVnk4QlB1WkN6emd2T1ZFY1paZVJiazhYZEdoSGVsalN3NXNUVEQyODMyelNYSkxUZUFBcGNGN0hwU1FJeVM5NlFVT2JsUUtLMjJqQWRCX0JUek1mY05wNzhpSDAwNU5jV2t6NTg5ZXZ1dw?oc=5",
           "date": "2026-11-25",
           "query": "USFDA approval India company"
         },
@@ -662,9 +570,27 @@
           "query": "USFDA approval India company"
         },
         {
+          "title": "Alembic Pharma Gets USFDA Nod for Bosutinib Leukemia Drug",
+          "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPZy1WMEQzNHBqdXFMZzJkZW5HU3NYWEdVSXdNUHB5Zjc3VDk4TU16M2ZfU0x0eE5uVEJVSy10ZjhwZXhtdE5XOXUwOE1TUS15WEFLQUk0TVhjdEppOXVaZmZMRU5fR0V6VGhGMTlMY1BDNWU0eC01QzB4dG1RUko4ZXhOcENFUHFMaFVFMDFkQmZhSHlGR0FKREpmamtNMEMzQzE3Qi1PbTR0dVZkdjhMSTZpTdIBswFBVV95cUxPZy1WMEQzNHBqdXFMZzJkZW5HU3NYWEdVSXdNUHB5Zjc3VDk4TU16M2ZfU0x0eE5uVEJVSy10ZjhwZXhtdE5XOXUwOE1TUS15WEFLQUk0TVhjdEppOXVaZmZMRU5fR0V6VGhGMTlMY1BDNWU0eC01QzB4dG1RUko4ZXhOcENFUHFMaFVFMDFkQmZhSHlGR0FKREpmamtNMEMzQzE3Qi1PbTR0dVZkdjhMSTZpTQ?oc=5",
+          "date": "2026-11-24",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharmaceuticals (NSE:APLLTD) Gets USFDA Nod for Bosutinib 400 mg",
+          "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNV1RlcUt6Z1lWaHpLNmI1ZjQwb2dVOHVqTEE5dE9FZ24tbGRQWjk4dVVIYXdnZ2wwMmJjWEpSTVhndVlxVEN0Y1lhRHBQZzdOSHRfd0E4ZVVnRy0wY2k1NTNxNlNrN09nVUFubXRKWEt5QVFDZHFfWmU2SXNGbEFTTTRjYkdzeHFWRjJ6Q0tESXhYU0wxN2wtMjIwcDNyY1JNWk9fUzBaMXJhRURndkpPV0RJR3dNZGlLdllYOUpWQVp4MGdoY2NhZi14TkR2eldrdG9OMU0zc1BmQUdFckE?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
           "title": "Alembic Pharmaceuticals APLLTD USFDA Bosutinib 400mg Approval",
           "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNM2ltMzFFSXlWd01Wd0NncGVGOWl5Y3FHekhpXzlhM1VpWWJGRktxQWtyNzh0R3E5MEYzV3NHMThVb2xwdXhqUzJzc1JYZlphTjdYZC1rRjJDaTRRTmNkSEhjVWc1TkI2U1V1Mk9pZHdCQ2xEWDhISk5BS0pndUVvSkxDblZEa1lVTW9TQmJUSmg0LUY1UW9fUWY1WUJxM3AxZTNKMzNDZDNvS0RUWXpHQkZYcDRaZUVBWVFpVG5Eb2c?oc=5",
           "date": "2026-11-24",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharma receives USFDA approval for Bosutinib 400 mg tablets",
+          "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQa3VYU1VDTktpU2FmU0pMdmJfcVNWOUtGdHpaYmpvWWd5MXcxcWlVVzhJYUNEY0RtVzVnc1dZc1lZWlFCQTZxRWtlT3hZTTRFbGw1VVp4NkZEcTU0VXczc1hvLXVUeFQ4QVJQQWFmYWFrek1rWmNGV015akg0UGZSV3pKelItZXZTWGhTTWxHUGpnOW1Fd0F1a1BqTnBJdw?oc=5",
+          "date": "2026-11-25",
           "query": "USFDA approval India company"
         },
         {
@@ -678,10 +604,102 @@
           "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQbzQ0N1ZlSkUwUmlsaG9oTVoxYVZROVZiV0x1R1dTSG9xcER1MnU5bWVKQ3FTT2dOaE5DZkRMVUZMbk1fUmtidHF5dXhKNnd6T0NYU3dEbzV6Uld3dmgtZW01a1liam5MRm4xeFFKdXVxcGEtTjltbGFEaUQzbW9hNzllUzI0ZDhpaUpSdGkzdjU5OU1iQlI3M1ZPaDhnZG1HRmcxV2llRXd1RURjRV8xMFd1VEFqNzRNSUs4?oc=5",
           "date": "2026-11-24",
           "query": "USFDA approval India company"
+        }
+      ]
+    },
+    {
+      "symbol": "ENRIN",
+      "name": "Siemens Energy India Limited",
+      "mentions": 8,
+      "headlines": [
+        {
+          "title": "Siemens Energy India Reports Over INR 10,000 Crore Revenue in FY2026",
+          "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdWF4RS16cnpYSXZMSWhuMVF3Tk9xRWhPWEc5WU50dzY2VnJaaGJtSjZrb1NmcVgtZi12anlXN1FiekY1WE9vV1o1ZEh2aVpReXNoUEpqQTRhb3F6WTByeFFRRGdVTDhUeGdoNml0U3dHQmx4STlxZDRYeXd1ZDZFZHJ5WmlBTlFneG1IZWQ5bEoyOXp1eXBQVDdvT2hUdFhjMTJiZHdiVWc?oc=5",
+          "date": "2026-11-26",
+          "query": "capacity expansion India company"
         },
         {
-          "title": "Alembic Pharmaceuticals Limited receives USFDA Final Approval for Bosutinib Tablets, 400 mg",
-          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVUtlSFoySmJBZy0yZkE5LTI4SXBZRG4tb3lMUHhBS3JZSG03ckpCa3A2UmRWaGFaaHd0QnA2ZEVINjhQblVVWnd1NVI4Mjk4RVVvbmM3Uk5GWUtaSmRYeExkb2tfaDNaMXI1bmxrS3NGUVRSZ2pNVlB5VGZBaUdvWUhxQmpzc1pwU25mSDRMcE1JNzZEWUhTcURfODRmSURuZkxuS29CYnpfR0l5OTI0N2tyUmVnRXdzV2JnWm02MU5ZcGlHLUE2cQ?oc=5",
+          "title": "Siemens Energy India Q4 Results: Profit zooms 82% as new orders nearly double; declares ₹12 dividend",
+          "link": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNSjRYY1VuN2ZyemhxTTJYb2xTY1oyYUFLQmx6UTF6aU45TGJmS3h1QlluVlVaLS1FczRUalpFWGFTejQyOFpqd3pESG9fS2QxMjdoY29RUk9SSGEwSjlvZzVucm9NVEZad09LSnFib0NWYWp6aHlsai04SjZodTZRS0liTmxfZEsyRnZzck9GSXlJQnVXZlFTU0sxcEZTN09FTXJkQ01VLVJyRndXTEpsUnJ5UkxoN3FJeXkySkx6Y2Z6ODNDanlwYU9SNVdnOTE2UlotaHNxaVp4MUJmdmdfU3VMb1BNQVdnTGdnXzdRSTBkLUlEV3fSAfsBQVVfeXFMTjJrV2NBM1RUMzNvV2ppcDZTQ0dwaEh0bmhXaVRDWkVseWo3eE5rWWpSbzdFSWNtYWZGS2RNYnhkS0FkOUg1b0tET3ZGWHZDY2IzTkFNcUtzRWx5Z3kxZU03cFFBRWwzY3U2SkZNTUVuMlFPWHhwVHIwdFpNTXNMSHh5TmxWSkNnQmoyaWtiaWpsaWh1VDJYTFJkSFBzNndaRFlrZkZNSFlBVmd6QVJSSVlNZDEwMU5XUVVaZ1NqSlcyT1p2YjVXRmVIQXJQNHdjM0dycmlxbDUwVlQybnpCdEZfSTZacTY0MWRSNVZBOGxtek1xdmV3Vk1hb0U?oc=5",
+          "date": "2026-11-25",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "Siemens Energy India quarterly results show 81.5 per cent profit growth, shares gain 4.72 per cent",
+          "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVUE1MmpDenI5ZldUT282S0RocUlPM1FXZHpSUUdsTUI5eDRhZk4zZWV3dHlkLUN6OTZZRGR0bU1STzQ0ejZSUm5GdWpUR2Nod1FVODJVM1ZVb25FYU5UQmM4VU9YMkVlektSYy1vTUtoQXp2LWRVYjJFNG1pcFBkUzZjN3FPVy0ydU5tcjJlTTc0U0tIZFlfTW9zTUpQZXJBeTFuM2xHSGxrM3kyV2N6eFFQWUFnOTA5VVlmZFhOZDFEUF9LaVR3YlNhc2hwc21aUnlqSw?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Nifty 500: Siemens Energy India jumps 7% as profit surges 82%; LG Electronics falls on block deal",
+          "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxOeXA5d3NqbHNOTXlFNVVQdkJIV3oxUmFxZ3MxT3R3OHRXM3NzdHkxelJUMTlaUFFCSHc2eE51NnpfRWt2bWdLaFhrTkdITkJSdlM5SjM4UUdaclJ3djI0Ri15bXUwdnRoajlKb1c4Qi00R2ZoVVNUYno3TU4tWXExTTBqWElOM2plWDJvTUNsc1hYRHZHcWlldnkzZmYyYVVNZUxFSzc3R0JaNkVJQWxrWWRtcnVCZkZYMll1cm5Yd1BjMG1RS2JCLVFTRUxqMWxNMXpZU01GMHNlRWJTaDZYQWhmZldfN2VGbFBmMTFvRjdkRy1i0gH6AUFVX3lxTE5zc09GZmtFZGRsaUJqNHJRUjFOb1dvSVpPTmlPdDF2eXlXLTN4eHh0ODNxVTJ5RnNTYXhFamVyMUNzS2Vuam1FY3d2bzkxVXByYlFTWmt6WkJOTXByU0pST1dnZ3JVOFhEcXdhT0pxLTluRlF0THlaUDZfR2wteVVnWjk5enRxWGZMYUFJazROYUNuS2pwRXdZMmxWTHZibGNTQWNOSHdOcEFteFcyeV9FdmN4WWVNeDhKczBvLXA2WUJ3c1RxTVBRemZwM05qZE5rVlUwYTYzZndabUhpWVFnVEVob1o5OHBTQ1kxanAzN1BTNlVyUGE4bWc?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Q4 Results: Profit Surges 81.5% as Shares Jump 5%",
+          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNMUZNOG9TeHdhYXdrcFZvSlNMLVZvNVNCWTZHdzJLVUM4TGhMVGZ4a1JzWWotbUVFZDlIOW9USHhSY2F5TWlXY3U1STdTUVFmbVUyczd0aGxvQUE0YmZRN3pSYzdNb2RhemJkeDNaR09nM0lZNTdHcVB5WUVDc2dCbHdKdEg0UjNUZDZBc29HS2pyY0tDVlExbXdOSGtJSVdPS3c?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Q4 Profit Surges 81.5% as Orders Jump 92%",
+          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPOGdTRE5fWk1iZ2IwOUVXMkwtSFJKR09tMFdUTU8wRVE1cUhNRGkwM25JdVlZU3Q5UWpQUzFQdDFmTjhDTThfUUUzX1ZUTE95MFcyV3R2VkRHYTlhZVRJYlZRYTMzbFJEMEhhRkJBTk45TTJfQmxUSWNGVUxkdEhkSWNMZmd5c0l2SmVDcDFkaw?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Stock Jumps Over 9% After Q4 Profit Zooms 81%",
+          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPcURjS29UcmFlNkgzYTdacHBBcHNHdkdBOFRGYVVmb2hPYzlFUmNfcWwxdndTRWJvTVF3R2w1ekVSbjd5bWRSWG1lQTJxN1RmanA5WUM0OGlPYXhIcVJUTnQ1V01ESHFobGxEcWdId3lTZ1F1N0huTWNtaXdXTWxuZFZ3RldVRE5wbm5lMFVSQXhONk9Ma2xiSEtYcmd3M2lLSXlCa2dOdzhlRVdqNUdqaGpqY20tbmNXYTV1RE9oN0RaLTMxUlROci13RknSAdQBQVVfeXFMUHVCZjloSk93QTBGRW9HVHp4WGFfS3VRT0wwTUpyS0tRbXVDeEdrVEJvNC1IcUo5ZzlNR2xESzNkRHQ0alctYjhtYkxRUFhqRnpXb0ZaaGJFcUN3bnlVVFpOT3Vmc285d2xzaDFmaG9oYlFUbFh2NFFqdGJqTjJvcFZhZ0lGamJuNmhPak1DanlxQ3A2UERJODZvSHYyRFJ6cURNUTg5UkVWWXh3Z1gtRTBwT29hYW92cHJVVEZHQ2Y4elZDeXF6NHhaSTBiaEc3Y1NwQkI?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        },
+        {
+          "title": "Siemens Energy India Delivers Stellar Q4 With ₹653 Crore Profit, Record Orders & ₹12 Dividend Take Centre",
+          "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxOOFJsc2Z1Ulhkc004WVVZMGx2TWdjNWdSWEZ5dEFKY3EwOXBhQVctZFJPcWlPOVljRXMxTVBOWEdRQVhPY0Z4ZXZBTnpYR0w0cnkwOElvOFBXYjVBVVlONl9FXzlBN3d1U0VSMFRBTFJCVUJ4RUlrT1VLMjg5dWNaNDdPMUVPRlgxbEFMUF9NSnlEakh4ZUs5dmlLeERwUU5QejZFY182RmJFdnpHQlBlNEV6LVZmRDBfQ0NkeUx3RXA2MGJYblljT01aMGtrenhweEYzWmVlMi04OEtWeWFqTtIB5gFBVV95cUxNR29jcHBXMEdlWklHUTVZSjQ1Tk5xejNxZ19ydk9WbDFNY0R3SGN6aEhYbFpSM1Z1X0lHVFJsZkFNX211MFlqbXZBYzZpNGpRVC1kNzlCMnpLVWtRMjQ4WEtxX29iMko2WjhHMDBvTXdPcXUzOVlYMmIwWnNiVFdHN3FxN1BZNnVBRnBSY2dsSVp4cXdCSEVxa2MxcTRMQW5SdF9yd2liRVh2ZG9pYm1heU90ckE4ZlNDMHR4a09mLUxRd2Q0bmR2YWlsWWVGVkh1R2FnQnFRVnVNWmVPZjhOVGtYNFAyUQ?oc=5",
+          "date": "2026-11-26",
+          "query": "quarterly results profit India company"
+        }
+      ]
+    },
+    {
+      "symbol": "VASCONEQ",
+      "name": "Vascon Engineers Limited",
+      "mentions": 6,
+      "headlines": [
+        {
+          "title": "Vascon Engineers wins Rs 195 crore order from Kanakia Transparent Developers",
+          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOd1Ixa2h6ck9xamxnRzR6TE9TUHZrOWUyYTBRT2dsUWRrTUFPbEZOemUtNTBDZXppQmlrMzZNNy1jSVBzb2g4N0NTVVJqeG1OMUpvSGZsaG80S09yVXFqVEs3dl80S2lqSVgyUDBsd190RC0zX0lsZHdiZWE4bFE0Q0J5d2NrWGs0eHdBeFhISTJ1eThwQkJTTDlfQ2UyVUwydXFCb3lGUko4NjZCYXNNTUhvTjF3b2tJ?oc=5",
+          "date": "2026-11-24",
+          "query": "order worth crore"
+        },
+        {
+          "title": "Vascon Engineers Receives ₹195 Crore Borivali Construction LOI",
+          "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQaEl6WjZFVU9SaDFJLWhPM05uZUZzQjUxZU1JZUVZazU5S2YteWNVeW5tUklaQW1obGhvYk5KYzdGNnBiYjZhVXI3ck11cmloU1A0YjR1Z3VlcURxOE10c0I5d3AtTlk5N0tzU3MzdWlsMkhheEhueG9RU0hKZC1pRkctZDJoajVORnFBSVhqdDFSUVluMVpfOUQ3dmNDT2lfTnltUHo4ajg?oc=5",
+          "date": "2026-11-24",
+          "query": "letter of intent crore India"
+        },
+        {
+          "title": "Vascon Engineers receives Rs 195 crore Borivali contract",
+          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOUElXN2Q0ektJYV9CZUVDX21pQkYyZU1jZWUxc2UzZFl3V3owLUl1Nndja3pybUNtVDFnNkdNSXJYT0k1VURERV9XZWRSampyaVNDT2IxSzVUTEhrUHJvZ0d3VjlCNzdoc1puM3UzVXZ1Nl9ZZmI3ZjZzZWJYVW1JYUtpNThOZEJldTE1eVVaWjJVLWEyV0NfTGRVX3o5SDl2d01lWnBiVHlhYjg0bThCcmZ5ZlNleGpKNjdJOQ?oc=5",
+          "date": "2026-11-24",
+          "query": "letter of intent crore India"
+        },
+        {
+          "title": "Vascon Engineers Receives ₹195 Crore Letter Of Intent For Mumbai Redevelopment Project",
+          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZnNFVXlwTjFsaE9heDEtME1sRzZnWTBBOWo0T25wbC02RFhEbkFMWldRN21KcDdBRkVhS29hN3FJR3pwZ05CcGNkX1JTd0VHeV9YU3pkckRxeEZZRnV6MUNKc1VQaDVGTFZLcUItTElvaUVqendGUzgxQ3dnSlJJZVlCOTR2VVpMZHRFRmZ2dm9fdFBqeVJ0dkRHTk9qeHJIeTJuclZuc1BkRnJ4cGZJXw?oc=5",
+          "date": "2026-11-25",
+          "query": "letter of intent crore India"
+        },
+        {
+          "title": "Vascon Engineers rallies 6% on Rs 195 crore Kanakia order",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPZlZOYVJ6MUh4WDJkdjBQdDY5a3d6OTlrSGI1blFJcHNJUWkwdVFGQVVOV3hmcnNkSllSaXN1SjZ4QWhEMkRYNkNxd241S2Z2YUpqbV9VajJrX2JGdWxEdmcwN2FpWlJpNzBocC1KWEVGOUpIa3RHSUJWdjJ4eFZGUDJyRk1ZVURBb0FQd3BfVjlWQ1JnbTNqOGZNeEtGTHBo?oc=5",
+          "date": "2026-11-25",
+          "query": "letter of intent crore India"
+        },
+        {
+          "title": "Vascon Engineers climbs on receiving LoI worth Rs 195 crore from Kanakia Transparent Developers",
+          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOQkNSbmMxbzR5ODA2UkZSYmVxdDlHN1RjR0w4M0xsTmxWQUlJcVpRSlp3VHpqN3V4Mm9VRjF4XzM5YjZXdVcxdGN5Q3NITzBfY0x0R0lYUHd5UlM4T3FXQ1ZSM2NteTFNR1o3YndjZnBjYnJwU0EtMDg5bGpIUzJMZmdkNGUxY3V3ckd3T2pWQnRjV0lfRDFndlJWWVFXNWZJV2VMZ3NtMkhfWS1SSTNVVnpRNzIwZmxYNWxVRFdR?oc=5",
           "date": "2026-11-25",
           "query": "USFDA approval India company"
         }
@@ -725,43 +743,6 @@
       ]
     },
     {
-      "symbol": "WIPRO",
-      "name": "Wipro Limited",
-      "mentions": 5,
-      "headlines": [
-        {
-          "title": "Wipro bags $600 mn BP deal after Olam, Phoenix wins",
-          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmJNUmh4bGhoWHBhMzR1NjBnLVA5N0lmRFF1ck9KUGM1RU5iLWtJbnBPS1IzSEpSaVZoc0k1bjFhcnRqMjR1dVJMNWNNS2RhTXlqU3dpN2ZUX3p2NWxFTkpUZHRESUxkRFpIVl9NYVQ3aE15UlZBdFFhd1AzZmhldFdQTGlCNjNqdWp4V3JRY0R6ajMxMmw3Si1HMVBlVUNJT3dZbHpIdUpfTVRaSld5Ty0xMVpZTmM2YmJiWmdtT19Tc1BxY19uQ1RpZjh6aFZK0gHWAUFVX3lxTE50cllTV0RSOXRGNm1haDNtZUozRV9keXpoNFpidVNNWm5yNFlacm5aYW9uaFU5anEyaktnaFpWamxOenIwU2hnV1JSOWdkV3pJemdubHNiWGktdzFSRlVGQ3lCUWVjSTRya3d3SW12OS1FcEtFdFdKckM3alBMTTdFMkxSZHZyZVlveGVwUFJWcTY4OWRMY1lneXJndGVmT20wN21yN2FhSXh2bUZqZTR0Q1BoYzlXTmpjTlA0djBHX2JLU0tpVnpqYjBVcXNYZEtpV1dTSlE?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Wipro bags finance transformation deal from bp, to absorb 3,000 employees",
-          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOZTFFUnJpSTVQb0x1enlxUWRYTVF0eEh6aHhOSVVtMGNIUE1aU2M5dDZUN3BJU1NkUVhpMkJXaDVBYjNQR0VTSlFfbDVPRVNVSzF0M204NnZ2YUNLYk9hNkRwOWtEdkpLXzByZ2VMc0U2RlFaTU1iaS1YM3pFcnNfOVJMdjlmdW95cDlZM1ktREd5d19HZm5CTGQ4OFNaR2FrQ1N5REhiS1ZOaVJOdFhOdzRaQjY0T2J4d1ozSEVMN1BTTUtGRVNCc1NqOGRlYkVuWEZYWlEtMHlvM0Nv0gHiAUFVX3lxTE9YSElJeXJhSm5ibmk4YTU1NmFrZEJsbXYwX3BmTEI4d3hwZjhoeUZhdUFTMV95bVE5NFA4ejM0THczZHVteXJWbVFkeUlIbGd3LThyMmV3ZnNKWUdFS1ktdmFjY0hHcWllRVEwNjJtRXdaMGl5cWtleGZwQmloYmhJbWpNVzhUVW9NdTBZV3NrQjhXaVlTc1pKd05mWTZZa1dhc0JUSktwOVBVVEVJb1JUMDZtZnE5RUJobjdBdXNXWGh6MFc1WS1IMGVNVHFZZmt1Q1dNMTN2WjM1ZzczSmRqRVE?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Wipro Bags $600 Million BP Deal to Transform Finance Operations",
-          "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPM0lkZy13Y1l4VTRjS1RLVEZRdmdTNUhKMkFNczFkRHBmMzFERVR3UlVhSmh5NHo3N3BnckZNeEpSZEJwQmpJQVRZaGtmeVYzckhsSWJKTFFmWUlDTU1Zc2tCRU90VTVZYTNHSVNqYzlTNi1tSlF1aTRTVm5YWHFLNWtHMnJVQXhFWFA3cXVxNGdsQm5MdDd1TFpHMEdxTlljNW5vUWg0QWY5T2NLUUF1WDVlLXVzd3E3VFdVZ0Z2WXdLdnNjU1E?oc=5",
-          "date": "2026-11-26",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Wipro wins finance transformation deal from BP, to absorb around 3,000 employees",
-          "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxNWGg4MU5FUzVBVEN6RVBXcUs1aThLMzlJWjFRQXRsYlBxR2tiSV8tWFg2N05sOEdDdkY1MWNUQUdNNll2WmJCa3Z2d19LRzNMZTI2NWNtSGJDNVBsOVAxN0pYNVVseHBDRHV1LVZHaW1ZZDVYaDZfOHhRMGtyRmwySU5JdHVWNXJKVTFwcUU1clltbXZVbkRZbW0xOXROdmtXeVp1b0N5cGlFOTRqaHJQTjdXeTRqeUtaby1KdWdmUE5HYllfdFdhODB4RThTb01Ecnp4dEpCWWE1Qlh0T2xPOTBSa0RyMll0dkNsc2g2VXTSAfYBQVVfeXFMT0FhZERzM01DcnFfNlpKZnNqZ1Jwem5UZ1IwTjVtc05WMXNSbHZmWVVfSEt6VktDSnB1M1NUZmxVeTRjQW9GVmctcm45U0p5VmUtTFkwNW9wNGlkcmNvYnZmMWQzZk4zSDV2MzQ0MTd5cTVPTUFWWkJWLWwtWXdsel9CV0MyLWJlUkVxcHZHQ09tWG9GZjdRX1kwZ2F3ZV9PbkZkdW85QVFlTWxQbXFhTi1rZFdRMDhNcUJQTTJlb1pSM2ZiQkhTX3I1MFBsV3VJcmYweXFKYlhjRkszb3MzT2RPUlczbXBrYWE0cHBIMExOODJpbXhR?oc=5",
-          "date": "2026-11-25",
-          "query": "wins contract India company"
-        },
-        {
-          "title": "Wipro secures over $500 million contract from energy major BP",
-          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdFZXaEsxRGVXLUU0d0JtWVJlN2NpMVh0aUVlZjBaeGlCbEhEQUFUdUpNejlVWS1nMnV2bk42WmNocnhWUkZoSW00NVdBSjN1ZnAtQ3NDU1RKZDl0Z2lWV1FvQTduN0dfb2d4ZWUxeHE2WlVWUmZKai02bkEwejNxbUhRYW1KSTE3ak41ME9Qc2d0X0o2NnV0bzdFUlVNVXot0gGmAUFVX3lxTE82Y0ExamhlYVp3eTg3M3VrUUdGdjlvai1uV01RWFZ1UWZSUnpaU1JySkhnajI2OWNURDdsVnpzZE5oelluaDQ3bnRJZXlxdTlVdlRUSUJKMGJRb0Jnb0trcGxwaWE4NW9DX0xIaDNnVkVJbVhPMi1DZGctZl9EYVNtVnJfZHJEaUF1b3NESlNOMEpBMV9WaU0weUd6RG1YYUhDSnZmWUE?oc=5",
-          "date": "2026-11-25",
-          "query": "wins contract India company"
-        }
-      ]
-    },
-    {
       "symbol": "LCCPROJECT",
       "name": "LCC Projects Limited",
       "mentions": 5,
@@ -799,53 +780,10 @@
       ]
     },
     {
-      "symbol": "VASCONEQ",
-      "name": "Vascon Engineers Limited",
-      "mentions": 5,
-      "headlines": [
-        {
-          "title": "Vascon Engineers wins Rs 195 crore order from Kanakia Transparent Developers",
-          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOd1Ixa2h6ck9xamxnRzR6TE9TUHZrOWUyYTBRT2dsUWRrTUFPbEZOemUtNTBDZXppQmlrMzZNNy1jSVBzb2g4N0NTVVJqeG1OMUpvSGZsaG80S09yVXFqVEs3dl80S2lqSVgyUDBsd190RC0zX0lsZHdiZWE4bFE0Q0J5d2NrWGs0eHdBeFhISTJ1eThwQkJTTDlfQ2UyVUwydXFCb3lGUko4NjZCYXNNTUhvTjF3b2tJ?oc=5",
-          "date": "2026-11-24",
-          "query": "order worth crore"
-        },
-        {
-          "title": "Vascon Engineers Receives ₹195 Crore Borivali Construction LOI",
-          "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQaEl6WjZFVU9SaDFJLWhPM05uZUZzQjUxZU1JZUVZazU5S2YteWNVeW5tUklaQW1obGhvYk5KYzdGNnBiYjZhVXI3ck11cmloU1A0YjR1Z3VlcURxOE10c0I5d3AtTlk5N0tzU3MzdWlsMkhheEhueG9RU0hKZC1pRkctZDJoajVORnFBSVhqdDFSUVluMVpfOUQ3dmNDT2lfTnltUHo4ajg?oc=5",
-          "date": "2026-11-24",
-          "query": "letter of intent crore India"
-        },
-        {
-          "title": "Vascon Engineers receives Rs 195 crore Borivali contract",
-          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOUElXN2Q0ektJYV9CZUVDX21pQkYyZU1jZWUxc2UzZFl3V3owLUl1Nndja3pybUNtVDFnNkdNSXJYT0k1VURERV9XZWRSampyaVNDT2IxSzVUTEhrUHJvZ0d3VjlCNzdoc1puM3UzVXZ1Nl9ZZmI3ZjZzZWJYVW1JYUtpNThOZEJldTE1eVVaWjJVLWEyV0NfTGRVX3o5SDl2d01lWnBiVHlhYjg0bThCcmZ5ZlNleGpKNjdJOQ?oc=5",
-          "date": "2026-11-24",
-          "query": "letter of intent crore India"
-        },
-        {
-          "title": "Vascon Engineers Receives ₹195 Crore Letter Of Intent For Mumbai Redevelopment Project",
-          "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOZnNFVXlwTjFsaE9heDEtME1sRzZnWTBBOWo0T25wbC02RFhEbkFMWldRN21KcDdBRkVhS29hN3FJR3pwZ05CcGNkX1JTd0VHeV9YU3pkckRxeEZZRnV6MUNKc1VQaDVGTFZLcUItTElvaUVqendGUzgxQ3dnSlJJZVlCOTR2VVpMZHRFRmZ2dm9fdFBqeVJ0dkRHTk9qeHJIeTJuclZuc1BkRnJ4cGZJXw?oc=5",
-          "date": "2026-11-25",
-          "query": "letter of intent crore India"
-        },
-        {
-          "title": "Vascon Engineers rallies 6% on Rs 195 crore Kanakia order",
-          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPZlZOYVJ6MUh4WDJkdjBQdDY5a3d6OTlrSGI1blFJcHNJUWkwdVFGQVVOV3hmcnNkSllSaXN1SjZ4QWhEMkRYNkNxd241S2Z2YUpqbV9VajJrX2JGdWxEdmcwN2FpWlJpNzBocC1KWEVGOUpIa3RHSUJWdjJ4eFZGUDJyRk1ZVURBb0FQd3BfVjlWQ1JnbTNqOGZNeEtGTHBo?oc=5",
-          "date": "2026-11-25",
-          "query": "letter of intent crore India"
-        }
-      ]
-    },
-    {
       "symbol": "SHUKRAMED",
       "name": "Shukra Medtech Limited",
       "mentions": 5,
       "headlines": [
-        {
-          "title": "Shukra Medtech Proposes Major Capital Raise of Rs. 648 Crore Through Preferential Allotment",
-          "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOY3BEeTdpZ05HRlFwUm55SFkxM2piTUd3UUpKTkZfdXlWYlBhTG5LVXktYTBBTTRSdUNpMU1GdHBoZUZpa3BBSTVnT2xOMXlBZUlKa2hLeHFPcldJQ0YwTDNxUFpUZGZWR2dVSm5IZlNyeXFHa2VweDFLbUFxbVdEYzNRaGZKSWpaamRYRkc0dWlCUWRY?oc=5",
-          "date": "2026-11-25",
-          "query": "acquisition crore India company"
-        },
         {
           "title": "Shukra Medtech plans ₹648 crore fundraise via preferential issue",
           "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxON3VFYWxRSzA2b1NndjZwYk9iX0dFek10TUJFOXBDZ04zQ3ByUGxKSVlndEcxN2p3OGdaN25JNWd1LUFSWlR5ZkhMd0RLUWVubzBxYk5XOEN6YklwR3BoRTlXa19pczU5X0tnS0dLbldGODAtMnEtZHYzY3lOSVhiS1lNMk0wdW1vSHRJX1lrMENCalplblhDSzhCNkNqX0h3ZnJobk44N2RWQjY4WFk2dU50TlhXdFZIanFhNQ?oc=5",
@@ -869,6 +807,86 @@
           "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQOGpLU1YxUHhxUjl4cXNvUTZxMWlUOW1XS2ZMYUpnSl8zUE1sc2NOTWsyZXY5OTZIYUNRbnR1enJwUS1TeFlDN2FVYzd1MTJIdGN4ZzNENmtkSXpIcXFIQmY5UWdVTUhraVY3M2h1VW9jUmNpRzRDdG8xWjROeUItaTZSZmZnN3VIaXFzX3Vzbjc1WlV1ck5OR1F3?oc=5",
           "date": "2026-11-25",
           "query": "board approves fund raise India"
+        },
+        {
+          "title": "Shukra Medtech Proposes Major Capital Raise of Rs. 648 Crore Through Preferential Allotment",
+          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQRzN2Sjhldm9ILWhRMWpNeEZ1WG42N2toMm9pMGFWQ21WTWwzMy1oTmQ3Uk1lbmY0UlVWYkpZZk12R3lEQ29iSGd1OVRBZl9XQ2o1RVdYd3N5X1ZsWkJIbTlBbHlNTkgtYlYxVnFodXVXYlVOTTR6QlNlaENrT2dad0lJV1YzcWxYMzRhYzlMNEZ2QlBZSllPd2JMQW5CVTZ2Z1dWb2ZrYTMxeFgyYm1ZNlJDN0Q0SDlQZEVURUVieVVWaVFua3QwanBzTkE?oc=5",
+          "date": "2026-11-25",
+          "query": "board approves fund raise India"
+        }
+      ]
+    },
+    {
+      "symbol": "KFINTECH",
+      "name": "Kfin Technologies Limited",
+      "mentions": 5,
+      "headlines": [
+        {
+          "title": "HDFC Life RTA KFin Technologies moves corporate office to Hyderabad",
+          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOMXNUcnI0c2lLOGhVbG4yNHpjck00UFdqLWRqeWtOU001Tmx1N251akg5LUs0UjlKRmhtejM4R1pCVHMxUnNhNmtTaGRUQUZuVnk1N2RGc3pqTmVscHN6eC1ZUmlITUZZYXcwaUlLeWp2aFI5czNLU3ppY25sUTVYczRKQWlEYkVmNzhZMDlHWU96N0JOVjFsT1RTQWgtcGFSV1diVEJIR0pEZFJERkxlZjBxaUJhS0lzaGtKbndR?oc=5",
+          "date": "2026-11-25",
+          "query": "board approves fund raise India"
+        },
+        {
+          "title": "KFin Technologies (NSE:KFINTECH) Discloses ₹0.10 Crore SEBI Adjudication Order",
+          "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPZFljT1dNRGtnTi0wUGl4YUpzellRNVY5T1VwdnZTWkpyX2ZuMVhuQnB4WjNLUngxcjhSclB2U3Nja2c2WE5ZejE0MEpGQjBSYk1KVFhsT1RJWUF1TWwyUVBKUmZrcXktaEFZVkxnTzEzdzE4NXBFejh5M3pBZFR4ZE1oWWNINVloV3BBNDFLeWJEb1hVamJqVm1Sd21Ma1FKcW5jNndzMS0xcHFMSXNkVVVId1B6SkZRUU0wUGlmdnF4VGplVFFZQmp4TXhjR1E?oc=5",
+          "date": "2026-11-26",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "KFin Technologies receives ₹10 lakh SEBI penalty for RTA matter",
+          "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQMGpsVkVXQ043Y0lIM1FwSkJfOS1jcExhSXJxdm9PNHdEOWZxNGE2YTdlY19WUGg4UWdLUXhhdzI5NFU0T1pVV0hXOVVKTWhhbkFYekhXSEp6TGxXZ3dVc3pOajNfS3NJNTJ6NHU4RnBmNHJwWEd5czJZQlI3dEhyMnBoanVuOHZaUHJWLU5GeEo0NUl6NnFiWTRySFBXd1JxSmNGaHRWRjNSR3ByWENQX1dDYzBudw?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "KFin Technologies SEBI Penalty Order: Key Facts for Investors",
+          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORXhuR1M2VHVxcjlPNmNMdWlqVDlvUGZQem1zME5pRTUyLVdFMlllYll0dlNPd1lEMGlGVDBiUUxYQTVfZElHd081UDdHMHQ3aEVwMkJ4bU5YT0pTbU44Z1ZDUGpfUnExYy1sUzEyUXJza0k5VU44cUFPX2RTTzJnRU1kd0ZMTTF4MV9qYlBBWEozM2RGWGF3N2NIa24tSHNVRVBWZVBObzFYdzEwRGNLTzF1MmRaQU12bFFVaVRvcWQ3YVc2NUdSZUtJUjI?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
+        },
+        {
+          "title": "KFin Technologies receives SEBI penalty of Rs. 10,00,000",
+          "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPV3BjTjVtUGw2alFTTGxyZ2NSQTFVaHVNVFh4bXZKeThrcG4wT2FmWVNyUVl4ZHVxTldNWnhKRzZ6X0pXYUhMdHZpVGtWQTc5dlROODNYTUI5dHBwVGZ5Z01tcGJRTno2Ympqa3pURHBFZWNZdTlTLThUSDZFek9tbnB2OEFURUhZUlVxWWRvaFNJblBHTFhr?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
+        }
+      ]
+    },
+    {
+      "symbol": "APLLTD",
+      "name": "Alembic Pharmaceuticals Limited",
+      "mentions": 5,
+      "headlines": [
+        {
+          "title": "Alembic Pharmaceuticals (NSE:APLLTD) Gets USFDA Nod for Bosutinib 400 mg",
+          "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNV1RlcUt6Z1lWaHpLNmI1ZjQwb2dVOHVqTEE5dE9FZ24tbGRQWjk4dVVIYXdnZ2wwMmJjWEpSTVhndVlxVEN0Y1lhRHBQZzdOSHRfd0E4ZVVnRy0wY2k1NTNxNlNrN09nVUFubXRKWEt5QVFDZHFfWmU2SXNGbEFTTTRjYkdzeHFWRjJ6Q0tESXhYU0wxN2wtMjIwcDNyY1JNWk9fUzBaMXJhRURndkpPV0RJR3dNZGlLdllYOUpWQVp4MGdoY2NhZi14TkR2eldrdG9OMU0zc1BmQUdFckE?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharmaceuticals APLLTD USFDA Bosutinib 400mg Approval",
+          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNM2ltMzFFSXlWd01Wd0NncGVGOWl5Y3FHekhpXzlhM1VpWWJGRktxQWtyNzh0R3E5MEYzV3NHMThVb2xwdXhqUzJzc1JYZlphTjdYZC1rRjJDaTRRTmNkSEhjVWc1TkI2U1V1Mk9pZHdCQ2xEWDhISk5BS0pndUVvSkxDblZEa1lVTW9TQmJUSmg0LUY1UW9fUWY1WUJxM3AxZTNKMzNDZDNvS0RUWXpHQkZYcDRaZUVBWVFpVG5Eb2c?oc=5",
+          "date": "2026-11-24",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharmaceuticals rises on getting USFDA’s final approval for Bosutinib tablets",
+          "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNSmR6MUtNQzdfVllVQ1E4X24wMk03Qk9pZFJaV3JnUW9WUTllclJ2U0ZHSzk1eF9rdGJSRm5sS1EwRXdiSFRVYVEzUGhmajh1OXZQZ3B0MHhkLXBmSzc2R3RSMkdaUG1kYjVzMGhHQzFLRTFxYm0wRF95NEEzRDcwNEJSQXJYdmN6ZWVqVl91d0d5dENaN3ZFN096TmIwMW9mRFE0YXE0WWx5R0MzS0hB?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharmaceuticals receives USFDA final approval for Bosutinib Tablets, 400 mg",
+          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQbzQ0N1ZlSkUwUmlsaG9oTVoxYVZROVZiV0x1R1dTSG9xcER1MnU5bWVKQ3FTT2dOaE5DZkRMVUZMbk1fUmtidHF5dXhKNnd6T0NYU3dEbzV6Uld3dmgtZW01a1liam5MRm4xeFFKdXVxcGEtTjltbGFEaUQzbW9hNzllUzI0ZDhpaUpSdGkzdjU5OU1iQlI3M1ZPaDhnZG1HRmcxV2llRXd1RURjRV8xMFd1VEFqNzRNSUs4?oc=5",
+          "date": "2026-11-24",
+          "query": "USFDA approval India company"
+        },
+        {
+          "title": "Alembic Pharmaceuticals Limited receives USFDA Final Approval for Bosutinib Tablets, 400 mg",
+          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVUtlSFoySmJBZy0yZkE5LTI4SXBZRG4tb3lMUHhBS3JZSG03ckpCa3A2UmRWaGFaaHd0QnA2ZEVINjhQblVVWnd1NVI4Mjk4RVVvbmM3Uk5GWUtaSmRYeExkb2tfaDNaMXI1bmxrS3NGUVRSZ2pNVlB5VGZBaUdvWUhxQmpzc1pwU25mSDRMcE1JNzZEWUhTcURfODRmSURuZkxuS29CYnpfR0l5OTI0N2tyUmVnRXdzV2JnWm02MU5ZcGlHLUE2cQ?oc=5",
+          "date": "2026-11-25",
+          "query": "USFDA approval India company"
         }
       ]
     },
@@ -935,64 +953,64 @@
       ]
     },
     {
-      "symbol": "KFINTECH",
-      "name": "Kfin Technologies Limited",
+      "symbol": "WIPRO",
+      "name": "Wipro Limited",
       "mentions": 4,
       "headlines": [
         {
-          "title": "HDFC Life RTA KFin Technologies moves corporate office to Hyderabad",
-          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOMXNUcnI0c2lLOGhVbG4yNHpjck00UFdqLWRqeWtOU001Tmx1N251akg5LUs0UjlKRmhtejM4R1pCVHMxUnNhNmtTaGRUQUZuVnk1N2RGc3pqTmVscHN6eC1ZUmlITUZZYXcwaUlLeWp2aFI5czNLU3ppY25sUTVYczRKQWlEYkVmNzhZMDlHWU96N0JOVjFsT1RTQWgtcGFSV1diVEJIR0pEZFJERkxlZjBxaUJhS0lzaGtKbndR?oc=5",
+          "title": "Wipro bags $600 mn BP deal after Olam, Phoenix wins",
+          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmJNUmh4bGhoWHBhMzR1NjBnLVA5N0lmRFF1ck9KUGM1RU5iLWtJbnBPS1IzSEpSaVZoc0k1bjFhcnRqMjR1dVJMNWNNS2RhTXlqU3dpN2ZUX3p2NWxFTkpUZHRESUxkRFpIVl9NYVQ3aE15UlZBdFFhd1AzZmhldFdQTGlCNjNqdWp4V3JRY0R6ajMxMmw3Si1HMVBlVUNJT3dZbHpIdUpfTVRaSld5Ty0xMVpZTmM2YmJiWmdtT19Tc1BxY19uQ1RpZjh6aFZK0gHWAUFVX3lxTE50cllTV0RSOXRGNm1haDNtZUozRV9keXpoNFpidVNNWm5yNFlacm5aYW9uaFU5anEyaktnaFpWamxOenIwU2hnV1JSOWdkV3pJemdubHNiWGktdzFSRlVGQ3lCUWVjSTRya3d3SW12OS1FcEtFdFdKckM3alBMTTdFMkxSZHZyZVlveGVwUFJWcTY4OWRMY1lneXJndGVmT20wN21yN2FhSXh2bUZqZTR0Q1BoYzlXTmpjTlA0djBHX2JLU0tpVnpqYjBVcXNYZEtpV1dTSlE?oc=5",
           "date": "2026-11-25",
-          "query": "board approves fund raise India"
+          "query": "bags order India company"
         },
         {
-          "title": "KFin Technologies (NSE:KFINTECH) Discloses ₹0.10 Crore SEBI Adjudication Order",
-          "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPZFljT1dNRGtnTi0wUGl4YUpzellRNVY5T1VwdnZTWkpyX2ZuMVhuQnB4WjNLUngxcjhSclB2U3Nja2c2WE5ZejE0MEpGQjBSYk1KVFhsT1RJWUF1TWwyUVBKUmZrcXktaEFZVkxnTzEzdzE4NXBFejh5M3pBZFR4ZE1oWWNINVloV3BBNDFLeWJEb1hVamJqVm1Sd21Ma1FKcW5jNndzMS0xcHFMSXNkVVVId1B6SkZRUU0wUGlmdnF4VGplVFFZQmp4TXhjR1E?oc=5",
+          "title": "Wipro bags finance transformation deal from bp, to absorb 3,000 employees",
+          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOZTFFUnJpSTVQb0x1enlxUWRYTVF0eEh6aHhOSVVtMGNIUE1aU2M5dDZUN3BJU1NkUVhpMkJXaDVBYjNQR0VTSlFfbDVPRVNVSzF0M204NnZ2YUNLYk9hNkRwOWtEdkpLXzByZ2VMc0U2RlFaTU1iaS1YM3pFcnNfOVJMdjlmdW95cDlZM1ktREd5d19HZm5CTGQ4OFNaR2FrQ1N5REhiS1ZOaVJOdFhOdzRaQjY0T2J4d1ozSEVMN1BTTUtGRVNCc1NqOGRlYkVuWEZYWlEtMHlvM0Nv0gHiAUFVX3lxTE9YSElJeXJhSm5ibmk4YTU1NmFrZEJsbXYwX3BmTEI4d3hwZjhoeUZhdUFTMV95bVE5NFA4ejM0THczZHVteXJWbVFkeUlIbGd3LThyMmV3ZnNKWUdFS1ktdmFjY0hHcWllRVEwNjJtRXdaMGl5cWtleGZwQmloYmhJbWpNVzhUVW9NdTBZV3NrQjhXaVlTc1pKd05mWTZZa1dhc0JUSktwOVBVVEVJb1JUMDZtZnE5RUJobjdBdXNXWGh6MFc1WS1IMGVNVHFZZmt1Q1dNMTN2WjM1ZzczSmRqRVE?oc=5",
+          "date": "2026-11-25",
+          "query": "bags order India company"
+        },
+        {
+          "title": "Wipro Bags $600 Million BP Deal to Transform Finance Operations",
+          "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPM0lkZy13Y1l4VTRjS1RLVEZRdmdTNUhKMkFNczFkRHBmMzFERVR3UlVhSmh5NHo3N3BnckZNeEpSZEJwQmpJQVRZaGtmeVYzckhsSWJKTFFmWUlDTU1Zc2tCRU90VTVZYTNHSVNqYzlTNi1tSlF1aTRTVm5YWHFLNWtHMnJVQXhFWFA3cXVxNGdsQm5MdDd1TFpHMEdxTlljNW5vUWg0QWY5T2NLUUF1WDVlLXVzd3E3VFdVZ0Z2WXdLdnNjU1E?oc=5",
           "date": "2026-11-26",
-          "query": "SEBI order company India"
+          "query": "bags order India company"
         },
         {
-          "title": "KFin Technologies receives ₹10 lakh SEBI penalty for RTA matter",
-          "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQMGpsVkVXQ043Y0lIM1FwSkJfOS1jcExhSXJxdm9PNHdEOWZxNGE2YTdlY19WUGg4UWdLUXhhdzI5NFU0T1pVV0hXOVVKTWhhbkFYekhXSEp6TGxXZ3dVc3pOajNfS3NJNTJ6NHU4RnBmNHJwWEd5czJZQlI3dEhyMnBoanVuOHZaUHJWLU5GeEo0NUl6NnFiWTRySFBXd1JxSmNGaHRWRjNSR3ByWENQX1dDYzBudw?oc=5",
+          "title": "Wipro secures over $500 million contract from energy major BP",
+          "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQdFZXaEsxRGVXLUU0d0JtWVJlN2NpMVh0aUVlZjBaeGlCbEhEQUFUdUpNejlVWS1nMnV2bk42WmNocnhWUkZoSW00NVdBSjN1ZnAtQ3NDU1RKZDl0Z2lWV1FvQTduN0dfb2d4ZWUxeHE2WlVWUmZKai02bkEwejNxbUhRYW1KSTE3ak41ME9Qc2d0X0o2NnV0bzdFUlVNVXot0gGmAUFVX3lxTE82Y0ExamhlYVp3eTg3M3VrUUdGdjlvai1uV01RWFZ1UWZSUnpaU1JySkhnajI2OWNURDdsVnpzZE5oelluaDQ3bnRJZXlxdTlVdlRUSUJKMGJRb0Jnb0trcGxwaWE4NW9DX0xIaDNnVkVJbVhPMi1DZGctZl9EYVNtVnJfZHJEaUF1b3NESlNOMEpBMV9WaU0weUd6RG1YYUhDSnZmWUE?oc=5",
           "date": "2026-11-25",
-          "query": "SEBI order company India"
-        },
-        {
-          "title": "KFin Technologies SEBI Penalty Order: Key Facts for Investors",
-          "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORXhuR1M2VHVxcjlPNmNMdWlqVDlvUGZQem1zME5pRTUyLVdFMlllYll0dlNPd1lEMGlGVDBiUUxYQTVfZElHd081UDdHMHQ3aEVwMkJ4bU5YT0pTbU44Z1ZDUGpfUnExYy1sUzEyUXJza0k5VU44cUFPX2RTTzJnRU1kd0ZMTTF4MV9qYlBBWEozM2RGWGF3N2NIa24tSHNVRVBWZVBObzFYdzEwRGNLTzF1MmRaQU12bFFVaVRvcWQ3YVc2NUdSZUtJUjI?oc=5",
-          "date": "2026-11-25",
-          "query": "SEBI order company India"
+          "query": "wins contract India company"
         }
       ]
     },
     {
-      "symbol": "APLLTD",
-      "name": "Alembic Pharmaceuticals Limited",
+      "symbol": "ADANIENSOL",
+      "name": "Adani Energy Solutions Limited",
       "mentions": 4,
       "headlines": [
         {
-          "title": "Alembic Pharmaceuticals APLLTD USFDA Bosutinib 400mg Approval",
-          "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNM2ltMzFFSXlWd01Wd0NncGVGOWl5Y3FHekhpXzlhM1VpWWJGRktxQWtyNzh0R3E5MEYzV3NHMThVb2xwdXhqUzJzc1JYZlphTjdYZC1rRjJDaTRRTmNkSEhjVWc1TkI2U1V1Mk9pZHdCQ2xEWDhISk5BS0pndUVvSkxDblZEa1lVTW9TQmJUSmg0LUY1UW9fUWY1WUJxM3AxZTNKMzNDZDNvS0RUWXpHQkZYcDRaZUVBWVFpVG5Eb2c?oc=5",
-          "date": "2026-11-24",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Alembic Pharmaceuticals rises on getting USFDA’s final approval for Bosutinib tablets",
-          "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNSmR6MUtNQzdfVllVQ1E4X24wMk03Qk9pZFJaV3JnUW9WUTllclJ2U0ZHSzk1eF9rdGJSRm5sS1EwRXdiSFRVYVEzUGhmajh1OXZQZ3B0MHhkLXBmSzc2R3RSMkdaUG1kYjVzMGhHQzFLRTFxYm0wRF95NEEzRDcwNEJSQXJYdmN6ZWVqVl91d0d5dENaN3ZFN096TmIwMW9mRFE0YXE0WWx5R0MzS0hB?oc=5",
+          "title": "Adani Energy Solutions Bags 2,500 MW Renewable Power Contract",
+          "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNcklOZXFkMlB6d1l0clNxV2g1Rkxfd0RaampYYUhfTFZ4bUlGUTFQZDBtUFk1RndsdDBsZ2Z4c0xELWlhNndWWXBnR2dYVXVmcEFSdlRoNzQ5TS1kNGwtNHpPRkdRR0R1YUZCdW9kRDFrMm5fMzFiOFpRVGtzbGZvNW4tLVVZSzZrZnhXN2NaWjJZSW96Zy1hVXkxbWtVQzJDOGNxdnpUV1BRQ25FdHA0XzZMN3A1YlFYU1Fpb09pVXNLYXhLVkVWTnJBalJZR1lldFdWTHpRVFRoRjFvSzRodnZmaw?oc=5",
           "date": "2026-11-25",
-          "query": "USFDA approval India company"
+          "query": "bags order India company"
         },
         {
-          "title": "Alembic Pharmaceuticals receives USFDA final approval for Bosutinib Tablets, 400 mg",
-          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQbzQ0N1ZlSkUwUmlsaG9oTVoxYVZROVZiV0x1R1dTSG9xcER1MnU5bWVKQ3FTT2dOaE5DZkRMVUZMbk1fUmtidHF5dXhKNnd6T0NYU3dEbzV6Uld3dmgtZW01a1liam5MRm4xeFFKdXVxcGEtTjltbGFEaUQzbW9hNzllUzI0ZDhpaUpSdGkzdjU5OU1iQlI3M1ZPaDhnZG1HRmcxV2llRXd1RURjRV8xMFd1VEFqNzRNSUs4?oc=5",
-          "date": "2026-11-24",
-          "query": "USFDA approval India company"
-        },
-        {
-          "title": "Alembic Pharmaceuticals Limited receives USFDA Final Approval for Bosutinib Tablets, 400 mg",
-          "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVUtlSFoySmJBZy0yZkE5LTI4SXBZRG4tb3lMUHhBS3JZSG03ckpCa3A2UmRWaGFaaHd0QnA2ZEVINjhQblVVWnd1NVI4Mjk4RVVvbmM3Uk5GWUtaSmRYeExkb2tfaDNaMXI1bmxrS3NGUVRSZ2pNVlB5VGZBaUdvWUhxQmpzc1pwU25mSDRMcE1JNzZEWUhTcURfODRmSURuZkxuS29CYnpfR0l5OTI0N2tyUmVnRXdzV2JnWm02MU5ZcGlHLUE2cQ?oc=5",
+          "title": "Diamond Power Bags Rs. 7.08 bn Adani Energy Solutions Order",
+          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPSUNQTXZzSGtnMEZSOHZ6T0Jla1dOUnVPYWFxSktZbVpmSGVIYWJ5TUNKYlc2b3ZJVGJkTTNTQ2VPajRHbnlicWVYZ3c2NTMxcnlxUTVWTUZ0TmJsOU5NdlB0VUNsa2ktbHo5S3pxQ3JQSFpvSFp2OUFZTUpwUWs2c2xOdHlYOEtvakV3M2NqQ0wtVHJiNnV0a09oWGZLS3oyQ0M5aUp4aXY1eHB3eTRIVWpLX3VDN1Z6Q0ljMlo5YTZBSGw3Q0RGMjNjWS1UbWstYVd2aHM0WENvcFJEVUdENC1n?oc=5",
           "date": "2026-11-25",
-          "query": "USFDA approval India company"
+          "query": "bags order India company"
+        },
+        {
+          "title": "Adani Energy Solutions Wins 25-Year Renewable Power Contract for 1,750 MW: 5 Key Highlights of the Deal",
+          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPeFZCSFhKcm9IeEJSUEJkSC1vT0g1Q04xRWk2dWNFVGcyWTV4ZVRCQnQzZFZyXzdYeW5YUmFwSThJYXU2bU5jNlIxLVNQZ3I1UDY2LUVVY2hJMVpLZkl4dE1FTEl1YXA3eEtrc1dtcVF1QzZEQ1MyX3V1RGdzYzEzdlJOTmRrSWN6WE81TzZXUkVFTE1XSGd5U05ZNDA1cEZUOUxKTEpIeWp5NFZrOXJyb3RLa2tiWWRxOGlBX2pYQW42UnZGSHhTRms5UWp4alJkNGttQ044dzE5V3FoOTlVVTln?oc=5",
+          "date": "2026-11-24",
+          "query": "wins contract India company"
+        },
+        {
+          "title": "Diamond Power Stock Jumps 3% After Receiving Orders Worth ₹488.18 Crore From Adani Energy Solutions",
+          "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNeGo4OEI2Ukg1ekI3Q29TWjh1dXE5YkdqbkhPU1pIdE9BUWNKUFhRQVg1REdFV010UC1sRXZPaVVHY29nUW11akhlTzdUbUZCaEFZRU1mSy1TVGFwZENyRWZTN0huZ0xfRHpxZEVvaHpueUE4NVM2a0hiY1NwRS1wMEREWTNRQWV4Q3FDOW5QVW9FRVd0N0FDdVVCc0Y1bV9JUkFuTnJjWkZ3ZjVrcWFBU1pXeXNvbHJGRnZsVWFBRm02dzZIVUVKOWJYR1lEUm5hS3pzQjlsSXJNaU0?oc=5",
+          "date": "2026-11-26",
+          "query": "order worth crore"
         }
       ]
     },
@@ -1016,31 +1034,6 @@
         {
           "title": "Waaree Renewable Technologies wins Rs 12 crore work order for 120 MWp solar EPC project",
           "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSnNMdW5UZUVQQzFpUndQZ3E1bmpWWHVNcW0teW04bk41VDdLTEM1Ui1fekkxYkMxX0tTMTJaZWpUVkZYVElEZGtIa3A3TGh5bS1HUWRVZW5iN3RWOXIyc1htdGVmSHFXdGJiS2NxVXdaSzJiUU5BWUFRTS1tMXAxRmdCVVA0UjdqOUlFQVRpQVc0QUNqOWo4bGttMVVvMURtYm9vWEdaRG1BTmcwSTBEbEZERDNCLUpOaElZXzQ1NA?oc=5",
-          "date": "2026-11-26",
-          "query": "order worth crore"
-        }
-      ]
-    },
-    {
-      "symbol": "ADANIENSOL",
-      "name": "Adani Energy Solutions Limited",
-      "mentions": 3,
-      "headlines": [
-        {
-          "title": "Adani Energy Solutions Bags 2,500 MW Renewable Power Contract",
-          "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNcklOZXFkMlB6d1l0clNxV2g1Rkxfd0RaampYYUhfTFZ4bUlGUTFQZDBtUFk1RndsdDBsZ2Z4c0xELWlhNndWWXBnR2dYVXVmcEFSdlRoNzQ5TS1kNGwtNHpPRkdRR0R1YUZCdW9kRDFrMm5fMzFiOFpRVGtzbGZvNW4tLVVZSzZrZnhXN2NaWjJZSW96Zy1hVXkxbWtVQzJDOGNxdnpUV1BRQ25FdHA0XzZMN3A1YlFYU1Fpb09pVXNLYXhLVkVWTnJBalJZR1lldFdWTHpRVFRoRjFvSzRodnZmaw?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power Bags Rs. 7.08 bn Adani Energy Solutions Order",
-          "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPSUNQTXZzSGtnMEZSOHZ6T0Jla1dOUnVPYWFxSktZbVpmSGVIYWJ5TUNKYlc2b3ZJVGJkTTNTQ2VPajRHbnlicWVYZ3c2NTMxcnlxUTVWTUZ0TmJsOU5NdlB0VUNsa2ktbHo5S3pxQ3JQSFpvSFp2OUFZTUpwUWs2c2xOdHlYOEtvakV3M2NqQ0wtVHJiNnV0a09oWGZLS3oyQ0M5aUp4aXY1eHB3eTRIVWpLX3VDN1Z6Q0ljMlo5YTZBSGw3Q0RGMjNjWS1UbWstYVd2aHM0WENvcFJEVUdENC1n?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        },
-        {
-          "title": "Diamond Power Stock Jumps 3% After Receiving Orders Worth ₹488.18 Crore From Adani Energy Solutions",
-          "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNeGo4OEI2Ukg1ekI3Q29TWjh1dXE5YkdqbkhPU1pIdE9BUWNKUFhRQVg1REdFV010UC1sRXZPaVVHY29nUW11akhlTzdUbUZCaEFZRU1mSy1TVGFwZENyRWZTN0huZ0xfRHpxZEVvaHpueUE4NVM2a0hiY1NwRS1wMEREWTNRQWV4Q3FDOW5QVW9FRVd0N0FDdVVCc0Y1bV9JUkFuTnJjWkZ3ZjVrcWFBU1pXeXNvbHJGRnZsVWFBRm02dzZIVUVKOWJYR1lEUm5hS3pzQjlsSXJNaU0?oc=5",
           "date": "2026-11-26",
           "query": "order worth crore"
         }
@@ -1072,6 +1065,81 @@
       ]
     },
     {
+      "symbol": "NLCINDIA",
+      "name": "NLC India Limited",
+      "mentions": 3,
+      "headlines": [
+        {
+          "title": "NALCO-NLC India 1,080 MW power JV eyes 0.5 MTPA aluminium expansion",
+          "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPUGZsU0t2Y05GRTJ4NXpEVU11c01RRGx3ODJfT1pNTkhnNVNad0RHa3p0SmdhYnVYR1Y2MHMzS0pkRmFyX210aG5ELTMtbTVwdlRxY2FleXhGNjlvVlllN3J1TE9CZGs4YTREaFVwWnRoU044Y2xLVlFGbS1kYllsWmlObk51ZWhDSzdJcktEM2ZhUUo5WHVPcGZ3dE1qLUwwZl8yVHlVSQ?oc=5",
+          "date": "2026-11-24",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "NLC India plans ₹1.5 lakh crore capex push by 2032, targets 32 GW power capacity: CMD",
+          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNYU5GZ3prbDZPSDN6UkNRQjFORnhuVUVkRnEwa2hVSVBmeE9rbmVQMFRGWGVObzZuLXlHemI2d1c0dmpjaS1md2MtWDJ3a2FaOGgzUmE2QnJnbjdja1JRYTlkSzRMX1R5aFVwMFFBekhuXzYzQmpQUmZpNmo5ZzBYVGkteENsV1RrMHdPTy1acENqWS1XNUkyRTZIOXdmak5UbHB5MUxBS3BFODRqcGdIb05faUowNGZ5ZnhJMlhIYUxpTkZzYXNIeGRnOGg3UHQ3YmM1Q2Vn0gHbAUFVX3lxTE4yWG9QY2p6LXBZMmp6eE9yd05HTmgyUXNPT2d1R3AtVzBLWXBIQ1JDY1I5cGpzcmlJMmU0VndheGNlSUpVOGxGLUc4M1VpNFNUQXVpLXVqUThKbFBrbU16LXdBN3V4TERDc1E1Z1IzN2ZHVVdmZXhZUVB1SkdPNnI4cHNIMllMWWIyZzZiWnl6dFVvUVZQZ09tUU93THROS2s2YVQzemxGR05PVEZGdmwtN2llS21BeG5uOUl5dEZRdjlMcXo4blZlY1BtT0lQbUlKbGRsbTRtdHBnWQ?oc=5",
+          "date": "2026-11-24",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "NLC India Plans Rs 1.5 Lakh Crore Investment by 2032, Targets 16 GW Renewable and 15 GW Thermal Capacity",
+          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNNFNoSTg0SnZhVXYtYlF0aVkzVW5jakpCdUtCQ2xBaTRlX3BRdTVqX0lDRy1NZDZTY0NPc0hBU1pTSXZybWhzMDdpZFRNXy1renZwaG41RTQtZHlqb01uT0tab1NNTTI0MTFZUExORGZVNXhmNHVnaFc2NlNKejlDUTFFQjlHZkJUbVc1bFB6M3l4T05zMnc?oc=5",
+          "date": "2026-11-24",
+          "query": "capacity expansion India company"
+        }
+      ]
+    },
+    {
+      "symbol": "WELSPUNLIV",
+      "name": "Welspun Living Limited",
+      "mentions": 3,
+      "headlines": [
+        {
+          "title": "Welspun Living Investment Plan and Capacity Expansion",
+          "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNZDZkSzBxX3ZhLXkwSEtSRlRsa3p4XzlhcW05Z0NMM2U1V2ZsTXhIcTM4YjZldkFTN2k3NXFUT0VpZG1LdWEtVl9qcnBRWTRTWWFxRHVWX2JSWUxXYmgwYkhhek92QnJod1JCZGhmUzBaY2tXNWJCREszSVZCUGdSTlZrcGdMdzdaTURFSDJEbmJuUjlVcnpGdVNNWWl1aWVsRFhxYllJakNXb3U3WVNENG4yVTdyQkhYWDBoYmNYMm02VXFxZUhGS2c3dmVvUQ?oc=5",
+          "date": "2026-11-25",
+          "query": "capacity expansion India company"
+        },
+        {
+          "title": "Trump Tariff Threat impact on Indian stocks: Gokaldas Exports to Welspun Living - Shares that could face biggest heat",
+          "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxNaU5KdGRMSlFiVmFXRjJHS1NieHpzS3gwbVEzVGx6SXBrb0FmUERkR2FqbV9aSzlNdHBMRm5sZEhvNHBMOU9SNkNLQnJVNGxlN1BmOFRLckYtVFViMVVkM19hZzNOTnhReGlZWURsekZyakUxQk5VVThBbnRKWm9sclJQV0JuY0djYlpQVGVxRC1ZazFXNUowWWxSZXVCWVE4T0g2UWlISld1NldmVDR2dHhjOXRNMmJpMEdiRUpwamNVMHV5WlF6OEd4Wlp3Q043cEw5dHZiU0h3Nkx1ZXBVeGdUWFc0NWpFUnZKMmlrSXR1blpGc3NOYjFBUUdPYUE5MlVGN1BGYVFkNnBidGo4MzJR0gGXAkFVX3lxTE9sMkJSWTJKbnFmSGNPNjNMM1Axelg1dDYxdEZiYUNHVnI2QW52X1M5MFNNWTBhaXdzV29tRFFucHNCeXZrVW53aWQ1SnF4ZU5KQXh1UFN4VWRuS0pLU0NicmxvU1RPN1hPZFQ0YUFSZEp0UVdTTkdycDVWUmJ5TGdaTW81djZTcWNWZnRrR1V3ZXVwRDNzYzQxcGVCWDlCZU9uc1UxOGlNcHpJcjVieWd4YkpYMnV3S1BESjdSc3FsTWpncUFwSWJrU1dCd3pDZEpsNjhma09HLWFFbFo3R3hhVVhYa2hTWDE4dFRnN1ZZQk9RTGJ3M2hwdkpoS1hweXJZOVhPQjVQcDR4QTRkdjBoMDdVU3NWMA?oc=5",
+          "date": "2026-11-26",
+          "query": "tariff exports India company"
+        },
+        {
+          "title": "Stocks to BUY, SELL or HOLD Today, November 25: APL Apollo Tubes, PTC Industries, Welspun Living, others",
+          "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQZjVjS0xLSm93YXlSLTB6YW9GZ3NxNmlreGFjRmFUVlh0Vm0wYmhSa2o2eXZ0SFV2ZmM1MWp4N3ZLcTZ3ZUxmNTczSjVCaHJMZWFBeVMxQjNRRlBnTmFEYnlMakluTUxjUlE0ZkVjdmFaUkdlSXJ1b3J5SWtwLUh4d0QtbHVWdF8tUU9NVzNDdHNqMXRHOWRYZGc0U2hkTG9lM3NSVF8zdVRPekd6bUEwSUZKTGZFQkRJRWxUTkIwNGVjTWtMcXN1cDIzVi1uOVEwVHk2UU8wQU40VEpIUmJBVU1tcnbSAeoBQVVfeXFMTlhVdldnWmVjTVpkLWotZHRONDNLMGp3czljTTdfcFNOWlpxekFVS19fVFdWSjZvWHVWRjlaM3c2bFVJOC1DLUQyZUlLZXdsUVlORVVVTzJvMmJSZlNjYVVEbWdVLUNMVGNqc0ZwWHA3Si1uN3Y3WjB4c25BOTA0Uk5qS0U1MFNpMmRpaWU2Z0xlQkloZW1TSGVaWC1OWmsyT2lwRzJBckwyblhUMUNSNHpnUk8xdHhJcUh3WnlzcGJYWE5HY2JDYnRVX09iSWQ3Z29JalJ6RUZSSmN5aVpsQUxaQXhLQmNkaGdB?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
+        }
+      ]
+    },
+    {
+      "symbol": "TATASTEEL",
+      "name": "Tata Steel Limited",
+      "mentions": 3,
+      "headlines": [
+        {
+          "title": "Jefferies maintains Buy on Tata Steel; sees EPS dilution from APL Apollo deal",
+          "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQT0RkMUszak1YeWVEdmt1cl9vMHZYWmpEY0ZOVjJzNHhtYUlVa3o2MlIyU3lIUEQxZURjSXZTT3ZGZzUzV1dvbzNsbk95dnRDTjFVQWkyeFpqM1laUFpPcEJyYTZ1eG00eFZxMGdCazMtQU16STh5aldKWWlBMDJnMU0xWmJCU3ZWQ2F2bWYzV0VBVU5LQWJDVVFYNldBWVFFeGx6RkhBdkw2dmtsYk9USXNMRGozLUNQ?oc=5",
+          "date": "2026-11-25",
+          "query": "acquisition crore India company"
+        },
+        {
+          "title": "Funding, valuation and promoter concerns in APL Apollo’s Rs 28,000-crore Tata Steel deal",
+          "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPbUtJOGNuc3R1NUtaLTF4UXhFQU9CaDdpR3NHTVJpc2JhMHg5VmlqdmhJREFzNHN3LUhYUHJ1Rzd6Y0M5UFNjcnhGSzBRaDdKc0NkWnh3V2ZUc1dqZDNyY1VDY0tqSGhQWlNsT0w5RzlzN29hQnQ3dG0yRDZLcnJZeDhMMW14a3lNLXprTDRDT1BQSnNOdTRpLXR2ZWhNRXNKbkh3NHgwTEM1RVJfVmVUMlNZQ0xxYS1sZHotb1hIQ1o3UUpja3lfbFNBcWhTNVpEUW16UkcwdXJ5S2RK0gHiAUFVX3lxTE9lRGVBVHNCVFNPWldndDg1VDBJWTlVV01uanFfbEtPWWc1eEpRTTV1Um9xMkV5TWp3bzlCLWw0czJnanFoN1d4U1Fkb0V3ekMzMy1BU0dHZVZRME1PWm9jUjRFcmFGU3RBeUZ3MTRiSF9wOGswUmpyRVBBeDgyR2FabmlSUWMyWmtndXU1YTZRVXg3bmZOaGk4QnBCQXBELTZGUF9wTHB4TkZiYkdLOHpyajg1am1SazNYRUF4MjdvT3EyV2JvMTRzb3lzVHVOOWZ6aG56WWV1QWpZY3ZEWFdpTWc?oc=5",
+          "date": "2026-11-26",
+          "query": "board approves fund raise India"
+        },
+        {
+          "title": "Tata Steel-APL Apollo deal under SEBI lens",
+          "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOenA0ZkRlQVdUenNmYktTa0tQOHVMazZPVFkybFZlUE1GaTBVamdKUlBqVy05UUdWUGtkbjVpNDJDMU1hQXFfbVpvTlIxYmp6VU9EcGRoTktmbVpybF9BaWNzZWZUbXBQbGRNRWg1TExJdGRrNGQ5MW9UTEVORWV2YzhJQkxLNzQxVExIaGJkbHdPVTN3R0FVdWg4VHBQX1lwZVZmY9IBqwFBVV95cUxNcElrcVJqVTBmRmFJQmtTdFQzM0J1clVnTnZjanBsd2hTQ3ViblJjUEFrOUkzd2Z0bUhNa1VWalhwc3dfV3hZcmQxbF92alZ6RDFyOURkbnZUcVRHbVJNLUN5RjhDdVp4SHo0SjFCWnpQcXNxQVlJVGxLclNaRWpRREN2dThFbWZfc2dNblc5RTUtLU1RMEFsSGVXVU1VSW0yZm12RzZTRUoxalE?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
+        }
+      ]
+    },
+    {
       "symbol": "TEAMGTY",
       "name": "Team India Guaranty Limited",
       "mentions": 3,
@@ -1097,6 +1165,25 @@
       ]
     },
     {
+      "symbol": "JSWENERGY",
+      "name": "JSW Energy Limited",
+      "mentions": 2,
+      "headlines": [
+        {
+          "title": "KSB bags ₹117 crore order from Triveni Turbines for JSW Energy project; 15 pump sets to be supplied",
+          "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNa1ZpWnV5Sm01UXNQbGFGRUxIc1ZhZ2RUOFg0VHdiVi1nSHVhNmNwS2dMelFNdTBrUGpnR19UMzBES21PdXllLXNObmNzdVNiTXpxeVNxVmdaQmhSWEtlamRqR2Q4M0k0RGxwYWd1RXNyR3ZQZ2h3R2t3ejNtNXYxWW5qVzJwTk5tV181RU9uZmluRnpoT01BTnZDSmYtN0lOZmQ0WkRId3Q3T0JjX3RXSnA5eEU4YTBrdGtoY2V2NG9pcmNobkx3djlxNmhhMGdYWkJRSHpCdEVra3FwQ0dRSTc3VlVneEp0RWpmU0FVbDgxc0nSAfMBQVVfeXFMTWtWaVp1eUptNVFzUGxhRkVMSHNWYWdkVDhYNFR3YlYtZ0h1YTZjcEtnTHpRTXUwa1BqZ0dfVDMwREttT3V5ZS1zTm5jc3VTYk16cXlTcVZnWkJoUlhLZWpkakdkODNJNERscGFndUVzckd2UGdod0drd3ozbTV2MVlualcycE5ObVdfNUVPbmZpbkZ6aE9NQU52Q0pmLTdJTmZkNFpESHd0N09CY190V0pwOXhFOGEwa3RraGNldjRvaXJjaG5Md3Y5cTZoYTBnWFpCUUh6QnRFa2txcENHUUk3N1ZVZ3hKdEVqZlNBVWw4MXNJ?oc=5",
+          "date": "2026-11-25",
+          "query": "bags order India company"
+        },
+        {
+          "title": "KSB wins Rs 1170 crore work order from Triveni Turbines for JSW Energy project",
+          "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQVmtVVWJxOE1PbWZFaFFOWG1hYmJYODhxQ0tISkNlbFJWY0tXV0xvZUY2cUw3d2d0a3UxN3lMU0ZnX3F0cVRrTjVGMi00OVRfVnVtVGhValBVdXVEMkJTeXRnOUk0YVVRa2c3NEx4Mm9GM0pKdC1zN0pFMUVaTEg4THFvNFF6VmNFd3F0OUVMWm9IOTZxTEc4OWp1ZlZnT2xDQTIwbGd4VEM5bjZEemhnS1FCU21na1RFTVVQaURobWtLb0hL?oc=5",
+          "date": "2026-11-25",
+          "query": "order worth crore"
+        }
+      ]
+    },
+    {
       "symbol": "TEXRAIL",
       "name": "Texmaco Rail & Engineering Limited",
       "mentions": 2,
@@ -1116,21 +1203,21 @@
       ]
     },
     {
-      "symbol": "JSWENERGY",
-      "name": "JSW Energy Limited",
+      "symbol": "RVNL",
+      "name": "Rail Vikas Nigam Limited",
       "mentions": 2,
       "headlines": [
         {
-          "title": "KSB bags ₹117 crore order from Triveni Turbines for JSW Energy project; 15 pump sets to be supplied",
-          "link": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxNa1ZpWnV5Sm01UXNQbGFGRUxIc1ZhZ2RUOFg0VHdiVi1nSHVhNmNwS2dMelFNdTBrUGpnR19UMzBES21PdXllLXNObmNzdVNiTXpxeVNxVmdaQmhSWEtlamRqR2Q4M0k0RGxwYWd1RXNyR3ZQZ2h3R2t3ejNtNXYxWW5qVzJwTk5tV181RU9uZmluRnpoT01BTnZDSmYtN0lOZmQ0WkRId3Q3T0JjX3RXSnA5eEU4YTBrdGtoY2V2NG9pcmNobkx3djlxNmhhMGdYWkJRSHpCdEVra3FwQ0dRSTc3VlVneEp0RWpmU0FVbDgxc0nSAfMBQVVfeXFMTWtWaVp1eUptNVFzUGxhRkVMSHNWYWdkVDhYNFR3YlYtZ0h1YTZjcEtnTHpRTXUwa1BqZ0dfVDMwREttT3V5ZS1zTm5jc3VTYk16cXlTcVZnWkJoUlhLZWpkakdkODNJNERscGFndUVzckd2UGdod0drd3ozbTV2MVlualcycE5ObVdfNUVPbmZpbkZ6aE9NQU52Q0pmLTdJTmZkNFpESHd0N09CY190V0pwOXhFOGEwa3RraGNldjRvaXJjaG5Md3Y5cTZoYTBnWFpCUUh6QnRFa2txcENHUUk3N1ZVZ3hKdEVqZlNBVWw4MXNJ?oc=5",
-          "date": "2026-11-25",
+          "title": "Rail Vikas Nigam Receives NMDC Order for Chhattisgarh Hospital Project",
+          "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQNkl1M0kxcy02UjhPUmhnc3NKQTJlTUdjUE5McXB0RUwxS2wzYUhIT3VvemhXRE1BY3NJcUtYMlR3T0NjWGh1Y1J5dWtBRFJDd2FvUHR0ZXZ0SHc3NmJwbUhOOTl1REJOUGp0WkNuLWxGdDJhTTJiM2R6N0ZIaG9ucjlFYl9obVhyUE5ZUTFBd3k0QUR1OEtxRGtJT1oyR0RISzZNUG81bWVIRFFIbDdIS3pVejVHLUx3NFFhQWduZTdXMGFybzByN1hVdUtNeGV5cjRUQkpxbE91MXdkVHNvazFzRVVuQnpvVEJR0gHwAUFVX3lxTE1HaWJfd3FiVVdndmZoWnZ4VnlQRlNVWEhoRzQ2eEszRHpqWmRSdlRscHVPS1o0RGlCTHk2ZmdCalZjQWUtQklHSkc5RTRiWkh6QnUtRlJiblZ3aEdKYlViNXZmcXZ5TnlvdTFGa0dMRFpJZWt6ZnI2UVZQMDBwMEdlbVB4ZlhsYURKbjNJSmJsdHFXaXhZdmdOSGdDcXZwQ3JlSkFoalBwWkZhMlhpUU1KYkxyeXdCdlZ0R0J5QUVNbW5UU1lfS3RhYUg2dUlzVG5VZmppdWh1SzRVMElBVVhSTHQ4RTZjcW9tZ3JjYVJMbg?oc=5",
+          "date": "2026-11-23",
           "query": "bags order India company"
         },
         {
-          "title": "KSB wins Rs 1170 crore work order from Triveni Turbines for JSW Energy project",
-          "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQVmtVVWJxOE1PbWZFaFFOWG1hYmJYODhxQ0tISkNlbFJWY0tXV0xvZUY2cUw3d2d0a3UxN3lMU0ZnX3F0cVRrTjVGMi00OVRfVnVtVGhValBVdXVEMkJTeXRnOUk0YVVRa2c3NEx4Mm9GM0pKdC1zN0pFMUVaTEg4THFvNFF6VmNFd3F0OUVMWm9IOTZxTEc4OWp1ZlZnT2xDQTIwbGd4VEM5bjZEemhnS1FCU21na1RFTVVQaURobWtLb0hL?oc=5",
+          "title": "Rail Vikas Nigam surges on securing contract worth Rs 86.58 crore",
+          "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQRlN2dWhoaUptYjNpNXY0d3ZFM2d1UEtoTnJFVVIwX3VxUExNX1VaaWlZazNUZXUyNkxOdXA4ZVhhVWdjanZuNE1GUWpQa2VoR180cGNncDFsaWgyS0pEY1Fmems1Q24zSWdwbUJUdzFhWlFTRXh0UWZSaTEyTlR0Zmg1X0dWRzQ1WkhLNUFGSnpVWXpYRVE?oc=5",
           "date": "2026-11-25",
-          "query": "order worth crore"
+          "query": "USFDA approval India company"
         }
       ]
     },
@@ -1184,10 +1271,10 @@
           "query": "letter of intent crore India"
         },
         {
-          "title": "Brigade Enterprises buys Secunderabad land for ₹180 crore",
-          "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOM2loc0FYdzRwZ0Z3Mi1GeUtyWlFPNXJJUV9ORFAzaG1jdnJBZHlVb25QVkpEbUtneUZUdnJxY1N3VEFYTkFnZGFYQlNvd0laM2JkTmkxd2dhVnozdXB2SzBMaDU3WEFlODBvbklzUDItZFF4QWNncmlTcEtOYTRCeXU4dHl6RUI5RTBiemN1dlhoT0NrSnBfb2VaRnZtNlRESEg3VEpNU25iaXJKUGc?oc=5",
+          "title": "Brigade Enterprises Investment Plan and Capacity Expansion",
+          "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOcDVpQ2pXRWJLSFYwRGFyVkxaNDdVUy1pMTV6cXluTkYtWTdfSDByUkg1QktwR1o2cWNTZlVRcWlJYm9WMEJrMlYwMThGbHRqYmRtcEZHR2FhcXQzUUJfY1htMzNWRnZGVVg0d2JkXzBZQms4SW9PV3gyYUhKMVN3VF9XcUg3M2FoS3dGb1NrRVZRRFdJUk9weG1iMmJtZXhCaGNHekM4dVVoM3BRaWl5Vnd3RE1xMEVQaHRncGhBR1ptUGtpYldxMGU0b3FIa0N6WWl3U2ZUdw?oc=5",
           "date": "2026-11-25",
-          "query": "acquisition crore India company"
+          "query": "capacity expansion India company"
         }
       ]
     },
@@ -1230,40 +1317,21 @@
       ]
     },
     {
-      "symbol": "NLCINDIA",
-      "name": "NLC India Limited",
+      "symbol": "BIRLACORPN",
+      "name": "Birla Corporation Limited",
       "mentions": 2,
       "headlines": [
         {
-          "title": "NLC India plans ₹1.5 lakh crore capex push by 2032, targets 32 GW power capacity: CMD",
-          "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNYU5GZ3prbDZPSDN6UkNRQjFORnhuVUVkRnEwa2hVSVBmeE9rbmVQMFRGWGVObzZuLXlHemI2d1c0dmpjaS1md2MtWDJ3a2FaOGgzUmE2QnJnbjdja1JRYTlkSzRMX1R5aFVwMFFBekhuXzYzQmpQUmZpNmo5ZzBYVGkteENsV1RrMHdPTy1acENqWS1XNUkyRTZIOXdmak5UbHB5MUxBS3BFODRqcGdIb05faUowNGZ5ZnhJMlhIYUxpTkZzYXNIeGRnOGg3UHQ3YmM1Q2Vn0gHbAUFVX3lxTE4yWG9QY2p6LXBZMmp6eE9yd05HTmgyUXNPT2d1R3AtVzBLWXBIQ1JDY1I5cGpzcmlJMmU0VndheGNlSUpVOGxGLUc4M1VpNFNUQXVpLXVqUThKbFBrbU16LXdBN3V4TERDc1E1Z1IzN2ZHVVdmZXhZUVB1SkdPNnI4cHNIMllMWWIyZzZiWnl6dFVvUVZQZ09tUU93THROS2s2YVQzemxGR05PVEZGdmwtN2llS21BeG5uOUl5dEZRdjlMcXo4blZlY1BtT0lQbUlKbGRsbTRtdHBnWQ?oc=5",
+          "title": "Birla Carbon’s Thailand expansion strengthens India’s global chemical industry presence",
+          "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOWE1xb3pwRnFtT2VBRDRvM1ItTFctRlMxOEtSSXRJWTFKMFA4NGkxcERUMDNGclR0WUk5Q2dNbEo0di1GWng0QVFKMWZZUTZvclRnY0xjcnRtQjBOM2tmaUZQZktZbHJIQWxELXY2Y3dMcW5heVkyZVhlTllWRmlhMEp1bTRlWE5jeUh3R2VWMVdHY2VZLVhKLVNkVDNnRjB4WFU5MUcxNTNZc1U2VGFkb3Q3UmlFRUl2czdUcFM2R09QYThvTEdvQ1VzZzZXemRUNEJtV1ZSOWFQX0JueDFfeFZRVUpPcWhyeXFoeWF5d1h0OFBYWkJETzNsZ9IBgAJBVV95cUxPNnl2TWxwOExuNUR5UjFBQWoxWGN1cUlDeER3TU00MmhwVkVhTlFoc3ljMlJJOUZPN3BJUE1FWFlIWHA2aS1yRlp5eTZBZklVbzhhdm9VOW1jM2kzSjJCTVlBMFVjSkRiQTNRY3pVQnVfYm5HWjhUMzFVeVhjeFRvdWZZaDlLZmR4OTJGX2VzYlFaYl8yQjY1ZWJTQVJ5ZDB3MFhTODVKbXo5RS03bEZXby05bGNwVFhDaGFzczEybWZqOGNOWDluRnFHSW1nS3NDY0djM25zdm1XZlpaQWZBSEJpclFnVWI4SWtpZ3Z6UEtIMWUtT0EteFJxcHEzckRM?oc=5",
           "date": "2026-11-24",
           "query": "capacity expansion India company"
         },
         {
-          "title": "NALCO-NLC India 1,080 MW power JV eyes 0.5 MTPA aluminium expansion",
-          "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPUGZsU0t2Y05GRTJ4NXpEVU11c01RRGx3ODJfT1pNTkhnNVNad0RHa3p0SmdhYnVYR1Y2MHMzS0pkRmFyX210aG5ELTMtbTVwdlRxY2FleXhGNjlvVlllN3J1TE9CZGs4YTREaFVwWnRoU044Y2xLVlFGbS1kYllsWmlObk51ZWhDSzdJcktEM2ZhUUo5WHVPcGZ3dE1qLUwwZl8yVHlVSQ?oc=5",
-          "date": "2026-11-24",
-          "query": "capacity expansion India company"
-        }
-      ]
-    },
-    {
-      "symbol": "WELSPUNLIV",
-      "name": "Welspun Living Limited",
-      "mentions": 2,
-      "headlines": [
-        {
-          "title": "Welspun Living Investment Plan and Capacity Expansion",
-          "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNZDZkSzBxX3ZhLXkwSEtSRlRsa3p4XzlhcW05Z0NMM2U1V2ZsTXhIcTM4YjZldkFTN2k3NXFUT0VpZG1LdWEtVl9qcnBRWTRTWWFxRHVWX2JSWUxXYmgwYkhhek92QnJod1JCZGhmUzBaY2tXNWJCREszSVZCUGdSTlZrcGdMdzdaTURFSDJEbmJuUjlVcnpGdVNNWWl1aWVsRFhxYllJakNXb3U3WVNENG4yVTdyQkhYWDBoYmNYMm02VXFxZUhGS2c3dmVvUQ?oc=5",
+          "title": "Birla Carbon opens 120 kMT carbon black manufacturing plant in Thailand to become Asia’s largest producer outside China",
+          "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNUUZRZERId2dYRnpfSkhoRDR4QUpMajlLZnlhNUpmenotQWJqWGI1dGlqbnhGdmx6b3JkaDN1aGwwY2J2UjU3aGVwaUhpLWQtWGlzLWh4VDYxcV9ibVpJOTU3SUNSVGF0T3U5dzFMZTl0Mi1qcThyV3dnZ21MdEhUMk1GRHdydTRheWlnN252ZUw3UWVMWllaQzZGLVA0SVpvRzI5aDRvelVhOXh6c3BIeWs3REZLb0VnTVEwam05NEJ0Z0RpUUUxSUlDc2hRNlNLTUxmaFVBTWhTZXc2Qi1qZC1pWjNQWlI4YXNaSTNvMUwxWGlFN2NaUXpDLUHSAYMCQVVfeXFMTkZ5LXpaOXBIbElxa2JONWRLZUVaZVJ5LVpoY0JfX0lwWnZnSy0ydTRlaHdvcm9tc3g2S1lnelV1djR1d2xyRUI0c0dGVDBxQlVuLUlHRFUwbW5LaG1UV3VLSjJzVXQtblZjU0hHdHktbHpOSklsLW1LamZmaWhQNVJJRHo3ZG54WlR2a1Vtd3oxbEY4WHUxNmFSSmFKdmtlTnZfYW9ieXowTVh0RVExc3JCdEUzUnI4NFRqc1JweXh5MzluS0RjdDlNN1Y4UVhCTUYzLXZicTVlZi1YcDZMRnpzcVgzamVSUFk4eHByUFNhOGdRUGVWLUVoR3B0MUx6Qkk2NA?oc=5",
           "date": "2026-11-25",
-          "query": "capacity expansion India company"
-        },
-        {
-          "title": "Trump Tariff Threat impact on Indian stocks: Gokaldas Exports to Welspun Living - Shares that could face biggest heat",
-          "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxNaU5KdGRMSlFiVmFXRjJHS1NieHpzS3gwbVEzVGx6SXBrb0FmUERkR2FqbV9aSzlNdHBMRm5sZEhvNHBMOU9SNkNLQnJVNGxlN1BmOFRLckYtVFViMVVkM19hZzNOTnhReGlZWURsekZyakUxQk5VVThBbnRKWm9sclJQV0JuY0djYlpQVGVxRC1ZazFXNUowWWxSZXVCWVE4T0g2UWlISld1NldmVDR2dHhjOXRNMmJpMEdiRUpwamNVMHV5WlF6OEd4Wlp3Q043cEw5dHZiU0h3Nkx1ZXBVeGdUWFc0NWpFUnZKMmlrSXR1blpGc3NOYjFBUUdPYUE5MlVGN1BGYVFkNnBidGo4MzJR0gGXAkFVX3lxTE9sMkJSWTJKbnFmSGNPNjNMM1Axelg1dDYxdEZiYUNHVnI2QW52X1M5MFNNWTBhaXdzV29tRFFucHNCeXZrVW53aWQ1SnF4ZU5KQXh1UFN4VWRuS0pLU0NicmxvU1RPN1hPZFQ0YUFSZEp0UVdTTkdycDVWUmJ5TGdaTW81djZTcWNWZnRrR1V3ZXVwRDNzYzQxcGVCWDlCZU9uc1UxOGlNcHpJcjVieWd4YkpYMnV3S1BESjdSc3FsTWpncUFwSWJrU1dCd3pDZEpsNjhma09HLWFFbFo3R3hhVVhYa2hTWDE4dFRnN1ZZQk9RTGJ3M2hwdkpoS1hweXJZOVhPQjVQcDR4QTRkdjBoMDdVU3NWMA?oc=5",
-          "date": "2026-11-26",
-          "query": "tariff exports India company"
+          "query": "new plant commissioning India"
         }
       ]
     },
@@ -1302,25 +1370,6 @@
           "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNbXhTbUdEVmI5Q3hnU3k5NjdkZm1tRjYxTlA0Z3V0bnZsRThFTHowLTB2Nm5peEFTOXk4OEpvYzRqNGp6MEg2R0pjb3NyVlJwcUpyOElGa05UNHlleUx0YjFzTjB0VEpyd1FDTllKdDEzVm93bTJucTRrOS1SSWtMUDY3QVVDSEFWU0pCQkxrSFJ6Vmg3RnpKSWNZSkRRSzNidUZvZGFPNnJiZlFLX2dUandGNk52cGw2RERB?oc=5",
           "date": "2026-11-26",
           "query": "SEBI order company India"
-        }
-      ]
-    },
-    {
-      "symbol": "SHADOWFAX",
-      "name": "Shadowfax Technologies Limited",
-      "mentions": 2,
-      "headlines": [
-        {
-          "title": "Shadowfax Technologies Limited Agrees Wefast Deal for Rs 23.30 Crore",
-          "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPRGhPeEY2eDJxeEp0NEtoLTZrWUlIWmhQa2V1ZnBXUXFWejhGZnpHbGhIUVZYTWtYSWVJYWNuU0dUMVh5alRYNzNwa1FxaXY4RFNmeEJidUFBVHNsYU9MUlB4ZmpmaWZBSjhPajQxbXNvUlF1U1Fpa0dlVW9uVmFPS045UU1fbHlFNXBtZEY0TEhaZTNWb3VUOGdralRiT3FYS0E0WGhtbGVBN19CSjI5RTQxeFdYNjNoVDUw?oc=5",
-          "date": "2026-11-25",
-          "query": "acquisition crore India company"
-        },
-        {
-          "title": "Shadowfax Technologies Approves ₹23.32 Crore WeFast Asset Deal",
-          "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNZF8zWGJMelIzZUJEeHZMV0FldDVBMlA4emZmd184QzZDaFJOa1ExcEd5WTdRYXBNMmJoaGRXSnBaY1dFRzNSY3NKN3ppMUozYTNGekJRNHFNbTd1ZWZrWWQ5bEF2S0M5ME9vUXczRXctWkU3Mkh1WTBYUkE5VUFWRlBvOWNuZ1hrRy1HQ1JEOFlmZEtPUFlfUTNobjduRXd3Znc?oc=5",
-          "date": "2026-11-24",
-          "query": "acquisition crore India company"
         }
       ]
     },
@@ -1401,21 +1450,21 @@
       ]
     },
     {
-      "symbol": "BIRLACORPN",
-      "name": "Birla Corporation Limited",
+      "symbol": "VIKRAN",
+      "name": "Vikran Engineering Limited",
       "mentions": 2,
       "headlines": [
         {
-          "title": "Birla Carbon opens 120 kMT carbon black manufacturing plant in Thailand to become Asia’s largest producer outside China",
-          "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxNUUZRZERId2dYRnpfSkhoRDR4QUpMajlLZnlhNUpmenotQWJqWGI1dGlqbnhGdmx6b3JkaDN1aGwwY2J2UjU3aGVwaUhpLWQtWGlzLWh4VDYxcV9ibVpJOTU3SUNSVGF0T3U5dzFMZTl0Mi1qcThyV3dnZ21MdEhUMk1GRHdydTRheWlnN252ZUw3UWVMWllaQzZGLVA0SVpvRzI5aDRvelVhOXh6c3BIeWs3REZLb0VnTVEwam05NEJ0Z0RpUUUxSUlDc2hRNlNLTUxmaFVBTWhTZXc2Qi1qZC1pWjNQWlI4YXNaSTNvMUwxWGlFN2NaUXpDLUHSAYMCQVVfeXFMTkZ5LXpaOXBIbElxa2JONWRLZUVaZVJ5LVpoY0JfX0lwWnZnSy0ydTRlaHdvcm9tc3g2S1lnelV1djR1d2xyRUI0c0dGVDBxQlVuLUlHRFUwbW5LaG1UV3VLSjJzVXQtblZjU0hHdHktbHpOSklsLW1LamZmaWhQNVJJRHo3ZG54WlR2a1Vtd3oxbEY4WHUxNmFSSmFKdmtlTnZfYW9ieXowTVh0RVExc3JCdEUzUnI4NFRqc1JweXh5MzluS0RjdDlNN1Y4UVhCTUYzLXZicTVlZi1YcDZMRnpzcVgzamVSUFk4eHByUFNhOGdRUGVWLUVoR3B0MUx6Qkk2NA?oc=5",
+          "title": "Vikran Engineering discloses SEBI warning and ₹12.5 crore litigation",
+          "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOX1c4ck1iYk5XZ0Q0VElwRmZwNEtqMnhwUy01ZlM4Q25ueUJKVlEzRWUwN3FOM1EzSFVQdWk4SlJvR1dYSTlFRk91ZTZxVEU4RTFvWkZoUVR2LWVtQTA3OGlZLWVFOF9WdGpBYTRLSV9IaHlBLU9JTWFpaHVVTHAtNkVvUzBvcU9KWEJsZ0g1NkZhOG9mVkVVeEpLaHZ0bUVqRTRwR3NqbEgtUmF4bEJsOXhUVF9fRFA5ak85Rg?oc=5",
           "date": "2026-11-25",
-          "query": "new plant commissioning India"
+          "query": "SEBI order company India"
         },
         {
-          "title": "Birla Carbon’s Thailand expansion strengthens India’s global chemical industry presence",
-          "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOWE1xb3pwRnFtT2VBRDRvM1ItTFctRlMxOEtSSXRJWTFKMFA4NGkxcERUMDNGclR0WUk5Q2dNbEo0di1GWng0QVFKMWZZUTZvclRnY0xjcnRtQjBOM2tmaUZQZktZbHJIQWxELXY2Y3dMcW5heVkyZVhlTllWRmlhMEp1bTRlWE5jeUh3R2VWMVdHY2VZLVhKLVNkVDNnRjB4WFU5MUcxNTNZc1U2VGFkb3Q3UmlFRUl2czdUcFM2R09QYThvTEdvQ1VzZzZXemRUNEJtV1ZSOWFQX0JueDFfeFZRVUpPcWhyeXFoeWF5d1h0OFBYWkJETzNsZ9IBgAJBVV95cUxPNnl2TWxwOExuNUR5UjFBQWoxWGN1cUlDeER3TU00MmhwVkVhTlFoc3ljMlJJOUZPN3BJUE1FWFlIWHA2aS1yRlp5eTZBZklVbzhhdm9VOW1jM2kzSjJCTVlBMFVjSkRiQTNRY3pVQnVfYm5HWjhUMzFVeVhjeFRvdWZZaDlLZmR4OTJGX2VzYlFaYl8yQjY1ZWJTQVJ5ZDB3MFhTODVKbXo5RS03bEZXby05bGNwVFhDaGFzczEybWZqOGNOWDluRnFHSW1nS3NDY0djM25zdm1XZlpaQWZBSEJpclFnVWI4SWtpZ3Z6UEtIMWUtT0EteFJxcHEzckRM?oc=5",
-          "date": "2026-11-24",
-          "query": "new plant commissioning India"
+          "title": "Vikran Engineering (NSE:VIKRAN): What Does the SEBI Warning and GS Products Litigation Mean?",
+          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQZ180YjByMkVTLVdGSjBCUWs2VW9jelRfUFliRlVlTzU1dmFiRG1WQXlzN0FPdW56UFdZbDVSRVhmYnVidFpyNXpfRGhna1hqaG1VbGZWRXNUZ3RZMTRRV1FnZlpKVWFSNlRKUWswN1ZZQnVycnBfQWxDc2psOWxMTzJZWGJKd29IdGFHSXEydE9ReFZzVDJIblBrTV81OE1CZDhsb0ZxV29KMW1LZEsxV0EwWFpqZDREYWVmRllSNkF2UEtCM2FHbGdMNW9FY3pK?oc=5",
+          "date": "2026-11-25",
+          "query": "SEBI order company India"
         }
       ]
     },
@@ -1446,32 +1495,6 @@
       ]
     },
     {
-      "symbol": "PHOENXINTL",
-      "name": "Phoenix International Limited",
-      "mentions": 1,
-      "headlines": [
-        {
-          "title": "Wipro bags $600 mn BP deal after Olam, Phoenix wins",
-          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmJNUmh4bGhoWHBhMzR1NjBnLVA5N0lmRFF1ck9KUGM1RU5iLWtJbnBPS1IzSEpSaVZoc0k1bjFhcnRqMjR1dVJMNWNNS2RhTXlqU3dpN2ZUX3p2NWxFTkpUZHRESUxkRFpIVl9NYVQ3aE15UlZBdFFhd1AzZmhldFdQTGlCNjNqdWp4V3JRY0R6ajMxMmw3Si1HMVBlVUNJT3dZbHpIdUpfTVRaSld5Ty0xMVpZTmM2YmJiWmdtT19Tc1BxY19uQ1RpZjh6aFZK0gHWAUFVX3lxTE50cllTV0RSOXRGNm1haDNtZUozRV9keXpoNFpidVNNWm5yNFlacm5aYW9uaFU5anEyaktnaFpWamxOenIwU2hnV1JSOWdkV3pJemdubHNiWGktdzFSRlVGQ3lCUWVjSTRya3d3SW12OS1FcEtFdFdKckM3alBMTTdFMkxSZHZyZVlveGVwUFJWcTY4OWRMY1lneXJndGVmT20wN21yN2FhSXh2bUZqZTR0Q1BoYzlXTmpjTlA0djBHX2JLU0tpVnpqYjBVcXNYZEtpV1dTSlE?oc=5",
-          "date": "2026-11-25",
-          "query": "bags order India company"
-        }
-      ]
-    },
-    {
-      "symbol": "RVNL",
-      "name": "Rail Vikas Nigam Limited",
-      "mentions": 1,
-      "headlines": [
-        {
-          "title": "Rail Vikas Nigam Receives NMDC Order for Chhattisgarh Hospital Project",
-          "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxQNkl1M0kxcy02UjhPUmhnc3NKQTJlTUdjUE5McXB0RUwxS2wzYUhIT3VvemhXRE1BY3NJcUtYMlR3T0NjWGh1Y1J5dWtBRFJDd2FvUHR0ZXZ0SHc3NmJwbUhOOTl1REJOUGp0WkNuLWxGdDJhTTJiM2R6N0ZIaG9ucjlFYl9obVhyUE5ZUTFBd3k0QUR1OEtxRGtJT1oyR0RISzZNUG81bWVIRFFIbDdIS3pVejVHLUx3NFFhQWduZTdXMGFybzByN1hVdUtNeGV5cjRUQkpxbE91MXdkVHNvazFzRVVuQnpvVEJR0gHwAUFVX3lxTE1HaWJfd3FiVVdndmZoWnZ4VnlQRlNVWEhoRzQ2eEszRHpqWmRSdlRscHVPS1o0RGlCTHk2ZmdCalZjQWUtQklHSkc5RTRiWkh6QnUtRlJiblZ3aEdKYlViNXZmcXZ5TnlvdTFGa0dMRFpJZWt6ZnI2UVZQMDBwMEdlbVB4ZlhsYURKbjNJSmJsdHFXaXhZdmdOSGdDcXZwQ3JlSkFoalBwWkZhMlhpUU1KYkxyeXdCdlZ0R0J5QUVNbW5UU1lfS3RhYUg2dUlzVG5VZmppdWh1SzRVMElBVVhSTHQ4RTZjcW9tZ3JjYVJMbg?oc=5",
-          "date": "2026-11-23",
-          "query": "bags order India company"
-        }
-      ]
-    },
-    {
       "symbol": "ADANIPOWER",
       "name": "Adani Power Limited",
       "mentions": 1,
@@ -1480,6 +1503,19 @@
           "title": "Adani Enterprises and Adani Power Plan Public Bond Issues to Raise at Least ₹2,000 Crore",
           "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPZU1iTGFTcjZJRFJqUjBUVnhkeVdVVmRDN1ZNNE1qbWtMTkw2dHZycy1JM3dzMkkzRTZTZU92eEpGS0xhR0Z3bUhQbll6UTk1aGo1eENsOUVEWDJmNWhLSEZ2S2hRR04yNk5FREJFMjQ0UWh5akVXMHZxQllWY3pibGN3c3pwM2tfODRXU3NuRTRvbk0zOUdQMUdfcGhNYkZJckE?oc=5",
           "date": "2026-11-26",
+          "query": "bags order India company"
+        }
+      ]
+    },
+    {
+      "symbol": "PHOENXINTL",
+      "name": "Phoenix International Limited",
+      "mentions": 1,
+      "headlines": [
+        {
+          "title": "Wipro bags $600 mn BP deal after Olam, Phoenix wins",
+          "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxPcmJNUmh4bGhoWHBhMzR1NjBnLVA5N0lmRFF1ck9KUGM1RU5iLWtJbnBPS1IzSEpSaVZoc0k1bjFhcnRqMjR1dVJMNWNNS2RhTXlqU3dpN2ZUX3p2NWxFTkpUZHRESUxkRFpIVl9NYVQ3aE15UlZBdFFhd1AzZmhldFdQTGlCNjNqdWp4V3JRY0R6ajMxMmw3Si1HMVBlVUNJT3dZbHpIdUpfTVRaSld5Ty0xMVpZTmM2YmJiWmdtT19Tc1BxY19uQ1RpZjh6aFZK0gHWAUFVX3lxTE50cllTV0RSOXRGNm1haDNtZUozRV9keXpoNFpidVNNWm5yNFlacm5aYW9uaFU5anEyaktnaFpWamxOenIwU2hnV1JSOWdkV3pJemdubHNiWGktdzFSRlVGQ3lCUWVjSTRya3d3SW12OS1FcEtFdFdKckM3alBMTTdFMkxSZHZyZVlveGVwUFJWcTY4OWRMY1lneXJndGVmT20wN21yN2FhSXh2bUZqZTR0Q1BoYzlXTmpjTlA0djBHX2JLU0tpVnpqYjBVcXNYZEtpV1dTSlE?oc=5",
+          "date": "2026-11-25",
           "query": "bags order India company"
         }
       ]
@@ -1511,15 +1547,15 @@
       ]
     },
     {
-      "symbol": "BONDADA",
-      "name": "Bondada Engineering Limited",
+      "symbol": "CENTUM",
+      "name": "Centum Electronics Limited",
       "mentions": 1,
       "headlines": [
         {
-          "title": "Aar Shyam India Investment wins Rs 7.69 crore work order from Bondada Engineering",
-          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQb1FMZVJ6NTQ4ZXpNMmJfS2lrYVl3eEROeHBSRHJxR0w0bnpKWTRYaFl3NVBEbEpkalExY0pNczVKcS1VMTZyQWo3d2FjTGR3S185cXc2S2lRR2tWZFVCdmtKUGRDOGNLX285NUN6UG02QjU4X2Q2NkpfREhMQzZKZWs4YlFYa3M0M0JQVlBHZm15SU1mOUdRNXA1QnVONmJXMGpWbUs3LThXUV82U1J4OGVjTGRXNVdZeWhLaEJn?oc=5",
-          "date": "2026-11-26",
-          "query": "wins contract India company"
+          "title": "Centum Electronics Partners With SpacePixxel At IISC 2026 For Next-Gen Satellite Payloads",
+          "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQTzJycXE4N2dJMjgwQkc2VUJxZnhadlVpNE5QRTlBRjhob3BZMHRZa19VRmZBUXBPSDdRV1ptQTRVd0VLV2RjNXFHTHBMNmdkeW40QUpoRkl6VjdXekYxaklINGNXbkN2anhRX0JtTDJqZVhyVHRTT0J1NW5uNnBleUUwN01WSU5VNnBTTHN6OGh3YU5NNmpJUkstYVNjeUVoSVNWNWs1RDZGUFZWM2JHbXZaOURuX0tqMjJVMnpZSnZVUW1uM3RCeTZLeUNYazF2MlE?oc=5",
+          "date": "2026-11-25",
+          "query": "bags order India company"
         }
       ]
     },
@@ -1531,6 +1567,19 @@
         {
           "title": "Silver Touch wins India's Gujarat power utility security deal",
           "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOd2F6YUhNYW90UWhlc2NOZW1wZ0gxTjlBR2hVTEtMZXhTZ2RCN2Q0eXBCS01lNG9zZVhpSmdwQVU5WjJzNHlNWDIxNG1JSWRKdFh5bmZLakpONVd2bWVCaUxCVGFpQTJHRjN6cEpaRXJtQ1Z2aEtFMzBjejd1SGtBWlRMaG1JeGRUaG44T29pVzViclRRMDJtRzNBVGpXZUdNWVhnc3VyUExSaks3N25XcDRLRndidmFkdmc?oc=5",
+          "date": "2026-11-26",
+          "query": "wins contract India company"
+        }
+      ]
+    },
+    {
+      "symbol": "BONDADA",
+      "name": "Bondada Engineering Limited",
+      "mentions": 1,
+      "headlines": [
+        {
+          "title": "Aar Shyam India Investment wins Rs 7.69 crore work order from Bondada Engineering",
+          "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQb1FMZVJ6NTQ4ZXpNMmJfS2lrYVl3eEROeHBSRHJxR0w0bnpKWTRYaFl3NVBEbEpkalExY0pNczVKcS1VMTZyQWo3d2FjTGR3S185cXc2S2lRR2tWZFVCdmtKUGRDOGNLX285NUN6UG02QjU4X2Q2NkpfREhMQzZKZWs4YlFYa3M0M0JQVlBHZm15SU1mOUdRNXA1QnVONmJXMGpWbUs3LThXUV82U1J4OGVjTGRXNVdZeWhLaEJn?oc=5",
           "date": "2026-11-26",
           "query": "wins contract India company"
         }
@@ -1624,19 +1673,6 @@
           "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQdDJ4bHptMUxSRzhkcmtScXdOUlRrZFV6UEhwaWROZ2JxZUVLX1pIZGphQlNVTWJkWTl3Q2x0SnZNQlcyT0hfa1llbVIwN3ZETS0zTnIyU082UFVxZ3hIME13UlVqOTNpU2YzbnBNSG8zRlZ0dHZnc05EWUtsM0lYUTJydVJtTWFaekcxN1RnUmNUVnY1U3RqX1ZjZ2ZjMjFqTFFoMW1MWjdMMGpBcm1fMUVn?oc=5",
           "date": "2026-11-25",
           "query": "capacity expansion India company"
-        }
-      ]
-    },
-    {
-      "symbol": "IPL",
-      "name": "India Pesticides Limited",
-      "mentions": 1,
-      "headlines": [
-        {
-          "title": "India Pesticides Q2FY27: Net profit down 41.7%; secures ₹100 crore export orders",
-          "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQX2tTbjJXLTF4bHhBdzA3ZHo1am5CaEhTVzFmbTVyYUdEU2stX2pGRkpadHhNTzZpQ0VLR3BaRmRDZDBySHpLSXpBY3VrQkExVTF2dThpSmVYdTk5TmtoenhRU19PT2dLcWRfT0xQa0ZBT3d4amZ6TFhKU01wdWZBNGE4Z0FPV0FXbnlYR0Q2c0NmRlpCekhzUFE5a1Q0UWp0N0dGUTlQVzlrTm8?oc=5",
-          "date": "2026-11-24",
-          "query": "export order India company"
         }
       ]
     }
