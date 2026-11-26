@@ -144,8 +144,11 @@ def main():
             print(f"  search failed for '{q}': {e}")
             continue
         print(f"  '{q}': {len(items)} headlines")
-        for item in items:
-            for sym in find_companies(item["title"], aliases, companies):
+               for item in items:
+            found = find_companies(item["title"], aliases, companies)
+            if len(found) > 3 or re.search(r"stocks? to watch|stocks? in news|stocks? in focus|buzzing|top gainers|top losers|market wrap", item["title"], re.I):
+                continue
+            for sym in found:
                 lst = hits.setdefault(sym, [])
                 if all(h["title"] != item["title"] for h in lst):
                     lst.append({**item, "query": q})
