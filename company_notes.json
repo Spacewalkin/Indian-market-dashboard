@@ -1,0 +1,38 @@
+{
+  "updated": "2026-11-26",
+  "stocks": {
+    "AVANTIFEED": {
+      "n": "Avanti Feeds",
+      "as_of": "26 Nov 2026",
+      "source": "Claude research from news reports and results coverage on 26 Nov 2026. Check the exchange filings and the annual report before acting.",
+      "what": "Avanti Feeds makes shrimp feed for fish farmers in India and, through its subsidiary Avanti Frozen Foods, processes and exports frozen shrimp. A discontinued wind power segment earns nothing now.",
+      "mix": "About 79% of consolidated revenue comes from shrimp feed sold in India and about 21% from processed shrimp exports (Business Standard, April 2026). In Q2 FY27: feed ₹1,374 cr, processed shrimp ₹374 cr, hatchery ₹4 cr.",
+      "exports": "Exports come from Avanti Frozen Foods (processed and frozen shrimp). The US is the market the filings and news keep pointing to: the company booked an exceptional ₹17.12 cr in Q2 FY27 for a revised US anti-dumping duty (rate about 3.76%) and has set up a wholly owned US company, Avanti Frozen Foods INC. FY27 target: about 19,000 tonnes of shrimp exports. Q2 FY27 export volume was about 3,874 tonnes, down about 20% from a year ago.",
+      "imports": "Not confirmed in the sources checked. The company says raw material costs rose in Q2 FY27, which cut feed margins. The annual report should show how much feed raw material is imported.",
+      "results": [
+        "Q2 FY27 (Sep 2026, declared 10 Nov 2026): revenue ₹1,752.5 cr, up 8.9% on last year; profit ₹73.9 cr, down 56.2% (Business Standard quotes ₹69 cr, so check the filing).",
+        "Operating margin fell to about 7.3% from 15.1% a year ago: higher raw material cost in feed, and a higher US duty plus ocean freight in shrimp processing.",
+        "Shrimp feed revenue rose 19% to ₹1,378 cr on higher selling prices, but feed volume was about 152,900 tonnes, below Q1. Processed shrimp revenue fell 17% to ₹374 cr.",
+        "Shares fell as much as 6% after the results (Business Standard, 11 Nov 2026). Promoter holding was 43.2% in Sep 2026."
+      ],
+      "developments": [
+        {"d": "2026-11-10", "t": "Q2 FY27 profit falls 56% as margins compress", "tone": -1, "src": "Business Standard, Angel One, Multibagg", "why": "Sales grew, but costs grew faster. The next results will show whether raw material prices, freight and the 3.76% US duty keep squeezing margins."},
+        {"d": "2026-08-01", "t": "Avanti Frozen Foods set up a wholly owned US company, Avanti Frozen Foods INC", "tone": 1, "src": "Sahi news summary (exact date not stated)", "why": "A US entity can bring the company closer to buyers and help it handle duty and logistics. It does not add profit by itself, so watch US volumes in the coming quarters."},
+        {"d": "2026-02-20", "t": "US Supreme Court struck down the IEEPA-based reciprocal tariffs", "tone": 1, "src": "Sovrenn results note (secondary source)", "why": "The 2025 US tariff on Indian shrimp was a main reason for weak export volumes. If those duties are refunded or not charged again, export margins can recover. Sovrenn calls a possible refund a catalyst, but the amount is not confirmed."},
+        {"d": "2026-02-03", "t": "Shrimp stocks hit the 20% upper circuit on India-US tariff relief", "tone": 1, "src": "Business Standard, Business Today", "why": "Lower US duty makes Indian shrimp cheaper for US buyers, which helps the roughly 21% of revenue that comes from exports. The feed business (79%) is not directly affected."},
+        {"d": "2025-08-27", "t": "US imposed a 50% reciprocal tariff on Indian shrimp (about 58% in total with other duties)", "tone": -1, "src": "S&P Global, TradingView ideas", "why": "Indian shrimp exports to the US fell sharply after this. It is the main reason the export business has been under pressure since."}
+      ],
+      "watch": [
+        "Next quarterly result: raw material cost in feed, shrimp processing volume and the US duty rate.",
+        "Any US duty refund or new US tariff decision.",
+        "Shrimp export volume against the FY27 target of about 19,000 tonnes, and feed sales against about 5.85 lakh tonnes.",
+        "Shrimp farm gate prices and farmer demand in Andhra Pradesh, which feed the feed business."
+      ],
+      "risks": [
+        "Profit is very sensitive to US trade rules, so it can swing sharply on one policy decision.",
+        "Feed margins depend on raw material prices, which the company cannot control.",
+        "Profit fell 56% in the latest quarter: the stock may stay weak until margins recover."
+      ]
+    }
+  }
+}
