@@ -9,6 +9,10 @@ on:
       symbols:
         description: "Optional: NSE symbols separated by spaces (leave empty for the normal automatic run)"
         required: false
+      batch:
+        description: "How many companies to refresh (normal is 120; use 350 for a big first fill)"
+        required: false
+        default: "120"
 
 permissions:
   contents: write
@@ -32,6 +36,8 @@ jobs:
         run: pip install yfinance requests
 
       - name: Build company feed from the NSE list and the news
+        env:
+          ROTATE: ${{ github.event.inputs.batch || '120' }}
         run: python update_company.py ${{ github.event.inputs.symbols }}
 
       - name: Save results
