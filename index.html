@@ -1312,6 +1312,7 @@ function dealCr(title) {
   const m = /(₹|rs\.?|inr)\s?([\d,]+(?:\.\d+)?)\s?(lakh crore|crore|cr)\b/i.exec(title || ""); if (!m) return null;
   return parseFloat(m[2].replace(/,/g, "")) * (m[3].toLowerCase() === "lakh crore" ? 100000 : 1);
 }
+const dedupeNews = arr => { const seen = {}, out = []; arr.forEach(x => { const k = x.val_cr ? x.cat + "|" + x.val_cr : null; if (k && seen[k]) { seen[k].more = (seen[k].more || 0) + 1; return; } const y = Object.assign({}, x); if (k) seen[k] = y; out.push(y); }); return out; };
 const readNews = (c, x) => { const r = readHeadline(x.t), v = ["Order or contract win", "Expansion or capex"].includes(r.cat) ? dealCr(x.t) : null; return Object.assign({}, x, r, {val_cr: v, pct_mcap: v && c && c.mcap_cr ? Math.round(v / c.mcap_cr * 1000) / 10 : null}); };
 const coOf = sym => ((CO && CO.stocks) || {})[sym], cnOf = sym => ((CN && CN.stocks) || {})[sym];
 const hasBrief = sym => !!(coOf(sym) || cnOf(sym));
@@ -1331,7 +1332,7 @@ function coBlock(sym) {
   const what = n.what || firstSent(c.summary, 420), more = !n.what && c.summary && c.summary.length > 420 ? `<details><summary>Read more</summary><p class="mu">${esc(c.summary)}</p></details>` : "";
   const trade = n.exports || n.imports || n.mix ? `<ul class="ul">${row("Revenue mix", n.mix)}${row("Exports", n.exports)}${row("Imports", n.imports)}${row("Key markets and customers", n.markets)}</ul>` : '<p class="mu">Exports, imports and key customers are not added yet. Yahoo does not provide them: ask Claude to research this stock and the answer goes into <b>company_notes.json</b>.</p>';
   const dv = (n.developments || []).map(x => `<div class="nc"><div><b>${esc(x.t)}</b> ${toneTag(x.tone)}</div><div class="mu">${esc(fd(x.d))}${x.d ? " " + esc(x.d.slice(0, 4)) : ""} · ${esc(x.src || "")}</div><div class="mu">▶ How it could affect the company: ${esc(x.why)}</div></div>`).join("");
-  const auto = (c.news || []).map(x0 => { const x = readNews(c, x0); return `<div class="nc"><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · <span class="tag">${esc(x.cat)}</span> ${toneTag(x.tone)}${x.val_cr ? ' <span class="tag a">₹' + fv(x.val_cr) + " cr" + (x.pct_mcap != null ? " = " + x.pct_mcap + "% of market cap" : "") + "</span>" : ""}</div><div class="mu">▶ ${esc(x.why)}</div></div>`; }).join("");
+  const auto = dedupeNews((c.news || []).map(x0 => readNews(c, x0))).map(x => { return `<div class="nc"><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")}${x.more ? " (+" + x.more + " more outlets, same story)" : ""} · <span class="tag">${esc(x.cat)}</span> ${toneTag(x.tone)}${x.val_cr ? ' <span class="tag a">₹' + fv(x.val_cr) + " cr" + (x.pct_mcap != null ? " = " + x.pct_mcap + "% of market cap" : "") + "</span>" : ""}</div><div class="mu">▶ ${esc(x.why)}</div></div>`; }).join("");
   const lst = (t, a) => a && a.length ? `<h3 style="margin:14px 0 4px">${t}</h3><ul class="ul">${a.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>` : "";
   return `<h2>Company brief</h2><div class="card"><div style="margin-bottom:6px">${facts}</div><p style="margin:6px 0">${esc(what)}</p>${more}${trade}${c.website ? `<div class="mu"><a href="${esc(c.website)}" target="_blank" rel="noopener">Company website</a></div>` : ""}</div>
   ${lst("Latest results", n.results)}
@@ -1403,7 +1404,7 @@ const recentNews = (sym, days) => {
   const c = coOf(sym), n = cnOf(sym), day = d => new Date(Date.now() - d * 864e5).toISOString().slice(0, 10), out = [];
   ((c && c.news) || []).forEach(x0 => { const x = readNews(c, x0); if (x.d >= day(days) && !["General news", "Market roundup", "Broker view"].includes(x.cat)) out.push(x); });
   ((n && n.developments) || []).forEach(x => { if (x.d >= day(150)) out.push({t: x.t, d: x.d, tone: x.tone, why: x.why, cat: "Researched", p: x.src || "", l: ""}); });
-  return out.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
+  return dedupeNews(out.sort((a, b) => (b.d || "").localeCompare(a.d || "")));
 };
 // one decision per stock: business score + price position + latest news
 function ltDecision(k, q, dist, s) {
@@ -1440,7 +1441,7 @@ function ltView(sym) {
   }
   if (dist != null) why.push("Price: " + (dist > -1 ? "at its 52-week high" : Math.abs(dist).toFixed(0) + "% below its 52-week high") + (e[2] ? ", above the 200 EMA" : ", below the 200 EMA") + (st.m >= 25 ? "; up " + st.m + "% in a month, so stretched" : ""));
   const n = dec.nws || [];
-  why.push("News: " + (coOf(sym) || cnOf(sym) ? dec.pos.length + " positive and " + dec.neg.length + " negative items in the last 45 days" + (n.length ? "" : " (none found)") : "no company news collected yet"));
+  why.push("News: " + (coOf(sym) || cnOf(sym) ? dec.pos.length + " positive and " + dec.neg.length + " negative items in the last 45 days" + (n.length ? "; the headlines are in the Company brief below" : " (none found)") : "no company news collected yet"));
   const num = [];
   if (f) {
     if (f.rev_cagr != null && f.pat_cagr != null) num.push("Revenue " + f1(f.rev_cagr) + " a year and profit " + f1(f.pat_cagr) + " a year over " + f.yrs + " years");
@@ -1450,11 +1451,10 @@ function ltView(sym) {
     if (f.mcap_cr != null) num.push("Market cap ₹" + fv(f.mcap_cr) + " cr");
     if (f.ins != null) num.push("Insider holding " + f.ins + "% (Yahoo): check promoter holding and pledging");
   }
-  const flags = r ? r.flags : [], newsHTML = n.slice(0, 3).map(x => `<div class="nc"><div>${toneTag(x.tone)} ${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · ${esc(x.cat)}</div><div class="mu">▶ ${esc(x.why)}</div></div>`).join("");
+  const flags = r ? r.flags : [], newsHTML_unused = n.slice(0, 0).map(x => `<div class="nc"><div>${toneTag(x.tone)} ${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · ${esc(x.cat)}</div><div class="mu">▶ ${esc(x.why)}</div></div>`).join("");
   return `<h2>Long-term view</h2><div class="card"><div style="margin-bottom:6px"><span class="tag ${dec.cls}" style="font-weight:700">${esc(dec.label)}</span>${q != null ? ' <span class="tag ' + dec.cls + '">Score ' + q + "/100</span>" : ""}${held ? ' <span class="tag a">You hold it</span>' : ""}</div>
     <ul class="ul" style="margin:0">${why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>${num.length ? '<h3 style="margin:10px 0 4px;font-size:13px">Numbers</h3><ul class="ul" style="margin:0">' + num.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : ""}
-    ${flags.length ? "<div style='margin-top:6px'>" + flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}${newsHTML ? '<h3 style="margin:10px 0 4px;font-size:13px">Latest news and what it could mean</h3>' + newsHTML : ""}
-    <div class="mu" style="margin-top:8px">A lean to help you decide, not an instruction. Buy in 2 or 3 parts, check promoter holding and the latest conference call, and write your exit before you buy.</div></div>`;
+    ${flags.length ? "<div style='margin-top:6px'>" + flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}    <div class="mu" style="margin-top:8px">A lean to help you decide, not an instruction. Buy in 2 or 3 parts, check promoter holding and the latest conference call, and write your exit before you buy.</div></div>`;
 }
 function ltIdeas() {
   if (!LT && !RS) return '<p class="sub">Loading…</p>';

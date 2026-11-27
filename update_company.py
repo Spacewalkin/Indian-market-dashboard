@@ -23,7 +23,8 @@ from urllib.parse import quote
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT, NAMES_OUT = os.path.join(HERE, "company.json"), os.path.join(HERE, "nse_names.json")
 NEWS_DAYS, MAX_NEWS = 90, 6
-TOP_ACTIVE, ROTATE, KEEP_MAX, MAX_SECONDS, PAUSE = 70, 120, 650, 1700, 1.0
+TOP_ACTIVE, KEEP_MAX, MAX_SECONDS, PAUSE = 70, 650, 1700, 1.0
+ROTATE = int(os.environ.get("ROTATE") or 120)   # how many not-recently-checked companies to refresh per run
 
 DISCOVERY = [
     "bags order worth crore", "wins order worth crore", "secures contract worth crore", "receives order India company",

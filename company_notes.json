@@ -1,38 +1,229 @@
 {
-  "updated": "2026-11-26",
-  "stocks": {
-    "AVANTIFEED": {
-      "n": "Avanti Feeds",
-      "as_of": "26 Nov 2026",
-      "source": "Claude research from news reports and results coverage on 26 Nov 2026. Check the exchange filings and the annual report before acting.",
-      "what": "Avanti Feeds makes shrimp feed for fish farmers in India and, through its subsidiary Avanti Frozen Foods, processes and exports frozen shrimp. A discontinued wind power segment earns nothing now.",
-      "mix": "About 79% of consolidated revenue comes from shrimp feed sold in India and about 21% from processed shrimp exports (Business Standard, April 2026). In Q2 FY27: feed ₹1,374 cr, processed shrimp ₹374 cr, hatchery ₹4 cr.",
-      "exports": "Exports come from Avanti Frozen Foods (processed and frozen shrimp). The US is the market the filings and news keep pointing to: the company booked an exceptional ₹17.12 cr in Q2 FY27 for a revised US anti-dumping duty (rate about 3.76%) and has set up a wholly owned US company, Avanti Frozen Foods INC. FY27 target: about 19,000 tonnes of shrimp exports. Q2 FY27 export volume was about 3,874 tonnes, down about 20% from a year ago.",
-      "imports": "Not confirmed in the sources checked. The company says raw material costs rose in Q2 FY27, which cut feed margins. The annual report should show how much feed raw material is imported.",
-      "results": [
-        "Q2 FY27 (Sep 2026, declared 10 Nov 2026): revenue ₹1,752.5 cr, up 8.9% on last year; profit ₹73.9 cr, down 56.2% (Business Standard quotes ₹69 cr, so check the filing).",
-        "Operating margin fell to about 7.3% from 15.1% a year ago: higher raw material cost in feed, and a higher US duty plus ocean freight in shrimp processing.",
-        "Shrimp feed revenue rose 19% to ₹1,378 cr on higher selling prices, but feed volume was about 152,900 tonnes, below Q1. Processed shrimp revenue fell 17% to ₹374 cr.",
-        "Shares fell as much as 6% after the results (Business Standard, 11 Nov 2026). Promoter holding was 43.2% in Sep 2026."
-      ],
-      "developments": [
-        {"d": "2026-11-10", "t": "Q2 FY27 profit falls 56% as margins compress", "tone": -1, "src": "Business Standard, Angel One, Multibagg", "why": "Sales grew, but costs grew faster. The next results will show whether raw material prices, freight and the 3.76% US duty keep squeezing margins."},
-        {"d": "2026-08-01", "t": "Avanti Frozen Foods set up a wholly owned US company, Avanti Frozen Foods INC", "tone": 1, "src": "Sahi news summary (exact date not stated)", "why": "A US entity can bring the company closer to buyers and help it handle duty and logistics. It does not add profit by itself, so watch US volumes in the coming quarters."},
-        {"d": "2026-02-20", "t": "US Supreme Court struck down the IEEPA-based reciprocal tariffs", "tone": 1, "src": "Sovrenn results note (secondary source)", "why": "The 2025 US tariff on Indian shrimp was a main reason for weak export volumes. If those duties are refunded or not charged again, export margins can recover. Sovrenn calls a possible refund a catalyst, but the amount is not confirmed."},
-        {"d": "2026-02-03", "t": "Shrimp stocks hit the 20% upper circuit on India-US tariff relief", "tone": 1, "src": "Business Standard, Business Today", "why": "Lower US duty makes Indian shrimp cheaper for US buyers, which helps the roughly 21% of revenue that comes from exports. The feed business (79%) is not directly affected."},
-        {"d": "2025-08-27", "t": "US imposed a 50% reciprocal tariff on Indian shrimp (about 58% in total with other duties)", "tone": -1, "src": "S&P Global, TradingView ideas", "why": "Indian shrimp exports to the US fell sharply after this. It is the main reason the export business has been under pressure since."}
-      ],
-      "watch": [
-        "Next quarterly result: raw material cost in feed, shrimp processing volume and the US duty rate.",
-        "Any US duty refund or new US tariff decision.",
-        "Shrimp export volume against the FY27 target of about 19,000 tonnes, and feed sales against about 5.85 lakh tonnes.",
-        "Shrimp farm gate prices and farmer demand in Andhra Pradesh, which feed the feed business."
-      ],
-      "risks": [
-        "Profit is very sensitive to US trade rules, so it can swing sharply on one policy decision.",
-        "Feed margins depend on raw material prices, which the company cannot control.",
-        "Profit fell 56% in the latest quarter: the stock may stay weak until margins recover."
-      ]
+ "updated": "2026-11-27",
+ "stocks": {
+  "AVANTIFEED": {
+   "n": "Avanti Feeds",
+   "as_of": "26 Nov 2026",
+   "source": "Claude research from news reports and results coverage on 26 Nov 2026. Check the exchange filings and the annual report before acting.",
+   "what": "Avanti Feeds makes shrimp feed for fish farmers in India and, through its subsidiary Avanti Frozen Foods, processes and exports frozen shrimp. A discontinued wind power segment earns nothing now.",
+   "mix": "About 79% of consolidated revenue comes from shrimp feed sold in India and about 21% from processed shrimp exports (Business Standard, April 2026). In Q2 FY27: feed ₹1,374 cr, processed shrimp ₹374 cr, hatchery ₹4 cr.",
+   "exports": "Exports come from Avanti Frozen Foods (processed and frozen shrimp). The US is the market the filings and news keep pointing to: the company booked an exceptional ₹17.12 cr in Q2 FY27 for a revised US anti-dumping duty (rate about 3.76%) and has set up a wholly owned US company, Avanti Frozen Foods INC. FY27 target: about 19,000 tonnes of shrimp exports. Q2 FY27 export volume was about 3,874 tonnes, down about 20% from a year ago.",
+   "imports": "Not confirmed in the sources checked. The company says raw material costs rose in Q2 FY27, which cut feed margins. The annual report should show how much feed raw material is imported.",
+   "results": [
+    "Q2 FY27 (Sep 2026, declared 10 Nov 2026): revenue ₹1,752.5 cr, up 8.9% on last year; profit ₹73.9 cr, down 56.2% (Business Standard quotes ₹69 cr, so check the filing).",
+    "Operating margin fell to about 7.3% from 15.1% a year ago: higher raw material cost in feed, and a higher US duty plus ocean freight in shrimp processing.",
+    "Shrimp feed revenue rose 19% to ₹1,378 cr on higher selling prices, but feed volume was about 152,900 tonnes, below Q1. Processed shrimp revenue fell 17% to ₹374 cr.",
+    "Shares fell as much as 6% after the results (Business Standard, 11 Nov 2026). Promoter holding was 43.2% in Sep 2026."
+   ],
+   "developments": [
+    {
+     "d": "2026-11-10",
+     "t": "Q2 FY27 profit falls 56% as margins compress",
+     "tone": -1,
+     "src": "Business Standard, Angel One, Multibagg",
+     "why": "Sales grew, but costs grew faster. The next results will show whether raw material prices, freight and the 3.76% US duty keep squeezing margins."
+    },
+    {
+     "d": "2026-08-01",
+     "t": "Avanti Frozen Foods set up a wholly owned US company, Avanti Frozen Foods INC",
+     "tone": 1,
+     "src": "Sahi news summary (exact date not stated)",
+     "why": "A US entity can bring the company closer to buyers and help it handle duty and logistics. It does not add profit by itself, so watch US volumes in the coming quarters."
+    },
+    {
+     "d": "2026-02-20",
+     "t": "US Supreme Court struck down the IEEPA-based reciprocal tariffs",
+     "tone": 1,
+     "src": "Sovrenn results note (secondary source)",
+     "why": "The 2025 US tariff on Indian shrimp was a main reason for weak export volumes. If those duties are refunded or not charged again, export margins can recover. Sovrenn calls a possible refund a catalyst, but the amount is not confirmed."
+    },
+    {
+     "d": "2026-02-03",
+     "t": "Shrimp stocks hit the 20% upper circuit on India-US tariff relief",
+     "tone": 1,
+     "src": "Business Standard, Business Today",
+     "why": "Lower US duty makes Indian shrimp cheaper for US buyers, which helps the roughly 21% of revenue that comes from exports. The feed business (79%) is not directly affected."
+    },
+    {
+     "d": "2025-08-27",
+     "t": "US imposed a 50% reciprocal tariff on Indian shrimp (about 58% in total with other duties)",
+     "tone": -1,
+     "src": "S&P Global, TradingView ideas",
+     "why": "Indian shrimp exports to the US fell sharply after this. It is the main reason the export business has been under pressure since."
     }
+   ],
+   "watch": [
+    "Next quarterly result: raw material cost in feed, shrimp processing volume and the US duty rate.",
+    "Any US duty refund or new US tariff decision.",
+    "Shrimp export volume against the FY27 target of about 19,000 tonnes, and feed sales against about 5.85 lakh tonnes.",
+    "Shrimp farm gate prices and farmer demand in Andhra Pradesh, which feed the feed business."
+   ],
+   "risks": [
+    "Profit is very sensitive to US trade rules, so it can swing sharply on one policy decision.",
+    "Feed margins depend on raw material prices, which the company cannot control.",
+    "Profit fell 56% in the latest quarter: the stock may stay weak until margins recover."
+   ]
+  },
+  "KPIL": {
+   "n": "Kalpataru Projects International",
+   "as_of": "27 Nov 2026",
+   "source": "Claude research on 27 Nov 2026 from company results coverage and earnings-call summaries. Check the exchange filings and the latest annual report before acting.",
+   "what": "One of India's largest specialised EPC (engineering, procurement and construction) companies. It builds power transmission and distribution (T&D) lines, buildings and factories, water supply and irrigation, railways, oil and gas pipelines, and urban mobility projects, in India and abroad.",
+   "mix": "Q2 FY27 revenue was ₹7,004 cr (up 7%; up 13% leaving out the Road SPVs and the Brazil business). Order book ₹71,846 cr on 30 Sep 2026, up 11% on last year, of which oil and gas is ₹8,196 cr (oil and gas revenue grew 58% in Q2). Its Linjemontage subsidiary had H1 FY27 revenue of ₹1,472 cr and an order book of ₹4,154 cr.",
+   "exports": "Overseas work is mainly T&D and oil and gas. Management says the Middle East is about 14% of the order book (oil and gas is the largest part, then T&D, plus a small water order), and it has won a large Middle East gas pipeline order. Saudi projects are running normally despite the regional situation. In November 2026 it also won a ₹2,610 cr international power transmission order (headlines say South America).",
+   "imports": "Not confirmed in the sources checked. Management says Middle East projects face supply chain delays and higher freight costs, which clients are ready to reimburse. The annual report should show how much equipment is imported.",
+   "markets": "Management says the ₹70,000 cr+ order book was built over 5 to 7 years with more private sector and international clients, funded projects and large upfront advances. Individual customer names are in the annual report and are not listed here.",
+   "results": [
+    "Q2 FY27 (Sep 2026, declared 5 Nov 2026): profit ₹292 cr, up 23%. H1 FY27 profit ₹603 cr (up 34%), PBT ₹818 cr (up 34%), PBT margin 6.1% (up 1.3 points), EPS ₹35.1 for the half year.",
+    "Order inflows for FY27 so far are ₹23,934 cr, up 60% on last year. An earnings-call summary says management guides ₹35,000 to 36,000 cr of inflows for the year (secondary source: check the presentation).",
+    "Reported revenue grew only 7% in Q2 because the company is winding down road SPVs and its Brazil business; the rest grew 13%."
+   ],
+   "developments": [
+    {
+     "d": "2026-11-16",
+     "t": "Wins about ₹2,610 cr international power transmission order",
+     "tone": 1,
+     "src": "HDFC Sky, Equitypandit, Rediff MoneyWiz",
+     "why": "About 3.6% of the ₹71,846 cr order book, so a solid addition rather than a game changer. It adds to overseas T&D work; check the margin and the payment terms for foreign projects."
+    },
+    {
+     "d": "2026-11-05",
+     "t": "Q2 FY27 results: profit up 23%, order book at a record ₹71,846 cr",
+     "tone": 1,
+     "src": "PTI, Investywise, company presentation",
+     "why": "Profit and margin improved and orders keep coming in, which supports revenue growth in the next few years. Reported revenue growth is slower than order growth, so watch execution."
+    },
+    {
+     "d": "2026-09-24",
+     "t": "Secures orders worth about ₹2,025 cr across T&D, buildings and factories, oil and gas",
+     "tone": 1,
+     "src": "Business Standard, Angel One",
+     "why": "Spreading orders across three businesses reduces dependence on one segment. FY27 order intake was about ₹13,219 cr at that point."
+    },
+    {
+     "d": "2026-08-14",
+     "t": "Secures new orders worth ₹3,526 cr",
+     "tone": 1,
+     "src": "Business Standard",
+     "why": "More order book visibility; the value comes through only as projects are executed over the next few years."
+    },
+    {
+     "d": "2026-08-12",
+     "t": "Shares rose about 6% after Q1 FY27 results, brokerages bullish on the order book",
+     "tone": 1,
+     "src": "Business Standard",
+     "why": "The market rewarded the order book and margin. A rise like this can leave less upside until the next result."
+    }
+   ],
+   "watch": [
+    "Order inflows against the ₹35,000 to 36,000 cr guidance, and the next quarterly margin.",
+    "Execution and freight costs on Middle East projects.",
+    "Revenue growth once the road SPVs and Brazil are out of the numbers.",
+    "Working capital and debt, which matter for EPC companies."
+   ],
+   "risks": [
+    "About 14% of the order book is in the Middle East, so regional tension could delay projects.",
+    "EPC margins are thin (PBT margin about 6%): cost overruns hurt quickly.",
+    "Insider holding is about 35% (Yahoo): check promoter holding and pledging."
+   ]
+  },
+  "UNOMINDA": {
+   "n": "Uno Minda",
+   "as_of": "27 Nov 2026",
+   "source": "Claude research on 27 Nov 2026 from company results coverage and earnings-call summaries. Check the exchange filings and the latest annual report before acting.",
+   "what": "An automotive components and systems maker. It supplies switches, lighting, alloy wheels, seating, castings and \"green mobility\" products (EV systems and alternate fuel) mainly to vehicle makers.",
+   "mix": "Q2 FY27 revenue ₹6,655 cr: about 91% from India and 9% from international markets; about 94% sold to vehicle makers (OEM) and 6% to the aftermarket. Lighting was ₹1,381 cr (from ₹1,106 cr) and seating ₹476 cr (from ₹354 cr).",
+   "exports": "International business is about 9% of revenue. Q2 growth cited two-wheeler exports, seating exports and a pixel-based lamp order from a recently added global vehicle maker. Earlier, with Q4 FY26 results (May 2026), it reported export seating orders of ₹390 cr, mainly from 3 customers in the EU and North Africa. A Sovrenn summary puts Q2 exports from India at ₹228 cr against ₹141 cr a year ago (secondary source: check the filing).",
+   "imports": "Not confirmed in the sources checked. The annual report should show raw material and component imports.",
+   "markets": "Customers are mainly Indian two-wheeler and four-wheeler makers (94% of sales are to vehicle makers). Names of the top customers are in the annual report and were not in the coverage checked.",
+   "results": [
+    "Q2 FY27 (Sep 2026, declared 5 Nov 2026): revenue ₹6,655 cr, up 38%, a record. EBITDA ₹733 cr, up 33%; EBITDA margin 11.0%, down 0.44 points. Profit attributable to shareholders ₹420 cr, up 38% (consolidated net profit ₹441 cr).",
+    "H1 FY27 revenue ₹12,212 cr, up 31%. Management reiterated its FY27 EBITDA margin guidance of 11% (plus or minus 0.5 points) and says 16 projects are in execution or ramp-up.",
+    "About ₹85 cr was approved for sunroof capacity at Bawal, to be ready by Q2 FY28."
+   ],
+   "developments": [
+    {
+     "d": "2026-11-09",
+     "t": "Stock up 26% in November and near a record high after Q2 results",
+     "tone": 0,
+     "src": "Business Standard",
+     "why": "Good results are already in the price after a sharp run, so a new buyer has less margin of safety. One brokerage kept a BUY with a ₹1,525 target (an opinion, not a fact)."
+    },
+    {
+     "d": "2026-11-05",
+     "t": "Q2 FY27: record revenue ₹6,655 cr, up 38%; margin dips to 11.0%",
+     "tone": 1,
+     "src": "Company release, Multibagg, AutocarPro",
+     "why": "Sales and profit are growing fast, but margin fell slightly, so growth is coming at a slightly lower profit per rupee of sales."
+    },
+    {
+     "d": "2026-05-19",
+     "t": "Shares fell about 6% when management avoided FY27 guidance and analysts cut targets",
+     "tone": -1,
+     "src": "Business Standard",
+     "why": "The market dislikes a lack of guidance. Management has since reiterated an 11% margin guidance, which helps."
+    },
+    {
+     "d": "2026-05-19",
+     "t": "Wins export seating orders worth ₹390 cr from 3 customers in the EU and North Africa",
+     "tone": 1,
+     "src": "Business Standard",
+     "why": "Adds export revenue and diversifies away from India, though exports are still a small part of sales."
+    }
+   ],
+   "watch": [
+    "EBITDA margin against the 11% guidance.",
+    "Ramp-up of the 16 projects and EV orders.",
+    "Whether the price consolidates after a 26% jump in one month.",
+    "Indian two-wheeler and passenger vehicle demand (industry grew 18% in Q2)."
+   ],
+   "risks": [
+    "The price is near a record after a big run, so a miss on margin or demand could hurt.",
+    "Auto components follow the vehicle cycle and a few large customers.",
+    "Margin slipped even as sales jumped 38%."
+   ]
+  },
+  "BAJAJ-AUTO": {
+   "n": "Bajaj Auto",
+   "as_of": "27 Nov 2026",
+   "source": "Claude research on 27 Nov 2026 from company results coverage and earnings-call summaries. Check the exchange filings and the latest annual report before acting.",
+   "what": "Makes motorcycles, three-wheelers, commercial vehicles and electric scooters (Chetak), and sells premium bikes including KTM-linked products. It is India's largest two-wheeler exporter.",
+   "mix": "Exports were about 40% of revenue in Q2 FY27. Q2 volumes were 15.49 lakh units: exports 7.79 lakh (up 41%) and domestic 7.70 lakh (up 4%). Electric vehicle volumes were close to 2 lakh units against about 0.8 lakh a year ago.",
+   "exports": "Q2 FY27 exports were 7.79 lakh units, a record: two-wheelers 6.77 lakh (up 43%) and commercial vehicles 1.02 lakh (up 26%). Management expects to keep about 7.5 lakh export units a quarter. Its share of India's two-wheeler exports rose to 48% in H1 FY27 (from 44% in FY26) and its three-wheeler export share to 63%. Africa and Latin America are at record levels; Nigeria is the largest overseas market, about 30,000 retail units a month and almost 60% market share. The realised rate was ₹95.5 per US dollar against ₹87.1 a year ago, which lifts rupee earnings from exports.",
+   "imports": "Not confirmed in the sources checked. Coverage mentions rising input and manufacturing costs and supply pressures; the annual report should show imported components.",
+   "markets": "Main overseas markets are Africa (Nigeria is the largest) and Latin America. Domestic customers are retail buyers through dealers, so there are no large named customers.",
+   "results": [
+    "Q2 FY27 (Sep 2026, declared 27 Oct 2026): standalone revenue ₹20,003 cr, up 34%, a record. Standalone profit ₹3,354 cr, up 35%. EBITDA ₹4,171 cr, margin 20.85%.",
+    "Consolidated revenue was ₹25,126 cr (up 59%) and consolidated profit ₹3,436 cr (up 62%). Results beat estimates, with operating profit about 7% above expectations.",
+    "Record volumes, revenue, EBITDA, profit and free cash flow for a quarter."
+   ],
+   "developments": [
+    {
+     "d": "2026-10-27",
+     "t": "Q2 FY27: record exports of 7.79 lakh units, profit up 35%",
+     "tone": 1,
+     "src": "Business Standard, Autocar Pro, Multibagg",
+     "why": "Exports are growing faster than the home market and the weaker rupee helps margins. Domestic volume grew only 4%, so the growth story now depends on exports staying strong."
+    },
+    {
+     "d": "2026-10-27",
+     "t": "Management expects to sustain about 7.5 lakh export units a quarter",
+     "tone": 1,
+     "src": "Earnings call summary (Multibagg)",
+     "why": "A higher export base gives steadier volumes. It also ties earnings to African and Latin American demand and currencies."
+    }
+   ],
+   "watch": [
+    "Whether exports stay near 7.5 lakh units a quarter.",
+    "Domestic growth (only 4% in Q2) and EV profitability.",
+    "Margin (20.85%) against rising input costs.",
+    "Currency moves in Nigeria and other African markets."
+   ],
+   "risks": [
+    "Exports depend on African and Latin American demand and local currencies.",
+    "Some of this quarter's margin gains may not repeat (the weaker rupee helped).",
+    "Domestic volume growth is weak at 4%."
+   ]
   }
+ }
 }
