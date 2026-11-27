@@ -1,28 +1,39 @@
 """
-update_company.py  -  builds company_brief.json for the "Company brief" part of the dashboard.
+update_company.py  -  builds the Company feed for the dashboard, with NO manual stock list.
 
-For every stock listed in company_watch.txt (plus every symbol found in research.json) it collects:
-  * what the company does (Yahoo Finance business summary, industry, sector, website, size)
-  * the last 90 days of headlines from Google News
-  * a plain-language tag on each headline: order win, results, tariffs/exports, expansion, regulatory, etc.
-  * for headlines that quote a rupee amount: how big that deal is compared with the company's market cap
+Input  : EQUITY_L.csv  (the NSE "list of securities" you downloaded; put it in the repo's main folder)
+Output : company.json      what each active company does + its tagged headlines (last 90 days)
+         nse_names.json    symbol -> company name for every NSE company (powers the site search)
 
-It does NOT invent export/import numbers. Those go into company_notes.json, which you (or Claude) fill in
-after reading the annual report or investor presentation.
+How it finds companies by itself
+  1. It reads about 20 Google News searches for the last 3 days (order wins, USFDA nods, tariffs, results,
+     acquisitions, capex ...) and matches every headline to an NSE company by name.
+  2. Companies in the news today get a fuller refresh (company profile + their own 90-day headlines).
+  3. Every run it also refreshes the 40 companies not checked for the longest time, so the whole NSE list
+     is covered over a few weeks.
+  4. company_watch.txt is optional: anything listed there is always refreshed first.
 
 Run on GitHub (workflow company.yml) or on your laptop:   python update_company.py
-Optional:  python update_company.py AVANTIFEED KPIL TITAN     (only these symbols)
 """
-import json, os, re, sys, time, datetime as dt
+import csv, json, os, re, sys, time, datetime as dt
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "company_brief.json")
-NEWS_DAYS, MAX_NEWS = 90, 12
+OUT, NAMES_OUT = os.path.join(HERE, "company.json"), os.path.join(HERE, "nse_names.json")
+NEWS_DAYS, MAX_NEWS = 90, 8
+TOP_ACTIVE, ROTATE, KEEP_MAX, MAX_SECONDS, PAUSE = 70, 40, 350, 1500, 1.2
 
-# ---------- headline reading (plain keyword rules; they are hints, not facts) ----------
+DISCOVERY = [
+    "bags order worth crore", "wins order worth crore", "secures contract worth crore", "receives order India company",
+    "letter of intent LoI crore", "defence order India company", "railway order company crore", "export order India company",
+    "USFDA approval", "gets USFDA nod", "USFDA warning letter OR observations", "anti-dumping duty India",
+    "tariff Indian exporters shares", "capacity expansion capex crore", "acquisition announces India company",
+    "Q2 results net profit jumps", "Q2 results profit falls", "shares surge on order", "block deal stake sale",
+    "buyback record date", "strategic partnership MoU India company", "new plant commissioned India",
+]
+
 POS = r"\b(jump|jumps|surge|surges|soar|soars|rally|rallies|gain|gains|rise|rises|rose|record|strong|beat|beats|upgrade|upgrades|bags|wins|secures|secured|awarded|approval|approved|nod|relief|boost|boosts|growth|grows|expands|receives|gets)\b"
 NEG = r"\b(fall|falls|fell|drop|drops|plunge|plunges|slump|slumps|crash|decline|declines|dip|dips|tumble|tumbles|miss|misses|downgrade|downgrades|loss|losses|halves|halve|stumble|stumbles|penalty|probe|fraud|raid|ban|banned|imposes|imposed|weak|lowers|slashes|resigns|default|rejects|rejected|delay|delays|denied|withdraws|warning)\b"
 
@@ -114,66 +125,171 @@ def tag_news(items, mcap_cr):
             if mcap_cr: n["pct_mcap"] = round(v / mcap_cr * 100, 1)
     return items[:MAX_NEWS]
 
-# ---------- company facts ----------
+
+GENERIC = {"limited", "ltd", "pvt", "private", "india", "international", "industries", "industry", "corporation", "corp", "company",
+           "co", "enterprises", "holdings", "group", "global", "the", "of", "and"}
+COMMON = {"reliance", "india", "indian", "global", "bharat", "national", "united", "state", "first", "new", "power", "bank", "finance", "capital",
+          "steel", "energy", "motors", "foods", "pharma", "tech", "systems", "services", "infra", "textiles", "real", "estate"}
+
+def norm(t):
+    t = (t or "").lower().replace("&", " and ")
+    return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9 ]+", " ", t)).strip()
+
+def load_nse():
+    path = next((p for p in (os.path.join(HERE, "EQUITY_L.csv"), os.path.join(HERE, "equity_l.csv")) if os.path.exists(p)), None)
+    if not path:
+        sys.exit("EQUITY_L.csv not found. Download it from the NSE website (list of securities) and put it in the repo's main folder.")
+    out = {}
+    with open(path, encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            r = {(k or "").strip().upper(): (v or "").strip() for k, v in r.items()}
+            sym, name, ser = r.get("SYMBOL", ""), r.get("NAME OF COMPANY", ""), r.get("SERIES", "")
+            if sym and name and ser in ("EQ", "BE", "BZ", "SM", "ST"): out[sym] = name
+    return out
+
+def aliases_for(name):
+    k = norm(name).split()
+    cands = []
+    if k: cands.append(" ".join(k))
+    kk = list(k)
+    while kk and kk[-1] in GENERIC: kk.pop()
+    if len(kk) >= 1: cands.append(" ".join(kk))
+    return [c for c in dict.fromkeys(cands) if len(c) >= 5]
+
+ABBR = {"l and t": "LT", "m and m": "M&M", "hul": "HINDUNILVR", "sbi": "SBIN", "hdfc bank": "HDFCBANK", "icici bank": "ICICIBANK",
+        "tcs": "TCS", "bpcl": "BPCL", "ongc": "ONGC", "ntpc": "NTPC", "bhel": "BHEL", "hal": "HAL", "sail": "SAIL"}
+NOT_SYMBOLS = {"INDIA", "BANK", "GOLD", "LIMITED", "NSE", "BSE", "SEBI", "FDA", "USFDA", "GDP", "RBI", "IPO", "FII", "DII", "ETF", "SIP", "NIFTY",
+               "SENSEX", "CRORE", "STOCK", "STOCKS", "SHARE", "SHARES", "ORDER", "ORDERS", "WINS", "BAGS", "DEAL", "NEWS", "LIVE", "TODAY", "WATCH"}
+_SYMS = set()
+
+def build_index(names):
+    global _SYMS
+    _SYMS = set(names)
+    owners = {}
+    for sym, nm in names.items():
+        for a in aliases_for(nm): owners.setdefault(a, set()).add(sym)
+    idx = {a: next(iter(s)) for a, s in owners.items() if len(s) == 1 and a not in COMMON}
+    for a, sym in ABBR.items():
+        if sym in names: idx[a] = sym
+    return idx
+
+def match_title(title, index):
+    t = " " + norm(title) + " "
+    hits = {a: s for a, s in index.items() if (" " + a + " ") in t}
+    for a in list(hits):
+        if any(a != b and a in b for b in hits): del hits[a]      # keep the longest name only
+    found = set(hits.values())
+    for tok in re.findall(r"\b[A-Z][A-Z&]{3,}\b", title or ""):      # a company ticker written in capitals, e.g. "KPIL bags order"
+        if tok in _SYMS and tok not in NOT_SYMBOLS and tok.lower() not in COMMON: found.add(tok)
+    return sorted(found)
+
+def short_name(sym, names):
+    al = aliases_for(names[sym]); return al[-1] if al else norm(names[sym])
+
+# ---------- Google News ----------
+def parse_rss(xml_text, now=None):
+    now = now or dt.datetime.now(dt.timezone.utc)
+    out, seen = [], set()
+    for it in ET.fromstring(xml_text).iter("item"):
+        t, l, d = (it.findtext("title") or "").strip(), (it.findtext("link") or "").strip(), it.findtext("pubDate")
+        try: when = parsedate_to_datetime(d).astimezone(dt.timezone.utc)
+        except Exception: continue
+        if (now - when).days > NEWS_DAYS: continue
+        ct = clean_title(t); key = re.sub(r"\W+", "", ct.lower())[:60]
+        if not ct or key in seen: continue
+        seen.add(key); out.append({"t": ct, "l": l, "p": it.findtext("source") or "", "d": when.date().isoformat()})
+    out.sort(key=lambda x: x["d"], reverse=True)
+    return out
+
+def rss(query, days):
+    import requests
+    q = quote("%s when:%dd" % (query, days))
+    r = requests.get("https://news.google.com/rss/search?q=%s&hl=en-IN&gl=IN&ceid=IN:en" % q, timeout=25, headers={"User-Agent": "Mozilla/5.0"})
+    r.raise_for_status()
+    return parse_rss(r.text)
+
 def fetch_profile(sym):
     import yfinance as yf
     info = yf.Ticker(sym + ".NS").info or {}
     mc = info.get("marketCap")
-    return {
-        "n": info.get("longName") or info.get("shortName") or sym,
-        "summary": (info.get("longBusinessSummary") or "").strip(),
-        "industry": info.get("industry") or "", "sector": info.get("sector") or "",
-        "website": info.get("website") or "", "employees": info.get("fullTimeEmployees"),
-        "city": info.get("city") or "", "mcap_cr": round(mc / 1e7) if mc else None,
-    }
+    return {"summary": (info.get("longBusinessSummary") or "").strip()[:700], "industry": info.get("industry") or "",
+            "sector": info.get("sector") or "", "website": info.get("website") or "", "employees": info.get("fullTimeEmployees"),
+            "city": info.get("city") or "", "mcap_cr": round(mc / 1e7) if mc else None}
 
-def search_name(sym, prof, override=None):
-    if override: return override
-    n = re.sub(r"\b(limited|ltd\.?|corporation|corp\.?)\b", "", prof.get("n") or sym, flags=re.I).strip(" .,")
-    return n or sym
+def tag(items, mcap):
+    for n in items:
+        n["cat"], n["tone"], n["why"] = read_headline(n["t"])
+        v = deal_value_cr(n["t"])
+        if v and n["cat"] in ("Order or contract win", "Expansion or capex"):
+            n["val_cr"] = v
+            if mcap: n["pct_mcap"] = round(v / mcap * 100, 1)
+    return items
 
-def symbols():
-    args = [a.upper() for a in sys.argv[1:]]
-    if args: return [(a, None) for a in args]
-    out, seen = [], set()
-    p = os.path.join(HERE, "company_watch.txt")
-    if os.path.exists(p):
-        for line in open(p, encoding="utf-8"):
-            line = line.split("#")[0].strip()
-            if not line: continue
-            parts = [x.strip() for x in line.split(",", 1)]
-            s = parts[0].upper()
-            if s not in seen: seen.add(s); out.append((s, parts[1] if len(parts) > 1 and parts[1] else None))
+def optional_list(fn):
+    p = os.path.join(HERE, fn)
+    return [l.split("#")[0].split(",")[0].strip().upper() for l in open(p, encoding="utf-8") if l.split("#")[0].strip()] if os.path.exists(p) else []
+
+def research_symbols():
     p = os.path.join(HERE, "research.json")
-    if os.path.exists(p):
-        try:
-            for r in json.load(open(p, encoding="utf-8")).get("stocks", []):
-                s = (r.get("symbol") or "").upper()
-                if s and s not in seen: seen.add(s); out.append((s, None))
-        except Exception as e: print("research.json skipped:", e)
-    return out
+    try: return [(r.get("symbol") or "").upper() for r in json.load(open(p, encoding="utf-8")).get("stocks", [])]
+    except Exception: return []
 
 def main():
+    t0 = time.time(); today = dt.date.today().isoformat()
+    names = load_nse(); index = build_index(names)
+    print(len(names), "NSE companies;", len(index), "name keys")
+    json.dump(names, open(NAMES_OUT, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
     old = {}
     if os.path.exists(OUT):
         try: old = json.load(open(OUT, encoding="utf-8")).get("stocks", {})
         except Exception: pass
-    res, todo = dict(old), symbols()
-    print(len(todo), "stocks")
-    for sym, nm in todo:
+    stocks = {k: v for k, v in old.items() if k in names}
+
+    # 1. discovery: which companies are in the news right now?
+    found = {}
+    for q in DISCOVERY:
+        if time.time() - t0 > MAX_SECONDS / 2: break
         try:
-            prof = fetch_profile(sym)
-            if not prof["summary"] and sym in old: prof["summary"] = old[sym].get("summary", "")
-            news = tag_news(fetch_news(search_name(sym, prof, nm)), prof.get("mcap_cr"))
-            prof["news"] = news
-            res[sym] = prof
-            print("ok ", sym, len(news), "headlines")
-        except Exception as e:
-            print("FAILED", sym, e)          # keep the previous entry, if any
-        time.sleep(1.5)
-    json.dump({"updated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "stocks": res},
-              open(OUT, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("wrote", OUT)
+            for h in rss(q, 3):
+                m = match_title(h["t"], index)
+                if 1 <= len(m) <= 3:
+                    for s in m: found.setdefault(s, {})[h["t"]] = h
+        except Exception as e: print("discovery failed:", q, e)
+        time.sleep(PAUSE)
+    print(len(found), "companies found in today's news")
+
+    # 2. who to refresh: watch list, news-active companies, then the least recently checked
+    asked = [a.upper() for a in sys.argv[1:] if a.upper() in names]
+    watch = list(dict.fromkeys(asked + [s for s in optional_list("company_watch.txt") + research_symbols() if s in names]))
+    active = [s for s, _ in sorted(found.items(), key=lambda kv: -len(kv[1]))][:TOP_ACTIVE]
+    stale = sorted((s for s in names if s not in watch and s not in active), key=lambda s: stocks.get(s, {}).get("checked", ""))[:ROTATE]
+    queue = list(dict.fromkeys(watch + active + stale))
+    print("refreshing", len(queue), "companies")
+
+    for sym in queue:
+        if time.time() - t0 > MAX_SECONDS: print("time limit reached"); break
+        e = stocks.get(sym, {"n": names[sym]})
+        try:
+            if not e.get("summary") or e.get("checked", "") < (dt.date.today() - dt.timedelta(days=30)).isoformat():
+                e.update(fetch_profile(sym))
+            nm, got = short_name(sym, names), {}
+            for h in found.get(sym, {}).values(): got[h["t"]] = h
+            try:
+                for h in rss('"%s" (shares OR stock OR NSE)' % nm, NEWS_DAYS):
+                    if sym in match_title(h["t"], index): got.setdefault(h["t"], h)
+            except Exception as ex: print("news failed", sym, ex)
+            items = sorted(got.values(), key=lambda x: x["d"], reverse=True)[:MAX_NEWS]
+            e["news"] = tag(items, e.get("mcap_cr")); e["n"] = e.get("n") or names[sym]; e["checked"] = today
+            stocks[sym] = e; print("ok ", sym, len(e["news"]))
+        except Exception as ex: print("FAILED", sym, ex)
+        time.sleep(PAUSE)
+
+    cutoff = (dt.date.today() - dt.timedelta(days=NEWS_DAYS)).isoformat()
+    for e in stocks.values(): e["news"] = [n for n in e.get("news", []) if n["d"] >= cutoff]
+    keep = sorted(stocks.items(), key=lambda kv: (kv[0] in watch, max([n["d"] for n in kv[1]["news"]] or [""])), reverse=True)[:KEEP_MAX]
+    json.dump({"updated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M UTC"), "stocks": dict(keep)},
+              open(OUT, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    print("wrote", OUT, len(keep), "companies in", int(time.time() - t0), "s")
 
 if __name__ == "__main__":
     main()
