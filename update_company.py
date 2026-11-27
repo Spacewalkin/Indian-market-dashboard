@@ -1,5 +1,5 @@
 """
-update_company.py  -  builds company.json for the "Company brief" part of the dashboard.
+update_company.py  -  builds company_brief.json for the "Company brief" part of the dashboard.
 
 For every stock listed in company_watch.txt (plus every symbol found in research.json) it collects:
   * what the company does (Yahoo Finance business summary, industry, sector, website, size)
@@ -19,19 +19,23 @@ from email.utils import parsedate_to_datetime
 from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "company.json")
+OUT = os.path.join(HERE, "company_brief.json")
 NEWS_DAYS, MAX_NEWS = 90, 12
 
 # ---------- headline reading (plain keyword rules; they are hints, not facts) ----------
-POS = r"\b(jump|jumps|surge|surges|soar|soars|rally|rallies|gain|gains|rise|rises|rose|up|hike in profit|record|strong|beat|beats|upgrade|upgrades|bags|wins|secures|secured|awarded|win|approval|approved|cut in|relief|trade deal|lower duty|boost|boosts|growth|grows|expands)\b"
-NEG = r"\b(fall|falls|fell|drop|drops|plunge|plunges|slump|slumps|crash|decline|declines|dip|dips|tumble|tumbles|miss|misses|downgrade|downgrades|loss|losses|halves|halve|stumble|stumbles|penalty|probe|fraud|raid|ban|banned|hike in duty|tariff hike|imposes|imposed|weak|cut to|lowers|slashes|exit|resigns|default)\b"
+POS = r"\b(jump|jumps|surge|surges|soar|soars|rally|rallies|gain|gains|rise|rises|rose|record|strong|beat|beats|upgrade|upgrades|bags|wins|secures|secured|awarded|approval|approved|nod|relief|boost|boosts|growth|grows|expands|receives|gets)\b"
+NEG = r"\b(fall|falls|fell|drop|drops|plunge|plunges|slump|slumps|crash|decline|declines|dip|dips|tumble|tumbles|miss|misses|downgrade|downgrades|loss|losses|halves|halve|stumble|stumbles|penalty|probe|fraud|raid|ban|banned|imposes|imposed|weak|lowers|slashes|resigns|default|rejects|rejected|delay|delays|denied|withdraws|warning)\b"
 
 RULES = [
-    ("Regulatory or legal risk", r"\b(sebi|probe|fraud|raid|show.cause|nclt|insolvency|default|penalty|notice|court|enforcement directorate|\bed\b|cbi|pledge)\b", -1,
+    ("Market roundup", r"\b(stocks to watch|stocks in focus|stocks to buy|stock picks|buzzing stocks|top gainers|top losers|market wrap|closing bell|opening bell|stocks that moved)\b", 0,
+     "A list article that mentions many companies. Open it and read only the paragraph about this one."),
+    ("Regulatory or legal risk", r"\b(sebi|probe|fraud|raid|show.cause|nclt|insolvency|default|penalty|court|enforcement directorate|cbi|warning letter|form 483|import alert|observations|inspection)\b", -1,
      "Regulatory or legal news can hurt trust and sometimes cash flow. Read the filing for the amount at stake and whether it is a one-off."),
-    ("Order or contract win", r"\b(order|orders|bags|wins|win|secures|secured|awarded|contract|loi|letter of intent|work order|tender|empanel|mou|deal|partnership|supply agreement)\b", 1,
+    ("Product approval", r"\b(usfda|us fda|u\.s\. fda|fda|cdsco|dcgi|ema|approval|approves|approved|nod|tentative approval)\b", 1,
+     "A regulator's approval lets the company sell that product in that market. What it is worth depends on the market size and how many rivals already sell it."),
+    ("Order or contract win", r"\b(order|orders|bags|wins|win|secures|secured|awarded|contract|loi|letter of intent|work order|tender|empanel|mou|partnership|supply agreement)\b", 1,
      "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."),
-    ("Exports, imports and tariffs", r"\b(tariff|tariffs|anti.dumping|countervailing|duty|duties|export|exports|exporter|import|imports|trade deal|fta|shipment|freight|usfda|fda)\b", 0,
+    ("Exports, imports and tariffs", r"\b(tariff|tariffs|anti.dumping|countervailing|duty|duties|export|exports|exporter|import|imports|trade deal|fta|shipment|freight)\b", 0,
      "Trade rules change what an exporter can charge and sell. Lower duties usually help volumes and margins; higher duties or freight hurt them."),
     ("Results", r"\b(q[1-4]|results|profit|pat|ebitda|revenue|earnings|net profit|margin)\b", 0,
      "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."),
@@ -54,18 +58,22 @@ def read_headline(title):
     low = (title or "").lower()
     pos, neg = bool(re.search(POS, low)), bool(re.search(NEG, low))
     for cat, pat, base, why in RULES:
-        if re.search(pat, low):
-            tone = (1 if pos and not neg else -1 if neg and not pos else 0)
-            if cat in ("Regulatory or legal risk",): tone = -1
-            if cat in ("Dividend or buyback", "Order or contract win") and tone == 0: tone = 1
-            if cat in ("Order or contract win",) and neg and not pos: tone = -1
-            if cat == "Exports, imports and tariffs":
-                why = ("Lower or removed duties help an exporter: US buyers pay less, so volumes and margins can recover." if tone > 0 else
-                       "Higher duties or freight hurt an exporter: buyers pay more or switch supplier, so volumes and margins can fall." if tone < 0 else why)
-            if cat == "Results":
-                why = ("Better results than before. Check whether the margin also improved and whether profit is from the core business." if tone > 0 else
-                       "Weaker results. Check whether it is a one-off (an exceptional item) or a lasting margin problem." if tone < 0 else why)
-            return cat, tone, why
+        if not re.search(pat, low): continue
+        tone = 1 if pos and not neg else -1 if neg and not pos else 0
+        if cat == "Market roundup": tone = 0
+        elif cat == "Regulatory or legal risk": tone = -1
+        elif cat in ("Product approval", "Dividend or buyback"): tone = -1 if neg and not pos else 1
+        elif cat == "Order or contract win" and tone == 0: tone = 1
+        elif cat == "Exports, imports and tariffs":
+            if re.search(r"\b(tariff|tariffs|duty|duties|anti.dumping|countervailing|trade deal|fta)\b", low):
+                why = ("Lower or removed duties help an exporter: buyers pay less, so volumes and margins can recover." if tone > 0 else
+                       "Higher duties hurt an exporter: buyers pay more or switch supplier, so volumes and margins can fall." if tone < 0 else why)
+            else:
+                tone = 0
+        elif cat == "Results":
+            why = ("Better results than before. Check whether the margin also improved and whether profit is from the core business." if tone > 0 else
+                   "Weaker results. Check whether it is a one-off (an exceptional item) or a lasting margin problem." if tone < 0 else why)
+        return cat, tone, why
     return "General news", 0, "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
 
 def deal_value_cr(title):

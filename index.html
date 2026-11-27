@@ -310,9 +310,12 @@ function srch(v) {
   const t = v.trim().toLowerCase(), box = $("sres");
   if (!t) { box.hidden = true; return; }
   const m = Object.entries(D.stocks).map(([k, x]) => ({k, n: x.n || k, d: x.d, r: k.toLowerCase().startsWith(t) ? 0 : (x.n || "").toLowerCase().startsWith(t) ? 1 : (k.toLowerCase().includes(t) || (x.n || "").toLowerCase().includes(t)) ? 2 : 9}))
-    .filter(x => x.r < 9).sort((a, b) => a.r - b.r || a.k.localeCompare(b.k)).slice(0, 8);
+    .filter(x => x.r < 9);
+  const extra = new Set([...Object.keys((CO && CO.stocks) || {}), ...Object.keys((CN && CN.stocks) || {})]);
+  extra.forEach(k => { if (D.stocks[k]) return; const nm = (cnOf(k) && cnOf(k).n) || (coOf(k) && coOf(k).n) || k, r = k.toLowerCase().startsWith(t) ? 0 : nm.toLowerCase().startsWith(t) ? 1 : (k.toLowerCase().includes(t) || nm.toLowerCase().includes(t)) ? 2 : 9; if (r < 9) m.push({k, n: nm, d: null, r, brief: true}); });
+  m.sort((a, b) => a.r - b.r || a.k.localeCompare(b.k)); m.length = Math.min(m.length, 8);
   box.hidden = false;
-  box.innerHTML = m.length ? m.map(x => `<button onclick="pickS('${esc(x.k)}')"><span>${esc(x.n)} <small>${esc(x.k)}${capOf(x.k) ? " · " + esc(capOf(x.k)) : ""}</small></span><span class="${x.d >= 0 ? "up" : "dn"}">${f1(x.d)}</span></button>`).join("") : '<button disabled>No match. Try the stock symbol.</button>';
+  box.innerHTML = m.length ? m.map(x => `<button onclick="pickS('${esc(x.k)}')"><span>${esc(x.n)} <small>${esc(x.k)}${x.brief ? " · company brief" : capOf(x.k) ? " · " + esc(capOf(x.k)) : ""}</small></span><span class="${x.d >= 0 ? "up" : "dn"}">${x.d == null ? "" : f1(x.d)}</span></button>`).join("") : '<button disabled>No match. Try the stock symbol.</button>';
 }
 function pickS(k) { $("sq").value = ""; $("sres").hidden = true; openStock(k); }
 document.addEventListener("click", e => { if (!e.target.closest(".search")) $("sres").hidden = true; });
@@ -1256,7 +1259,7 @@ function rsHTML() {
       <div><span class="tag ${rsTone(r.verdict)}">${esc(r.verdict || "")}</span><span class="mu">${esc(r.sector || "")}</span></div>
       <div><span class="tag">Growth ${sc.growth}/25</span><span class="tag">Quality ${sc.quality}/15</span><span class="tag">Value ${sc.valuation}/15</span><span class="tag">Price ${sc.setup}/10</span><span class="tag">News ${sc.news}/20</span><span class="tag">Sector ${sc.sector}/15</span>${r.manual_overlay_missing ? '<span class="tag a">News/sector not scored</span>' : ""}</div>
       <div class="cs">${r.price != null ? "₹" + fv(r.price) : ""}${d != null ? (d > -1 ? " · at its 52-week high" : " · " + Math.abs(d).toFixed(0) + "% below its 52-week high") : ""} · data coverage ${r.coverage_pct}%</div>
-      <ul class="ul">${(r.why || []).map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
+      ${coLine(r.symbol)}<ul class="ul">${(r.why || []).map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
       ${(r.flags || []).length ? "<div>" + r.flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
       <div class="mu">▶ ${esc(r.entry_note || "")}</div>${r.note ? '<div class="mu">Note: ' + esc(r.note) + "</div>" : ""}
       <details><summary>Before you buy</summary><ul class="ul"><li>Fill the Screener checklist: promoter holding and pledging, cash flow, debt, and the latest conference call.</li><li>Buy in 2 or 3 parts. If it fell on news, start with about one-third.</li><li>Write your exit triggers and the next result date before you buy.</li></ul></details></div>`; };
@@ -1264,6 +1267,76 @@ function rsHTML() {
   return head + `<div class="sub">${list.length} stocks researched by earnings, quality, valuation and price, plus your own news and sector view. Updated ${esc(String(RS.generated_at || "").slice(0, 16).replace("T", " "))} UTC.</div>${list.map(cell).join("")}
     <div class="note">Research picks use a different score from the Nifty 500 screen below: 65 points are measured from the numbers and 35 are your news and sector judgment. A high score is a reason to research further, not a signal to buy. Figures come from Yahoo Finance and can be late or wrong, so confirm on Screener.in. The final call is yours.</div>
     <h3 style="margin:22px 0 4px">Nifty 500 screen</h3>`;
+}
+// ---- Company brief: company_brief.json (auto: profile + tagged headlines) + company_notes.json (curated: exports, imports, deals) ----
+let CO = null, CN = null;
+function loadCO() {
+  const v = "?v=" + Math.floor(Date.now() / 60000), re = () => { const el = document.activeElement; if ((view === "stock" || view === "lt") && !(el && ["INPUT", "TEXTAREA", "SELECT"].includes(el.tagName)) && !document.querySelector("details[open]")) render(); };
+  Promise.all([getJ("company.json" + v), getJ("company_brief.json" + v)]).then(([a, b]) => {
+    const A = a && a.stocks ? a : {stocks: {}}, B = b && b.stocks ? b : {stocks: {}};
+    CO = {updated: A.updated || B.updated || "", stocks: Object.assign({}, A.stocks, B.stocks)}; re();
+  });
+  getJ("company_notes.json" + v).then(r => { CN = r && r.stocks ? r : {stocks: {}, none: true}; re(); });
+}
+const HL_POS = /\b(jump|jumps|surge|surges|soar|soars|rally|rallies|gain|gains|rise|rises|rose|record|strong|beat|beats|upgrade|upgrades|bags|wins|secures|secured|awarded|approval|approved|nod|relief|boost|boosts|growth|grows|expands|receives|gets)\b/, HL_NEG = /\b(fall|falls|fell|drop|drops|plunge|plunges|slump|slumps|crash|decline|declines|dip|dips|tumble|tumbles|miss|misses|downgrade|downgrades|loss|losses|halves|halve|stumble|stumbles|penalty|probe|fraud|raid|ban|banned|imposes|imposed|weak|lowers|slashes|resigns|default|rejects|rejected|delay|delays|denied|withdraws|warning)\b/;
+const HL_RULES = [
+  ["Market roundup", /\b(stocks to watch|stocks in focus|stocks to buy|stock picks|buzzing stocks|top gainers|top losers|market wrap|closing bell|opening bell|stocks that moved)\b/, "A list article that mentions many companies. Open it and read only the paragraph about this one."],
+  ["Regulatory or legal risk", /\b(sebi|probe|fraud|raid|show.cause|nclt|insolvency|default|penalty|court|enforcement directorate|cbi|warning letter|form 483|import alert|observations|inspection)\b/, "Regulatory or legal news can hurt trust and sometimes cash flow. Read the filing for the amount at stake and whether it is a one-off."],
+  ["Product approval", /\b(usfda|us fda|u\.s\. fda|fda|cdsco|dcgi|ema|approval|approves|approved|nod|tentative approval)\b/, "A regulator's approval lets the company sell that product in that market. What it is worth depends on the market size and how many rivals already sell it."],
+  ["Order or contract win", /\b(order|orders|bags|wins|win|secures|secured|awarded|contract|loi|letter of intent|work order|tender|empanel|mou|partnership|supply agreement)\b/, "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."],
+  ["Exports, imports and tariffs", /\b(tariff|tariffs|anti.dumping|countervailing|duty|duties|export|exports|exporter|import|imports|trade deal|fta|shipment|freight)\b/, "Trade rules change what an exporter can charge and sell. Lower duties usually help volumes and margins; higher duties or freight hurt them."],
+  ["Results", /\b(q[1-4]|results|profit|pat|ebitda|revenue|earnings|net profit|margin)\b/, "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."],
+  ["Expansion or capex", /\b(capacity|plant|capex|expansion|new facility|acquire|acquires|acquisition|stake|invest|investment|merger|demerger|launch|launches)\b/, "Expansion can lift future sales, but it costs cash first. Check how it is funded and when it starts contributing."],
+  ["Broker view", /\b(target price|target|rating|brokerage|buy|sell|overweight|underweight|initiates coverage)\b/, "A broker view is an opinion. Look at the reasons given, not the target price alone."],
+  ["Dividend or buyback", /\b(dividend|buyback|bonus|split)\b/, "Cash returned to shareholders signals confidence, but it says little about future growth."]];
+function readHeadline(title) {
+  const low = String(title || "").toLowerCase(), pos = HL_POS.test(low), neg = HL_NEG.test(low);
+  for (const [cat, re, why0] of HL_RULES) {
+    if (!re.test(low)) continue;
+    let tone = pos && !neg ? 1 : neg && !pos ? -1 : 0, why = why0;
+    if (cat === "Market roundup") tone = 0;
+    else if (cat === "Regulatory or legal risk") tone = -1;
+    else if (cat === "Product approval" || cat === "Dividend or buyback") tone = neg && !pos ? -1 : 1;
+    else if (cat === "Order or contract win" && tone === 0) tone = 1;
+    else if (cat === "Exports, imports and tariffs") {
+      if (/\b(tariff|tariffs|duty|duties|anti.dumping|countervailing|trade deal|fta)\b/.test(low)) why = tone > 0 ? "Lower or removed duties help an exporter: buyers pay less, so volumes and margins can recover." : tone < 0 ? "Higher duties hurt an exporter: buyers pay more or switch supplier, so volumes and margins can fall." : why0; else tone = 0;
+    } else if (cat === "Results") why = tone > 0 ? "Better results than before. Check whether the margin also improved and whether profit is from the core business." : tone < 0 ? "Weaker results. Check whether it is a one-off (an exceptional item) or a lasting margin problem." : why0;
+    return {cat, tone, why};
+  }
+  return {cat: "General news", tone: 0, why: "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."};
+}
+function dealCr(title) {
+  const m = /(₹|rs\.?|inr)\s?([\d,]+(?:\.\d+)?)\s?(lakh crore|crore|cr)\b/i.exec(title || ""); if (!m) return null;
+  return parseFloat(m[2].replace(/,/g, "")) * (m[3].toLowerCase() === "lakh crore" ? 100000 : 1);
+}
+const readNews = (c, x) => { const r = readHeadline(x.t), v = ["Order or contract win", "Expansion or capex"].includes(r.cat) ? dealCr(x.t) : null; return Object.assign({}, x, r, {val_cr: v, pct_mcap: v && c && c.mcap_cr ? Math.round(v / c.mcap_cr * 1000) / 10 : null}); };
+const coOf = sym => ((CO && CO.stocks) || {})[sym], cnOf = sym => ((CN && CN.stocks) || {})[sym];
+const hasBrief = sym => !!(coOf(sym) || cnOf(sym));
+const firstSent = (t, n) => { t = String(t || "").replace(/\s+/g, " ").trim(); if (t.length <= n) return t; const cut = t.slice(0, n), i = cut.lastIndexOf(". "); return (i > 80 ? cut.slice(0, i + 1) : cut.replace(/\s+\S*$/, "") + "…"); };
+const toneTag = t => t > 0 ? '<span class="tag g">Could help</span>' : t < 0 ? '<span class="tag r">Could hurt</span>' : '<span class="tag a">Unclear</span>';
+function coLine(sym) {
+  const c = coOf(sym), n = cnOf(sym); if (!c && !n) return "";
+  const what = firstSent((n && n.what) || (c && c.summary), 170), dev = n && (n.developments || [])[0], nw = c && (c.news || []).map(x => readNews(c, x)).find(x => !["General news", "Broker view", "Market roundup"].includes(x.cat));
+  return `<div class="mu" style="margin-top:4px">${esc(what)}</div>${dev ? `<div class="mu">Latest: ${esc(dev.t)} ${toneTag(dev.tone)}</div>` : nw ? `<div class="mu">Latest: ${esc(nw.t)} ${toneTag(nw.tone)}</div>` : ""}<div class="mu"><a href="#" onclick="openStock('${esc(sym)}');return false">Full company brief →</a></div>`;
+}
+function coBlock(sym) {
+  if (CO === null && CN === null) return '<h2>Company brief</h2><p class="sub">Loading…</p>';
+  const c = coOf(sym) || {}, n = cnOf(sym) || {}, q = encodeURIComponent;
+  if (!coOf(sym) && !cnOf(sym)) return `<h2>Company brief</h2><div class="card"><p class="sub" style="margin:0">No company brief for this stock yet. Add <b>${esc(sym)}</b> to <b>company_watch.txt</b> in your repo and run "Company brief update" under Actions: it then shows what the company does and its latest news and deals. For export and import details, ask Claude to research it into <b>company_notes.json</b>.</p></div>`;
+  const row = (k, v) => v ? `<li><b>${k}:</b> ${esc(v)}</li>` : "";
+  const facts = [c.industry, c.sector && c.sector !== c.industry ? c.sector : "", c.mcap_cr ? "Market cap ₹" + fv(c.mcap_cr) + " cr" : "", c.employees ? fv(c.employees) + " employees" : "", c.city].filter(Boolean).map(x => `<span class="tag">${esc(x)}</span>`).join("");
+  const what = n.what || firstSent(c.summary, 420), more = !n.what && c.summary && c.summary.length > 420 ? `<details><summary>Read more</summary><p class="mu">${esc(c.summary)}</p></details>` : "";
+  const trade = n.exports || n.imports || n.mix ? `<ul class="ul">${row("Revenue mix", n.mix)}${row("Exports", n.exports)}${row("Imports", n.imports)}${row("Key markets and customers", n.markets)}</ul>` : '<p class="mu">Exports, imports and key customers are not added yet. Yahoo does not provide them: ask Claude to research this stock and the answer goes into <b>company_notes.json</b>.</p>';
+  const dv = (n.developments || []).map(x => `<div class="nc"><div><b>${esc(x.t)}</b> ${toneTag(x.tone)}</div><div class="mu">${esc(fd(x.d))}${x.d ? " " + esc(x.d.slice(0, 4)) : ""} · ${esc(x.src || "")}</div><div class="mu">▶ How it could affect the company: ${esc(x.why)}</div></div>`).join("");
+  const auto = (c.news || []).map(x0 => { const x = readNews(c, x0); return `<div class="nc"><div>${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · <span class="tag">${esc(x.cat)}</span> ${toneTag(x.tone)}${x.val_cr ? ' <span class="tag a">₹' + fv(x.val_cr) + " cr" + (x.pct_mcap != null ? " = " + x.pct_mcap + "% of market cap" : "") + "</span>" : ""}</div><div class="mu">▶ ${esc(x.why)}</div></div>`; }).join("");
+  const lst = (t, a) => a && a.length ? `<h3 style="margin:14px 0 4px">${t}</h3><ul class="ul">${a.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>` : "";
+  return `<h2>Company brief</h2><div class="card"><div style="margin-bottom:6px">${facts}</div><p style="margin:6px 0">${esc(what)}</p>${more}${trade}${c.website ? `<div class="mu"><a href="${esc(c.website)}" target="_blank" rel="noopener">Company website</a></div>` : ""}</div>
+  ${lst("Latest results", n.results)}
+  ${dv ? `<h3 style="margin:14px 0 4px">Deals, orders and policy news (researched)</h3>${dv}` : ""}
+  ${auto ? `<h3 style="margin:14px 0 4px">Latest headlines (last 90 days)</h3>${auto}` : ""}
+  ${lst("What to watch next", n.watch)}${lst("Risks", n.risks)}
+  <div class="note">${n.source ? esc(n.source) + " " : ""}Headlines are matched to a category by keywords, and the "how it could affect" lines are general readings, not facts about this company: open the story and the company filing before acting. Deal sizes are compared with market cap only when the headline quotes a rupee amount. ${CO && CO.updated ? "Headlines updated " + esc(CO.updated) + "." : ""}</div>
+  <div class="chips" style="margin-top:8px"><a href="https://www.screener.in/company/${q(sym)}/" target="_blank" rel="noopener"><button>Annual report and concalls on Screener</button></a></div>`;
 }
 const isFin = sym => /bank|financ|nbfc|insur/i.test((D.stocks[sym] || {}).sec || "");
 function sectorPE() {
@@ -1315,7 +1388,7 @@ function renderLT() {
       return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(k, s.n || k)}</b><span class="tag ${r.score >= 75 ? "g" : "a"}">Score ${r.score}/100</span></div>
       <div><span class="mu">${esc(s.sec || "")}</span> ${capTag(k)}${held.has(k) ? '<span class="tag a">You hold it</span>' : ""}<span class="tag">Growth ${r.parts.Growth}/30</span><span class="tag">Quality ${r.parts.Quality}/35</span><span class="tag">Trend ${r.parts.Trend}/20</span><span class="tag">Value ${r.parts.Value}/15</span></div>
       <div class="cs">₹${fv(s.p)} <span class="${s.d >= 0 ? "up" : "dn"}">${f1(s.d)}</span> today · ${f1(s.m)} in a month${f.mcap_cr != null ? " · market cap ₹" + fv(f.mcap_cr) + " cr" : ""}</div>
-      <ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
+      ${coLine(k)}<ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
       ${r.flags.length ? "<div>" + r.flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
       <details><summary>Before you buy</summary><ul class="ul"><li>Buy in 2 or 3 parts over a few weeks, not all at once.</li><li>Check promoter holding and pledging, the latest conference call and any pending litigation.</li><li>Decide your exit now: for example, a close below the 200 EMA together with weak results.</li><li>Keep any one stock to a size you can live with if it halves.</li></ul></details></div>`; };
     body = `<div class="sub">${n} of ${Object.keys(D.stocks).length} Nifty 500 stocks analysed so far (updated ${esc(LT.updated || "")}). ${all.length} qualify with a score of 60 or more.</div>
@@ -1323,7 +1396,7 @@ function renderLT() {
     ${list.length ? list.map(cell).join("") : '<p class="sub">No stock matches this filter yet.</p>'}
     <div class="note">How the score works: growth (30), quality (35), trend (20) and value against the sector (15). A stock must have grown profit and revenue over 2 to 3 years, never made a loss in those years, earn a return on equity of at least 10%, and trade above its 200 EMA. This is a screen for ideas to research, not a list of future winners: nobody can reliably pick multibaggers, and small caps can fall hard. Figures come from Yahoo Finance and can be late or wrong. The final call is yours.</div>`;
   }
-  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2>${rsHTML()}${body}`;
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2><div class="note" style="margin:6px 0 10px">Search any stock in the box at the top to see what the company does, its exports and imports, and its latest news, orders and deals, with how each could affect it. Cards below show a one-line summary and a link to the full brief.</div>${rsHTML()}${body}`;
 }
 
 const JK = "imd_journal_v1";
@@ -1520,7 +1593,7 @@ function drivers(sym, st) {
 function renderStock() {
   $("asof").textContent = stamp();
   const sym = curStock, st = D.stocks[sym], back = `<button onclick="go('${backView}')">← Back</button>`;
-  if (!st) { $("app").innerHTML = nav() + back + '<p class="sub">No data for this stock.</p>'; return; }
+  if (!st) { const c0 = coOf(sym), n0 = cnOf(sym); if (!c0 && !n0) { $("app").innerHTML = nav() + back + '<p class="sub">No data for this stock.</p>'; return; } const nm = (n0 && n0.n) || (c0 && c0.n) || sym; $("app").innerHTML = `${nav()}${back}<h2 style="margin-top:14px">${esc(nm)}</h2><div class="mu">${esc(sym)} · not in the Nifty 500 price data, so there is no live price or chart here. <a href="https://www.tradingview.com/chart/?symbol=NSE%3A${encodeURIComponent(sym)}" target="_blank" rel="noopener">Chart on TradingView</a></div>${coBlock(sym)}`; return; }
   const E = D.events || {}, setups = findSetups(sym), sec = D.segments.find(g => g.group === "sector" && g.stocks.includes(sym));
   const long = setups.find(x => ["brk", "near", "pull", "retest"].includes(x[0])), SN = Object.fromEntries(SC);
   const tags = setups.map(([k, c]) => `<span class="tag ${k === "weak" ? "r" : "g"}">${SN[k]}</span>`).join("");
@@ -1540,6 +1613,7 @@ function renderStock() {
   <h2 style="margin-top:14px">${esc(st.n)}</h2><div class="mu">${esc(sym)}${sec ? " · " + esc(sec.name) : st.sec ? " · " + esc(st.sec) : ""}${capOf(sym) ? " · " + esc(capOf(sym)) : ""}</div>
   <div style="font-size:28px;font-weight:800;margin-top:4px">₹${fv(st.p)} <span class="${st.d >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(st.d)}</span></div>${rangeBar(st)}<div style="margin-top:6px">${tags}</div>
   <div class="card chartbox" id="chart" style="margin-top:12px"><div class="sub">Loading chart…</div></div>${plan}
+  ${coBlock(sym)}
   <h2>What is driving this stock</h2><div class="card"><ul class="ul" style="margin:0">${li(drivers(sym, st))}</ul></div>
   <h2>News and events</h2>${news}${sameSec.length ? `<h3 style="margin:14px 0 4px">Other headlines from ${esc(sec.name)}</h3>${nl(sameSec)}` : ""}
   <h2>More detail</h2><div class="chips"><a href="${tv}" target="_blank" rel="noopener"><button>Full chart on TradingView</button></a><a href="https://www.screener.in/company/${q(sym)}/" target="_blank" rel="noopener"><button>Fundamentals on Screener</button></a><a href="https://www.nseindia.com/get-quotes/equity?symbol=${q(sym)}" target="_blank" rel="noopener"><button>NSE page</button></a><a href="https://news.google.com/search?q=${q(st.n + " share")}&hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener"><button>More news</button></a></div>
@@ -1627,6 +1701,7 @@ Promise.all([loadData(true), loadStatus()]).then(([d]) => {
   loadPicks();
   loadRes();
   loadLT();
+  loadCO();
   loadPreLocal();
   setInterval(loadPicks, 600000);
   setInterval(loadRes, 900000);
