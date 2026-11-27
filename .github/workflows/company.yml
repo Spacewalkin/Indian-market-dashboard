@@ -2,15 +2,25 @@ name: Company feed
 
 on:
   schedule:
-    - cron: "30 2 * * *"   # every day at 8:00 AM India time
-  workflow_dispatch:         # lets you press a "Run workflow" button
+    - cron: "30 2 * * *"     # 8:00 AM India time
+    - cron: "30 12 * * *"    # 6:00 PM India time
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: "Optional: NSE symbols separated by spaces (leave empty for the normal automatic run)"
+        required: false
 
 permissions:
   contents: write
 
+concurrency:
+  group: company-feed
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -21,13 +31,12 @@ jobs:
       - name: Install tools
         run: pip install yfinance requests
 
-      - name: Find companies in the news and build company.json
-        run: python discover_company.py
+      - name: Build company feed from the NSE list and the news
+        run: python update_company.py ${{ github.event.inputs.symbols }}
 
       - name: Save results
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git add company.json discovered.json
-          git diff --staged --quiet || git commit -m "Daily company feed update"
-          git push
+          git add company.json nse_names.json
+          git diff --staged --quiet || (git commit -m "Daily company feed update" && git pull --rebase && git push)
