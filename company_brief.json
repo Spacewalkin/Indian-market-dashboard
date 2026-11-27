@@ -1,0 +1,1101 @@
+{
+ "updated": "2026-11-27 02:26 UTC",
+ "stocks": {
+  "KPIL": {
+   "n": "Kalpataru Projects International Limited",
+   "summary": "Kalpataru Projects International Limited provides engineering, procurement, and construction (EPC) services for power transmission and distribution, buildings and factories, water supply and irrigation, railways, oil and gas, and urban infrastructure sectors in India and internationally. The company operates in Engineering, Procurement and Construction; Developmental Project; and Others segments. It designs, tests, procures, fabricates, erects, installs, and commissions power transmission lines, substations, and underground cable works; executes civil works, design and build composite works, structural works, finishing works, utility installations, and area development for buildings and factories; and designs and builds water intake, pipeline installation, treatment, storage, supply, distribution, and operation and maintenance of water projects. The company also offers services under its railway arm, including overhead electrification, traction substations, station buildings, railway track laying, earthwork, workshops, signaling and telecommunication, power systems, and civil works with railway networks and projects; and EPC services for the design and construction of highways, bridges and flyovers, airports, metro rail corridor stations and transit terminals and hubs, as well as undertakes EPC contracting for cross-country pipelines, terminals, and gas gathering stations for the oil and gas sectors. In addition, it is involved in agri-storage infrastructure with value added services, such as testing and certification, collateral management, pest control activities, preservation, maintenance, and security services, as well as management and operation of warehouses; and operates biomass power generation plants. The company was formerly known as Kalpataru Power Transmission Limited and changed its name to Kalpataru Projects International Limited in May 2023. Kalpataru Projects International Limited was incorporated in 1981 and is based in Mumbai, India.",
+   "industry": "Engineering & Construction",
+   "sector": "Industrials",
+   "website": "https://www.kalpataruprojects.com",
+   "employees": 11188,
+   "city": "Mumbai",
+   "mcap_cr": 22443,
+   "news": [
+    {
+     "t": "Kalpataru Projects International Ltd is Rated Buy",
+     "l": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNMHVGelIxdjh4UFJzT1V3M0pZRFRwU2lfUkRlY3o2Yl82eUY1NXh0d0NZWlF1NUMxSFIyMlJJYzhobld0WW5sZ0dOWmF1emw5TFIybWtrZGRqdFBYMmtRYWN5WGlRc1JPVnJMTURUV2VGSUlkRlY2eEJ0SkhUWnR6UUkwNEJEc25RRWVyRUJheVk5ajdBSTlEUHI3dkg1RGp2UVpCLXpxZjJUYzVsYW1GZA?oc=5",
+     "p": "MarketsMojo",
+     "d": "2026-11-21",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Kalpataru Projects International Ltd. Share Price Live Today",
+     "l": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNYlA5dkJ5WS0yYzV0OXBzQnZZcFI2SnAyNGRkLXFnU1g5T2RreUpOWXBxTG5DNGlGWmhkbHdQWVZld0UwT21OTFk1cWdJT3c1UlJhWk1ULVVWX0FlNUtETGttRXl4MEFsSUJ5MTZlNE9ocy1fNXU2djhNTGxKSTh6bWZnZkVWOVIxT0ItM1M0Y1ViR1YyUGZr?oc=5",
+     "p": "CNBC TV18",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalpataru Projects Wins ₹2,610 Cr Order; Shares Fall 1.7%",
+     "l": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQlViVmJSVlZiVFNPc1NXUGZwMWswUmpKRVpDSmtyd2ZKSG95RHpYZmxNamtjdE1rbWJtb3N2SzFIYUg4cERyWVlTWlQ4MTctdWticWRTbUhJYV9kdkZ0MmtoMmNhazhQMVhFdzhRWTlXYlZEWl9WSjBzNkQ1OFJiazVON01hZThwSXFHUDFYYW45QUtXOEp1UUVtd2t2MGJxRVFCbmZiTTFIVUNrR0E?oc=5",
+     "p": "HDFC Sky",
+     "d": "2026-11-16",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2610.0,
+     "pct_mcap": 11.6
+    },
+    {
+     "t": "Kalpataru Projects Bags Rs 2,610 Cr International Order",
+     "l": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNWmxLQjFLNHZuX29MVWlXQVRZRXNaaFdiclBoWmRpUFhOVVk1UjlCWTBjaHI0ZnVoN1RSMDBwWkdpQjhpWUtvSFAzQUFVc0dIX0pkM3dVVzVWSEZwSHBzMDRQUGV2VGpGRDlwUjBIZnAwTFdOMVZWSU5KMzRYNDZvTjVXOFZrTnFUOXBTcQ?oc=5",
+     "p": "Equitypandit",
+     "d": "2026-11-16",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2610.0,
+     "pct_mcap": 11.6
+    },
+    {
+     "t": "Kalpataru Projects Bags Rs 2,610 Cr South America Order",
+     "l": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxONzY1X1FTaENCYkd1U1pJaG1fU2NpOWR0MTB4NGZ3cW16Q25BYmxBQU1BM2tTb3dzU2NhUUtSR090NExoZmxOTi1UR3lSTTF6bHBPZnIyWTRNbXhUZTBlN18zTG43eWJPZWNOdURySVlZa2M2QWhEbGZxT1ZjNWd4N1ctd2xMNkZiQ2NZUFVpNUE0MGlYMjBFOWl2NmdLOUwtVkduX0xVSkxEMzjSAbABQVVfeXFMTjMzc0gyS2luMUx0VWw1cUx3dGhhdS10dXFQWmgwZmNXdDl6RkdIU1dTVndIZ2hWUkx1WmVIbE5JRk01UHB4R3k3aUxEajZ3QXBVdUs5UGdfWmgtMW5FeWxLM2JSQ0NwUnlQMl9Zd2Exa2hpSW4wYy1lTzd0U3RnOEltOVBZQ25QV2d4cVdnTXlzcmd2bjhhSll0RUQ4bTRiUkx5TVpnZEhidGdSR01PUVI?oc=5",
+     "p": "Rediff MoneyWiz",
+     "d": "2026-11-16",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2610.0,
+     "pct_mcap": 11.6
+    },
+    {
+     "t": "KPIL secures ₹2,610 crore international power transmission order",
+     "l": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQTFU4ZHR4dXNXSnRYMlplRndxODE4a1BkVDRzampUY1RNVHo5WHllMGxtc1ZWMDIyVktzNWJobVBWT0ZOcng0bjkzMFg4bzFxVVdPdDRwSTBRN2JFNXJoelZ2TzZSSUpOY0ZmOFZ3OEJFMWMxcElReUlKWG1DMEhfendiWktyUGN4aktRY1dnelpnQ2pLb2x0Ti1RSFQ2VkNpQkpsU29Va2s0anlONXBLdVNaZjdNZWNaSmw4TTZob2oxay0yN2fSAcsBQVVfeXFMTzdGU1RLc1h3TUJYbFluU2prSG1DMjB5QmpJREkwRGEyaW5Zb0lKMlUwNzNwSHZlVV84MXZiRkludEFsRG51VDMxWmRZRGgwQ1hwTTJabkpYSjRyVmpFR2tPc0Q1OTB2cWJTUjg0czFvcTRtdDdWM3phbzBCZ0Nib0psVlFMWEIwRFhfTE9hV1VwN2RxN01BZ0pJUmVic201WXBvRVpOa2JlWWpUZWZYUHBLc0NENlpESGRYYnNnV014ZVZGUmVqMVEzcFU?oc=5",
+     "p": "ET EnergyWorld",
+     "d": "2026-11-16",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2610.0,
+     "pct_mcap": 11.6
+    },
+    {
+     "t": "Kalpataru Projects International (NSEI:KPIL) Stock Forecast & Analyst Predictions",
+     "l": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPeGJNS0YyNzg2dVMtSGIxenZnT1c5ZzdVb1BVcXJwUjR5d3BWaTNkYzN5dHRrUE9ZVUpjUzJHWGZwbXViVmRtTWJQdkRWWVhvXy10YWNORDAzOXhHN3NJZU5uYk9Zd2RXczI5WWZBWmpENzlkcjUtYzlsbmtNUE5YVmZ3dTJfb1pTeTdZNW9URXBYMkUtd2IwSDVYZUN1LVFzWGhV?oc=5",
+     "p": "Simply Wall St",
+     "d": "2026-11-15",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Earnings Miss: Kalpataru Projects International Limited Missed EPS By 10% And Analysts Are Revising Their Forecasts",
+     "l": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQLVlnSDJmOE9wS0xIdGIwY1dmNzZDWEFyb2l1aWQyTW9WakFIWnYxRDk3T2VaRUF3VWlPQTlmbnBVSXV1X1dLYXBieHJ3SU03QnA3bUdhME9wN2NCUms4dnJMYk1URjZ3cnI3RkhmbkRqMkpQSGhhNmpqYzBVaE05WmhwYWhaT051cVpVUzgxeEhVcU1oYWV2cXJuVEk2NldTVTk3UHB3aXBRdk5TaEIwTDlKMHYybnBCQ1VpZVJnR2dRU0dYZGZUS2hXYml5ekV2YW1HZjdPZTg5S1pOeGFtUlJiVEhfUnJNWU4yc2xlbUtmQ01k0gH6AUFVX3lxTE9KOGFBYjNqZmdTLXFXLXFfU1AyYmllTUFtVnprc2JrRDMzT0RzYW9kc2c5eFIxMnFPTFhzS2l4OWxia0MyaUtBWWZ1N2d3SHgzMnJ4WEtLTEZ3M3dDX180b25lVG5lRHZ5SmJUcV9oMXhhU1NaTEVwM2NhVTd0ei1hVl9XMzhlWEhYemRCQnN1TEJPdmlzeFNkR3hCNjdKR0hxbjFBeUxoam9Ob2RRaUhPTDZMN2ZmQkI0RzZ4TDFtNnVCZUZibjN1VUpxWE50aWQ1c0Vhb1hITVZPbVRYdkg3b3BGUDg2MHRXOURNUkdTc3dxR3NETUFEQmc?oc=5",
+     "p": "Simply Wall St",
+     "d": "2026-11-08",
+     "cat": "Results",
+     "tone": -1,
+     "why": "Weaker results. Check whether it is a one-off (an exceptional item) or a lasting margin problem."
+    },
+    {
+     "t": "Kalpataru Projects International elevates Amit Uplenchwar as Joint MD and CEO",
+     "l": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNM3ZfVGR3VDdnNHBfZ0pnMjQ0WUxsYUhrVWh6Zl9PS1dRNG1YX0YySDlpeFVLNjBPdHVhem0tS1FWWkg0UmQ1RDhyWnl4bG1PR2s2cXBNejdUMEl4UGRjMXR2MzJqRHRvNzFXU3VkNUpVelVJZHlxYmxCYzJRZmgxbC1sX2Q1VkZiZjQ1d0d2NlZkY3BHdExoRER6WDVKYjBjbVRXMjNiSW9wb0lyT3NBOHhuLTFGWHFxTjdCcFlKU1dTU2dBb3ZNTWhReUswbVc4dzFYTk14OA?oc=5",
+     "p": "Construction World",
+     "d": "2026-11-06",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalpataru Projects International elevates Amit Uplenchwar to Jt MD & CEO - People Matters",
+     "l": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOcHBUNWgzb1ktUTRFVm9HVjBsQXdqOHJROTQtUDJsTDlldVRCaW45bVJ2Sjh2ZXpES1RfWm9yd3lKc1JFV00ybUNwcl9tYVFMMTEtbnZ4Zi1pNHVlZlp0QXcyUHItSlFLb0Z0SWJaekswQUtLWDhZajgwS2xYSmhoZnRrTEdsZnJlcWVXeEUxYjNUVHNNUmdzOFZKU1JORTlhbktPb1ROUm03QVQ1dGNCNlhUUmtOY0pmZWJHYjBxNzZFeU0?oc=5",
+     "p": "People Matters - HR News",
+     "d": "2026-11-05",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalpataru Projects International Bags Rs. 23.49 bn Orders",
+     "l": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNRFNOY0wxaUpDVTJvd212d2tIRWRaU1lDR3RaaW92cHU1TFVNYm9WZWJFdmdlNXVFRjJGb3hTX1l3TldIWUV3amc2ZkMzdGFGMHFsLWhDcTd1T1FzYWpmeFJRS3Rvdm1BbkpITW16azRyNUpvY2J0NXVITHBnaUtDRS1ISjV1T0R4NEVON0tIX3ZoeWtlUGhWaXVOU2Fxa21Mb2IxeUxNUnFZeG83R0dSYWxFTi1mUjFMT2VNQ3NQeExPbE1mMWFKSEgzNVhLR0hRM2tSMU9lTldlb01HUFE?oc=5",
+     "p": "Construction World",
+     "d": "2026-10-23",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2349.0,
+     "pct_mcap": 10.5
+    },
+    {
+     "t": "Kalpataru Projects International secures new orders worth ₹2,349 crore",
+     "l": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPUWw5RDVlbm8zNE1SdWFoY0N4WVRjQ0xFWkJHOU43UklUdEk0dXBBTE5DOFB6MnRPUGJES2Q0aTZjTGw2STI0a0h2U2NiV3RjUUIzejMxTEFjWUlocUxtRmd2UmNpaUpWcGhOWkFuTERabnhpTEVSYlZsc05pMUpzZWhGVFo0cGZJYVpqaEdlX3RWT29GNUVYWDZEUEI3Q3RQbm1aN0Q1UVRncnBQVlZ5QnZMbFN5eFVDV0VHWnljLVZtSzV5ckcyU2NMTVVCd9IB0wFBVV95cUxOcWhrWnJwbmtsT1hub0piNEw4WDBLTEtJREZpWlVMa0NqNlZiSVgzLUtCOVVJa2JXQnV5ZDlCZFZuc3hRdHZGUG5HZTZkeUlZaXVZQmFsblJGNlptenBMZFluanI1eG1EeC1sZENtbFo0ak1HYW1rVEJLcTJxV1RxMGVYZndUYlRNSzcyVjYxVHpZSm94WTFHR09oTmFhdW1pbkpabXJ0MUJCck5IWWc5ZVJvUFNfRjdockpyb3NISDlFQlNJS3FBS2U2b0ppTExhcU1J?oc=5",
+     "p": "ET EnergyWorld",
+     "d": "2026-10-21",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 2349.0,
+     "pct_mcap": 10.5
+    }
+   ]
+  },
+  "KALYANKJIL": {
+   "n": "Kalyan Jewellers India Limited",
+   "summary": "Kalyan Jewellers India Limited, together with its subsidiaries, engages in the manufacture and retail of various gold and precious stone studded jewelry products in India, the Middle East, the United states of America, and United Kingdom, and internationally. It offers gold, diamond, silver, platinum, gemstone, and white and rose gold jewelry, including wedding, staple regional, aspirational, studded, and other jewelries. The company also provides chains, necklaces, bangles, bracelets, nose studs, choker, jewelry, and moti sets, daily wear, vaddanam, rings, earrings, pendants, anklets, pearls, studs, jhumka, lockets, harams, kadas, payals, and second studs. It offers its products under MUDHRA, NIMAH, ANOKHI, RANG, TEJASVI, ZIAH, LAYA, GLO, CANDERE, VEDHA, APOORVA, HERA, and MUHURAT brand names. Further, it sells its products through an online platform, candere.com. Kalyan Jewellers India Limited was founded in 1993 and is headquartered in Thrissur, India.",
+   "industry": "Luxury Goods",
+   "sector": "Consumer Cyclical",
+   "website": "https://www.kalyanjewellers.net",
+   "employees": 14668,
+   "city": "Thrissur",
+   "mcap_cr": 66075,
+   "news": [
+    {
+     "t": "Kalyan Jewellers India (KALYANKJIL) Share Price Rises 4.11% Today on Market Cap of Rs 65,941.15 Cr",
+     "l": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPWGlGZzJPOWZhdklKNDRiVHoxY0l2N0s3ZjM1WU1Bc0o5V2RIaTYyWFFXMlI2MDdSelhTZ1N2WnN2Sk9aVmRDWnZveWx0VFoyVmZjbVNhRzE5ZXc3R0JxVks2d01sYlcwQWxmaGc3RTM4eWZDcE03MUhodXFvamNmUEZXOUJhOEpOa1lJ?oc=5",
+     "p": "Univest",
+     "d": "2026-11-24",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalyan Jewellers India Ltd. Share Price Rise Streak Update",
+     "l": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQN3ZSU2dsUDBOMTRQQnhHNUFWXzFZamdiZnBjNjJvelcyR2RoclJ1OS1mVF90S2xHc2hJcUFLbXVlM09LaHBJdXdZby14M0IzbzdjZmRPaGFEeGZheXdMRm15bGxYZ1NULUVsLWZ5R0hnX1dvTWtLdGdVbXZvZW0xTmN1dHNXOGxvNmRDMzd6QUd4VzQ?oc=5",
+     "p": "Univest",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Gold Prices Today, November 23, 2026: 24K Rate Rises ₹990 per 10 gm from Friday; Kalyan Jewellers Jumps 4.33%",
+     "l": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxOV3p6dUFtQ2xCMGM4QW1NTzdJOE1TNWNsVnp0YzV5Y1ZpdHJoYktERThrT1g1UUpYZV8tanRxMXpqYy16c1k0V3Nmb1lkOHlqNzlNMVM1M2N0SzlyR0oxRVhwNFhYcmZUZE1KTDV4ZXZ5Vm5qY3o1OWZuTHJrZDVpaERRRzB3bDBMeUhzMTJxZWtYYkQtZldpQVhRUEJQQzlORVFLanZiSmVaMXZaTHdJVFd0d2xFTmE0WVVzNk8wZm9LTHYwa2NmaFh4WTdQU2hqQ1ZhdzlwWGZCODhtbXU2QzRZaUdRZW1TUHZTal9fV0VwU3cxY05rRFcwTQ?oc=5",
+     "p": "HDFC Sky",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Amid gold price crash and rebound, how Titan, PC Jeweller, Kalyan Jewellers are faring? Jewellery stocks price movement",
+     "l": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOOUxydFVhX3RQYUp4SlMySFg0a0J0ZXVBbGtKaE9BdFNsdko5WUJoeFJmMmF2YlJLcEZ6c1hod2FldWxuNU5mSFR2UGFPbldBMUNvRE4yS05kV2dMeEFUY3l0TVFlTmJHUW00VFdCVmlaaGo4XzM5LVN0a1lhbjNqX0VFeDgxNVQ0LXkzMUc1Wnl5cWt4bkdBeFBQcGEwZnFmZWlreDI0YWlZWjZSTDQxT2JHOEJjeDlXbXRSR014VUZzQ19qUENqNndzUEVxR0ljR1FXUWJwUjBFekJaYTdwYUEteDdORkR2SVJRNDd1ZWl6TUhBbUhUS3Z3RV8tS29FYXFIYTRsWHI3aGhvYk9KQXZzUdIBmAJBVV95cUxNRy1BX3NmSXg0a0U2dWZvaWRQU0hKWDFxZ2xCUjEtTDF1alhkMU1GR0JDTUU0MUJ3blIxREl3NXVzY3l6c3NaTWpzNkRMalVreXBjaVFISkNESXZwNzF0dG94NEV6TTdiQ1Q4VG8xZlg3UEZaZzJNMkFzd2UyRWNSTU54RXBaQk1VcXdjSi1oYkl5VFhSZWdMeFVTZnc5dVpiR2l4SURCemNnVlpKdEl5LWl3OTM4UmRJTEdINlQwQjVmVlNPX1VEUUprcUk0cGN0ektzMHJSU2NEZFZkUDNBV0hxUXFrV01Ebm5BaUN0ZWYyWDBHY2Z4WjVzREwtdEpCaW5qSU1EWG51VHg5ZU5hampyYV9RdlRQ?oc=5",
+     "p": "Livemint",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Jewellery Stocks Today: Kalyan Jewellers Leads Gains As Gold, Silver Prices Rebound; Sky Gold, TBZ Slide",
+     "l": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQdGVMX25NbUNvd2pPVFNZRzQzX29RYlVId1VZMHlaZWlXcWVKYlJRUkVTODVoRzd3dHAxeDhaUXNxZ2FPT25vT1ktc2FFT0RjY3haMjMyMWlSZjNnaVV1dl8tRkkzeWp5VmRaa0pzbE9yN2p6QkpkMVkyQS15S3BIYk5jc25zUjhLSWxMamF6OTBIUUd3anV6VTcydWxGS0tMek5RRjZSc0dJTmZueGFCVTZJZ3ItSVM3aEN4a0Q3YWM1MU1BM0dqSUNiTTFzenE2U3ZJbEhCQ2lrQU560gHkAUFVX3lxTFB4a0cydFNDU1ZRVC0xOEh4NFhjWGZ5TV8tNmRlSy1QY3VlOUQxelVnSUZ0Yi11b0hiUlNuYVB6cWZVc2pwYXo5ajhPNXI2Uk4yLVhUSUlvaHhvbnd4ano4d0JiNWl5NEZkc2VicVRuX2h3emZma2VzZjlvc1VVY2xmdUtmR0ozUWJTYTJzYlBEX0xwUFRCYkFIUTFIXzlpZ0ZLOE5CY2pzNFFQMWNDeUhnQW10a1JJRVdEbnh1dGVFVzlQUzNHSWg1azd1LUhWQVE2U0k4OHlKZUZ5TS0zbEdjVzFYWg?oc=5",
+     "p": "NDTV Profit",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalyan Jewellers India Share Price Target 2026 Forecast",
+     "l": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBGbUJKVHktWnFESVlSa3pzOF9rRkhsWHVHU3F5NkxNQUkzWVdiUGd5b0JRM3k2Wmx1WFZHX3AwWFBTR0NqOExON1lMU3U1eU4xcEpMeUV5YzFZS1dzMHlCZ1ZzSjI2UXBQcG1uNEVIV1lIaWh0YkNGd2ZVSQ?oc=5",
+     "p": "Univest",
+     "d": "2026-11-22",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Kalyan Jewellers India Share Price: Large Cap Gain Today",
+     "l": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNbWtEX0hoeElrQlR4OVIyb3cySWtFcmRTV094VDNYNVFUZmhVYXRwelEwU05iZnJlMjVvZ1M5V09XYkM0WFRVMWRPRG9NSHNtQlFnZVdrcGVWSk5kcno0M3ZjaFNpUVFQRjRWRlVKaURBdVRIVzlVdlR6VUVsYWs2Vlc0QlBSZ1RWVmRv?oc=5",
+     "p": "Univest",
+     "d": "2026-11-21",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "PC Jeweller vs Kalyan Jewellers India",
+     "l": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9ycXRfMEhOSU5lQmd2VzlUc0dvemhQbXhoTlpyOEl5ZzZmc1BaLXZVN0pZcmFiSGJaQWM5MXljMmRtOUpxQkw3OXoyRDE0UFVpcGd4Y205dXoxLVlkTWdkcFF2U1hpczc4SHYxcDNmTk16TEdLT21qeHVEZDEwQQ?oc=5",
+     "p": "Univest",
+     "d": "2026-11-21",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Why Kalyan Jewellers India Share Price is Falling",
+     "l": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOMFQ3YVYzY1FhSU9xT2JpaGMxN1JOZ01kUXJZWDlUQml2el9LREVmNzEwd1ZYS3RWT1ZMRUJpQ3JzM3UxVk9FTm9YbGM4amstYm1Xa3lwUmpMUEpWUjFZNl9sRFdURFpCRU1jeUFXeFppdE1sbkhpY295akpTSFhvU3c2ZWRwOXdPM2xfZndKWkNjWVhzcjg5bUxRTTJoVktrVnVEbEJlZmRSRmpRYlhHaTBnNEg0U0xVMkdR?oc=5",
+     "p": "Equitymaster",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan, Muthoot Finance, Kalyan Jewellers fall up to 4% as Gold prices slide",
+     "l": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNQ2xac0ZpLUV6MEtOeDVQSmJzZWVZMmVoczBBWEJiOE1iaHJQVTlOcEJzTDk0RFlsMU12LVVkUFFyaVUwaHJhWnB3SEkwTXJXV0U1ZmVuRjJTa1A5bndoQ3JEbjVvaDFTVTQ4bWxISVljTnZIM1BDWHQ5VDB2Vi1uVUplQ3NlQkI2NUdPalFlX3J3Y0pnTk04RVZGMldzalJXTTFkQnBzMmhDXzBIUEpORnJyMWxBWm9seWxwUEJkanFHZkV4eGVMMU0tbFFfS2lMblJ1YWhn0gHbAUFVX3lxTE53YVF0WGoxTF9VS0NOQ21ndjdCQW5XVUtqY3R3RVo1NFFIeVppSWtFdTR6RDRrSnpSYzhVNnpoRGpZV3hfaENLSGhJQXZmWnVaSy1GdlQwTHFFZkl2RTloMG5fTmFOLVFpWUFZTzl0N2c3aENVYWdRVVJXUU5LcGt1blRyRUU5VDdKaHN5YWtfcWhkbGk0UldXdHM1eGpBWnZGME9URGtMSGRLTEM2TkFlNGROVkFpdXg2V2JLVDZQYmZuWjR5dk83b2ZRaVB5MDM0Z3oxMkQyc2pVOA?oc=5",
+     "p": "Business Standard",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalyan Jewellers India (NSEI:KALYANKJIL) Stock Forecast & Analyst Predictions",
+     "l": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdVRtRHBIWE5zU1JPeUpYcnlKNk5mVDZteGU1VjQ3MnpzSHRRT1RLd1EtWnBiT29sUnFhNkNsQVJoVVJJM29NQmRob2tyZjZNejl2Z1JLYllUaUEtNUNPNWUyamRJNUw3QWYwbHJ2M2p2U0dlbmItZVBoRE1RTlJJM1BhUUI0cGx6MTRtaFZVRlFPN29vNUFkNkFvTDFMM0VGWTRj?oc=5",
+     "p": "Simply Wall St",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Jewellery Stocks Decline: Sky Gold, Senco Gold, Kalyan Jewellers, Titan Lead Losses; Fall Up To 4%",
+     "l": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxORUhBZXhNSU9vUDFmT29DMGt3N1oyU3hUbGo3aVMyZGJJQkpUdFRaUU9VX3BUWmRTNnU1cW1TMzZDazloUnhNLWJuMDhleHBvbVBzSW9NRXprM19aVUhHelQ5RmlEUnpnWXBwdVI3ZzhielYzUFBKN0NaX1NjMEdVNU4tVWVWcVRScnZLMlNDeC14YTRXSEdPcFZGQk1zSUZ1aWZtdXlWNUlmbGNrVTd0aTFQNF9YeGhseU50bVZOczLSAcgBQVVfeXFMTlF6blEtaDNsLXltc3V6TW9hWVoxc0U1NTlEQXF6WWR1UEtPYkNCbEVadnZaNmJnOHdoYjlEd1MtZG1hQW11dmFyblpiWGJFOWd1eHlyNnNQeXBxQjR2alpnTUFrYUdzN1dKaFRrbDI2N3JnbUYteEVVWXZBaV9aR3hKTkdsVVZTQkZITWZaLWFFTC05Mm52V3RTUWVFVjRVSVZsVmdGV2VOVnJpUGhSWlk0S3d1NFhTaThlNGZSbmQ0VkZCTG5PRjg?oc=5",
+     "p": "NDTV Profit",
+     "d": "2026-11-18",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    }
+   ]
+  },
+  "COFORGE": {
+   "n": "Coforge Limited",
+   "summary": "Coforge Limited provides information technology (IT) and IT-enabled services in India, the Americas, Europe, the Middle East and Africa, Latin America, and the Asia Pacific. The company offers Artificial intelligence services and platforms; and AI (artificial intelligence) and ML (machine learning) services, including predictive analytics, model risk management, and recommendation engine; intelligent automation solutions, such as enterprise and intelligent process automation, and smart application; data analytics solutions, such as data migration, cloud data engineering, master and meta data management, data quality management, data governance, self-service BI, descriptive and customer analytics, and workforce analytics; process consulting services. It also provides engineering services, such as digital and product engineering, legacy modernization, agile transformation, and enterprise integration; quality engineering services, including enterprise package assurance, data and intelligence, digital quality engineering, quality engineering lifecycle automation, and advisory; and in application development and maintenance, managed services, cloud computing, and business process outsourcing services. Additionally, it offers vehicle software development, system architecture, integration, simulation and validation, OTA management, vehicle connectivity, mobile applications, edge-cloud technologies, V2X, navigation, and vehicle data platform services. It serves banking and financial, travel, transportation, hospitality, insurance, healthcare, life science, retail, consumer goods, public sector, technology, telecom, media, automotive, and energy. The company was formerly known as NIIT Technologies Limited and changed its name to Coforge Limited in August 2020. Coforge Limited was incorporated in 1992 and is based in Gautam Buddha Nagar, India.",
+   "industry": "Information Technology Services",
+   "sector": "Technology",
+   "website": "https://www.coforge.com",
+   "employees": 26932,
+   "city": "Gautam Buddha Nagar",
+   "mcap_cr": 88622,
+   "news": [
+    {
+     "t": "Coforge Share Price Falls 5% Over Block Deal Fear",
+     "l": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOR1czR0FEU2U2dEZDS1RTTVBJVHZxc2lsQ3NGTVJIM3FaZnhFWEpmNkg4MnZiU0VzR0NhWnRrUnFqLVJ6SzdMV2g2cWhHRUlvenNVX01nVVo0Y3RJUDlGTmF4Q2ZiQ3VYS3lHR1FXVkFOVm8zcEY5R2NycjZyTm5nNGxiVHc?oc=5",
+     "p": "Equitypandit",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Advent denies Coforge block deal speculation after stake sale report",
+     "l": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNSTA5VzZzRFphUmx3eDJxaEZDWVlVd3hBM295bDMwZ3VQNnZmek84TjhtQmJzLUUwVWs2VUMtcE1YOVpIbnFVTS1XRU9GREMyNHpDMldrdVN5YmpSQVZwZTB2WUpfT24wN0Rhemc5NjBVSEZoWVBDXzF3dzhVSEhjaUZqQ2JHZEE0TkN1RkJINGVyakU1ZTFobDlXbGVZNFJOVkRia2pOano0a1NRUVo4SEhlWXVnWmhRaGRRcFpQU19HcEVnLXlyZHNoWmrSAdIBQVVfeXFMT2ZxUGJha1ZKVmhKV0sxWGcxTVlCZjc0SkZUUE5Rbjgzb2NLU0tuWk4zMlFURHViZkpqVDJPVWRhN0oxWnJORTNxTjZjNUtUendBQWcweGpHR19uajZLMVJXN1FWU0Z3MTJMUTFTN1ZiOG95SXZsQmJUZEkyY0xrelRaaUc1QWxZenY3ZjRIQjl0Nm1FbWVGb0wyRHhQN19WYnVWdnFEX0o2eHA3Q0hqT3NaV19pZWRHcHprMXNlUWktc3d1RllEeWtMbi1oMWxrdVZn?oc=5",
+     "p": "CNBC TV18",
+     "d": "2026-11-26",
+     "cat": "Expansion or capex",
+     "tone": 0,
+     "why": "Expansion can lift future sales, but it costs cash first. Check how it is funded and when it starts contributing."
+    },
+    {
+     "t": "Coforge Share Price Falls Over 5% Amid Block Deal Concerns on NSE and BSE; Advent May Offload Up to 10% Stake",
+     "l": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPZ2NNbDliSERXTkc5Q2VmTVZialN5dnl0ckc2NUxWM0pSdEJYNFhQSVplV05RQkNkazM3UDRhdFZEbFJQTHdYenZMREtzTUc0WHJlal9UcGQ0b1JtaUN6WGJHNnVVQ0p6ZF9Fd3pJSWwxZWdtMndqQVpPZlY2b0JUM1dpRm50NzJzWTVhOGtfUndMWXhlcEp4U2hGX2tZUTE2UGJQWGxJUmo?oc=5",
+     "p": "Kotak Neo",
+     "d": "2026-11-26",
+     "cat": "Expansion or capex",
+     "tone": -1,
+     "why": "Expansion can lift future sales, but it costs cash first. Check how it is funded and when it starts contributing."
+    },
+    {
+     "t": "Coforge Adds Cybersecurity Patches to AI Enterprise Suite in Wake of Vulnerabilities",
+     "l": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOUVBjdEMzXzQxUjVTeWtBLW41cW9ZUDZ6QnBIcEdSbjZkdjQ4ZkpyY0pRbGJ0UzNySG4zVWJzV1ZRMUZBdGVrbVU5RHlLVGhGQVQ1dWFqRUpkbnhCS1Y2NU9mQUFGakIwM0pCalN1NTk0VVJUdE03QWtIUk9TTWhpSFVDbWMwRWNGYkhqWEpmS0JMVkdsRTJKeFVsalU5UzQ?oc=5",
+     "p": "Analytics India Magazine",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Coforge EvolveOps.AI Wins ET's Most Innovative AI Product Award; Shares Fall 4.13%",
+     "l": "https://news.google.com/rss/articles/CBMisgFBVV95cUxORDdvWXRub3d1RDYyMDBKdjVVanphYW1qbkVKNHpnalE2ZEhySmFTV1ZCYjZlVHBQT1NfQ0pRWnl6Vmh1OV9hVGhLUG11T1N0bkdKckRlWTdPNjNHUWlEcUxNUUlwRTFmb2p4TjNUel9VMHNoRkVmUFNmS0hNVUVrc215VjM5bmRFQWtONlM4V1FmVEszRFptQjZHSXFCXzFBa0llVURLOEFuNzR4QW1CQ2RR?oc=5",
+     "p": "HDFC Sky",
+     "d": "2026-11-26",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Coforge shares fall up to 4% in anticipation of a block deal soon: Exclusive - CNBC TV18",
+     "l": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPRmRBQWZiWkVFT3VYSjJiN2VEWUhMN0F2cHNsanVzajF5QWEzMmc4bWhiZGJ4RkJtaGlzWnFsQlBVWWx4ZFRtdjJfaEI4SWFSaGJ4YXdhLURsTVE1VmJSUWFwMFQ2bVIzOURmLUR3cU1lS2U3cV9Ublp2RkVjTjJwSmZkNk53dHVCbXlzRWUwTmhfNFgyLUlpZzZDRVh1SjBuZVF4M3gtZk5qdHIyWmNlcGwwSUZZUFQwOEE?oc=5",
+     "p": "LinkedIn",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Coforge Expands Nuuron AI Platform for Cybersecurity; Shares Fall 3.94%",
+     "l": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNQmlnc2R3a2tuVkhGNi1BdGZtb2xXVzc2MExHcy1NMWNwWGxuYWM2bFllNkJoTHBPZ2F4R2phRVAzcVhhcDdldHBadXZaN0RLTTFtNmxjeEZVNUtYRUZsemNsaEZ5Rk5CMkZIY1BYbXlyN1dEenJDdlU3ajd0LXBTQVBkM2tPNXVwQXhSZEx0dFM4S2JKWDVHRDVvcFQ3TEpELVJOZw?oc=5",
+     "p": "HDFC Sky",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Coforge expands Nuuron with AI-led vulnerability remediation",
+     "l": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQM2N4ck9LQmhpbndhYzktX1o1UUhFejM0VTJlNVA4NUcxQkRxWlFUeS00TWZSbmtSMkFqeFgzZzFJOEJPOGw5Y1JoUkpvNWFfSllmWTN0ZHlhVElHdzEyWGNZV1ZQZzlJQXJHR2EwaTF2OF92SnNIYnhTeHJHYmtWallhMWZRSHlua3pVWjYxTm1xZ0c0a0NlMEt0eFJDTEpKSDZuOUUwVzl6dmU3?oc=5",
+     "p": "Express Computer",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Coforge to host analyst call on AI initiatives Dec 9",
+     "l": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNTHBGT0JGTWgybzFoN3g1MkJpNHA4N0JpTHZZUmRfM3pjNno4blZjSDVHZWZhV0ltUnZuaGZPaU12Vmdjakc3RjVRdElKN1JJMWtxSWNZdDNVNDlzZm8xS0pENWdSRGFIWDBqbUN1YURHOXYwNm80WW5JdEpIMERYbEV4WWRuVGhSZDNPRnIwSU90V1RGNzVnaXJ0aU5kdTJlclNwUld3?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Trade Spotlight: How should you trade Coforge, Torrent Pharma, Siemens Energy, Union Bank of India,...",
+     "l": "https://news.google.com/rss/articles/CBMipgJBVV95cUxNdXJzTXB1TUxVaTZSVVBxOC1ZOEFRWlB4bHZDdnZqWUE2eG9NN0RSMXk1QkpvVG1UZm1Vam5IeVFMU1hiZzJaMllCVTdabHA4Y0M4MnIwSkFDbFRsdDd1bHV2SmEwQ0ItUjZmaXN3WHZrOV9TNVp3VjlCaDE5NkpwTDBpNzZOalFzR3hDbGFGNlhwOENlUXFiLVpFN0ZxVVcwbU5aN0I4MHQ3NFNLVVBIbEZmdUczZG5JLUdRX3VPTGFXVXFmTE40NFFrXzlyb01nTjFzTGgyejBoZXV0YU5oVDJ6d0NiN25SdjcwOGVqbjJXREREaEE1U1pLTy1mWVBBdGVfZGpiQmMtbC10VGVzTXdtNGo1d1VOTXJjZjJzMU9wazVTeWfSAasCQVVfeXFMUFpTM3NCb3RWbkJTWllZdjcxc29idnV2eU1kVF9qcm9Rbm9FLTNVY3BDeWQwaFd2YVBnY2kyMWJsX0hSYVhZQ0JVcHphQmNpYW9wSjlnQ1hIazR3MTFfOFVUR2tsYTBUNmhHNnlySFM0c2hibUR4MThNRUUzRnlUU2d0a1J3bXZnUFdfYkRHTENHR1VpV3g3c2xHQ3BCcEpYUDlSb28zOXBhVDVRMmcwVXdtTVJjOWJya2xjRUpKNm9tb1hZVUx6bENrMWxHUFcxdWI3VTZmSTBEVDF0UFZDLVYtdVR5UkM5d1V6NWlROVVMOG5oT1ppaFgwQW1LbEhGTlY5b01fV08tMDc2YXZqYXk1YUdkMGhxenNUaF9wOUVObnNCRW5GSnRtWDA?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Dilip Tripathy Appointed Vice President and Global Head, Media & Entertainment at Coforge",
+     "l": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPbXJxSDJLOXdFSWxSQVBOb3ZVc0gwY2ZIV1lXQm1aZkI1Slk1SXJCdVVoVUgtaW11dmhVNDBfY28wQjZrcWxYUjEwLU5SNjdNS0VfbWYyQnUtUE8xNFN1T3VoNGZmNGRNNTVUc1hTWVAyaWdTYUg3S2Y2Y19ZMFhkcGxESk1KR3VaLTJnWjAtRWt1UUhqQ1JUN3hBV1M1NDBlNVlBUm1nYzdtQQ?oc=5",
+     "p": "https://hrtoday.in/",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "F&O Strategy: Go long on Coforge",
+     "l": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdW9SYjdpSzNtSVJSVHZhV2RKSnh2dUtYUWt1VFctaTVkNW9qa0pobkJQYkQxTUt2WlluTVZ5UW8tSGM2XzBneEs1UXBvR0NEOUlDamFLYmk2M1hadXhGS1UxVG9iNzl4WXhCVG90eUI1UGNZdE40MV9mYWJCX2xBZjV5cHViT3NWOUN2d0pKdkdRUQ?oc=5",
+     "p": "TradingView",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    }
+   ]
+  },
+  "HONASA": {
+   "n": "Honasa Consumer Limited",
+   "summary": "Honasa Consumer Limited operates as a digital beauty and personal care company in India and internationally. The company provides baby care, skin and hair care, color cosmetics, other related personal care products, as well as beauty salon and hair styling services. It sells in products under the Mamaearth, The Derma Co., BBlunt, Aqualogica, Lumineve, Reginald Men, Molecular, Staze, and Dr. Sheth's brands through online and offline stores. The company was formerly known as Honasa Consumer Private Limited and changed its name to Honasa Consumer Limited in November 2022. Honasa Consumer Limited was incorporated in 2016 and is based in Gurugram, India.",
+   "industry": "Household & Personal Products",
+   "sector": "Consumer Defensive",
+   "website": "https://www.honasa.in",
+   "employees": 936,
+   "city": "Gurugram",
+   "mcap_cr": 17399,
+   "news": [
+    {
+     "t": "6 Stocks Hit 52-Week Highs on NSE: Honasa Consumer, DLF, Eicher Motors, Apollo Hospitals and Others in Focus",
+     "l": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxNeTQyQ0FGRzdUemV5QTZnV0tLWVNMNTJKM3V1emJFbXhtWUdQNzQ4T2REcXluQWlKVWhpWWcwQm56N2dka1dlM1NxM0h4RVhSVDlLWkFDTDdtNUNFem03LXFNam1XS0k0UTNNWklnaG9rWlhPMTdtOW4tb0FiQ3VvcWc1b1B6VXFNc2hxR1QzQW96MU9QcDc5NWhZbWstVWt2VEpQNWZScG1reDlyalozb29DTkZUeEhzcktidjNYa0txcmkwSTBqb1duWGJrQ1QxaGsxNDFlcEdoY0ZMQmh1dXF3S2NMbFA2?oc=5",
+     "p": "Dalal Street Investment Journal",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa Consumer Ltd. Share Price: Price Action and Valuation",
+     "l": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPM0VnTnloeGpCXzNPWnNsWVJBc2Y3NnBiWXlfcW40M0JXbHVseE9tUmZHVU1IZFktRDFLOEVZMjNMeVBLTFQ1YnI5UkxMVzhKVFFHT0xSc09RTDJQSVNwM1RqQnprTkx5aUV1YmEyNlFnVUxIaG04X0RIRXpjQzRObkVudDkzcWdkczBXMQ?oc=5",
+     "p": "Univest",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa Consumer Ltd Downgraded to Hold Amid Valuation and Technical Concerns",
+     "l": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPRkpSQ2g5M0RwaVF3YWFLOG5uckJYMUZJcDZZV09YbkVMNkpfellBWGNlQ1c2N2NfdUhNQ055WlVmSWxScktGSzlhRHdycXFGSE1OREwzMU1Mc2kwX2ZfMVRhOFh0ZDlHdm00UElFRkc4MGR3eU9iVnZmUDM3Rzc5YUJzNXZKQVJ3dEhFUzNFSHNsR3owejNjcUF1YlpvMU5uTENBS3o4UVlrTDlscVVwYWx3RU1JNWthVmRuSVRiNHR0eGlodXowZkNaSDBKUVhhQ3pWNg?oc=5",
+     "p": "MarketsMojo",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa Consumer Q2 Earnings: Will FY27 Estimates Be Raised?",
+     "l": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPdlF0MUFkWlY4bm80Q3lQOUdicklDTERNNndBSW9sTS1IY3Nfd19YWFc4aGJDN0t1cmUtaG1OR1JyS3o2aVJiTUNFVWhGcmhXRVlsTV9pZVdxOW1sdm9DUUtOa1hfX2hoU05aQnE5eGdNcjdlUThXZ2xwbEtzcEhfMTV5d01DaTRiYXhsZmk3dEV1OVlhZFR4cXZB?oc=5",
+     "p": "Univest",
+     "d": "2026-11-20",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    },
+    {
+     "t": "Trade Spotlight: How should you trade Deepak Fertilisers, Adani Energy, Honasa Consumer, International...",
+     "l": "https://news.google.com/rss/articles/CBMiyAJBVV95cUxPVnAweDFpQWUxRkJyeU51VXJ6emtKRldWaHpHa21OOVdidjd0dTBVdXA1ZXhiR01FalBIbjJJMXd5d3ZzZjI5MXpmS3FRTkJFVHRyQ2Rfb1R5dWpoVzFndkJNZV9YSnkwSVEzaXBUVTVrWmc2OU5DdzZEcFFkYUFaNVY1LVBXR0g2YzBwN0ZadU4tbGJEZEphSURvRnhfUnk1dzYzd3Q1QS1LbHZuUmdiWXJVSGZWZEVPcXhTMml2M2pSMnNfa29ZeHJRVlk5SC1nLUdReER5TXRYWlppeGk1d2hwaHZVVEY5SmVOdERYWlF1ZzVxaDd6bGxzUFFEU0gxMWFET2ZXcFZSZThZdlVvOHRmQlowRGJmVUxGVmdEaWU0V3JXVnRJVnZmVTVDZFdHTmhzQWNHaUoxNkdnTVQzNVpacnRrZ3p50gHOAkFVX3lxTFBpUlE5RjRyUkp4RHBhZnJFMXkyN3VGNmJjOG91RW91dlU0TU8tbFl5VmZwME5hOXMycG00Q2pCSjRvREc0bmx4WmZINzMxYWEtbHZyekRveFgtYmxLZjEzanN6RzBleDY4SG1Ha0N1eHZWR0l2eUljeDFHUFF4RnNvNTVNTG9POWhXMjRNaGRCM3M5UW04c0pCVFhEM2tIeW9XaEZwS1lLeXhuMUc3ZWJIOU5QNkpZTW9wQUpvVlc0dFZHbzJncDJuME1Hb2loa0gwRHRxV2dnejJ3aXd6V2phSFlVck1tNENKY1o4OUZrT0dkUHctZGNDa3RxdE9aS0FQckxXSHNQX09FQ1N1WUpISEd2dzdxWlJIeDJDNDB2QnBQZjRfYUxWdUZIN2d4ZU5xSXJ2UUVGT1QwR0lnZW1IX1hiTmFPWEczcUpDWEE?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-18",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa consumer Q2 profit rises 87%, revenue Up 36%",
+     "l": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9GYVIyTHRiWnRjeTM3aGVmUHdXTTFTY3hwWXRrc0dwZGlkYXdFa3BVNWVOQmF5UDB2LWNCcnVKVUZEVEdXME5pT1VFRHFBMXVDdlg3b1pTTUJFUGZQVFJibUc2elprM1ROZVRWQzlfMVNrNXd0TWlqRUt2cw?oc=5",
+     "p": "MediaNama",
+     "d": "2026-11-17",
+     "cat": "Results",
+     "tone": 1,
+     "why": "Better results than before. Check whether the margin also improved and whether profit is from the core business."
+    },
+    {
+     "t": "Honasa Consumer, HDFC Bank: Two stock ideas by Shrikant Chouhan",
+     "l": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOMURWT3l5MlZGYjZvb1ZoNkVsOEZ0a2owYk8yWm5QdnltcWdydGFhLXVtcFdpSExlWHh1ZGduOFpfNEJRTHdTb016WDFEY1JFVldSSWJPdFZEYmxmekNCRW9UdnAwRUNHYXlxRHV4SFlZdng3YzVDbnBzT2FnMjJ6M1pBWkV0dVBrSTR2WWdIZGh4YVdtdFFLcE1lNXozOFpaQzk5Q2lyMi1ZcHRMZ09EaXpXaFBkSXE2bER2azhFclNsU05fMWw40gHMAUFVX3lxTE5ZcTRDVVZ3cGxSN0g2RGozcmpVQlV1aFNBaVllV3M4U3BVMXE4WUhfaEZFbGx4VWJsNkppSGVHOXNZMzNDOW1qREoyNG1kbUI1c1dyVWJIWDdCdDBaSERCekxnLWNPZEdIREdtVE9VTFJqT0lrNXFKR1dNOVJxNkpRalpNVERaTllSdFg3NEozN1J1dW9XdUE0THhnQTcySm5hMkVsbkFXdmZ5WUdneE1qNUFudVI4cXJNQi1GN0RwRTNxMVgxTDVFY2g0dw?oc=5",
+     "p": "Business Standard",
+     "d": "2026-11-17",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Top stock picks: Analysts recommend Honasa Consumer, Welspun Corp, ICICI Bank, Reliance, CDSL, Indian Hotels",
+     "l": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQZHNZTGpQX2hSX0JqeXdOX29lR29sYllRVDR4NkhQb1dxSFc4dzlndEZtMXRVbkRqWjJVX3BCV2gxWkNKeUZfZk1PcF9Gd0NZcEhxNldEcEJXd0plQlBrRXNVUC1URndaU19pZ3pYX1RCb3prdk1mNjgxRXp4X1ROVURXRFIzVlk1bmw2aThzWTF3Z3liMUtMX2hCNjZQWFctdjg4NzktQ3dKeTkzU3llWEM5VEJqclBYREpCdHRFRlhWcWlZTWw4T2lRc9IB0AFBVV95cUxNSS1QN3Bpd0NPRGw4RFZ3bGU4SDRjYmZmbmVpOElCaDlmc0o0NGlBV0cyaVlRSjIwdmV4QXI3VmtmeTZqcTd6TmxsTGRZVGtRd3pQSXdoeHl4aVFlMnZHNmg3eHVCQnBsN0xlaTFUZ1Zqa2ZKNndzTDhBam8tMXF0dHhULWJWekI2bG5EMG10RWd4VFRiUldhaVJVeTlpeTl6Ymc5MXVoVUR4cFJGU1NmaEZpUnhvbFpIRVJFUWZxRW1xVFhxX0hqYzlfcHN0WGJT?oc=5",
+     "p": "CNBC TV18",
+     "d": "2026-11-17",
+     "cat": "Market roundup",
+     "tone": 0,
+     "why": "A list article that mentions many companies. Open it and read only the paragraph about this one."
+    },
+    {
+     "t": "Honasa Consumer Ltd is Rated Buy",
+     "l": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNR2dsLVVEemhEcFdLNF83cEZpUGhENV9IZmsxLVBvck4tQnhfczItdFREeEJibVZGVHNlbG93M2V6eHdYWDNYemdUby10S2tTdnZnV3JxS29RazZITDBPMDA1R1MxUGNBRzdjaUxYbk9Qc1JMT202bVM1YnpnM0E0MTN5eERBNk92eGFWVnRqck5tRENCRXhQenNR?oc=5",
+     "p": "MarketsMojo",
+     "d": "2026-11-17",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Honasa Consumer Ltd Technical Momentum Shifts to Bullish Amid Strong Returns",
+     "l": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQLTNvQnZSUlEydV8zRFAzeEFraEJvMkEwM0gtV1UzQWxmNm5VX1czTzVHV3ZNTmF6QnF1aFlQajJYVDR1OFNFMlJUZ0p1cHdhNWRxeTZIaWY4dTV3RFI1dG9od2pfY18xenYzTklNWWkxQ3I2WmJHQm5RSExqTW93RDZ0X1hwaThrMnF0dmZZY25YdmNuRXhGZk1pVmVfNldyckNxd0JiLXdROG4zOUdLNWgtQkdVRVhwRmhEM1lNN1l2bUFqeWYzUW5IT0FRbUk?oc=5",
+     "p": "MarketsMojo",
+     "d": "2026-11-16",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa, Nykaa rally up to 4% in subdued market; record 52-week highs",
+     "l": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPSXlfNTFMNWFnRWNmSllycUQ4c25vcTFzUFlZTlZuaExMeUpDalk2MU9ia3JkdHB3czMtWkVlQVpreUQwV01mcEo0Vjk0N2RiQXFObmRFZUtfaFVVTzExNk0yS0h0YWpFWjJxWmNpdzdLYl81QS05cVlxVEMtMG45V0ppODJxaGFkZTI1M3JNa3JtQWJxa18xemRzeWpDYjZTWHhZNzc1UDRlVXlDemVhMWl1M3JRRVlUZ0pzYmtjZU44bThUbTNjMmpsa2c?oc=5",
+     "p": "Business Standard",
+     "d": "2026-11-13",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Honasa Consumer sees 36% revenue growth in Q2 FY27, EBITDA nearly doubles",
+     "l": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQdFcyaUxIMlFtdUtvX2JLSFVwUVBTY1JRY0VrWlo1NDdCYkxtUkNTM0d4cnJ3RnM1bHoyaF9RU2pGaC14UGRBcTZUWEI3ZV85ZFhyazZ2YWVyU3BCYW1UN2dXdmhMdGlUbEEwWHN4T0JoUGd6OFNzZDIwQmZEenkzSVRkR3dYODVZa256QVE4dEN4bUNGQ0k5OTVhV3BKdEZQUVpjcWYxZUNvQ1Z3aWtIRDFOcGszWWlQaW44c2ZqaGw?oc=5",
+     "p": "PitchOnnet",
+     "d": "2026-11-11",
+     "cat": "Results",
+     "tone": 1,
+     "why": "Better results than before. Check whether the margin also improved and whether profit is from the core business."
+    }
+   ]
+  },
+  "BEL": {
+   "n": "Bharat Electronics Limited",
+   "summary": "Bharat Electronics Limited designs, manufactures, and supplies electronic equipment and systems for the defense and civilian markets in India. The company's defense products include defense communication products, land-based radars, naval systems, electronic warfare systems, avionics, electro optics, tank and armored fighting vehicle electronic systems, weapon systems, C4I systems, upgrades, shelters and masts, simulators, batteries, components and devices, fuzes and unmanned systems; microwave tubes and power modules, microwave super components, digital multichannel data recorders, and hybrid micro circuits; and micro-electro mechanical systems, such as pressure transducers, and conductivity temperature and depth sensors. Its non-defense products comprise e-governance systems, homeland security products, civilian radars, and telecom and broadcast systems; integrated traffic management systems, real time train information systems, and solar power solutions; and PD and strategic products, silicon radiation detectors, passive vacuum devices, EMI filters, and multichannel voice logging recorder systems. It also provides electronic manufacturing services, including PCB assembly and testing, precision fabrication, microwave integrated circuit assemblies, super components modules, cable assemblies, and antennae manufacturing services; designs and manufactures transformers, coils, chokes, and sub-assemblies; and software services. In addition, the company offers cyber security products, such as data diodes and secure storage products; EV charging stations; and platform screen doors. Further, the company provides security architecture conceptualization and consulting, and information security audit services. It exports its products to the United States, France, Spain, the United Kingdom, Mauritius, Seychelles, Mauritius, the Republic of Armenia, Sri Lanka, Sweden, and Israel. Bharat Electronics Limited was incorporated in 1954 and is headquartered in Bengaluru, India.",
+   "industry": "Aerospace & Defense",
+   "sector": "Industrials",
+   "website": "https://www.bel-india.in",
+   "employees": 9420,
+   "city": "Bengaluru",
+   "mcap_cr": 295681,
+   "news": [
+    {
+     "t": "Govt Signs ₹1,476 Crore Deal with BEL for Advanced Electronic Systems for Army",
+     "l": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWi10WDdRSTdKSlZDYl9MUE9NUDBMU3JJVjZzQnVqRERFYXhQVUNVQ1MxTmV6ZGpxRnVvZjhmOEc0M2ZMZjBOc1NrbmhoNXEtUTVFalBickk1UmsxcmEzNU1RcFY2Z3VrUk9fWWNPQ3VadTZrcmh6cnA3S2xwV2QzN0pwTUVJcmZkMWNFX0R6bWh2NDJEOHlWbXB5MnJDdzlFczdTLWRjeld2RlA2LTZPUA?oc=5",
+     "p": "DD News",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Does Bharat Electronics (NSE:BEL) Deserve A Spot On Your Watchlist?",
+     "l": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNNm8zOGNYVTZjeGpCNVo3Nk9pMDRVbDFLWkNfNkxCaFRsVTVXdkRyZTN2YWtjTGlPdXFwWVJraUNpNGozbEVJTDQ3RjRObXpGRXVkUF90bDlaNTYxUTBvakVzNVUtcExWbDNLVEFSZ1FNWnZxbkpabDNac3ZBU1lSaDl0QU03VnVDMTd3RFJfN1d4ZllvXzgxbDBZM09EdWJtQ1FkNXM1aFdZQXJhQ0VEemRKQXN5bU52REJoR2NOYXJNTW9HamZmS3d0d1VSNE9WNVVCamJsbHJsM09BMUHSAeMBQVVfeXFMTnFjVGZqMndYZmZIZFo0WEVvQVJZY2MyenBtM2RkOE03c3l1ZHJjdkpiVGkyMnk0Q3RTaFVNakg5a0l6MHJROHBBRmpzdEJwQWhlbVhRaW9lckRjbnFNdl9nVFBNQnVoN3V6ZXZpUVozbENVTUk4cGZkTHdGanFKbmhwdUZQQkZ2d1JnRU5BakFQdU9XbFZYTXZMeXpRZ2xBRXlOWm5XekZLQkNVR0JBXzRMNVJkNmtfZEFtR05xYXQxdWg1cFpnM2VQMzR6dk9JUE5fajQ2WktBNncyUUpxeDR5Qjg?oc=5",
+     "p": "Simply Wall St",
+     "d": "2026-11-21",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Hindustan Aeronautics, Bharat Electronics and BDL: Q2 revenue rises across defence PSUs, but profit growth varies",
+     "l": "https://news.google.com/rss/articles/CBMi_wFBVV95cUxOMW1rYnU3d2gtX2FIRlNiOG85RFBRTHZQX0gyeUpTMDVtQVpFbVJlS2RxNUVzWGZRVXZ4WWdnNE1oRFdxLXdTa0dpR0JhbVJmVzMyYzM1MG1TVGZxZGNQcTNxcUxRTDdTT3JIcEZ1TlJHTHBSZ25wc01BdUdNaF84RUpHSHBtR21tUUVhSGdocEN3dnZfOUpaOEo1Sy1zclVmNGxnSTRPb3lCY0hQbXJxNi1PZklzbXA3MUFoYlNPRjJ4SnBMUkgxTG43UU9wWHFNdDlLU3BySkVVZGlYbjBIaUgzUkVUVHNUcHNlRWZkdnZRMkNPWGpwX0hPQldnS3c?oc=5",
+     "p": "Upstox",
+     "d": "2026-11-16",
+     "cat": "Results",
+     "tone": 1,
+     "why": "Better results than before. Check whether the margin also improved and whether profit is from the core business."
+    },
+    {
+     "t": "Bharat Electronics bags additional orders worth Rs 909 crore",
+     "l": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOb2Zjem1lN1pSU2w5cjMzYzlZSG1rYm1pdVBPRTZ0d0U5LThtbGFuNGxSZ0Y1RE9DUXVOTGJEa3ZxdTBSUWZxSlNLR3dmTVJ3TXg1RUdOMXE0RmtkV3p2ZndIUFRMalQ3R2hPdDAyUE5xQnctcjF6bV9aY1hMWFVZcUNhaDJKZk5uVjhGZFRSQUtQZzNhUTgtNHdWZ21xa1E5T1lXcU9UcVJWWlVjZkVXaGZjZTZrdV9YdVdId2VpTjVIdV9mU25z0gHMAUFVX3lxTE56ZnJYRmU3c01pOFcwOHRZbWdUeEtPLWlaWFpJc2t1VU05a3hTaWh3ZndRdVpJN0tRRTg0TXFkc3FrMzlOWHlwQXo1Z1Q1LUU4cmF2ekJVVHdRZmR3SHNwYXJkX1pEZ3QyZjNnM25VcFV2Sm1rd2dYekJGN0pKN2dPbHBQMWItRkNESnh6ZFA2SjVhQmJhTHNWZ3VJTDJ1ZEtOd0VwT2hxY0ZiR2dfZlM3V1p4dDFzYm84Rm5zU0VLMXlhS2tzUWppQ0NLUg?oc=5",
+     "p": "Business Today",
+     "d": "2026-11-09",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 909.0,
+     "pct_mcap": 0.3
+    },
+    {
+     "t": "Bharat Electronics bags additional orders worth ₹909 crore since October 21",
+     "l": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNZFNCb2NaTF9Xa2ZXSERSTXBfR0liODhZMHFFZC1iZDdLNEJ3aU4tbnJ3eW5vaWU2UFJLTkRxcmN1OS1aSmQ4TS10dE1KbUlrV0wzdUIyQkk4R0g5Z2s4ZkZaWUZfM3B3Vng4ZVEzdHNxVXFsclFQQWVjcWhsSWl4aGxzR1k1V1J3aTFvNVp0ak5yNnJKNlhoZFpWUm9jQ3hISTZzSFQ3c3dLN0xqUG0wN1ZFMTYtVG8wSXhtOUJjWUtmN09vZ2p0Z2RobnhubXFKc3J1VzlBVVLSAd4BQVVfeXFMTUtFQWN6YmREMktGU2lRcE5HXy1lQTM2bFRvSHBad0NwVzFqLUVsVnF0WVpVS3N0WGhFSXB0X2JhdFd0UFB5amNqaXU2UjBPZFZWQ1BjYXRqN3ZibnljbW5qeUdUWE4xQkpFZUZIdjJDYnEzRUZMMjl5Rkk0LVlVRHBkYnkxYldLS0pWTEpxTmJGQVR4dkptVmhKR0JiT0trMFg1UFBsT3JYb1VEN3RvVTBRcWF1X0ZLeDdrTHF6aWJDaUhORWhCdWZ3Y05oWjlIckNpSzRSX0pGdmtfcU9B?oc=5",
+     "p": "CNBC TV18",
+     "d": "2026-11-06",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver.",
+     "val_cr": 909.0,
+     "pct_mcap": 0.3
+    },
+    {
+     "t": "Bharat Electronics: Nomura raises target price to Rs 520 on large defence order pipeline",
+     "l": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQWFBtUFlEd3Q4T1hxRGtEamRydk5ZRUFGVkMwOS1EY1dMQ24wdi05alBpQkdXZ2wwaEkyQl9sOEtsTzRiSDY3WFFSdmtEWTItM0xyR3E4dnlnZDJUajVtMWpjTGo0b1pOalRwME5PZlY5MWEtcUZ4SFpwaWZRTTZFWWsyR0l3VG9iblhqOVM3V2pPb1pJeVVGTW9ZNFZQN0dOSEZtYXh4STJzWHlVaDNOdXlYSFZNTUxKRGRaU3ZSeWpkTHZpUXNIY214N0UtNXVGaTBwUG9RVUJTVGdwOHRJTzlrR1Y0QdIB6wFBVV95cUxNaGRLYTJlNlQyZ0J0TDF3dHhfTzZJdDh4eF9WY2U2U1VOeEZoWVl0NTluZkZ1Nk10c0NtLWJxT1dIVExCd0hTOUxHVzFlazQ5Y3VIRXNQQmx3T19SWnBTTnB6M0huYnkxdXkzMWR2SFZNQTV5NzNmSGd1UFNBMkJxcElYNnBIVDFSTXozX01nTGQzN21qREFLUnRjV1VubU5XSEJoOERiaW5MZ0NTWTg5ZTdnaWlpMzNRTVlZeFRkRE12ZVdwelYwLTc2cE9sa3QxZm1ob3RQaGhuYkZFbllMejBFZ0ZvalZReXBj?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-05",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Bharat Electronics Ltd rises 4.71% in Wednesday's session",
+     "l": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQN3JLZnVlQjRuSkU4S3lfS3NUaGJYclRWSnowa1dyYndFbUJZVTF0NlQ2c0xSM09tdE9URFNaa1FyUWNqcWZjM1B4UlFUOGdzNmdXRkdjY3dqOTl5amF0SkJrak5IUFRPcXRGSlJ4WGIzQnpSck1adjB4UHNDWFd5ZHdWeDBlN3loY19ZdWxaOVk?oc=5",
+     "p": "Global Banking & Finance Review",
+     "d": "2026-11-04",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Strong Q2 and order inflows to drive gains for Bharat Electronics",
+     "l": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQWFY1aTJ3OWoxbDBrVDlTS1h1Tmo4al9kQUFmLW16WDJfZ21LWE81VFJrd1N2SjR3UUttNGlZMlI3enZYbGFmYmJoRkRZMGVTa3l6UjlOTXZyZGlfU3hDU3c5THJmd2ZseHhVa1YwR0d1ZTFCcEM0UHdaYTh0Y2dBeWdMVG44aGx3dzBVbGl6bm5UZWN0cFktRVhXcHBEOXFxU0E1RkVVWTFTSVl1c2cwckdSSHZYc2U5UFJIckkwWktpaV8xM2UzeEFZMktVcTTSAdQBQVVfeXFMTVMtVEtWN0FkcGdFQXJfZkFYdHNaUzZnZU1KaDJhbUVhdlM3VlZpaGROWUlTY2V5aUIwX2VYbzlVSmhKRW91LVZkNzRvdE1iNnl5V29MUk80UEpOUkI2Q2tSX2dxU0t2WlVPOTk5ODNiZ1lyT2hEZnVPeVZYRS04X0lfQUFjRktMdGJEVEQtT2RtX2h6X19JZDFRTmJneDRTaUEzc3FiR083eEtXRFktOXJ2VGd0a25ET3pEM3BoSU9xTE5hdnExc0p1Z1lIVkppMWh4ZzU?oc=5",
+     "p": "Business Standard",
+     "d": "2026-11-04",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Buy Bharat Electronics; target of Rs 490: Prabhudas Lilladher",
+     "l": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPMm1oLTVaM3dJeEFlNnVTa05xSU14ZnJhQzdnLU1HbDRNRVV2QktFR29jMVBHTUZSQWZ5NVp6eWNKWXJ1LUxRVkpzXzBYeldTWG9zV3hQOWlyeTliMXhsdVdqRFpIRGt2MEJRTVNyaUpNZktzRlo4N0Z1Y3lSNTY3RlpSYkZMSXhnTVRYRzhXOC1uQzVld190dV9pQ1hGaWZFalI1V3NsVFJlRDFZVHhsR0lWaTBOTXVZR3NrVnNYLWhaYzTSAcgBQVVfeXFMT24wRzFhRlE2X2lySnJod01ZcGtsQmFXd0hLc1A2QzViUGZydkZYcGVZaG9LaHlwQ0ZCOXp0dVp4VTlRX3BNdTdhME1aQzZuMGFPSmxtV3VxWjQ0UmJhczl6RWYzUlNBRzRsNzhvb3F3LXA1V1N4Ym5FbGotX0EtUUR5WVM0VWhKZnBIcHlURXBXZW04bklJenZva0h0dXZvYVdNZTRjS0xDbTdBQm55MjFCbURmTmVxVmpLbHdJTnc2YmZXNjhfM2w?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-04",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Buy Bharat Electronics; target of Rs 446: ICICI Securities",
+     "l": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOeU45RHM0OU00Wm1oUUdyZkY1U3lEck1xTi1LQVNBTmczaTE5UkZJcXdsVzRzS3RFbGdzUnNzaC1iT1JROFppMmVWT2lGQ0MtM012b3kxNDJzLXI3dHp3SkFrdkwzSzF2S3NPbGdWSWFZX3FGZHdDbUtVVFhQd2djSjJMUDExMjM3Ulc4ck40UWFxUTFxUmVKUHlIY0VkR3B3R3piY3pVS1RFYVdqZXdlNEVEd9IBuAFBVV95cUxOaEtqcjhlUmx4QXZGbjk3MHJacnFvX212Qy1wUkY3NmhoLXQ2SmZiZTczYjBFNU9SS012ZWs3eFhaa1NmQWhTMXpUUXFjeHVXQVBDTVItdXZ1aHc4emlCNF85ZFRyYnNmZ0RpY2FxeDc1Wm9MZVdHckpPTWZBeFZtWDFITnpJdnpyQV9kaG1fUUhfUXI2eTQwTHJ6UjRWelktdkVOeEhvQlgxMk1DUEJBWXFSYmcwZDdR?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-04",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Buy Bharat Electronics; target of Rs 540: Motilal Oswal",
+     "l": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPYmJBenJFdFMxM0lrLWV0Z0lUdEVUNEtsRGVERDAyMW9nZTdFRXRDNHJOT0FhZEtUR1RmaGxPcjNMUHMtTGt6Ylc4anZ3b1ZaeVVIQ180WUpzdVZNYW80b1dBTjlJTC1LMkRBUGpSSzZXQkFYZ1FwZ1k2aG9XaEJoVXh4ZUpqUU9WTnR6ZWxKYlgyMEN4SUVXcU1NcUhwWEd3eHVmcGpkSjBVUTdTNVB30gG0AUFVX3lxTE1pRG5TTUdvcURRT2xkOTdIcmxEZjFQSHlGOUVZa3luQ1FtX3Fwa1FjQV9tVm1WYVJnTXBMREc4ZEdfbVloNmV3YjNhUEpVZi0yaHB5VzdySkxZeWdYRU9xSGFiNDNhbGFPTEwtQ0pwSU52d1J6TGF2SVk0WUhHOE9EVGo2YmZha0U1WUJmemVJd0pZVzd4enZPVXpoM2NULTZHWUdDa2RnNV9rVEZVSU9rS1l4UA?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-04",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "BEL's FY27 Revenue Guidance Has Brokerages Bullish; Kotak Raises Price Target",
+     "l": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxQVzgyaUxwUkl4U0gtcVAtWEJrWW15Y0dyYmswSWZrMmh4R1FZNDFra25vbnpIMEYxVktaaC1KOHM0ZktBeU84U2hPU1ZOX0E1aFZVRzhhMk14RHczOGhhRnJldnFnaE5XNVkxMDRRMHdIWWk3aU4yOUdaZ1k5bnhYNk5HMlFUQUtjMVpnYXlqSDdEVklVcEZvOU5adDN0eFNGTDFRd29aWGtIOU9rNVhyaVVUcm1FTkRiZTVsYk55T1FtZUpreG9Edm5LVzRtUndDeldfWVhkZVctT2xGZkVlT2tULUnSAewBQVVfeXFMT2FwN3k2bHNwcnZfaFlqczJvbE5remkya2xCOW92alNVdW1kSE94YWdGaU10S1VKZjJDbTBubklFdG1iNEotZkd4OE9WOTZuT1draTUzNXNZY2JhYjRSbHFpWlljN3cxcVhOdVJpd1psLVFfUEZhc3J6S2VubGt1cjFmUDV1SmFNb0hyZ3k2VzlfM0N4RnExaUFUMEUyQWRJRHFVcmRyT3FnZjJJclEyUHM0UWI3T2h3eGxPRFR3bUlBdk1sVlNvd3paZ2VXQ0pKSXBDanJBdXhza05mSDFSQTRPd1VicjlNRmhWYW4?oc=5",
+     "p": "NDTV Profit",
+     "d": "2026-11-04",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    }
+   ]
+  },
+  "MINDACORP": {
+   "n": "Minda Corporation Limited",
+   "summary": "Minda Corporation Limited manufactures and sells automobile components and parts in India, rest of Asia, America, Europe, and Africa. The company offers vehicle access systems, such as locksets, latches, hinges, security systems, smart key systems, and integrated access modules for two-wheelers, passenger vehicles, commercial vehicles, and off-highway equipment; electrical distribution systems, including wiring harnesses, terminals, connectors, and high-voltage harness systems for internal combustion-engine and electric vehicle applications, as well as anchor vertical products for four-wheeler and two-wheeler segments; driver information systems instrument clusters, head-up displays, telematics devices, fleet management solutions, smart electronics, and software-defined cockpit components. It also provides lightweight and plastics aluminum die-castings, precision-machined components, and engineered plastics for passenger vehicles, commercial vehicles, two-wheelers, and the after-market; electric vehicle systems and electronic battery management systems, on board chargers, DC-DC converters, motor controllers, and EV-specific electronic architectures; and power train products, such as traction motors, motor controllers, vehicle control units, magnetos, alternators, regulator-rectifiers, and on-board chargers for two-wheelers, three-wheelers, passenger vehicles, and commercial vehicles. The company serves passenger and commercial vehicles, motorcycles and scooters, off-road vehicles, tier 1 manufacturers, and agricultural equipment customers, as well as original equipment manufacturers. It exports its products. The company was formerly known as Minda Switch Auto Pvt. Ltd. and changed its name to Minda Corporation Limited in 2007. Minda Corporation Limited was founded in 1958 and is based in Noida, India.",
+   "industry": "Auto Parts",
+   "sector": "Consumer Cyclical",
+   "website": "https://sparkminda.com",
+   "employees": 3405,
+   "city": "Noida",
+   "mcap_cr": 16685,
+   "news": [
+    {
+     "t": "Minda Corporation completes warrant conversion, promoter stake 65.93%",
+     "l": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQNGM0LVk3eWRkb3hmeHNmZmJ0ZzJ2VnJnODFNcWdMU2JDUU5sS1ZEN3RJeExDYXEzQ19SYlk3RzNVVzVsSnhGc3BGaElROXdaZG5iak0xTktHWU5HamRvR25rNHpERFFfVkpUdlNDN1JoNmxtNURpMjJzNHVLSGJDMVhFUEJoanRtY2RpRm5yU243SHBvTUNmMlVSQjdKc0ZFQ0swU0tHWWFaRkNuSVJsUDZYVV9pM2lSbUhQdGJGNFFtWkJhNlZNOEF0QQ?oc=5",
+     "p": "Multibagg AI",
+     "d": "2026-11-26",
+     "cat": "Expansion or capex",
+     "tone": 0,
+     "why": "Expansion can lift future sales, but it costs cash first. Check how it is funded and when it starts contributing."
+    },
+    {
+     "t": "Minda Corporation Allots 76.50 Lakh Shares to Promoter",
+     "l": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNdjZLaTFJcTJXMHlHbzVtNnVGOF8zaUl1YVRWT0hxMnJnbmx0aENHZzVFRk5KSzBIMGViWHpjYUhIdmF6VmIycTFuWU11UHFzZF9JRHRnR3drT1JfS0tzRWRIWWkxbkVLS3drYndvZVlUM1pyTXpVZHF3aXpFOUh4LTducjJBM3EwNjBLSWlWWG80TXR5N09FeFhWNHliOS1xVmZHNk5DWTMySGxnaFN5VmloYnA?oc=5",
+     "p": "Multibagg AI",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "UNO Minda's sunroof business targets ₹500 crore in annual revenue, says CFO",
+     "l": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxORDhLQWZoaHlvOEJMZUZCSTRDa29aRzJramtLU2RSNnJCY0lZeDlhUmlvMERFLURnZnBCS0J3VGlPazRUSmdzZ05IZWNqLXFqUk0yVElYVno5VkpweUtnVmNIVU5hQUQ2T3BILThELTdKMHV0NERJbFYtMTFOQUw1QVhGVjl4LXhUUEhOQ1I2U1FnWEJhcUJkMDJRTlBucHk0SUJaY2poRU9mOVQ0eURoUWk2eVBYa1VwN05tM3VWaU14QWdmRUhaa0NZal90WE54b1hMd2tB0gHbAUFVX3lxTE9WSXRfTGJKR0tMczVWNi1TUU54N0dMUmctdFIwQnhBWm5oaFM3Q0hyVXlXN3dWejRWVzV6MkduV1RIdlNSYkJlUnhDd2M1TGNybXdqNVFFN1BVRm8xaVI2MVU1eE1oZ1lQMWp5Xy1jQ1BzMTZRckFBM1BfSzdhSEJRS1BidHZJTjVHbzRRZ2xtbjFpempNZ2huZV9VS2pmMjdEX0NDT1owa1pCM2VzMXYzUzB4ZjlmU0Mzc3BYRGs5c3F6QUdLWXVUUjhyS0tIZk16aV9FMllGaGMzcw?oc=5",
+     "p": "CNBC TV18",
+     "d": "2026-11-26",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    },
+    {
+     "t": "Uno Minda schedules investor meetings in Singapore and Hong Kong",
+     "l": "https://news.google.com/rss/articles/CBMitAFBVV95cUxORklIMWViMl9MWEV1QkRyUkI1N1hiSU8xTVZrSW9aajRHdGpRQ2hjN0JoY3p1OTVlQ2gtMm51UEtsZ2FZQ2JUdlFaNDJROHBJcGtrSVZrZUFZVlZ5dTZLbjlsNmZta2JhcGVneVJYNEs1c1BTVE5DMG1kYl92RzBjLTVDS1RfZ201YjRPVDNnTXoyWVYtQnpyM21Mc3I0VlJxZ2M1TXFhZ2RUeGJLSHE2WV9WYVc?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Minda Corp promoter stake rises to 18.74% via warrant conversion",
+     "l": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPY25MSzlFX1cxS1ZQTzZjdnd4M2tfSWs0eWhlVm5TbWN2d0NZY2ZDZVZwb1ZibXYydmVlRmpfb0MwMDAtQi1hcW5kYkJCWU13V3o1Y21XdEQ0eXNxY1NsclN3ME9NM1dCb1NOQTVoRUZsRFVVV0dfTU9qaG81UkVSRWxKbE44UXAtSjRQdFRTQjRmdVhkMWpCS2lHMVdJNFE0bnNvN1VjM0dHOWI3MFVxTHJpTQ?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-25",
+     "cat": "Expansion or capex",
+     "tone": 1,
+     "why": "Expansion can lift future sales, but it costs cash first. Check how it is funded and when it starts contributing."
+    },
+    {
+     "t": "Amit Srivastava Appointed Chief Executive Officer – SSD & ASEAN Business at Minda Corporation Limited",
+     "l": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNS0xwYTNSaWNudlkxc01uR2pkTUxCRENPems5dUxvNDFudDFBQkNxcUJZTi1FTl91ZzRGNTlHWFk0UUUxSl9neHpSbDBPUWVISXVMMFNEb0tXS05NaTVfZGhBaS1wbnZIQzBTSHRiVTVzNkl1MzRSUlllNk5zdEo0eDlrekxpSmRvYXVxb1R1aXBWLU4tUm14ckxuTlZrMWlfMWhNMGRsM2E0MVBBcktpa2hKT3VGTFdP?oc=5",
+     "p": "https://hrtoday.in/",
+     "d": "2026-11-24",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Archit Agarwal Appointed Head – Group Marketing at Spark Minda",
+     "l": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQMTlBNXNJQmJLSFNRdWlOZVhmV3pPd2ZlcEZPREo3R3hGSFFFR3hKTDQ0YXJlcUw1dHhLRXlSWHE0ZWdrMGdGVEJROGl0bWZJQmxoc1hhYmxfbHlzZk11UmxfM05wWGlFcTM0RG8zUjRBR1F4NndRN0VWQ1A5dlRETmZURVhpOWc?oc=5",
+     "p": "https://hrtoday.in/",
+     "d": "2026-11-22",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Uno Minda uploads Q1FY27 earnings call audio for investors",
+     "l": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVk9iZXl5WlYyZ0NZS3BNU0FxdHo0c2xZV1pBRUwxN2JZWTJRSm1BQkhZSFh6MDhkaHM3Y1I2QVkyNnNNa1lfTDBnVktLN2ZWY2hTVmxsN2xwMGFIcmhKM2VFRktGQ2x5aVBZX25Ic2xhb0FsdzNlVUFWeGN0aDZVd2taVkNLeGVBeExvb2Q4NHZrN3pFZGpLTEFmQUtkUXhzazRVMXlndnJnY1E3VGpv?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-21",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    },
+    {
+     "t": "Spark Minda names Archit Agarwal as Head - Group Marketing",
+     "l": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNVV9iYk5uQlFsSmlOSFNJa0pkWWxwQkxOWWh2VFNaQjV4TGp4THQ0dGNsWWNYNUxpZmo3Y0w0T3dEV0ZzcUxJN0gwMVFrNUk2RnNKdXgzZkxmam1UOG1CVUZhNHZUSkVHTGlWMnZibl90d1dkeUpIUlVHUEtjOFBncWJFd0UzS1BON0hKcW5rczBYMlJVSEpoVjVidWpjTXJyMURJdUVndEtRd0w4OVNRUXRVMlNIVTlLeU0wMA?oc=5",
+     "p": "Exchange4Media",
+     "d": "2026-11-21",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Minda Corporation schedules investor meetings for November 27, 2026",
+     "l": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOOUllZE50cG1zV0N4c09NTXdyOS1QVUcwcndtS3dzMEplOHZRbkZkSnhNY1VQdGU2M3RrOWxzLVV2b0ZCZTlkU3VhaW1mOTdORlA1S2VrOTA4cUZocVVWZDRyZUJrUXlnQnFNdGNwME5IZXNoR0hWNmtDNzVicERYRklsZGlzdUxNbVA1b2NReUp5d3IzWU52LWtxWVJrUU1TdFpOX28xTFRkVzBqYTBmSGMtT0JiYzdYZUxF?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-21",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Minda Corp Share Price - Live NSE: MINDACORP Stock Price & Chart",
+     "l": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5xSW9KX29jSGhBYzBhaVNOMGFUSW1fNFpNc0ZoNnJSVzVSaml4T0RBdXlKTmJGaVlHZG44ckYtUElnWFNXNDJoQWRpQWU2ck1zTXd6OHJFMnYzWTVibk4tUzBhcTZjX3BLTS0tQw?oc=5",
+     "p": "Upstox",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Minda Corporation Appoints Amit Srivastava As CEO Of Security Systems Division, ASEAN Business",
+     "l": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPdXd2aW1nSWZqYzllQ05YTEd4dWJVQU9pbjlnWC1vdmlBMGYtU0xXSktMNTFfZXZuMTFjV19veWV0cXpZRTMwRHRVYURkTGFaalBUdjF5YVVhR3h2a2hWR3FJV1E4THhWdjF0RnVwbGlyVXlLLTJ6RHBReFRBc1lnNlN6LUV5b2ptMTFBdzRVUjQ2LTJuc3VJYzdGRnRDT0UwR2ptaU9FSHlqUlB4TGRWdFdfQlJEdWJQSTZqZllQN3hqYllIOHhkd1NuSGw?oc=5",
+     "p": "BW Auto World",
+     "d": "2026-11-19",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    }
+   ]
+  },
+  "TITAN": {
+   "n": "Titan Company Limited",
+   "summary": "Titan Company Limited, together with its subsidiaries, manufactures and sells watches, jewelry, eyewear, fragrances, women's bags, and other accessories and products in India and internationally. The company operates through four segments: Watches and Wearables, Jewellery, Eyecare, and Others. The company designs, manufactures, and retails watches and wearables under the Nebula, Titan, Titan Clock, Zoop, Titan Octane, Titan Raga, Xylys, Edge, Fastrack, Sonata, Titan Smart, Fastrack smart, SF, Titan World, and Helios brands; jewellery products under the Mia, CaratLane, Tanishq, and Zoya brands; and eyecare products under the Titan Glares, Titan Eye+ and Fastrack Eyecare brands. It also offers sarees, dress materials, and ready-to-wear kurtas under the Taneira brand; perfumes under the SKINN brand; belts and wallets under the TITAN brand; and bags under the Fastrack and IRTH brands. In addition, the company provides manufacturing services and automation solutions for the aerospace, defense, transportation, electrical and electronics, and medical sectors. Further, it provides automation and precision engineering solutions. It offers its products through owned and franchised retail stores, as well as online. The company was formerly known as Titan Industries Limited and changed its name to Titan Company Limited in August 2013. Titan Company Limited was incorporated in 1984 and is based in Bengaluru, India.",
+   "industry": "Luxury Goods",
+   "sector": "Consumer Cyclical",
+   "website": "https://www.titancompany.in",
+   "employees": 9352,
+   "city": "Bengaluru",
+   "mcap_cr": 410923,
+   "news": [
+    {
+     "t": "Titan Company Share Price",
+     "l": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBLaEdJb1pERXM5Z3lpRHpvd0FueUNpN2V0VGsxc2p6bkhJVmpaaEFHUklFc1dOSUJiMkVBd1RkcmVXQW03aThSdktIMjgwaGtPUGRrWGJDMVN6c0tldTlSc09USm1sRjR0dFE1Ng?oc=5",
+     "p": "Upstox",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan Company Redeems Rs 1,075 Cr Commercial Papers",
+     "l": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQSFpWWUk3c3dNV2QxTlM0ZDZsejdiX2pYUVJZeEtNSTduZ3RmWjN1SWxVNWRIR0tuYnpyaFE1cUY5YmszN3hIaFZaVkpnRU1EM3VMWkp2R0NvZUpHMlZmNmE3Y1EzZEEzaEV0X0lQS3RxNDBWYXhYbnlDNUF2VzNrVk42OHpfT3JvWGU4dVkxcEM1T01JZXJpc0ZUTnNZU0J2dS10QnNB0gGrAUFVX3lxTE1QM3lhLTFiNE82d2NMdXJhQ0JsdU4zcFlWa2VtWFR0WHJNbFRKZG5KbWxxWDVZeHBUa1ZyNGJfZUJZQVpsdklCSHpsRjBJRUdFZnJCZFF6c0VJSk4xTDNaOERSNXpGYVFyODM0ZHV2VllWRVE0Zkoxbm1VaVJuWWtxY3lLRTJCMDJnOGgxaEhscjU4NEZ0QkNPSXhmYzJOZVlIcXRyU05MaVNrbw?oc=5",
+     "p": "Rediff MoneyWiz",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan Company redeems ₹1,075 crore commercial papers",
+     "l": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNMXFDRnZreFUyVXdfeThNRlFFUk1NMHlkT3ljR0hUaTBhXzhvc2FUYTNMLXdQVzV5MUNManBYdHRiYXktVHFKd3RtSzc5dVVIWExxMnZOTkRmMXVDRUZrMDNnOFd5NVYyN2Y2Mjc4bHdYemtySlFyUjJSUnk1MjBSb2dETzZ4ZGZGaFpTcTFVMnczeEswYVdMTzBYLUpKZE1IYVRkWXdBejRMTzhI?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Gold Prices Fall 28% From January Peak but Titan, Kalyan Jewellers and PC Jeweller Gain Up to 47%; What's Driving Jewellery Stocks?",
+     "l": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPZTBVNHE5aGJPX3I4eEUxNzlzcHQwNEQzVjJDZXUwbzdZLXF5SXJoUzMwbmcyV3FfMzVyejZxWHR4czc0WWhxSDVhY2hkVmNWdTlfNWtKR3FNckZJS2RiVmhEZG9HUThfSlRuMnFPSW9ScUtuN1ppS19pZ2xGalpVRU1YZFRiYmFTQlV2Vm5TQng1UjJBWjk2cG14WTJoMWxNYmpPejd3MGhrOWM?oc=5",
+     "p": "Kotak Neo",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan, Trent, TCS, Indian Hotels: Tata Group stocks in focus ahead of November 30 board meet; latest updates",
+     "l": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPdnVyd0JKS3hTZUtCYVhXenhHT1A1N2x5WFJUbXVQUHFJMjctWF80a0VRdWxocnFtV1dVUHQ1aU12bFd1WHd0T1RHUkQwMExMRWpsQ05jcE9YRXBJQkFOUFQwcDVXdFlGOEVOenF3WjdsVzBrOEpaNDZaaWdXMURvVUtxbXFsbUFSdjBHWlQweV9zeVpZakZRZDRXcjgwUFh2ZDZ6dkNqRmxKcURvSUd1bTA0eGZTdFpyMmYtN2NReVdjTWlISGVlSGpCUUhmSjF4MHM2azBlSFJwLWczc1dYcEZ2RnZzd2RGMjkzemVpa2c?oc=5",
+     "p": "Upstox",
+     "d": "2026-11-26",
+     "cat": "Market roundup",
+     "tone": 0,
+     "why": "A list article that mentions many companies. Open it and read only the paragraph about this one."
+    },
+    {
+     "t": "Titan Company - Eternal, Adani Enterprises among 10 stocks with highest FII buying in Q2. How many do you have?",
+     "l": "https://news.google.com/rss/articles/CBMiigJBVV95cUxNRmF2REhLRVVBcU8xMzlNaXZhQmx5ZDFtMFdmVkRMRXJiVFV2UEtPaGpmSUF6d1dCTU5OZnVHZGpRWFlaUG41SkxUT0pYVUlhZE1wSGludlhrR0djR3p6YU1ZUlBsVzZqOE5PeWlaWU9MVHhUcUJtUWg5QmZkTzJCWDRhUHpBR3pIXzFoTDVUNjVjMzlkMmRnRVpkX0p6MnpZcHB0Y3h4eXBtdTA1Znh0YkRRbG5fazU2VWRfdVIzU2ZMaTctR2ZySUM4ODlUOUl6bjFJZEhjMHdmangxTERxZW1SUlpQbU5vZG1vS3Y4NVVMZ0JnaUpldUdWd09qeEhfUHJUNnFPUjA4UQ?oc=5",
+     "p": "The Economic Times",
+     "d": "2026-11-26",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    },
+    {
+     "t": "Titan Sharpens Premium Fragrance Play With SKINN, Fastrack; Bets On Smaller Cities For Growth",
+     "l": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPcXYwWmsxZDQ1NFJpYXRESzNDeTBGVm1QZUVQaTcyQ3JGSklQQ1M3cnJZSW5ydWlBVlI4cDRJLTNlcXVPeW1Nai1qQVI3bDFJS1JHQ0VLN2JXQzAtZ3Q5M0ptVHljNmI2R3dWTDNpT0YyV1plU1VJSnhSV3F3ME1Sb3dkRzdKRlpMUTJrNUhpUTlKME5aelJ2NVJwRG1MUUlURndhSDdmbVh0T2IwWlkxOXhJNFJqNzVmQTV0Smd5MVdoTl9WRXBLcUlQZy1JbjFnbUHSAdoBQVVfeXFMUFhnOXZOV0xOTEFUYW80WHZfU2JDTjN6U2F6T21iLXE5aHhOYkpta3l2QmRmZHhhV3FhRXJGZUtMaWFoNExOTVNyMmwzazIyRmJwclp3UFJNdGRxeWFzMTFsTmZVUW8weDJ1cHJITXBKZFBRSEZ1QU1xSTZIZnZ4SkFOWFRTeW1ITE1xUG5GaW9fM2lOekw5MjhkeU5qeFE0clNoQXM4NFZxQUcwbW9UaVpCd3BERVRWNmpzaXl1dnUxUGRacTdFUk1odms5Um9DQzlpbW92clVlWWc?oc=5",
+     "p": "NDTV Profit",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan Company’s Rating Reaffirmed, ICRA Raises Rated Amount",
+     "l": "https://news.google.com/rss/articles/CBMikgFBVV95cUxObGVfTTA4S2xINHBBNF82ZDVqZFA4UmVrOHVaSG5UOEdVTWN4QjA2RGg1WDhtSEkxLUE0TnlZZHpCTFRXWHZObXlDN3JKb091OWpQZGh6ajhiQVJ6TDNZMUpFN3lzUXhCaEhVQjhsOWMzZzM1TUl3cWdnMUZWSXg4RU1tUnN5X2hfR0pTTm5tZUxoQQ?oc=5",
+     "p": "Traders Union",
+     "d": "2026-11-25",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    },
+    {
+     "t": "Top Gainers & Losers Today, November 25, 2026 at 12:00 PM",
+     "l": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Bdmdzak9BTExUR2F1Qkh3UURuMVUzRFJXajF4R29fSlBuOEtJeFl4MWZpMWh6eUc3S1h2TGp0WUVmRzdlcDhCZXZZcS15NDQ1azhLX25QS3JNeEg5WGNLbng4YzBVSnV3UlM4a0ZNZVZZb0V4Y2dxMw?oc=5",
+     "p": "HDFC Sky",
+     "d": "2026-11-25",
+     "cat": "Market roundup",
+     "tone": 0,
+     "why": "A list article that mentions many companies. Open it and read only the paragraph about this one."
+    },
+    {
+     "t": "Titan targets Rs 1,000 crore fragrance business by FY30, eyes doubling units sold",
+     "l": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPdHdoVDU2MFEwODNwaDVjaWlPQXp6ZWc3Y3drZzFKVWtUeXdBWXJScm5aVTY0Z3VwU1FFTXFLWHhHVFFoM2lBX0ZTXzN4bmFzOFY4LWpLVW1lanpqTHA2c0dlSWJNdXQ2ZXFZOWdXczB4cWducWp4UmphbUNLSFRHYlgydFJDaGVlV3dMTGlKdjFJYVh5c0wtRjNDQ3VnalUxZFAwQ3JHZ1F2Yy11bmR1RzlFQ2w0M1FTeGgyOUZQZy1uTC1oTHl3ckJFNXptRGl6RHZKcWJB?oc=5",
+     "p": "Financial Express",
+     "d": "2026-11-25",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Kalyan Jewellers Shares Rise Nearly 3% as Gold Prices Rebound; Titan, PC Jeweller Also Gain",
+     "l": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPaktDV3FUOTk1cDNjWTFibVcyY2JUSjZpRlRSNmZrczNuTUk4SmQ2X2tDblItUEdMS0MxTXExSmlTR2ItY2REbDhuRjBMcGtPZGlOZjhRNWlsTkVQRzZmeXFMb3NJZ3BnWXpKeTgxVjY4RVhQeTlnZGhRY1M4cWVMSjJ1dUtvbWtBVkJDUmRvYU9XWENhYjdIYTUzeFJVT1FITXA3MFU1YVZNUDhRWU9FcG84ei1QTGR2TlRGQWgzX1dIa2VqU2N3bWZxNnRVUQ?oc=5",
+     "p": "Kotak Neo",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Titan Company Q4 Results 2026: Date, Revenue",
+     "l": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1TNVcyZUdlMFg3ZGlGUENKMHdYY0wtb0hpNzBKZ3NwV1pDYmxvYU5CYVV1UFZSOUd5QnBQdzBSdXVidGh5REhOVVkyQ0xUZEJhZXhNREtBMWpGeUVFRkFtRjVWcFM?oc=5",
+     "p": "Univest",
+     "d": "2026-11-23",
+     "cat": "Results",
+     "tone": 0,
+     "why": "Results show whether sales and margins are really growing. Compare with the same quarter last year and check the margin, not only the profit."
+    }
+   ]
+  },
+  "MANAPPURAM": {
+   "n": "Manappuram Finance Limited",
+   "summary": "Manappuram Finance Limited, a gold loan non-banking financial company, provides fund-based and fee-based financial services in India. It operates through Gold Loan and Others, and Microfinance segments. The company offers loans, such as gold loans, gold loans at your doorstep, online gold loans, business loans, home improvement loans, housing loans, property loans, income-generating loans, and personal loans; balance transfers and top-ups; and co-lending arrangements. It also finances commercial and passenger vehicles, construction and farm equipment, and two-wheelers, as well as micro, small, and medium enterprises. In addition, the company offers foreign exchange money transfer and digital wallet services, as well as other services, such as depository services and demat account services. It serves salaried professionals, self-employed individuals, retail customers, and gold jewelry holders; small and medium-sized enterprises, large corporate entities, and institutional clients across the education and health sectors; and micro and small entrepreneurs engaged in trading and manufacturing activities. The company was formerly known as Manappuram General Finance and Leasing Limited and changed its name to Manappuram Finance Limited in 2011. Manappuram Finance Limited was founded in 1949 and is headquartered in Thrissur, India.",
+   "industry": "Credit Services",
+   "sector": "Financial Services",
+   "website": "https://www.manappuram.com",
+   "employees": 23984,
+   "city": "Thrissur",
+   "mcap_cr": 25362,
+   "news": [
+    {
+     "t": "Stocks Under F&O Ban: Manappuram Finance, and Others",
+     "l": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNWkJkR09xX2ktXzRZR2lEZ2JQVEtXbkxHNXJsQTBXRnJTaDFHQjBDZE9jUTBFYnV4bnRJdlVVd2JUS0Vvd1BBNlo4UWFMbzR6UlJJSVJka0s2MF90VUI5cFBaYjJqMFJjQVRVQXY1ZUxRQ2FGX1dtQWdVSWQ1bE5Hd1Nnb2xjV1R6?oc=5",
+     "p": "Equitypandit",
+     "d": "2026-11-26",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance to host debt investor meeting on November 27",
+     "l": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQUk9JOXhFd3laR25zaW5NWnpkUlJRVFA3bnZJLVRRQWlfYy00cFlHRDRPVkduN05IZ3FCRzlIMHJjTWEyRzRQYWhicWM2dncwVVRfZ1RYdldTd2sxYTl4SnRjNVBDdTBQRjlHSXpyN0FhMDAxdFZiUGhlUVJoTkdaaWZ5Z2ZVQlFkaHZ4RDRCckJYT0VIUkFpeW9fU3c3Yk5iSUp1OFRKMlBsOW96WkxqRFFVRGk?oc=5",
+     "p": "scanx.trade",
+     "d": "2026-11-24",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Stocks Under F&O Ban: Manappuram Finance",
+     "l": "https://news.google.com/rss/articles/CBMie0FVX3lxTE43ZnhPQmFMTTgwMWtxbmlUd2c4dkMta3FCLUNVTDdjdW8yVmZPczVVVVVPZWtaM0tIdC1wYmc2Rlc2SGY3RUs0WmhiV3ZXSkVqb1lpVk1LM1B1b3YwSk1zSHhFa0h5T01YVUZ2RUdYeWVjS0R4OFBUZWppNA?oc=5",
+     "p": "Equitypandit",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance: 7 Stock Signals Investors Are Watching",
+     "l": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNdjZXR0VNcGpQSmN0TWFjVHkzcC14UmRSQ0JhWmxlaXBFVlJXY2FOd1VUS0RiTmhTTWVuR0gwTHhWWVZJOE9JdGNrN255eXJUT2Z2Z0FaZ1Q1bldUNEJ1YTQ4WExzb1N4ejdEcFlOc21vc3BLR0RFU2RNU2hzX1JaUHBNY2FDN2M?oc=5",
+     "p": "Univest",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance Downgraded to Hold Amid Valuation Concerns Despite Strong Financials",
+     "l": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNRGNsZ2k3SUdyQndzWExvcVhYZ3UwM0xLYUxNQVhvNF8zazFvOGJUckltem9qQU4wZGRVc014X1ozWXZLNlpVWUtxTlkwbmVuNU9IdHdLRWNNU29WSllZWG1kUzJ3WjZZRk9USlVHSnNQV1M0Z3JKY2dRUm1NUG9YOTNCQlFXUFVaTHc5VFFtbllwSFltVm4wU2hpY2xWUjE2WFl3ei1vX0U5NHFJbnJ0OGZoUjhvM2FqdVJibVNKejZ4SzRWMkJkN1JiZGIzbDMzcjJfaWtqZWpmVmpuSGJ1Mkl2Zw?oc=5",
+     "p": "MarketsMojo",
+     "d": "2026-11-23",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "MFL91126A Bond Yield and Price — BSE:MFL91126A",
+     "l": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBxUTI1bWFWVkRCYkhsSUktNFBDNjZwN29VdVA2Zm1rTEszZTV2bFRqaXM2VWdlTk9oR1N0WDNIbXVON1BNSktqeDI4XzEwelo1WGtvZGVyQ1k2MV9sR0pZ?oc=5",
+     "p": "TradingView",
+     "d": "2026-11-22",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "MANAPPURAM Outlook for the Week",
+     "l": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9obG1HeE5FTUtPekk5N0FGNGlxenhoVkh2UWFma0ZTOGl5ZVY5NEtwTkdURjljb2xOb0RBd1pQVWl0OXdkVWc0MHp2TmZPTWliaHRIWHl0Q1Y2ZkdXYVhXaTNhNzlZYThpaXVjRHhR?oc=5",
+     "p": "Equitypandit",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram, Muthoot and IIFL Finance Share Price Declines as Gold Prices Fall to 14-Month Low",
+     "l": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQQVpsY2gwc280cE9BREN4dVZDbUJvWnY5X3FpdUpMMjBEZVFCbGoxcDQwWjJ3aU4wbXY4amNyWXBnZVZmRHRaYTFMd3EwUVZ5UkJPZlpEellGQVVVeVBEMTVyY21PVTlfU1lBUWw5Nnl1R2lCemFHdXdtbHJXeXFlcVVyLUYweFhLczVRMmhITldJQW0yaHBMM09wTzlZMFB5SXlJ?oc=5",
+     "p": "Kotak Neo",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance bets on technology to rein in employee costs as it adds 500 branches",
+     "l": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQbU0ycXFvWFhXU1QzRXFveW9pSzNJU2ozUE9RNXEyTXR2T05MbVdBcmtaUTNpc2h5aHR4RmV2V3NrcUdzQnVHczZlWS1ETVBrTl8xc2ZZN1F2djBMcnFLZXdEcVc5eV9VdDFzaTNKRkM2QktNMTRuZ1VGVTlKMzRSLTJjc2t6U19nOU0xTk4tbjI1WHJhX3ZQeENfNVNLUHJuVHE2Nm83dGkzV2hIOVJ6ZnRBUU9nVFIzNkVUSl9MRTR2VVNKQktBU3gwRWxOdkZSTU5kNzFyS3RKOHV5dkxVM2xSNE5hV04tZmJtVWpTOTlWc0xzR3hUU1lJZUx3Q25BMkHSAYcCQVVfeXFMT21fVGZMY3l1aEpBLXBFTTcwbGFtUTBERm42QUJNRUJ3ck1XOFVXSXdxMEpVNXZLbDNyUnpTUGRfQ0d4bXk4RXF4LXptaDA1ZThWMTZ6cXJCWDRVbW5xVUtsLW5yVDNoTzVzUmd4WEtUWFBvWE8tSmV4bVNocGlOZlFRanEyS0lFVTMwMWZpSjZFSUU3YWdVVDBSOEpoWnBKSEhmUjA3TDJQRDNFSFdsX1ptMTlxTHIzS0lYZFhfMUYxYlI3RUcteDVGNk9uLUZLbFFhTUlBc2VEWFdRV1lQNVhiRnd3NzhuazdSQ1NrZFpGUzRnNUtkVU9heXdyRnNIV2QwbVdHTzg?oc=5",
+     "p": "ETHRWorld.com",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Gold, silver prices crash today: Muthoot Finance, Hindustan Zinc shares tumble up to 5%; MCX too under pressure",
+     "l": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxOWGhZcDVUY2ZvNUd0WWtSQ1MxLTRaTGN3S0FBS2hQSG1RSUZTV3hpd09VREF1TWpfUlVIS0dkWjliZGJMYkNOUkdLbFVnNUV4SDhIbHdJX2h6aDFTYWFveC1pM0hWV1JxWlNsc29Cb04tem4tNjNPNlZLdk96Q1M0YVFBaFNCQWpaRVV2OUFab0lPcXd6V2NPeTB6Ym5NYkNPaEJKUjd5ektrWnVWd0YxaXRoSkdVWEJaeVNDd3RqRnZhVDJ0d3Rkdl9KZGlTTTNvZ1lvR1ZfUE1NQm9IU3pVOUVRNjRGV3FCZnZqNlBjcHpsUlg2UXRyY0xuWFJOQQ?oc=5",
+     "p": "TradingView",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance Share Price and Valuation After Fall",
+     "l": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNUDVuNm11djZQb0JGbDFFcHB0VmM4eGRpWmVMM3dOMmotVGE4dURTWVlSblJvdEdYaW9LZEJvVDVXaVhrYTBXS25zblFUNGhyTzd6ZTNVaTh6OUp0Y3l6Uk1RZks0M0NXcUN2WkwtREVLMkJqd0pjREM2YWJtUVZZMA?oc=5",
+     "p": "Univest",
+     "d": "2026-11-20",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Manappuram Finance Stock Price Forecast. Should You Buy MANAPPURAM.NS?",
+     "l": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE4wU2dUTGhWMTRsckpHbzlmcWJIcDZGZENQRjZqOVkyZnN5LWJQUVhqSVBXVGhSQWtNeUp6ajVCTm5HZHNwYWVmQTlEOWpYZGV4RVB5TA?oc=5",
+     "p": "StockInvest.us",
+     "d": "2026-11-20",
+     "cat": "Broker view",
+     "tone": 0,
+     "why": "A broker view is an opinion. Look at the reasons given, not the target price alone."
+    }
+   ]
+  },
+  "SWIGGY": {
+   "n": "Swiggy Limited",
+   "summary": "Swiggy Limited, together with its subsidiary, operates a convenience platform for accessing food and everyday essentials in India. It operates through Food Delivery, Out of Home Consumption, Quick-Commerce, Supply Chain and Distribution, and Platform Innovations segments. The company operates Swiggy, a platform that enables customers to browse, select, order, and pay for food, groceries, and household essentials, with deliveries made directly to their doorstep through its delivery partner network. It also provides food delivery services through a network of restaurant partners and delivery partners; restaurant discovery and table reservation services through the Swiggy DineOut platform; curated in-restaurant event booking services through the Swiggy Scenes platform; and grocery and household essentials delivery services through the Swiggy Instamart platform, as well as a membership program through the Swiggy One platform. In addition, the company offers supply chain and distribution solutions comprising warehousing services, including inventory management, in-warehousing processing, and packaging solutions to wholesalers, retailers, and fast-moving consumer goods brands; logistics services; B2B trading services for fast-moving consumer goods; and an advertising platform for partner merchants and brands to promote their offerings. Further, it provides Toing, a marketplace designed for affordable food delivery; and Crew, a concierge-style assistance platform that helps users plan, coordinate, and simplify everyday tasks and experiences, as well as private brands, Swiggy Genie, Swiffy Minis, Swiggy Sports, and Snacc. The company serves micro, small, medium, and institutional food service establishments, including traditional restaurants and cloud kitchens, as well as end consumers. Swiggy Limited was incorporated in 2013 and is headquartered in Bengaluru, India.",
+   "industry": "Internet Retail",
+   "sector": "Consumer Cyclical",
+   "website": "https://www.swiggy.com",
+   "employees": 5321,
+   "city": "Bengaluru",
+   "mcap_cr": 47980,
+   "news": [
+    {
+     "t": "Burger King, Swiggy fined Rs 72,000 for delivering non-veg burgers instead of veg",
+     "l": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeHI0U0VzOFRuUTlvdWdVUFZ0VGpaUV83ODJRYnBIaDItcnlLN3pPQUZVUVdQcV90WEJVMUNIMXY3b3lLSUE4OTNLUHVOX2pBVEk0UFY2b2pldmlpYlN0alJlMjdRZmJnaHRUTFdtTHp0X3haQ0EzOEh6RVJ0WG05djNwZV94bUpKSVlKdFl0alhKdlpvbGY3Rm5hVGZLcElrNXdRN1dOYWh3bGticzVRU09tUkJ4UzBUZU9MMVdPRzdfTFVYSDllMGpQODFuamtUT2xIctIB2gFBVV95cUxQc3g3cXVoQ3lwVE1rYnF4eVBMTlgyeVE2ekRiRTEyQmlJQU14UHM0LXE3UHhGeXhPX2dqTm1PLVJudFEtVFl5bW5PcjJtUUowM1lOM0MwZFJ6dFFxYUwtXy1RbXcxYkY1c2dZcHc0TTJxN1dKZlVkcExrRjRrM2xrZlVvSDNjTHkteHlNVFJKay1UejUxdTgtM09aRGhUOGQ5UzdsOENIOWJpcVpqMmZ3WW1sX3BJOWo5UElySEtvTFBYTUcxNGJxWmlBeXZnUlhCXzhWR1dlcG5LQQ?oc=5",
+     "p": "India Today",
+     "d": "2026-11-19",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Delivered non-veg burgers instead of veg order; Burger King, Swiggy told to pay Rs 72k",
+     "l": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxQdmZlM2VoY211ajk2VVVsZG1HTzE5ZXc4Y0o2d2pWMWw2NF84MmNMcTRsTEc3VVdBMFJIMUxYOC1tSmktM1J4NWQ1Q3lsdXRZX1NCX0E1WmFZeXVkWl9Td2JIbG5JVEZGWUJqa0pfc0FWU2dpeGV0X0Q2c0E1TlBaOEVlNGRyV05fTmZ4dDFROW1zS2t0LWJBVjJnRU9lU3Q2MWhlV1NjTmtGYU5ISTUwRG1EQ0dOVEpCMVU0WTd5REU3QWtYSkYzY1pJaHRFMno4SjZLX3JBbTNQTUJPRW1pcmpYQi1yZ3dLWWZWbkxWcEXSAfYBQVVfeXFMT1V6NXI5RDc1WDhDazVMUTZDSjVlNzFXYXo1RWMzMXlNclo3R1JIdl9iSzdZRFhqRXZKR29YRnVYcWYtTEdvUUFuM0FielRleS03eXVJN2FvTmJMVFhhRFAxSC1BM0JfVlpmU3pJaGRSbWVFaW53OXVMb1lZckt4ZzAySlJXQTlVRTVKSzA1X2xLdkNQMTRpV3lIREUxbkNtdFEyZ2JFaE0tWGczQnJRZ19NZ252a3BhdDNac2JON3pOektYZTdhYXRzTFBuN0RhWjNDSEFzdEhzWXlsMVRYTkxiRjh4OEFULTJxUG1oeVk4ZFJQN0VB?oc=5",
+     "p": "The Times of India",
+     "d": "2026-11-19",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Gurgaon man orders vegetarian burgers for children on Swiggy, Burger King delivers non-veg ones and kids",
+     "l": "https://news.google.com/rss/articles/CBMiuwNBVV95cUxQRzhrYVE1WGI3RTRMYWx4T3NZZTdTTmhYcTNHdTBjM1JqaUdtTXhMejlfVTZ5ODhoWXd1WGRmMDhVZV9FSDZxS1BfV2RJZFJMdmdPOVdWVF9QdWpHOHY4anNNNnhOZzRkeFBVbEZ0bWg4bi02ODFHeERPSUh5VFp0X2RmQV8ydUZrVExxZTJ2d2Z4NnhwaENCNjVyWHJleDlqMm5aanl2SXZWWFJMU3pndlpMQTZQa2pPZk5JRzluVHhvX1ZEcnFXazZNUERxU0ZBS2hhMzNuX050T1Y5NFktNE5fNUM2MWZTYl92SEZOMjBOM0NVUUxEWm9MQTBCUm5GYlZWYTc4c3Q5anpHM3k3b3ItWlNlaXVfcUNzRE81TmVLdGRwRTkwVHlmMnFvSlc2U2c0TXk1dlgxVjN5OVV2Rnp0czVwOU9vSWNCR3Naa3RsMEw4c09xdTB1V3pyS3JDQnctZDRPcFYyV2V1Q0cyd1pnb3dmV0tReFE2a3RwR1ZmNUJpSVJzVEVfUm1CR2NDVUNUWUFEYURZbWRtZUhyMVM0R29NdUFYc2IzeHJiUWFyM19Kb0oyN0VHSdIBwANBVV95cUxPWi1xMXdaU1ZBMjhhbHZ1T1hGQkhsU2M1azBIMDU4QWhyNmVFNDBqODZ0eUlSdlZOV0dJY2cxZzdMQWFxNVEwbHpKRXZTOVlBbDlXV3p5STdreFFrVGNBTGtKSF9USDdscnktQlpOajNpQVgxMHpnWmk3Qk5Gd2ZqclRIV2tIZXNUOVNBaHloMHpOenY0ZGlzcVdzWUFEWkdMZzFESUdyNWFKLVg1WllvT2N1V3RCQU05RTlzNXpJZ2lBT3FWYXJxQnB5V29seXVTSHEyMUgtcTBoRnlJS3hSdUJFT0NGZ3d2bjBiV1RTSlZrUVhJNU5NX0JPNlk3a2xURGRBc0FDcnZiQlo4ZktIYllqdFBIOHZlWnpocDhOai1jR20zTzNkSXhEbHpsUnJuQjNtNjQ2cjZ3NTd6Nmo1U3hoWEFzTGxoaE9tNmVmT0dxYlNibDdMQThra0lCbDBPZXJCY0t4b1BiVEs1ZkJISVM2REVOWXdETEZCTTVfOGtNbmNBMUpqUE8xQ2ViaDJTMVNSdm9UbU9TNDQtTENycTFnajZETnZZdWt1V1ZPZUlOQkxVSnRHT3Vvay1rdHE2?oc=5",
+     "p": "The Times of India",
+     "d": "2026-11-19",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Swiggy delivery boy funded startup with deliveries, now runs an AI company",
+     "l": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPQThRWllOVl93UkRXM242YjR6SzhPNHMxTm5ZYUJTV2hXZTZIWXdFN2p4R3lGVmw5MFlmNGhjXy1JdjFVWGVCRUJ0bXRiZ3VoWXVxTTFWMHJsN3FodDJ1aGpZS1VPaExRTFFiNWNFQ0R4ZHV6aENDUW5vYTZSZURVbWlPNi1QeGJkbFB5dFBlLXQ1Yjh1WHdIY2lYRGs3R0FULVdfd3NROHh2RlVhY1NtMS14S1ZfWnNvRDVoWlNweWg2akNXZEZDVkdoT2s3Z9IB0wFBVV95cUxNNVZpZGxsTzAxcTFPN2EwRUhoSzZ5TUszTFByamxScDI5Wk5JWWVOOGwxb004UmViRHVoU0FxemRTT180dTZiN0E2TlpSaWFTRGlhQTR4LXp5YjJ2RHpBdnZzb3lTMHVmbElMeVlmbkdTd29DVEp5SE5hWFNxVktXU3hQaUV4TkV0RWJsRk5CekZBQzFic3M0SmVxMy1xeEhXNjJLWmUzdmE2YTQ2RG1aNVVuNlNjSDM4bi1VMktpNVc3UWozRVlFdENQbEJ2ME9sQlJv?oc=5",
+     "p": "India Today",
+     "d": "2026-11-18",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Swiggy's EatRight orders from college campuses grow over 40 pc in a year",
+     "l": "https://news.google.com/rss/articles/CBMi9gFBVV95cUxNQ1QxN2FjRnotcnZjWjVEZ1lPdXZ6dzE1Y0d4YWlZQTdjQlJUSDJ2QjlXaW82Qmdxb3BTTkdDUlNod0RUQ1p5RFlORnRkLWwyRWE3b2xONURuTVUxMGFDNW16QUp6c2pXTF9CblE1TWVQNXZqb0ExLTliNGc2TjQyV1lTLVpjVUQ3czVPcmkyOWwtU29fVm9YUUd6NGJ1Yi1wdm5jenlVbXNxc2MxaUJpN01qRmpfeTJYWVlvV2xDeHJPeExJdWJ4aWJzN2ZzTENVbS1GWUhpLUpZMmR3MG95V0hZVjVxcHRDRXN2OGcxc2ttMFhhTlHSAfsBQVVfeXFMTjh2a1NQMFlMXy1hTEc4LTZXYXYtNHdzMEQwSEVDUDMwV1Vvdk51WXd0TDBabHhuTDBIVVdXZVQxRnpSYWY1SlRCY0JVUHJESUJ3RTJwM3ByUGo4TnRtNXRYaTJ0eG1TMFZKNml3X0JHZ3ZTV0xnLUkyUHBOSjJvWlZDeE9TWkhfLV9OVU9zaDFuUXNVUUlkSlVWRnlLc3dPNTFRVXhheVctY3d1SGNOV2N5TUM0UjVyWWFxbnA1dDRUVUtqSGdCSEU0R3hxZEVtWE1GZE1KZEEwNVJETFFjbmRuUS12UVdIYTlJN3RKSmVqcWc5U3ZQNGRCQW8?oc=5",
+     "p": "ET Retail",
+     "d": "2026-11-16",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Swiggy vs Eternal: Which stock has the stronger growth and better earnings outlook after Q2 results?",
+     "l": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxObUFxQzc3NVlDaEM1UFdoeWh0eXBqTG56bEdtZ1B2YUY3RFpXb3pYdjVqS0hnR0piXzlhOTE0Ykc4MnpvU1RjMWcyRHRWVEVrMkxPLXFVQzlQanV5aDc1QU1WeXlTWnpQWkNWdHRKRml0ODhJUElyclZhZFZKWlhuMVpiOW5sME93eTJ6N0s5OW5WUEsweFpWVlFTNlBPMnVtZ2VHTXpTV2pYWlFRek1yUWZGM2tkZ3A4TGdrUVgwbUxRSDUzcmkteEZuNEhpLVhscG1vZU5oel81Ty1wYnoxMXVzQUhPU00xN05B?oc=5",
+     "p": "TradingView",
+     "d": "2026-11-16",
+     "cat": "Results",
+     "tone": 1,
+     "why": "Better results than before. Check whether the margin also improved and whether profit is from the core business."
+    },
+    {
+     "t": "Swiggy leases 2.6 lakh sq ft Bengaluru office for ₹241 cr over 10 years",
+     "l": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQdGh4UndJYmk4NkItXzVZLVFzVThhZ2lLakFGa21qQ0h2bHB1RGFqbU9OUEM1cW96R1NkUmNJMEwyM3JOQ2xKQU1FYVVDM09jVFJxNkpBa2tsREVERmQyalNPbHpKSlNieDdnUDV4QlFpR21VV0xRclBzdEM2ZjNoQ3hvWXBhU0Q2c0VGeTVWeTUtYmNaOUlCRTFhd3ZHdWFNSTNlZUd1elVPdzNmUXJwaVE0OEF0anpVVG5TT0NTQkFNVFQyMDVlNGFNSXV5ZXQ0SUHSAdgBQVVfeXFMTlREc2x4WU9UNGgxMk1pLUU1QXZ2VWR4N3VwVTQxbm5DbmY0aDZYckxvejlOOXB0MWNnLVV3dW9KMjY2aHRBUTFIdWlfa05vY3NJX21uZkNPdDA0TUJiQ2lVVjc4bXlIQmZiTWx2ZGpXM3dOV3lySGtUU3FvZ0x1NkJWcXFlVUJaUURPcVUtSWU1TzloVWdycXRvNDdEdldjVGpFUzUxUkNxdFZQVFoydFlsTkdXR3RxYXFCcEFnZVYtLU52QXlFcl9oRFdEQ0NBT3lvWUdnd2Ft?oc=5",
+     "p": "BusinessLine",
+     "d": "2026-11-14",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Engineer starts trading, loses Rs 83 lakh and becomes Swiggy delivery partner: Reddit post goes viral",
+     "l": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxQOUlTYkV6d05NSkhDZlVtZHJ5NUZfV0xnMkhUU1ZrcTRIamlmbnNJNmpFVWoxMlJLS2k0RHNlTmRORmZYNjgwcXdYN2s1QzVhcDM4dEc2TDdrNVhzMVBPSW1KdGZJLXd3Tkl4cGt4cWdUWDF6a25ZS0NzLVQzZDNScHdtY2VNRGtIUEtGQl9aODdWOWdlaFVJX1ZvZ2Y3Zk8tUlk2MmJGYnh1OWZ2dTdYMmYwTi1PdUVVVlNoeHIwMDdTY01xWnVvb0lSWjBOYXZqU3pIVUtnOHg1NHBsT3E4WGMxRlF0SUZ6dlVLSVl5YkJtQU5xNW9N0gH8AUFVX3lxTE4temg0VW10VGR2clhsc2g5ckVySjc4MHdUdGcyQ3VjLVg1REFEVG5WTU05c2pidVRIVDIxM2I1a0JnNjJNcHg2eE5mcjAxWUZ2T3lEV0xrTU1Ib2tBMGIwTmNIVzBKMVZpTmZSRkVoR0x4aW9QcG0zNnU3RWxPeU52d1NWUWM2bjhnbzU1WDZXamRfMGVlMmkzSHVxWU9yVmN2VHhrWFR5dVJNWWViaFgybHd2RVIzQzN6M2lYem9ob2ZidDU1TEVyaml1MHhoNVExUENtSE9LOWdheFZqVzVPUHUtcTF6TjZZSlFEdTFmN252cVNaRnZjMXZ0YQ?oc=5",
+     "p": "Moneycontrol.com",
+     "d": "2026-11-13",
+     "cat": "General news",
+     "tone": 0,
+     "why": "No clear business effect found in the headline. Open it to see whether it changes sales, costs or risk."
+    },
+    {
+     "t": "Swiggy reports over 40% growth in EatRight orders among college students",
+     "l": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMXJfOGJ4UF9ZQ1RUX21JZXBRaExwRk5ZOWlEX0lqYldFMUJDRHVNVXo4YmZveU50RlI1bUx4OWtkYV9ydTNpZXhtUHhWaGU4WDZ3TEh5Z2x0Y04teWJseHZua2FzRTBzLXRtMGNHQ3lrblpKUVdOblE1Q2FzYXkxYWxsdUFNbTh6YnlTZHBLZzlLNjhhUC1ZcUxIV3o2Tm5ya19kX3B0NWdXNkZ6RThMVzhB?oc=5",
+     "p": "Hotelier India",
+     "d": "2026-11-13",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Healthy eating gains ground on campuses as Swiggy EatRight orders jump",
+     "l": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQYVJ6M0RiQTFIemFqTk4xS0lHaGNuSXJVandiQ1EtUG5TdFZYeFM1bFp6eTA4M0ZmRm4ySXphb1RWX215SFVVbFlCUVU1V1BhYzFtaXBWa19uX1lyakdvbEJ4OW1KR0NRWk56ajBWRml2LUxMVjFwUEZuTUwyd0VNVnB6TkdwRFVtNkN3VWtMWXdYSGk0VnlDb084WGl4YTFtYXViSG9BRUE0VEl4ODRrNkVZUWhnX2Z3eU5oSlhUQVdaVXRU0gHKAUFVX3lxTE5IdDlwV1FpdHpnMy1peVk1UnlsYWtiVmhHRlU1V3M1NEI3T0tDd1ZHWFhJdmpPMDZLS1NXdjNyOHIxaGhqQmNZaTJONDZnbzBLY3J2clJrVGVlNG5DMWwzNzRHU2p0NktXeHVuVjFPVFJSYk81TTlWb19pX0c5cVlQYnFTUEhIRG04RkctLUpmTjJJbkFhaVJZcWIwZWk2UnRKZHRtcGs3S3pEX21RVnhkaGRaR2xUaTRtajMybVRiTW5KMzZNWERjeEE?oc=5",
+     "p": "Business Standard",
+     "d": "2026-11-13",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Diwali food delivery orders rise 10.7% on Swiggy; Dineout bookings jump 38.5%",
+     "l": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNcnQ4akw5c2JFOE5paGVRM09qamVLWUpvQklrSnRjM0RBSmZtdVo0cXNqN2d3aDhSa0pQSGtqY1ZIekNrWGQ4UURWOHJnRjh5MEhHdnRzTzNmd1pvU0dQMUNHMVRaNDZnN3U3RE1QS3BacXNkS2xlckozMDlZbGVfYlFCNnB4WVp0eDhVNzZjVXVZQ2VyNFJHSXZvZzVuZzVRcVlaMHpqT0NIT1g0amN3MWlLYkd6Sk1yVEtFWXpjc9IBzAFBVV95cUxNOGxmbzE4R3hJcVN3X1JPUE8zNF90NVNLWkV3OHBoa1c2Vnd5UXFnMnFidVBBT05DaXluaWxrOFFheEdTcFhHM2VpSlNzX1Z1V3Z2c182V3MwRmFDQlFRZmVBWVYycGRiNnEzc2ZZWHBmbGItMGNwZVowcURFcDFyalcyWk9BX2dkVnpESlRpbk54U0tuQXZSbmEzSUVxTlczMEVScVBPRU1EbFVlWl9abTBUb1dHNVc5eEI2N3c2aV8tQ0E1UndmbVpiRW0?oc=5",
+     "p": "Fortune India",
+     "d": "2026-11-11",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    },
+    {
+     "t": "Swiggy records 10.7% growth in Diwali food orders; Dineout reservations jump 38.5%",
+     "l": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxORGp6eEN4ZWdwWHk1XzFETERNQldZQXc0Z2RhQ0xiOXVKQWpRSVFISGFKM3VDOFRKckRjS0gxdjhia1FZa1hCZFYyaFg2V2FBV1R1dTJBc1A1TDRPaU4wcmdIdEE0bFdKeUdERS1mR2JpcGZvQnRWN2F3d3BZNXVBbnQ0ZEdhNVJpbGRPcjFaTm1tUm9JRzZkajI2cC1HYkVlcmRvMmRGQ1ZYNFB1eGxWaVFKeEZYVllJSWpFcTNYX0NtM0plS3pDbVZMdHA4dHpTY3lpSm1hRGfSAd4BQVVfeXFMTWFmaEZ0T1pYajdVNk5IRENzRGNqM1VteVJ6cHZsM3lDMDNNU0VIZTN6THdZQ1dUZ2dVSUg2MlBqNFJZRjFqMk9mTnFJRlBuQndVandCRGJwMlR6VU91SWdCei1MNE9JYW5XNWxVUEFZbW9JT0RGZldoWG9aY29LM1ktRGliLW0yUFhDY2Q5c1JJLTBvWlY2Y01LbjM0V1NIZVpWYVJxcDgyTThrVUFIRWV3cERMMXJMdTZXM01Ebnk1S3VLLU1Pel9TcG80cS01eExhYWFXRGlad1UyNU9R?oc=5",
+     "p": "Storyboard18",
+     "d": "2026-11-10",
+     "cat": "Order or contract win",
+     "tone": 1,
+     "why": "A new order adds to the order book and gives revenue visibility. Check its size against yearly sales and how long it takes to deliver."
+    }
+   ]
+  }
+ }
+}
