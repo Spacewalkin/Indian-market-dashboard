@@ -1,0 +1,31 @@
+name: Company brief update
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: "Optional: NSE symbols separated by spaces (leave empty to use company_watch.txt)"
+        required: false
+  schedule:
+    - cron: "30 1 * * *"    # 07:00 IST
+    - cron: "30 12 * * *"   # 18:00 IST
+permissions:
+  contents: write
+concurrency:
+  group: company-brief
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install yfinance requests
+      - run: python update_company.py ${{ github.event.inputs.symbols }}
+      - name: Save company_brief.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add company_brief.json
+          git diff --staged --quiet || (git commit -m "Update company brief" && git pull --rebase && git push)
