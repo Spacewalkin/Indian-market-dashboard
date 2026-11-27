@@ -22,8 +22,8 @@ from urllib.parse import quote
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT, NAMES_OUT = os.path.join(HERE, "company.json"), os.path.join(HERE, "nse_names.json")
-NEWS_DAYS, MAX_NEWS = 90, 8
-TOP_ACTIVE, ROTATE, KEEP_MAX, MAX_SECONDS, PAUSE = 70, 40, 350, 1500, 1.2
+NEWS_DAYS, MAX_NEWS = 90, 6
+TOP_ACTIVE, ROTATE, KEEP_MAX, MAX_SECONDS, PAUSE = 70, 120, 650, 1700, 1.0
 
 DISCOVERY = [
     "bags order worth crore", "wins order worth crore", "secures contract worth crore", "receives order India company",
@@ -212,7 +212,7 @@ def fetch_profile(sym):
     import yfinance as yf
     info = yf.Ticker(sym + ".NS").info or {}
     mc = info.get("marketCap")
-    return {"summary": (info.get("longBusinessSummary") or "").strip()[:700], "industry": info.get("industry") or "",
+    return {"summary": (info.get("longBusinessSummary") or "").strip()[:600], "industry": info.get("industry") or "",
             "sector": info.get("sector") or "", "website": info.get("website") or "", "employees": info.get("fullTimeEmployees"),
             "city": info.get("city") or "", "mcap_cr": round(mc / 1e7) if mc else None}
 
@@ -228,6 +228,26 @@ def tag(items, mcap):
 def optional_list(fn):
     p = os.path.join(HERE, fn)
     return [l.split("#")[0].split(",")[0].strip().upper() for l in open(p, encoding="utf-8") if l.split("#")[0].strip()] if os.path.exists(p) else []
+
+def nifty500_symbols():
+    """Symbols the dashboard already tracks (its Nifty 500 list), read from data.json."""
+    try:
+        import requests
+        r = requests.get("https://raw.githubusercontent.com/Spacewalkin/Indian-market-dashboard/data/data.json", timeout=30)
+        r.raise_for_status()
+        return list(json.loads(re.sub(r"\bNaN\b", "null", re.sub(r"-?\bInfinity\b", "null", r.text))).get("stocks", {}))
+    except Exception as e:
+        print("could not read data.json:", e); return []
+
+def position_symbols():
+    p = os.path.join(HERE, "positions.csv")
+    if not os.path.exists(p): return []
+    try:
+        with open(p, encoding="utf-8-sig", newline="") as f:
+            rows = list(csv.DictReader(f))
+        key = next((k for k in (rows[0] if rows else {}) if k and k.strip().lower() in ("symbol", "sym", "stock", "ticker")), None)
+        return [(r.get(key) or "").strip().upper() for r in rows] if key else []
+    except Exception: return []
 
 def research_symbols():
     p = os.path.join(HERE, "research.json")
@@ -260,9 +280,10 @@ def main():
 
     # 2. who to refresh: watch list, news-active companies, then the least recently checked
     asked = [a.upper() for a in sys.argv[1:] if a.upper() in names]
-    watch = list(dict.fromkeys(asked + [s for s in optional_list("company_watch.txt") + research_symbols() if s in names]))
+    watch = list(dict.fromkeys(asked + [s for s in optional_list("company_watch.txt") + position_symbols() + research_symbols() if s in names]))
+    n500 = set(nifty500_symbols())
     active = [s for s, _ in sorted(found.items(), key=lambda kv: -len(kv[1]))][:TOP_ACTIVE]
-    stale = sorted((s for s in names if s not in watch and s not in active), key=lambda s: stocks.get(s, {}).get("checked", ""))[:ROTATE]
+    stale = sorted((s for s in names if s not in watch and s not in active), key=lambda s: (s not in n500, stocks.get(s, {}).get("checked", "")))[:ROTATE]
     queue = list(dict.fromkeys(watch + active + stale))
     print("refreshing", len(queue), "companies")
 

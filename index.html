@@ -1325,7 +1325,7 @@ function coLine(sym) {
 function coBlock(sym) {
   if (CO === null && CN === null) return '<h2>Company brief</h2><p class="sub">Loading…</p>';
   const c = coOf(sym) || {}, n = cnOf(sym) || {}, q = encodeURIComponent;
-  if (!coOf(sym) && !cnOf(sym)) return `<h2>Company brief</h2><div class="card"><p class="sub" style="margin:0">Nothing collected for <b>${esc(sym)}</b> yet. The daily Company feed picks up a company as soon as it appears in the news, and checks every NSE company over a few weeks. To get it now, run "Company feed" under Actions → Run workflow and type ${esc(sym)} in the box. For export and import details, ask Claude to research it into <b>company_notes.json</b>.</p></div>`;
+  if (!coOf(sym) && !cnOf(sym)) return `<h2>Company brief</h2><div class="card"><p style="margin:0 0 8px">What the company does and its news are not collected for <b>${esc(sym)}</b> yet. The daily Company feed fills in Nifty 500 stocks over a few days. To get this one now: open the button below, click <b>Run workflow</b>, type <b>${esc(sym)}</b> in the box and run it (about 2 minutes), then reload this page.</p><div class="chips"><a href="https://github.com/Spacewalkin/Indian-market-dashboard/actions/workflows/company.yml" target="_blank" rel="noopener"><button>Run Company feed for ${esc(sym)}</button></a><a href="https://www.screener.in/company/${q(sym)}/" target="_blank" rel="noopener"><button>About the company on Screener</button></a><a href="https://news.google.com/search?q=${q(((NSE && NSE[sym]) || sym) + " share")}&hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener"><button>News on Google</button></a></div><p class="mu" style="margin:8px 0 0">For exports, imports and key customers, ask Claude to research it into <b>company_notes.json</b>.</p></div>`;
   const row = (k, v) => v ? `<li><b>${k}:</b> ${esc(v)}</li>` : "";
   const facts = [c.industry, c.sector && c.sector !== c.industry ? c.sector : "", c.mcap_cr ? "Market cap ₹" + fv(c.mcap_cr) + " cr" : "", c.employees ? fv(c.employees) + " employees" : "", c.city].filter(Boolean).map(x => `<span class="tag">${esc(x)}</span>`).join("");
   const what = n.what || firstSent(c.summary, 420), more = !n.what && c.summary && c.summary.length > 420 ? `<details><summary>Read more</summary><p class="mu">${esc(c.summary)}</p></details>` : "";
@@ -1414,9 +1414,47 @@ function ltDecision(k, q, dist, s) {
   else if ((dist != null && dist > -6) || hot) { label = "Good business, price is stretched: wait for a pullback"; cls = "a"; grp = "wait"; }
   else if (dist != null && dist < -30) { label = "Wait: down over 30%, confirm the reason is temporary"; cls = "a"; grp = "wait"; }
   else if (trend === false) { label = "Wait: below its 200 EMA, let the trend recover"; cls = "a"; grp = "wait"; }
-  else if (q >= 75) { label = "Start buying in parts"; cls = "g"; grp = "buy"; }
+  else if (q >= 75) { if (coOf(k) || cnOf(k)) { label = "Start buying in parts"; cls = "g"; } else { label = "Looks good on the numbers: read the news first, then start in parts"; cls = "a"; } grp = "buy"; }
   else { label = "Small first part, or wait for the next result"; cls = "a"; grp = "wait"; }
   return {label, cls, grp, nws, pos, neg};
+}
+function ltView(sym) {
+  const st = D.stocks[sym]; if (!st) return "";
+  const f = LT && LT.stocks ? LT.stocks[sym] : null, e = st.e || [0, 0, 0], held = pload().some(x => x.sym === sym && !x.sold);
+  const r = f && LT ? ltScore(sym, f, sectorPE()) : null, rs = RS && RS.stocks ? RS.stocks.find(x => x.symbol === sym) : null;
+  const q = rs ? rs.total_score : r ? r.score : null, dist = rs && rs.dist_high != null ? rs.dist_high : st.h ? (st.p / st.h - 1) * 100 : null;
+  let dec, why = [];
+  if (q != null) {
+    dec = ltDecision(sym, q, dist, st);
+    why.push("Business: score " + q + "/100" + (rs && rs.verdict ? " (research verdict: " + rs.verdict + ")" : "") + (r ? ", from growth, quality, trend and value" : ""));
+  } else {
+    dec = {label: "Not a long-term candidate right now", cls: "r", nws: recentNews(sym, 45)}; dec.pos = dec.nws.filter(x => x.tone > 0); dec.neg = dec.nws.filter(x => x.tone < 0);
+    if (!f) why.push("Long-term numbers for this stock are not loaded yet. The Long-term update fills them in over a few runs.");
+    else {
+      if (f.loss_year) why.push("It made a loss in at least one of the last years.");
+      if (f.roe != null && f.roe < 10) why.push("Return on equity is below 10%.");
+      if (f.rev_cagr == null || f.pat_cagr == null || (f.yrs != null && f.yrs < 2)) why.push("Not enough years of results to judge growth.");
+      if (!e[2]) why.push("It trades below its 200 EMA.");
+      if (!why.length) why.push("It does not pass one of the screen checks (growth, profit history, return on equity, 200 EMA).");
+    }
+  }
+  if (dist != null) why.push("Price: " + (dist > -1 ? "at its 52-week high" : Math.abs(dist).toFixed(0) + "% below its 52-week high") + (e[2] ? ", above the 200 EMA" : ", below the 200 EMA") + (st.m >= 25 ? "; up " + st.m + "% in a month, so stretched" : ""));
+  const n = dec.nws || [];
+  why.push("News: " + (coOf(sym) || cnOf(sym) ? dec.pos.length + " positive and " + dec.neg.length + " negative items in the last 45 days" + (n.length ? "" : " (none found)") : "no company news collected yet"));
+  const num = [];
+  if (f) {
+    if (f.rev_cagr != null && f.pat_cagr != null) num.push("Revenue " + f1(f.rev_cagr) + " a year and profit " + f1(f.pat_cagr) + " a year over " + f.yrs + " years");
+    if (f.roe != null) num.push("Return on equity " + f.roe + "%" + (!isFin(sym) && f.de != null ? ", debt/equity " + f.de : ""));
+    if (f.pe) { const mp = sectorPE()[st.sec || "?"]; num.push("P/E " + f.pe + (mp ? " against about " + mp.toFixed(0) + " for its sector" : "")); }
+    if (f.ocf_ok === false) num.push("Operating cash flow is under half of the profit: check the quality of earnings");
+    if (f.mcap_cr != null) num.push("Market cap ₹" + fv(f.mcap_cr) + " cr");
+    if (f.ins != null) num.push("Insider holding " + f.ins + "% (Yahoo): check promoter holding and pledging");
+  }
+  const flags = r ? r.flags : [], newsHTML = n.slice(0, 3).map(x => `<div class="nc"><div>${toneTag(x.tone)} ${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · ${esc(x.cat)}</div><div class="mu">▶ ${esc(x.why)}</div></div>`).join("");
+  return `<h2>Long-term view</h2><div class="card"><div style="margin-bottom:6px"><span class="tag ${dec.cls}" style="font-weight:700">${esc(dec.label)}</span>${q != null ? ' <span class="tag ' + dec.cls + '">Score ' + q + "/100</span>" : ""}${held ? ' <span class="tag a">You hold it</span>' : ""}</div>
+    <ul class="ul" style="margin:0">${why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>${num.length ? '<h3 style="margin:10px 0 4px;font-size:13px">Numbers</h3><ul class="ul" style="margin:0">' + num.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>" : ""}
+    ${flags.length ? "<div style='margin-top:6px'>" + flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}${newsHTML ? '<h3 style="margin:10px 0 4px;font-size:13px">Latest news and what it could mean</h3>' + newsHTML : ""}
+    <div class="mu" style="margin-top:8px">A lean to help you decide, not an instruction. Buy in 2 or 3 parts, check promoter holding and the latest conference call, and write your exit before you buy.</div></div>`;
 }
 function ltIdeas() {
   if (!LT && !RS) return '<p class="sub">Loading…</p>';
@@ -1670,12 +1708,12 @@ function renderStock() {
   const sameSec = sec ? (E.catalysts || []).filter(x => x.s && x.s !== sym && sec.stocks.includes(x.s)).slice(0, 3) : [];
   const nl = a => a.map(n => `<div class="nc"><div>${link(n.t, n.l)}</div><div class="mu">${esc(n.p || "")} ${esc(n.d || "")}${n.n ? " · " + esc(n.n) : ""}</div></div>`).join("");
   const news = nw.length || cats.length ? nl(nw.concat(cats)) : '<p class="sub">No recent headline found for this stock. Check the company announcements before trading.</p>';
-  const q = encodeURIComponent, tv = "https://www.tradingview.com/chart/?symbol=NSE%3A" + q(sym.replace(/-/g, "_"));
+  const q = encodeURIComponent, tv = "https://www.tradingview.com/chart/?symbol=NSE%3A" + q(sym.replace(/-/g, "_")), fromLT = backView === "lt", lv = ltView(sym) + coBlock(sym);
   $("app").innerHTML = `${nav()}${back}
   <h2 style="margin-top:14px">${esc(st.n)}</h2><div class="mu">${esc(sym)}${sec ? " · " + esc(sec.name) : st.sec ? " · " + esc(st.sec) : ""}${capOf(sym) ? " · " + esc(capOf(sym)) : ""}</div>
   <div style="font-size:28px;font-weight:800;margin-top:4px">₹${fv(st.p)} <span class="${st.d >= 0 ? "up" : "dn"}" style="font-size:18px">${f1(st.d)}</span></div>${rangeBar(st)}<div style="margin-top:6px">${tags}</div>
-  <div class="card chartbox" id="chart" style="margin-top:12px"><div class="sub">Loading chart…</div></div>${plan}
-  ${coBlock(sym)}
+  ${fromLT ? lv : ""}<div class="card chartbox" id="chart" style="margin-top:12px"><div class="sub">Loading chart…</div></div>${plan}
+  ${fromLT ? "" : lv}
   <h2>What is driving this stock</h2><div class="card"><ul class="ul" style="margin:0">${li(drivers(sym, st))}</ul></div>
   <h2>News and events</h2>${news}${sameSec.length ? `<h3 style="margin:14px 0 4px">Other headlines from ${esc(sec.name)}</h3>${nl(sameSec)}` : ""}
   <h2>More detail</h2><div class="chips"><a href="${tv}" target="_blank" rel="noopener"><button>Full chart on TradingView</button></a><a href="https://www.screener.in/company/${q(sym)}/" target="_blank" rel="noopener"><button>Fundamentals on Screener</button></a><a href="https://www.nseindia.com/get-quotes/equity?symbol=${q(sym)}" target="_blank" rel="noopener"><button>NSE page</button></a><a href="https://news.google.com/search?q=${q(st.n + " share")}&hl=en-IN&gl=IN&ceid=IN:en" target="_blank" rel="noopener"><button>More news</button></a></div>
