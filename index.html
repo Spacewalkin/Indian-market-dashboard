@@ -292,7 +292,7 @@ let view = "ov", swF = "brk", curStock = null, backView = "ov", chRange = 66, PR
 const ALLM = {m: 0};
 const f1 = v => (v >= 0 ? "+" : "") + v.toFixed(1) + "%";
 const fv = v => Number(v).toLocaleString("en-IN", {maximumFractionDigits: 2});
-const NAVS = [["ov", "🏠", "Overview"], ["seg", "📊", "Market and sectors"], ["macro", "🌍", "Global factors"], ["swing", "🎯", "Swing trading"], ["port", "💼", "Portfolio"], ["lt", "🌱", "Long-term ideas"], ["feed", "📡", "Company feed"], ["res", "📑", "Quarterly results"], ["news", "📰", "News and events"], ["journal", "📓", "Journal"]];
+const NAVS = [["ov", "🏠", "Overview"], ["seg", "📊", "Market and sectors"], ["macro", "🌍", "Global factors"], ["swing", "🎯", "Swing trading"], ["port", "💼", "Portfolio"], ["lt", "🌱", "Long-term ideas"], ["res", "📑", "Quarterly results"], ["news", "📰", "News and events"], ["journal", "📓", "Journal"]];
 const QUOTES = ["Discipline today builds freedom tomorrow.", "Plan the trade, then trade the plan.", "Protect your capital first. Profits follow.", "Cut losses short and let winners run.", "The trend is your friend until it ends.", "Patience pays more than prediction.", "Small, steady gains beat big, risky bets.", "Better decisions build a wealthier tomorrow."];
 const nav = () => {
   const on = view === "stock" ? backView : view;
@@ -1377,8 +1377,7 @@ function ltScore(sym, f, spe) {
   if (f.ins != null && f.ins < 30) flags.push("Insider holding " + f.ins + "% (Yahoo): check promoter holding and pledging");
   return {score: Math.round(parts.Growth + parts.Quality + parts.Trend + parts.Value), parts, why, flags};
 }
-function renderFeed() {
-  $("asof").textContent = stamp();
+function feedBody() {
   const CATS = [["imp", "Important"], ["Order or contract win", "Orders"], ["Product approval", "Approvals"], ["Results", "Results"], ["Exports, imports and tariffs", "Trade and tariffs"], ["Expansion or capex", "Expansion"], ["Regulatory or legal risk", "Risks"], ["all", "Everything"]];
   let body;
   if (CO === null) body = '<p class="sub">Loading…</p>';
@@ -1395,31 +1394,71 @@ function renderFeed() {
     const cards = list.map(x => `<div class="card" style="margin-bottom:8px"><div><a href="#" onclick="openStock('${esc(x.sym)}');return false"><b>${esc(x.name)}</b></a> <span class="mu">${esc(x.sym)}</span> <span class="tag">${esc(x.cat)}</span> ${toneTag(x.tone)}${x.val_cr ? ' <span class="tag a">₹' + fv(x.val_cr) + " cr" + (x.pct_mcap != null ? " = " + x.pct_mcap + "% of market cap" : "") + "</span>" : ""}</div><div style="margin:4px 0">${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")}</div><div class="mu">▶ How it could affect the company: ${esc(x.why)}</div></div>`).join("");
     body = `<div class="chips" style="margin:8px 0">${chips}</div><div class="chips" style="margin-bottom:10px">${tones}</div><div class="mu" style="margin-bottom:8px">${Object.keys(CO.stocks).length} companies tracked · ${n} matching headlines${n > 80 ? " (newest 80 shown)" : ""}${CO.updated ? " · updated " + esc(CO.updated) : ""}</div>${cards || '<p class="sub">No headlines match this filter.</p>'}<div class="note">Companies are found automatically from today's business news and matched to the NSE list by name. Categories and the "how it could affect" lines are keyword-based readings of the headline, not facts: open the story and the company filing before acting.</div>`;
   }
-  $("app").innerHTML = `${nav()}<h2 style="margin-top:0">Company feed</h2>${body}`;
+  return body;
+}
+function renderFeed() { view = "lt"; ltTab = "feed"; renderLT(); }
+let ltTab = "ideas", ltD = "all";
+// recent company news for one stock: tagged headlines (company feed) + researched developments (company_notes.json)
+const recentNews = (sym, days) => {
+  const c = coOf(sym), n = cnOf(sym), day = d => new Date(Date.now() - d * 864e5).toISOString().slice(0, 10), out = [];
+  ((c && c.news) || []).forEach(x0 => { const x = readNews(c, x0); if (x.d >= day(days) && !["General news", "Market roundup", "Broker view"].includes(x.cat)) out.push(x); });
+  ((n && n.developments) || []).forEach(x => { if (x.d >= day(150)) out.push({t: x.t, d: x.d, tone: x.tone, why: x.why, cat: "Researched", p: x.src || "", l: ""}); });
+  return out.sort((a, b) => (b.d || "").localeCompare(a.d || ""));
+};
+// one decision per stock: business score + price position + latest news
+function ltDecision(k, q, dist, s) {
+  const nws = recentNews(k, 45), pos = nws.filter(x => x.tone > 0), neg = nws.filter(x => x.tone < 0), trend = s && s.e ? !!s.e[2] : null, hot = s && s.m >= 25;
+  let label, cls, grp;
+  if (q < 60) { label = "Skip for now: business score is below 60"; cls = "r"; grp = "skip"; }
+  else if (neg.length && neg.length >= pos.length) { label = "Wait: check the bad news first"; cls = "a"; grp = "wait"; }
+  else if ((dist != null && dist > -6) || hot) { label = "Good business, price is stretched: wait for a pullback"; cls = "a"; grp = "wait"; }
+  else if (dist != null && dist < -30) { label = "Wait: down over 30%, confirm the reason is temporary"; cls = "a"; grp = "wait"; }
+  else if (trend === false) { label = "Wait: below its 200 EMA, let the trend recover"; cls = "a"; grp = "wait"; }
+  else if (q >= 75) { label = "Start buying in parts"; cls = "g"; grp = "buy"; }
+  else { label = "Small first part, or wait for the next result"; cls = "a"; grp = "wait"; }
+  return {label, cls, grp, nws, pos, neg};
+}
+function ltIdeas() {
+  if (!LT && !RS) return '<p class="sub">Loading…</p>';
+  const hasLT = LT && Object.keys(LT.stocks).length, hasRS = RS && RS.stocks && RS.stocks.length;
+  if (!hasLT && !hasRS) return '<p class="sub">No long-term data yet. Run "Update long-term data" (and the research scan) once from the Actions tab of your GitHub repo, then reload.</p>';
+  const spe = hasLT ? sectorPE() : {}, held = new Set(pload().filter(x => !x.sold).map(x => x.sym)), map = {};
+  if (hasLT) Object.keys(LT.stocks).filter(k => D.stocks[k]).forEach(k => { const r = ltScore(k, LT.stocks[k], spe); if (r && r.score >= 60) map[k] = {k, ls: r}; });
+  if (hasRS) RS.stocks.forEach(r => { if (r.symbol) (map[r.symbol] = map[r.symbol] || {k: r.symbol}).rs = r; });
+  const items = Object.values(map).map(it => {
+    const s = D.stocks[it.k], q = it.rs ? it.rs.total_score : it.ls.score, dist = it.rs && it.rs.dist_high != null ? it.rs.dist_high : s && s.h ? (s.p / s.h - 1) * 100 : null;
+    return Object.assign(it, {s, f: LT && LT.stocks[it.k], q, dist, dec: ltDecision(it.k, q, dist, s)});
+  }).filter(it => ltF === "all" || capOf(it.k) === ltF);
+  const cnt = g => items.filter(x => x.dec.grp === g).length, chip = (k, t) => `<button class="${ltF === k ? "on" : ""}" onclick="ltF='${k}';render()">${t}</button>`, dchip = (k, t) => `<button class="${ltD === k ? "on" : ""}" onclick="ltD='${k}';render()">${t}</button>`;
+  const cell = it => {
+    const {k, rs, ls, s, f, q, dist, dec} = it, rr = rs || {}, name = rr.name || (s && s.n) || (NSE && NSE[k]) || k, known = s || hasBrief(k) || (NSE && NSE[k]);
+    const price = s ? s.p : rr.price, nw = dec.nws.slice(0, 3);
+    const priceTxt = (price != null ? "₹" + fv(price) : "") + (s ? ` <span class="${s.d >= 0 ? "up" : "dn"}">${f1(s.d)}</span> today · ${f1(s.m)} in a month` : "") + (dist != null ? (dist > -1 ? " · at its 52-week high" : " · " + Math.abs(dist).toFixed(0) + "% below its 52-week high") : "") + (f && f.mcap_cr != null ? " · market cap ₹" + fv(f.mcap_cr) + " cr" : "");
+    const newsHTML = nw.length ? nw.map(x => `<div class="nc"><div>${toneTag(x.tone)} ${link(x.t, x.l)}</div><div class="mu">${esc(x.p || "")} ${esc(x.d ? fd(x.d) : "")} · ${esc(x.cat)}${x.val_cr ? " · ₹" + fv(x.val_cr) + " cr" + (x.pct_mcap != null ? " = " + x.pct_mcap + "% of market cap" : "") : ""}</div><div class="mu">▶ ${esc(x.why)}</div></div>`).join("") : `<div class="mu">${CO && coOf(k) ? "No order, result, approval or policy news in the last 45 days." : "No company news collected yet: it appears after the next Company feed run."}</div>`;
+    const tags = (ls ? `<span class="tag">Growth ${ls.parts.Growth}/30</span><span class="tag">Quality ${ls.parts.Quality}/35</span><span class="tag">Trend ${ls.parts.Trend}/20</span><span class="tag">Value ${ls.parts.Value}/15</span>` : "") + (rs && rs.scores ? `<span class="tag">Research: growth ${rs.scores.growth}/25</span><span class="tag">quality ${rs.scores.quality}/15</span><span class="tag">value ${rs.scores.valuation}/15</span><span class="tag">price ${rs.scores.setup}/10</span><span class="tag">news ${rs.scores.news}/20</span><span class="tag">sector ${rs.scores.sector}/15</span>` : "");
+    const why = ((rs && rs.why) || []).concat(ls ? ls.why : []), flags = ((rs && rs.flags) || []).concat(ls ? ls.flags : []);
+    return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${known ? stk(k, name) : esc(name)}</b><span class="tag ${dec.cls}">Score ${q}/100</span></div>
+      <div style="margin:4px 0"><span class="tag ${dec.cls}" style="font-weight:700">${esc(dec.label)}</span> <span class="mu">${esc((s && s.sec) || rr.sector || "")}</span> ${capTag(k)}${held.has(k) ? '<span class="tag a">You hold it</span>' : ""}${rs && rs.verdict ? '<span class="tag">' + esc(rs.verdict) + "</span>" : ""}</div>
+      <div class="cs">${priceTxt}</div>${coLine(k)}
+      <h3 style="margin:10px 0 4px;font-size:13px">Latest news and what it could mean</h3>${newsHTML}
+      ${rs && rs.entry_note ? '<div class="mu">▶ ' + esc(rs.entry_note) + "</div>" : ""}${rs && rs.note ? '<div class="mu">Note: ' + esc(rs.note) + "</div>" : ""}
+      ${flags.length ? "<div>" + flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
+      <details><summary>Numbers behind the score</summary><div>${tags}</div><ul class="ul">${why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul></details>
+      <details><summary>Before you buy</summary><ul class="ul"><li>Buy in 2 or 3 parts over a few weeks, not all at once. If it fell on news, start with about one-third.</li><li>Check promoter holding and pledging, cash flow, the latest conference call and any pending litigation.</li><li>Write your exit now (for example a close below the 200 EMA together with weak results) and note the next result date.</li><li>Keep any one stock to a size you can live with if it halves.</li></ul></details></div>`;
+  };
+  const sec = (g, title) => { const l = items.filter(x => x.dec.grp === g).sort((a, b) => b.q - a.q).slice(0, 40); return l.length ? `<h3 style="margin:18px 0 6px">${title} (${cnt(g)})</h3>${l.map(cell).join("")}` : ""; };
+  const shown = ltD === "all" ? sec("buy", "Start buying in parts") + sec("wait", "Wait for a better price or clarity") : ltD === "buy" ? sec("buy", "Start buying in parts") : ltD === "wait" ? sec("wait", "Wait for a better price or clarity") : sec("skip", "Skip for now");
+  return `<div class="sub">One list: each stock combines its business score, where its price sits and its latest company news into a decision lean. ${items.length} stocks · ${cnt("buy")} to start in parts · ${cnt("wait")} to wait on · ${cnt("skip")} to skip.${LT && LT.updated ? " Numbers updated " + esc(LT.updated) + "." : ""}</div>
+    <div class="chips" style="margin:8px 0">${chip("all", "All sizes")}${chip("Large cap", "Large cap")}${chip("Mid cap", "Mid cap")}${chip("Small cap", "Small cap")}</div>
+    <div class="chips" style="margin-bottom:6px">${dchip("all", "Buy and wait")}${dchip("buy", "Start buying")}${dchip("wait", "Wait")}${dchip("skip", "Skip")}</div>
+    ${shown || '<p class="sub">No stock matches this filter yet.</p>'}
+    <div class="note">How to read it: the score has two sources. The Nifty 500 screen scores growth (30), quality (35), trend (20) and value against the sector (15); stocks from your research scan use the research score, which also counts your news and sector view. The decision then checks the price position (stretched near the 52-week high, or down more than 30%) and the last 45 days of company news: bad news or more bad than good news means wait. It is a lean to help you decide, not an instruction: nobody can reliably pick multibaggers, small caps can fall hard, figures come from Yahoo Finance and can be late or wrong, and news is matched by keywords. The final call is yours.</div>`;
 }
 function renderLT() {
   $("asof").textContent = stamp();
-  let body;
-  if (!LT) body = '<p class="sub">Loading…</p>';
-  else if (!Object.keys(LT.stocks).length) body = '<p class="sub">Long-term data is not available yet. Run "Update long-term data" once from the Actions tab of your GitHub repo, then reload. It fills in over a few runs.</p>';
-  else {
-    const spe = sectorPE(), held = new Set(pload().filter(x => !x.sold).map(x => x.sym)), n = Object.keys(LT.stocks).length;
-    const all = Object.keys(LT.stocks).filter(k => D.stocks[k]).map(k => ({k, r: ltScore(k, LT.stocks[k], spe)})).filter(x => x.r && x.r.score >= 60).sort((a, b) => b.r.score - a.r.score);
-    const list = all.filter(x => ltF === "all" || capOf(x.k) === ltF).slice(0, 30);
-    const chip = (k, t) => `<button class="${ltF === k ? "on" : ""}" onclick="ltF='${k}';render()">${t}</button>`;
-    const cell = ({k, r}) => { const f = LT.stocks[k], s = D.stocks[k];
-      return `<div class="cand"><div style="display:flex;justify-content:space-between;gap:8px"><b>${stk(k, s.n || k)}</b><span class="tag ${r.score >= 75 ? "g" : "a"}">Score ${r.score}/100</span></div>
-      <div><span class="mu">${esc(s.sec || "")}</span> ${capTag(k)}${held.has(k) ? '<span class="tag a">You hold it</span>' : ""}<span class="tag">Growth ${r.parts.Growth}/30</span><span class="tag">Quality ${r.parts.Quality}/35</span><span class="tag">Trend ${r.parts.Trend}/20</span><span class="tag">Value ${r.parts.Value}/15</span></div>
-      <div class="cs">₹${fv(s.p)} <span class="${s.d >= 0 ? "up" : "dn"}">${f1(s.d)}</span> today · ${f1(s.m)} in a month${f.mcap_cr != null ? " · market cap ₹" + fv(f.mcap_cr) + " cr" : ""}</div>
-      ${coLine(k)}<ul class="ul">${r.why.map(x => "<li>" + esc(x) + "</li>").join("")}</ul>
-      ${r.flags.length ? "<div>" + r.flags.map(x => '<span class="tag r">' + esc(x) + "</span>").join("") + "</div>" : ""}
-      <details><summary>Before you buy</summary><ul class="ul"><li>Buy in 2 or 3 parts over a few weeks, not all at once.</li><li>Check promoter holding and pledging, the latest conference call and any pending litigation.</li><li>Decide your exit now: for example, a close below the 200 EMA together with weak results.</li><li>Keep any one stock to a size you can live with if it halves.</li></ul></details></div>`; };
-    body = `<div class="sub">${n} of ${Object.keys(D.stocks).length} Nifty 500 stocks analysed so far (updated ${esc(LT.updated || "")}). ${all.length} qualify with a score of 60 or more.</div>
-    <div class="chips" style="margin:8px 0">${chip("all", "All")}${chip("Large cap", "Large cap")}${chip("Mid cap", "Mid cap")}${chip("Small cap", "Small cap")}</div>
-    ${list.length ? list.map(cell).join("") : '<p class="sub">No stock matches this filter yet.</p>'}
-    <div class="note">How the score works: growth (30), quality (35), trend (20) and value against the sector (15). A stock must have grown profit and revenue over 2 to 3 years, never made a loss in those years, earn a return on equity of at least 10%, and trade above its 200 EMA. This is a screen for ideas to research, not a list of future winners: nobody can reliably pick multibaggers, and small caps can fall hard. Figures come from Yahoo Finance and can be late or wrong. The final call is yours.</div>`;
-  }
-  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2><div class="note" style="margin:6px 0 10px">Search any stock in the box at the top to see what the company does, its exports and imports, and its latest news, orders and deals, with how each could affect it. Cards below show a one-line summary and a link to the full brief.</div>${rsHTML()}${body}`;
+  const tab = (k, t) => `<button class="${ltTab === k ? "on" : ""}" onclick="ltTab='${k}';render()">${t}</button>`;
+  const intro = ltTab === "feed" ? '<div class="sub">Latest orders, approvals, results, tariffs and other news for companies found automatically from the NSE list. Click a company for its full brief.</div>' : '<div class="note" style="margin:6px 0 10px">Search any stock in the box at the top to see what the company does, its exports and imports, and its latest news, orders and deals.</div>';
+  $("app").innerHTML = `${nav()}<h2 style="margin-top:20px">Long-term ideas</h2><div class="chips" style="margin:6px 0 8px">${tab("ideas", "Ideas and decisions")}${tab("feed", "Latest company news")}</div>${intro}${ltTab === "feed" ? feedBody() : ltIdeas()}`;
 }
 
 const JK = "imd_journal_v1";
