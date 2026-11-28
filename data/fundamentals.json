@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-21T05:32:46+00:00",
+  "generated_at": "2026-11-28T05:34:19+00:00",
   "scanned": 501,
-  "passed": 22,
+  "passed": 20,
   "data_missing": 314,
   "picks": [
     {
@@ -18,20 +18,20 @@
       "opm_year_ago": 34.73,
       "cfo_to_pat": 1.05,
       "debt_equity": 0.06,
-      "price": 1531.6,
-      "pct_from_52w_high": 9.07,
+      "price": 1550.6,
+      "pct_from_52w_high": 7.94,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "The Great Eastern Shipping Company Limited Q2 PAT Rises 118% - Multibagg AI",
           "Great Eastern Shipping Company puts NAV reset at Rs 250 - Multibagg AI",
-          "Great Eastern Shipping Company Declares ₹14.40 Dividend and Buyback - Multibagg AI"
+          "Why is GE Shipping choosing buybacks over fleet expansion with wartime profits? - FlipItMoney",
+          "Kotak Transportation & Logistics Fund Regular Plan- Growth - Alice Blue"
         ],
         "positive": [
           "buyback",
-          "dividend"
+          "expansion"
         ],
         "negative": []
       }
@@ -50,19 +50,19 @@
       "opm_year_ago": 7.68,
       "cfo_to_pat": 3.38,
       "debt_equity": 0.35,
-      "price": 744.35,
-      "pct_from_52w_high": 0.0,
+      "price": 718.35,
+      "pct_from_52w_high": 3.49,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Lenskart Solutions Limited (LENSKART.NS) Stock Price, News, Quote & History - Yahoo! Finance Canada",
-          "Lenskart reports 90% prescription uptake for smart glasses - Multibagg AI",
-          "Lenskart Q1 Results: Net profit surges 182% YoY to ₹228 crore - scanx.trade"
+          "Lenskart Share Price - Upstox",
+          "Goldman Sachs, SocGen Buy 0.73% Stake in Lenskart - HDFC Sky",
+          "Mizuho Extends Global Banking Push to India With Avendus Deal - Bloomberg.com"
         ],
         "positive": [
-          "upgrade"
+          "deal"
         ],
         "negative": []
       }
@@ -81,14 +81,14 @@
       "opm_year_ago": 3.4,
       "cfo_to_pat": 3.73,
       "debt_equity": 0.86,
-      "price": 364.0,
-      "pct_from_52w_high": 0.33,
+      "price": 350.65,
+      "pct_from_52w_high": 3.98,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Nykaa Global Store brands grow over 60%, twice platform rate - Multibagg AI",
+          "FSN E-Commerce Ventures Share Price Rise Today Explained - Univest",
           "FSN E-Commerce Ventures Sees Significant Open Interest Surge Amid Mixed Market Signals - MarketsMojo",
           "MK SONS FINE JEWELS LTD. Stock/Share price , NSE/BSE Forecast News and Live Quotes - Equitymaster"
         ],
@@ -110,20 +110,23 @@
       "opm_year_ago": 6.67,
       "cfo_to_pat": 1.25,
       "debt_equity": 0.1,
-      "price": 529.65,
-      "pct_from_52w_high": 0.0,
+      "price": 512.55,
+      "pct_from_52w_high": 5.04,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "HONASA younger brands grow 45%+, led by BBlunt relaunch - Multibagg AI",
-          "Honasa Consumer Ltd. 52 Week High Streak: What It Means - Univest",
+          "Honasa Consumer Ltd. Share Price and Valuation Snapshot - Univest",
+          "Mamaearth's parent company still in talks with Sebi on IPO; awaits approval - ETLegalWorld.com",
           "Honasa Consumer Ltd is Rated Buy - MarketsMojo"
         ],
-        "positive": [],
+        "positive": [
+          "approval"
+        ],
         "negative": [
-          "downgrade"
+          "downgrade",
+          "sebi"
         ]
       }
     },
@@ -141,16 +144,16 @@
       "opm_year_ago": 7.32,
       "cfo_to_pat": 1.84,
       "debt_equity": 0.09,
-      "price": 1294.0,
-      "pct_from_52w_high": 2.87,
+      "price": 1293.0,
+      "pct_from_52w_high": 2.95,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
+          "Shyam Metalics Share Price gains as stock trades higher - Univest",
           "57 Best Metal Stocks To Buy In India November 2026 - Samco",
-          "APL Apollo Tubes Share Price Up 1.25% on Fresh 52-Week High - Univest",
-          "The Alloy Steel Market is Projected to Grow at a 3% CAGR Until 2030 - openPR.com"
+          "APL Apollo Tubes Share Price Slips to Fresh 52-Week Low - Univest"
         ],
         "positive": [],
         "negative": []
@@ -170,20 +173,19 @@
       "opm_year_ago": 23.64,
       "cfo_to_pat": 1.21,
       "debt_equity": 0.29,
-      "price": 18710.0,
-      "pct_from_52w_high": 16.68,
+      "price": 19450.0,
+      "pct_from_52w_high": 13.38,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Solar Industries Q2 revenue rises 69% as defence reaches 29% - Multibagg AI",
-          "Indian billionaire Satyanarayan Nuwal's Solar Industries wins vote for $1.3 billion Omnia buyout - Billionaires.Africa",
-          "Solar Industries sees Rs 3,000 crore Guided Pinaka order soon - Multibagg AI"
+          "Solar Industries India Ltd. 52 Week High Streak Analysis - Univest",
+          "Top Gainers Today 27-Nov-2026: Waaree Renewable Gains 20% - Multibagg AI",
+          "Solar Industries India Ltd Surges 3.88% to Day's High of Rs 19,035 — Outperforms Sector by 2.46 Percentage Points - MarketsMojo"
         ],
         "positive": [
-          "order",
-          "wins"
+          "contract"
         ],
         "negative": []
       }
@@ -202,20 +204,18 @@
       "opm_year_ago": 19.67,
       "cfo_to_pat": 1.37,
       "debt_equity": 0.29,
-      "price": 4978.6,
-      "pct_from_52w_high": 0.0,
+      "price": 4781.2,
+      "pct_from_52w_high": 3.96,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Gujarat Fluorochemicals Share Price: Fresh 52-Week High - Univest",
-          "Gujarat Fluorochemicals Ltd Sees Bullish Momentum Amid Technical Upgrades - MarketsMojo",
-          "Gujarat Fluorochemicals Share Price Today: price action view - Univest"
+          "Gujarat Fluorochemicals Share Price Today: price action view - Univest",
+          "Fine Organic Industries Ltd. Share Price Rise and Valuation - Univest",
+          "Archean Chemical Industries (ACI) Share Price rises 5.05% today - Univest"
         ],
-        "positive": [
-          "upgrade"
-        ],
+        "positive": [],
         "negative": []
       }
     },
@@ -233,51 +233,19 @@
       "opm_year_ago": 11.24,
       "cfo_to_pat": 1.57,
       "debt_equity": 0.19,
-      "price": 4798.4,
-      "pct_from_52w_high": 0.0,
+      "price": 4685.8,
+      "pct_from_52w_high": 2.35,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
           "SANSERA Share Price Today - Sansera Engineering on NSE/BSE - scanx.trade",
-          "Sansera Engineering Ltd is Rated Hold by MarketsMOJO - MarketsMojo",
-          "Sansera records Rs 1,091.5 crore Q2 revenue as margin rises - Multibagg AI"
+          "Sansera Engineering Share Price rises 2.18% to Rs 4,727 - Univest",
+          "Sansera Engineering Ltd Hits All-Time High of Rs 4,852 as Momentum Builds Across Timeframes - MarketsMojo"
         ],
         "positive": [],
         "negative": []
-      }
-    },
-    {
-      "symbol": "ONESOURCE",
-      "name": "Onesource Specialty Pharma Ltd.",
-      "sector": "Healthcare",
-      "status": "pass",
-      "fails": [],
-      "unverified": [
-        "cash flow"
-      ],
-      "score": 70.5,
-      "sales_yoy": 37.39,
-      "pat_yoy": 448.25,
-      "opm_now": 17.09,
-      "opm_year_ago": 9.76,
-      "cfo_to_pat": null,
-      "debt_equity": 0.26,
-      "price": 1602.9,
-      "pct_from_52w_high": 14.16,
-      "above_200dma": true,
-      "holdings": "CHECK (promoter / pledge / FII-DII)",
-      "check_note": "unusual jump - verify one-off / base effect / accounting change",
-      "news": {
-        "headlines": [
-          "OneSource Specialty Pharma CQO Bernhard Thurnbauer resigns effective Nov 17 - scanx.trade",
-          "Five Stocks To Buy Today, November 9: Alkem Labs, MTNL, Wockhardt And More - NDTV Profit"
-        ],
-        "positive": [],
-        "negative": [
-          "resign"
-        ]
       }
     },
     {
@@ -294,16 +262,16 @@
       "opm_year_ago": 7.86,
       "cfo_to_pat": 1.25,
       "debt_equity": 0.4,
-      "price": 1385.0,
-      "pct_from_52w_high": 0.22,
+      "price": 1354.0,
+      "pct_from_52w_high": 2.59,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Uno Minda Ltd Sees Sharp Open Interest Surge Amidst Steady Price Momentum - MarketsMojo",
-          "Top Gainers Today 17-Nov-2026: Salasar Techno Up 19.96% - Multibagg AI",
-          "Uno Minda Ltd Sees Significant Open Interest Surge Amid Narrow Trading Range - MarketsMojo"
+          "Uno Minda Ltd Sees Significant Open Interest Surge Amid Narrow Trading Range - MarketsMojo",
+          "Uno Minda Ltd Downgraded to Hold Amid Valuation Concerns Despite Strong Financials - MarketsMojo",
+          "Minda Corporation Share Price Update: Fundamentals Matter - Univest"
         ],
         "positive": [],
         "negative": [
@@ -325,17 +293,13 @@
       "opm_year_ago": 20.01,
       "cfo_to_pat": 0.83,
       "debt_equity": 0.24,
-      "price": 1718.7,
-      "pct_from_52w_high": 7.63,
+      "price": 1851.7,
+      "pct_from_52w_high": 0.48,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
-        "headlines": [
-          "Rubicon Research Limited (RUBICON.NS) stock price, news, quote and history - Yahoo Finance Singapore",
-          "Rubicon Research Files Kia Health Tech Merger, No Shares Issued - Multibagg AI",
-          "Rubicon Research Ltd is Rated Buy by MarketsMOJO - MarketsMojo"
-        ],
+        "headlines": [],
         "positive": [],
         "negative": []
       }
@@ -354,18 +318,20 @@
       "opm_year_ago": 16.49,
       "cfo_to_pat": 1.29,
       "debt_equity": 0.3,
-      "price": 1478.3,
-      "pct_from_52w_high": 2.03,
+      "price": 1473.7,
+      "pct_from_52w_high": 3.59,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Global Health (ASX:GLH) Stock Climbs: What's Behind the Rally? - Kalkine",
-          "Global Health Ltd is Rated Hold - MarketsMojo",
-          "Global Health (NSE:MEDANTA) Q2 FY27: Revenue Up 34%, PAT Up 38% - Kalkine India"
+          "Global Health Ltd. (MEDANT) 52 Week High Streak: Second Straight Session Near One-Year Peak - Univest",
+          "Global Health to host analyst meetings with Wellington and HDFC MF - scanx.trade",
+          "Global Health Ltd Reports Strong Quarterly Growth, Upgrades to Buy - MarketsMojo"
         ],
-        "positive": [],
+        "positive": [
+          "upgrade"
+        ],
         "negative": []
       }
     },
@@ -383,13 +349,17 @@
       "opm_year_ago": 54.38,
       "cfo_to_pat": 1.01,
       "debt_equity": 0.1,
-      "price": 437.3,
-      "pct_from_52w_high": 2.95,
+      "price": 429.65,
+      "pct_from_52w_high": 4.65,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
-        "headlines": [],
+        "headlines": [
+          "International Gemological Institute Ltd Achieves 25% Public Float - Multibagg AI",
+          "Why is International Gemological Institute stock climbing today? - Investing.com",
+          "International Gemological Institute shares worth ₹281 crore change hands in pre-open block window - CNBC TV18"
+        ],
         "positive": [],
         "negative": []
       }
@@ -408,16 +378,16 @@
       "opm_year_ago": 4.66,
       "cfo_to_pat": 2.42,
       "debt_equity": 0.47,
-      "price": 166.53,
-      "pct_from_52w_high": 2.43,
+      "price": 161.5,
+      "pct_from_52w_high": 5.38,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
           "SAMIL rises 4% on volume surge, Korea unit liquidation; Geojit keeps 'Buy' - Business Standard",
-          "Buy Samvardhana Motherson International; target of Rs 190: Geojit Financial Services - Moneycontrol.com",
-          "Samvardhana Motherson Share Price News and Price Action - Univest"
+          "Samvardhana Motherson Scheme Takes Effect, Two Units Dissolved - Multibagg AI",
+          "Buy Samvardhana Motherson International; target of Rs 190: Geojit Financial Services - Moneycontrol.com"
         ],
         "positive": [],
         "negative": []
@@ -437,21 +407,17 @@
       "opm_year_ago": 14.74,
       "cfo_to_pat": 1.37,
       "debt_equity": 0.31,
-      "price": 2344.7,
-      "pct_from_52w_high": 0.72,
+      "price": 2329.1,
+      "pct_from_52w_high": 1.38,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Emcure Pharmaceuticals Share Price holds near one-year high - Univest",
-          "Emcure Pharmaceuticals Limited Q2 revenue rises 24.3% to ₹2,820 crore - Multibagg AI",
-          "Emcure Pharmaceuticals Ltd is Rated Hold - MarketsMojo"
+          "Emcure Pharmaceuticals Ltd is Rated Buy by MarketsMOJO - MarketsMojo"
         ],
         "positive": [],
-        "negative": [
-          "cut"
-        ]
+        "negative": []
       }
     },
     {
@@ -468,20 +434,49 @@
       "opm_year_ago": 5.48,
       "cfo_to_pat": 2.07,
       "debt_equity": 0.11,
-      "price": 408.55,
-      "pct_from_52w_high": 16.73,
+      "price": 399.1,
+      "pct_from_52w_high": 18.66,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
           "Exide Industries Ltd. Share Price Rise Streak and Valuation - Univest",
-          "Exide, Amara Raja rush to monetize $1 billion Li-ion cell lines as investor questions mount - TradingView",
-          "GreenLine expands green logistics footprint with Exide Industries partnership - ET Manufacturing"
+          "GreenLine expands green logistics footprint with Exide Industries partnership - ET Manufacturing",
+          "IBMA Organises First-Ever Indian Lead Battery Conference 2026 in Goa - TheWire.in"
         ],
-        "positive": [
-          "approval"
+        "positive": [],
+        "negative": [
+          "loss"
+        ]
+      }
+    },
+    {
+      "symbol": "KALYANKJIL",
+      "name": "Kalyan Jewellers India Ltd.",
+      "sector": "Consumer Cyclical",
+      "status": "pass",
+      "fails": [],
+      "unverified": [],
+      "score": 58.3,
+      "sales_yoy": 31.4,
+      "pat_yoy": 63.95,
+      "opm_now": 5.01,
+      "opm_year_ago": 5.01,
+      "cfo_to_pat": 1.45,
+      "debt_equity": 0.97,
+      "price": 659.5,
+      "pct_from_52w_high": 7.23,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "check_note": "",
+      "news": {
+        "headlines": [
+          "Kalyan Jewellers stock jumps over 3%; HSBC bullish on demand, growth potential of affordable gold brand - Moneycontrol.com",
+          "Kalyan Jewellers India Ltd targets rise to Rs 950 after Q2 - Multibagg AI",
+          "Kalyan Jewellers Share Price Today: Price Action Review - Univest"
         ],
+        "positive": [],
         "negative": []
       }
     },
@@ -499,83 +494,24 @@
       "opm_year_ago": 58.62,
       "cfo_to_pat": null,
       "debt_equity": null,
-      "price": 224.57,
-      "pct_from_52w_high": 1.3,
+      "price": 222.41,
+      "pct_from_52w_high": 2.25,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
-          "Groww Share Price - Upstox",
           "Groww shares rise over 1% after Rs 1,905 crore worth of shares change hands in block deal - TradingView",
-          "Billionbrains Garage Ventures Ltd Hits All-Time High of Rs 229.55 as Momentum Builds Across Timeframes - MarketsMojo"
+          "Billionbrains Garage Ventures Ltd Shows Renewed Momentum Amid Technical Upgrades - MarketsMojo",
+          "Groww shares worth ₹1,905 crore change hands in pre-open block window; Details here - CNBC TV18"
         ],
         "positive": [
-          "deal"
-        ],
-        "negative": [
-          "downgrade"
-        ]
-      }
-    },
-    {
-      "symbol": "KALYANKJIL",
-      "name": "Kalyan Jewellers India Ltd.",
-      "sector": "Consumer Cyclical",
-      "status": "pass",
-      "fails": [],
-      "unverified": [],
-      "score": 51.3,
-      "sales_yoy": 31.4,
-      "pat_yoy": 63.95,
-      "opm_now": 5.01,
-      "opm_year_ago": 5.01,
-      "cfo_to_pat": 1.45,
-      "debt_equity": 0.97,
-      "price": 638.7,
-      "pct_from_52w_high": 10.16,
-      "above_200dma": true,
-      "holdings": "CHECK (promoter / pledge / FII-DII)",
-      "check_note": "",
-      "news": {
-        "headlines": [
-          "RESULT REVIEW Kalyan Jewellers Strong result as expected But Stock already ran 20% in one week Don't Buy on Gap-up Opening #KalyanJewellers #KalyanJewellersResults #KalyanJewellersShare #ResultReview - Facebook",
-          "Kalyan Jewellers Share Price Rallies 33% in Seven Sessions; Stock Jumps 6.67% Today - India Infoline",
-          "Kalyan Jewellers shares surge 10% as Q2 profit jumps 64%; UBS sees big upside, check target price - Moneycontrol.com"
-        ],
-        "positive": [],
-        "negative": []
-      }
-    },
-    {
-      "symbol": "PIRAMALFIN",
-      "name": "Piramal Finance Ltd.",
-      "sector": "Financial Services",
-      "status": "pass",
-      "fails": [],
-      "unverified": [],
-      "score": 39.3,
-      "sales_yoy": 25.02,
-      "pat_yoy": 64.79,
-      "opm_now": 20.36,
-      "opm_year_ago": 13.28,
-      "cfo_to_pat": null,
-      "debt_equity": null,
-      "price": 2026.2,
-      "pct_from_52w_high": 12.3,
-      "above_200dma": true,
-      "holdings": "CHECK (promoter / pledge / FII-DII)",
-      "check_note": "",
-      "news": {
-        "headlines": [
-          "Piramal Finance growth book reaches ₹1.11 lakh crore - Multibagg AI",
-          "Piramal Finance Ltd Upgraded to Hold as Technicals and Financials Improve - MarketsMojo",
-          "Piramal Finance Limited Schedules Singapore Investor Roadshow - Multibagg AI"
-        ],
-        "positive": [
+          "deal",
           "upgrade"
         ],
-        "negative": []
+        "negative": [
+          "sebi"
+        ]
       }
     },
     {
@@ -592,20 +528,82 @@
       "opm_year_ago": 60.63,
       "cfo_to_pat": null,
       "debt_equity": null,
-      "price": 3781.0,
-      "pct_from_52w_high": 13.91,
+      "price": 3945.0,
+      "pct_from_52w_high": 10.17,
       "above_200dma": true,
       "holdings": "CHECK (promoter / pledge / FII-DII)",
       "check_note": "",
       "news": {
         "headlines": [
           "BSE Limited (BSE.NS) Stock Price, News, Quote & History - Yahoo! Finance Canada",
-          "Weekly Recap: BSE Ltd. Q2 results and JPMorgan maintains rating, target - TradingView",
-          "Explained - Why shares of BSE, Angel One, Groww fell from their day's high on Tuesday - CNBC TV18"
+          "BSE Ltd (BSE-NS) Share Price Today, Live Chart and News - TechGraph",
+          "NSE, BSE shares gain as HSBC initiates coverage; prefers BSE over NSE - TradingView"
         ],
         "positive": [
-          "contract"
+          "upgrade"
         ],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "BAJFINANCE",
+      "name": "Bajaj Finance Ltd.",
+      "sector": "Financial Services",
+      "status": "pass",
+      "fails": [],
+      "unverified": [
+        "margin"
+      ],
+      "score": 28.4,
+      "sales_yoy": 23.21,
+      "pat_yoy": 28.53,
+      "opm_now": null,
+      "opm_year_ago": null,
+      "cfo_to_pat": null,
+      "debt_equity": null,
+      "price": 1080.0,
+      "pct_from_52w_high": 6.8,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "check_note": "",
+      "news": {
+        "headlines": [
+          "NBIM, GIC, BlackRock Said to Invest in Bajaj Finance Share Sale - Bloomberg.com",
+          "Bajaj Finance Limited allots Rs 11,700 crore QIP at Rs 1,025 - Multibagg AI",
+          "Top Gainers & Losers Today, November 26, 2026 at 3:30 PM IST - HDFC Sky"
+        ],
+        "positive": [],
+        "negative": []
+      }
+    },
+    {
+      "symbol": "BAJAJHLDNG",
+      "name": "Bajaj Holdings & Investment Ltd.",
+      "sector": "Financial Services",
+      "status": "pass",
+      "fails": [],
+      "unverified": [
+        "margin"
+      ],
+      "score": 27.5,
+      "sales_yoy": 20.89,
+      "pat_yoy": 27.86,
+      "opm_now": null,
+      "opm_year_ago": null,
+      "cfo_to_pat": null,
+      "debt_equity": null,
+      "price": 11703.0,
+      "pct_from_52w_high": 1.93,
+      "above_200dma": true,
+      "holdings": "CHECK (promoter / pledge / FII-DII)",
+      "check_note": "",
+      "news": {
+        "headlines": [
+          "Bajaj Holdings & Investment (BAJAJHLDNG) Share Price Near 52-Week High - Univest",
+          "Bajaj Holdings & Investment Ltd Rallies 3.1% and Holds Above All Key Moving Averages - MarketsMojo",
+          "Top Gainers Today 20 Nov 2026: Oriental Aromatics Rises 19.99% - Multibagg AI"
+        ],
+        "positive": [],
         "negative": []
       }
     }
